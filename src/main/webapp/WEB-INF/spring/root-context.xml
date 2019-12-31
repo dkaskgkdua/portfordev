@@ -4,12 +4,21 @@
 	xsi:schemaLocation="http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd">
 
 	<!-- Root Context: defines shared resources visible to all other web components -->
+	<!-- 
 	<bean class ="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver"/>
 		<property name="url" value="jdbc:mysql://15.165.110.71:3306/portfordev"/>
 		<property name="username" value="scott"/>
 		<property name="password" value="tiger"/>
+	</bean> -->
+	<bean class ="org.apache.commons.dbcp.BasicDataSource" id="dataSource" destroy-method="close">
+		<property name="driverClassName" value="oracle.jdbc.driver.OracleDriver"/>
+		<property name="url" value="jdbc:oracle:thin:@db.c2cczg1ppooa.ap-northeast-2.rds.amazonaws.com:1521:PFD"/>
+		<property name="username" value="scott"/>
+		<property name="password" value="tiger"/>
 	</bean>
+	
+	
 	<bean class="org.mybatis.spring.SqlSessionFactoryBean" id="sqlSessionFactory">
 		<property ref="dataSource" name="dataSource"/>
 		<property name="configLocation" value="classpath:util/SqlMapConfig.xml"/>

@@ -13,7 +13,9 @@ public class MemberDAO {
 	
 
 	public Member isId(String id) {
+		System.out.println(id);
 		return sqlSession.selectOne("Members.idcheck", id);
+		
 	}
 	
 	
