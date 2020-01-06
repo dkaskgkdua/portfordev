@@ -19,6 +19,10 @@
 		$(".join").click(function() {
 			location.href="join.net";
 		});
+		if("${saveid}" != "") {
+			$("#remember").attr('checked','checked');
+			$("#id").val("${saveid}");
+		}
 	});
 </script>
 </head>

@@ -1634,7 +1634,7 @@
 
 	a {
 		color: #5385c1;
-		text-decoration: underline;
+		text-decoration: none;
 	}
 
 		a:hover {
@@ -3027,7 +3027,7 @@
 
 			#footer .copyright a:hover {
 				color: #bbb;
-				text-decoration: underline;
+				text-decoration: none;
 			}
 
 	#footer ul.icons li .icon {
