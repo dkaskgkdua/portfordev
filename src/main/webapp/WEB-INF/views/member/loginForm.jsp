@@ -14,7 +14,40 @@
 <script
 	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/js/bootstrap.min.js"></script>
+<script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
+<meta name="google-signin-client_id" content="346744892699-07svb4537noeg6lm2ps2mqaa6t6d5dj2.apps.googleusercontent.com">
 <script>
+function renderButton() {
+    gapi.signin2.render('my-signin2', {
+      'scope': 'profile email',
+      'width': 240,
+      'height': 50,
+      'longtitle': true,
+      'theme': 'dark',
+      'onsuccess': onSuccess,
+      'onfailure': onFailure
+    });
+  }
+function onSuccess(googleUser) {
+    console.log('Logged in as: ' + googleUser.getBasicProfile().getName());
+  }
+  function onFailure(error) {
+    console.log(error);
+  }
+  /*
+	function onSignIn(googleUser) {
+	  var profile = googleUser.getBasicProfile();
+	  console.log('ID: ' + profile.getId()); // Do not send to your backend! Use an ID token instead.
+	  console.log('Name: ' + profile.getName());
+	  console.log('Image URL: ' + profile.getImageUrl());
+	  console.log('Email: ' + profile.getEmail()); // This is null if the 'email' scope is not present.
+	}*/
+	 function signOut() {
+		    var auth2 = gapi.auth2.getAuthInstance();
+		    auth2.signOut().then(function () {
+		      console.log('User signed out.');
+		    });
+		  }
 	$(function() {
 		$(".join").click(function() {
 			location.href="join.net";
@@ -47,7 +80,10 @@
      	<button class = "btn btn-default join" type = "button" value ="회원가입">회원가입</button>
      	<button class = "btn btn-default" id = "button1" type = "reset" value ="취소">Cancel</button>
      	<button class = "btn btn-default" class = "submitbtn" type = "submit" value ="로그인">로그인</button>
-     	
+     	<!--  <div class="g-signin2" data-width="100" data-height="100" data-longtitle="true" ></div>-->
+     	 <div id="my-signin2"></div>
+     	<a href="#" onclick="signOut();">Sign out</a>
+		
     </fieldset>
 
     </form>
