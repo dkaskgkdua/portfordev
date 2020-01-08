@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.MyBatisTestVO2;
 
 @Repository
 public class MemberDAO {
@@ -17,6 +18,5 @@ public class MemberDAO {
 		return sqlSession.selectOne("Members.idcheck", id);
 		
 	}
-	
 	
 }
