@@ -21,7 +21,7 @@ public class HomeController {
 	/**
 	 * Simply selects the home view to render by returning its name.
 	 */
-	@RequestMapping(value = "/pro.net", method = RequestMethod.GET)
+	@RequestMapping(value = "/pro", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
 		return "main/main";	
 	}

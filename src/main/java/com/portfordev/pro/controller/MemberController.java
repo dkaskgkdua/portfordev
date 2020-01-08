@@ -22,17 +22,30 @@ public class MemberController {
 	@Autowired
 	private MemberService memberservice;
 	
-	@RequestMapping(value = "/login.net", method = RequestMethod.GET)
+	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mv, 
 			@CookieValue(value="saveid", required=false) Cookie readCookie) {
 		if(readCookie != null) {
 			mv.addObject("saveid", readCookie.getValue());
 		}
-		mv.setViewName("member/loginForm");
+		mv.setViewName("member/login_form");
 		return mv;
 	}
-	 
-	@RequestMapping(value = "/loginProcess.net", method = RequestMethod.POST)
+	
+	@RequestMapping(value="/join", method = RequestMethod.GET)
+	public String join() {
+		return "member/join_form";
+	}
+	
+	@RequestMapping(value="/idcheck", method = RequestMethod.GET)
+	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
+		int result = memberservice.isId(id);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(result);
+	}
+	
+	@RequestMapping(value = "/loginProcess", method = RequestMethod.POST)
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
@@ -63,21 +76,21 @@ public class MemberController {
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
 			out.println("alert('" + message + "');");
-			out.println("location.href='login.net';");
+			out.println("location.href='login';");
 			out.println("</script>");
 			out.close();
 			return null;
 		}
 	}
 	
-	@RequestMapping(value = "/logout.net", method = RequestMethod.GET)
+	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletResponse response, HttpSession session) throws Exception {
 		session.invalidate();
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		out.println("alert('로그아웃 되었습니다.');");
-		out.println("location.href='login.net';");
+		out.println("location.href='login';");
 		out.println("</script>");
 		out.close();
 		return null;

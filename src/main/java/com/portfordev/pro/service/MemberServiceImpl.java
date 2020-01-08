@@ -24,5 +24,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
+	
+	@Override
+	public int isId(String id) {
+		return (dao.isId(id) != null) ? 1:-1;
+	}
 
 }

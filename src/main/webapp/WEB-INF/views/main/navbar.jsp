@@ -15,7 +15,7 @@
 <script>
 	$(function() {
 		$('#login_button').click(function() {
-			location.href = 'login.net';
+			location.href = 'login';
 		})
 	})
 </script>

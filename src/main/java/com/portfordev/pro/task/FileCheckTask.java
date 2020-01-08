@@ -24,7 +24,7 @@ public class FileCheckTask {
 	//}
 	
 	//@Scheduled(fixedDelay=100000)
-	@Scheduled(fixedRate=5000)
+	//@Scheduled(fixedRate=5000)
 	public void test() throws Exception {
 		
 		System.out.println("test");
