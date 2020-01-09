@@ -70,7 +70,7 @@
 			<div class="inner">
 				<header>
 					<h2>개발자 포트폴리오</h2>
-					<p>PFD를 개발한 개발자들</p>
+					<p>PFD를 개발한 사람들</p>
 				</header>
 				<div class="flex flex-4">
 					<div class="box person">
