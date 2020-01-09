@@ -24,7 +24,6 @@
 </script>
 <style>
 #account_modal {
-	display : flex;
 	width : 200px;
 	justify-content : flex_end;
 }
@@ -55,13 +54,13 @@
 				</div>
 			</li>
 		</ul>
-		<form class="form-inline my-2 my-lg-0">
+		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
 			<input class="form-control mr-sm-2" type="search"
 				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>
-					<c:when test="${power=='2'}">
+					<c:when test="${power=='1'}">
 						<button id="admin_button" type="button">
 							<img src="resources/Image/icon/person.svg" alt="admin" width="32" height="32">
 						</button>
@@ -80,6 +79,7 @@
 		</form>
 	</div>
 </nav>
+
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">
