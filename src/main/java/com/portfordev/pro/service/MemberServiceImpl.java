@@ -6,6 +6,8 @@ import org.springframework.stereotype.Service;
 import com.portfordev.pro.dao.MemberDAO;
 import com.portfordev.pro.domain.Member;
 
+import lombok.Data;
+
 @Service
 public class MemberServiceImpl implements MemberService {
 	@Autowired
