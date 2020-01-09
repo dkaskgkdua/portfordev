@@ -24,7 +24,21 @@
 	}
 	function onSuccess(googleUser) {
 		var profile = googleUser.getBasicProfile();
-
+		var id = profile.getId();
+		var name = profile.getName();
+		signOut();
+		$.ajax({
+			url : "idcheck",
+			data : {"id":id},
+			success : function(rdata) {
+				if(rdata == -1) {
+					
+				} else {
+					
+				}
+			}
+		})
+		location.href = "oauth_login?id="+id+"&name="+name;
 	}
 	function onFailure(error) {
 		console.log(error);
@@ -45,7 +59,7 @@
 	}
 	$(function() {
 		$(".join").click(function() {
-			location.href = "join.net";
+			location.href = "join";
 		});
 		if ("${saveid}" != "") {
 			$("#remember").attr('checked', 'checked');
@@ -58,7 +72,7 @@
 	width: 40%;
 	border: 1px solid lightgray;
 	padding: 20px;
-	margin-top: 20%;
+	margin-top: 40px;
 }
 </style>
 </head>
@@ -98,7 +112,6 @@
 			</fieldset>
 
 		</form>
-
 	</div>
 </body>
 </html>
