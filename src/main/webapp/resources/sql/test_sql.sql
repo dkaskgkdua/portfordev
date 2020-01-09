@@ -17,3 +17,5 @@ create table member_test3(
 	today date
 );
 select * from dept;
+
+select * from MEMBER;

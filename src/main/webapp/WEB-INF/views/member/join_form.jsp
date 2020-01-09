@@ -88,7 +88,7 @@ $(function() {
 </head>
 <body>
 <div class="container">
-   <form action="joinProcess" id = "add_member_form">
+   <form action="joinProcess" id = "add_member_form" method="post">
 	 <fieldset>
 	   	<div class = "form-group">
 			<label for ="add_member_id">아이디</label>

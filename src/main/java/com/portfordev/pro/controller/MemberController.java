@@ -2,6 +2,7 @@ package com.portfordev.pro.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -53,10 +54,7 @@ public class MemberController {
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
-
 		int result = memberservice.isId(id, password);
-		System.out.println("결과는 " + result);
-
 		if (result == 1) {
 			session.setAttribute("id", id);
 			Cookie savecookie = new Cookie("saveid", id);
@@ -100,17 +98,24 @@ public class MemberController {
 		return null;
 	}
 
-	@RequestMapping(value = "/joinProcess", method = RequestMethod.GET)
-	public void joinProcess(Member member, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST)
+	public void joinProcess(Member member, HttpServletResponse response,  HttpSession session,
+			@RequestParam(value="auth", defaultValue="") String auth) throws Exception {
 		int result = memberservice.insert(member);
 		
 		response.setContentType("text/html;charset=utf-8");
-
+		
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		if (result == 1) {
-			out.println("alert('가입성공');");
-			out.println("location.href='login';");
+			if(auth.equals("auth")) {
+				session.setAttribute("id", member.getMEMBER_ID());
+				out.println("alert('"+member.getMEMBER_NAME()+"님 환영합니다.');");
+				out.println("location.href='pro';");
+			} else {
+				out.println("alert('가입성공');");
+				out.println("location.href='login';");
+			}
 		} else if (result == -1) {
 			out.println("alert('아이디 중복');");
 			out.println("history.go(-1);");
