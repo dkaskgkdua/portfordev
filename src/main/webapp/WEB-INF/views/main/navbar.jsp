@@ -33,7 +33,7 @@
 
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-	<a class="navbar-brand" href="/pro">PFD</a>
+	<a class="navbar-brand" href="pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -48,7 +48,7 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="#">포트폴리오</a> 
+					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="#">자유게시판</a>
 					<a class="dropdown-item" href="#">스터디(Q&A)</a>
