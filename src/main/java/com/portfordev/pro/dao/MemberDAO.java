@@ -1,5 +1,7 @@
 package com.portfordev.pro.dao;
 
+import java.util.HashMap;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -18,5 +20,10 @@ public class MemberDAO {
 		return sqlSession.selectOne("Members.idcheck", id);
 		
 	}
-	
+	public int insert(Member member) {
+		return sqlSession.insert("Members.insert", member);
+	}
+	public int memberRegisterDept(HashMap<String, String> map) {
+		return sqlSession.insert("Members.registerDept", map);
+	}
 }

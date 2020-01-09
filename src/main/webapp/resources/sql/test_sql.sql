@@ -16,3 +16,4 @@ create table member_test3(
 	addr varchar2(30),
 	today date
 );
+select * from dept;

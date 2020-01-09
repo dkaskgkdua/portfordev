@@ -1,5 +1,7 @@
 package com.portfordev.pro.service;
 
+import java.util.HashMap;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -28,6 +30,14 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int isId(String id) {
 		return (dao.isId(id) != null) ? 1:-1;
+	}
+	@Override
+	public int insert(Member member) {
+		return dao.insert(member);
+	}
+	@Override
+	public int memberRegisterDept(HashMap<String, String> map) {
+		return dao.memberRegisterDept(map);
 	}
 
 }

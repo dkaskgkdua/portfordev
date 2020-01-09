@@ -4,7 +4,7 @@
 	<meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
 
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"></script>
+<script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 <script src="resources/js/skel.min.js"></script>
@@ -16,6 +16,9 @@
 	$(function() {
 		$('#login_button').click(function() {
 			location.href = 'login';
+		})
+		$('#logout_button').click(function() {
+			location.href = 'logout';
 		})
 	})
 </script>
@@ -91,7 +94,8 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-primary">정보수정</button>
-        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button id = "logout_button"type="button" class="btn btn-secondary">로그아웃</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

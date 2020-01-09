@@ -3,14 +3,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-<style>
-.container {
-	width: 50%;
-	border: 1px solid lightgray;
-	padding: 20px;
-	margin-top: 20px
-}
-</style>
+
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
 <title>PFD 로그인</title>
@@ -60,6 +53,14 @@
 		}
 	});
 </script>
+<style>
+.container {
+	width: 40%;
+	border: 1px solid lightgray;
+	padding: 20px;
+	margin-top: 20%;
+}
+</style>
 </head>
 <body>
 	<div class="container">

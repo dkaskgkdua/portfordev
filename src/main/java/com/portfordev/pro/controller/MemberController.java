@@ -1,8 +1,10 @@
 package com.portfordev.pro.controller;
 
 import java.io.PrintWriter;
+import java.util.HashMap;
 
 import javax.servlet.http.Cookie;
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
@@ -14,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.service.MemberService;
 
 @Controller
@@ -40,6 +43,7 @@ public class MemberController {
 	@RequestMapping(value="/idcheck", method = RequestMethod.GET)
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		int result = memberservice.isId(id);
+		System.out.println(result);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(result);
@@ -66,7 +70,7 @@ public class MemberController {
 			response.addCookie(savecookie);
 			
 			System.out.println("로그인 성공");
-			return "pro.net";
+			return "redirect:pro";
 		} else {
 			String message = "비밀번호가 일치하지 않습니다.";
 			if (result == -1) {
@@ -96,5 +100,53 @@ public class MemberController {
 		return null;
 	}
 
+	@RequestMapping(value = "/joinProcess", method = RequestMethod.GET)
+	public void joinProcess(Member member, HttpServletResponse response) throws Exception {
+		int result = memberservice.insert(member);
+		
+		response.setContentType("text/html;charset=utf-8");
 
+		PrintWriter out = response.getWriter();
+		out.println("<script>");
+		if (result == 1) {
+			out.println("alert('가입성공');");
+			out.println("location.href='login';");
+		} else if (result == -1) {
+			out.println("alert('아이디 중복');");
+			out.println("history.go(-1);");
+		}
+		out.println("</script>");
+		out.close();
+
+	}
+	
+	
+	
+	@RequestMapping(value = "/mybatistest/mybatisDeptinsert", method = {RequestMethod.POST})
+	public ModelAndView mybatisDeptinsert(HttpServletRequest request, ModelAndView mv) {
+		try {
+			String deptno = request.getParameter("deptno");
+			String loc = request.getParameter("loc");
+			String dname = request.getParameter("dname");
+			
+			HashMap<String, String> paraMap = new HashMap<String, String>();
+			paraMap.put("deptno", deptno);
+			paraMap.put("loc", loc);
+			paraMap.put("dname", dname);
+			
+			int n = memberservice.memberRegisterDept(paraMap);
+			
+			String result = "";
+			if(n == 1)
+				result = "삽입 성공!!";
+			else
+				result = "삽입 실패!!";
+			mv.addObject("result", result);
+			mv.setViewName("memberRegisterDept");
+		} catch(Exception e) {
+			mv.addObject("error", "상ㅂ입 중 오류가 발생했습니다.");
+			mv.setViewName("error");
+		}
+		return mv;
+	}
 }

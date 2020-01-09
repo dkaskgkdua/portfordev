@@ -1,5 +1,7 @@
 package com.portfordev.pro;
 
+import java.util.List;
+
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mybatis.spring.SqlSessionTemplate;
@@ -9,7 +11,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.portfordev.pro.dao.MemberDAO;
 import com.portfordev.pro.domain.MyBatisTestVO2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
@@ -37,9 +38,15 @@ public class _1DataSourceTest {
 	
 	@Test
 	public void testSelect() throws Exception {
-		
 		MyBatisTestVO2 vo = sqlsession.selectOne("Members.testidcheck", "1");
 		System.out.println(vo.toString());
+	}
+	@Test
+	public void testAllSelect() throws Exception {
+		List<MyBatisTestVO2> list = sqlsession.selectList("Members.selectAll");
+		list.forEach(item ->{
+			System.out.println(item);
+		});
 	}
 	
 }
