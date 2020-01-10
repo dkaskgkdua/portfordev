@@ -28,9 +28,19 @@
 	justify-content : flex_end;
 }
 
-
+@media screen and (min-width:992px){
+.nav-wrap{width: 100%;height: 61px;}
+}
+@media screen and (max-width: 991px){
+.navbar-toggler{height : 40px;}
+.nav-wrap{width: 100%;height: 59px;}
+}
+@media screen and (max-width: 481px){
+.nav-wrap{width: 100%;height: 99px;}
+}
 
 </style>
+<div class="nav-wrap">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 	<a class="navbar-brand" href="pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -79,7 +89,7 @@
 		</form>
 	</div>
 </nav>
-
+</div>
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

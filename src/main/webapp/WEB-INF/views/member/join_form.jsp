@@ -5,6 +5,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
+<jsp:include page="./join_form_acount_rule.jsp" />
 <title>PFD 회원가입</title>
 <script>
 $(function() {
@@ -82,7 +83,7 @@ $(function() {
 	width: 40%;
 	border: 1px solid lightgray;
 	padding: 20px;
-	margin-top: 20%;
+	margin-top: 100px;
 }
 </style>
 </head>
@@ -105,8 +106,18 @@ $(function() {
 			<label for = "add_member_name" >이름</label>
 			<input type="text" id = "add_member_name" name = "MEMBER_NAME" placeholder="Enter name" maxLength="15">
 		</div>
+		<div class = "form-group">
+			<span><b style="color:red">비밀번호 찾기를 이용하기 위해 회원 가입 후 이메일 등록을 해주세요.</b> </span>
+		</div>
+		<div class = "form-group">
 		<button type="submit">회원가입</button>
 		<button type="button">취소</button>
+		</div>
+		<div class = "form-group">
+		<button type="button" class="btn btn-info" data-toggle="modal" data-target="#account_rule">
+   			 회원가입 약관
+ 		 </button>
+ 		 </div>
 	</fieldset>
    </form>
 </div>
