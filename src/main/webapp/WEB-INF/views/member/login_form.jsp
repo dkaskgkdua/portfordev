@@ -63,7 +63,13 @@
 		});
 	}
 	$(function() {
-
+		$('#loginform').submit(function() {
+			if($('#id').val()=="") {
+				alert("ID를 입력하세요");
+				$('#id').focus();
+				return false;
+			}
+		});
 		$(".join").click(function() {
 			location.href = "join";
 		});
@@ -170,7 +176,7 @@
 				<div class="form-group">
 					<label for="id"><b>ID</b></label> <input class="form-control"
 						type="text" size="10px" name="id" id="id" placeholder="Enter id"
-						maxlength="10">
+						maxlength="15">
 				</div>
 				<div class="form-group">
 					<label for="pass"><b>비밀번호</b></label> <input class="form-control"

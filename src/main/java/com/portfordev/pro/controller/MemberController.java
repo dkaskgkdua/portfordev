@@ -2,7 +2,6 @@ package com.portfordev.pro.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
-import java.util.List;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -15,10 +14,12 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
 public class MemberController {
@@ -84,6 +85,24 @@ public class MemberController {
 			return null;
 		}
 	}
+	
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    VerifyRecaptcha.setSecretKey("6LfgOM4UAAAAAAlpZXseeiF3zzHxqVUi_WEq3w-_");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    System.out.println(gRecaptchaResponse);
+	    //0 = 성공, 1 = 실패, -1 = 오류
+	    try {
+	       if(VerifyRecaptcha.verify(gRecaptchaResponse))
+	          return 0;
+	       else return 1;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
+	}
+
 	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletResponse response, HttpSession session) throws Exception {

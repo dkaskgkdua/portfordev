@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-  <!-- The Modal -->
   <div class="modal" id="account_rule">
     <div class="modal-dialog modal-dialog-scrollable">
       <div class="modal-content">
@@ -157,6 +156,7 @@
 </p>
 <p>3.회원 아이디(ID)와 비밀번호의 관리 및 이용상의 부주의로 인하여 발생 되는 손해 또는 제3자에 의한 부정사용 등에 대한 책임은 모두 회원에게 있습니다.
 </p>
+<p>
 4.회원이 제12조, 기타 이 약관의 규정을 위반함으로 인하여 '갑'이 회원 또는 제3자에 대하여 책임을 부담하게 되고, 이로써 '갑'에게 손해가 발생하게 되는 경우, 이 약관을 위반한 회원은 '갑'에게  발생하는 모든 손해를 배상하여야 하며, 동 손해로부터 '갑'을 면책시켜야 합니다.
 </p>
 
@@ -185,5 +185,3 @@
       </div>
     </div>
   </div>
-  
-</div>
