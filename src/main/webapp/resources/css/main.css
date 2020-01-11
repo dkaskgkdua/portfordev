@@ -16,7 +16,7 @@
 		border: 0;
 		font-size: 100%;
 		font: inherit;
-		vertical-align: baseline;
+		vertical-align: top;
 	}
 
 	article, aside, details, figcaption, figure, footer, header, hgroup, menu, nav, section {
@@ -1755,7 +1755,7 @@
 	.inner {
 		max-width: 75em;
 		margin: 0 auto;
-		margin-left: 450px;
+		
 	}
 
 		@media screen and (max-width: 1280px) {

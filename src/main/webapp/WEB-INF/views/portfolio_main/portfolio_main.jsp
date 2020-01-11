@@ -7,68 +7,11 @@
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/portfolio_main_slidebar.css"/>
 	<style>
-	.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;margin-top:100px;}
-	.slide_in{height:400px;margin: 10px;background:gray;}
-	.right{display: inline-block;}
-	.left{display: inline-block;}
-	.h1{font-color:black;text-align: center;font-size: 30pt;font-weight:700;color:gray}
-	.skill{display: block; margin-right: auto;margin-left: auto}
-	.skill_detail{display:inline-block; float: left;}
-	.skill_table{text-align: center; margin-top: 50px}
-	.skill_table td{height:100px;padding:0px; vertical-align: middle;background: white;}
-	.skill_table tr{border:0px}
-	legend{margin-left:70px;width:inherit;text-align: center}
-	#userimage{opacity: 0.7}
-	.user_info{font-size: 15pt}
-	#user{margin-bottom:50px;border-top:1px solid lightgray}
-	#typing{text-align: center; font-weight: bold; font-size:15pt}
-	.skill_img_m{width:100px;display: inline-block;}
-	#info{padding: 80px; margin:0;color:gray;font-size: 20pt}
-	.info_div{margin-bottom: 100px;}
-	.background{background-image: url('resources/Image/background2.png');
-					height:600px;opacity: 0.7;max-width:100%;
-				filter : grayscale(100%) brightness(150%) ;
-				float:left;
-					}
-	/* 개발능력 이미지 */
-	.ability{border-radius:100%; width:100px; }
-	.background_in{width:50%; height:300px; background: white ; opacity: 0.7;display: inline-block;margin-top:180px;}
-	
-	.user_name{/* background: #5385c1; color:white */}
-	/* #three{padding-top: 0px;}  */
-	body{min-width: 1000px;}
-	 
-#adsideWrapper { 
-  position: absolute;
-}
-#adside {
-  position: absolute;
-  top: 0;
-}
-#adside.fixed {
-  position: fixed;
-  top: 0;
-  margin-top:60px;
- width:300px;
-  background: white;
-  height: 100%;
- /*  border-right: 1px solid lightgray; */
-}
-.profile{width:190px;height:250px;}
-.profile_h1{font-weight: 700;font-size: 25pt;color: black;margin-bottom:10px}
-.sidebar{margin-top: 70px;}
-.sidebar ul{list-style: none;
-			 padding-left:0px;}
-.sidebar li{margin-top: 20px;font-weight: 600;padding:0px}
-.name{font-weight:800;margin:0px;color:black;font-size:15pt}		
-.contact{width:20px}
-.contact_div span{position:relative;
-					top:-6px;
-					font-size: 5pt;}
-.contact_div a{text-decoration: none;}	
-#three{padding:30px}	
-.skill_img{width:50px}				 
+	 .inner {
+		margin-left: 450px;
+	}
 	</style>
 <script>
 	$(document).ready(function () {  
@@ -286,29 +229,7 @@
 			</section>
 
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="flex">
-						<div class="copyright">
-							&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>. Images: <a href="https://unsplash.com">Unsplash</a>.
-						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
-					</div>
-				</div>
-			</footer>
-
-		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/util.js"></script>
-			<script src="resources/js/main.js"></script>
-			<script type="text/javascript" src="resources/slick/slick.min.js"></script>
+	<jsp:include page="../main/footer.jsp"></jsp:include>
 			<script>
 			$(document).ready(function(){
 					
