@@ -71,7 +71,6 @@
 			<div class="search_div">
     		<h1 style="text-align: left;margin-top:40px">통합검색>어쩌구</h1>
     		</div>
-				
 				<!--@@@@@@@@@@@@@@@@@@@@@@@@ 검색결과  -->
 				<div>
 				<h1 class="profile_h1 search_h1 sub">PROJECT</h1>
