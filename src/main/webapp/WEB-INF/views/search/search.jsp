@@ -18,7 +18,9 @@
 		<style>
 		.inner{margin-left: 350px;
     			max-width: 80em}
-		.search_h1{font-size:20pt;}
+    	.sidebar{margin-top: 70px;font-size:15pt}
+    	.sidebar li{margin-top: 20px;}
+		.search_h1{font-size:20pt;margin-top:30px;}
 		#search{border:3px solid black!important; width:30%!important;
 						margin:0 auto; margin-top: 50px; text-align: center;}
 		table tr,td{background: white; border:0px!important;padding:0px!important;}
@@ -27,7 +29,7 @@
 		.contentimg{width:10%}
 		table *{vertical-align: text-top;}
 		.divimg{display: inline-block;width:130px;margin-right: 20px}
-		ul,li{list-style: none; vertical-align: text-top!important;padding:0px!important;margin-bottom: 20px}
+		ul,li{list-style: none; vertical-align: text-top!important;padding:0px!important;margin-bottom: 20px;}
 		#sidebar_btn{position:absolute; left:240px;top:400px}
 		</style>
 	</head>
@@ -69,7 +71,7 @@
 			<!-- 본문 내용 -->
 			<div class="inner">
 			<div class="search_div">
-    		<h1 style="text-align: left;margin-top:40px">통합검색>어쩌구</h1>
+    		<h1 style="text-align: left;margin-top:10px">통합검색>어쩌구</h1>
     		</div>
 				<!--@@@@@@@@@@@@@@@@@@@@@@@@ 검색결과  -->
 				<div>

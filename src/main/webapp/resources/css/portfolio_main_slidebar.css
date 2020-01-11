@@ -47,10 +47,10 @@
 }
 .profile{width:190px;height:250px;}
 .profile_h1{font-weight: 700;font-size: 25pt;color: black;margin-bottom:10px}
-.sidebar{margin-top: 70px;}
+.sidebar{margin-top: 10px;}
 .sidebar ul{list-style: none;
 			 padding-left:0px;}
-.sidebar li{margin-top: 20px;font-weight: 600;padding:0px}
+.sidebar li{margin-top: 10px;font-weight: 600;padding:0px}
 .name{font-weight:800;margin:0px;color:black;font-size:15pt}		
 .contact{width:20px}
 .contact_div span{position:relative;
