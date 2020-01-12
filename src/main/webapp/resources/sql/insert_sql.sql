@@ -1,0 +1,12 @@
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('forkkk','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user1','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user2','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user3','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user4','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user5','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user6','1111','이다은');
+insert into MEMBER(MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME)values('user7','1111','이다은');
+insert into MEMBER values('user8','1111','이다은',0,2,2);
+insert into MEMBER values('user9','1111','이다은',0,2,1);
+insert into MEMBER values('user10','1111','이다은',0,1,1);
+insert into MEMBER values('user10','1111','이다은',0,0,80);

@@ -17,3 +17,5 @@ create table member_test3(
 	today date
 );
 select * from dept;
+/*회원 점수 정렬로 다섯명 뽑아오기*/
+select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) where r < 6 order by r;

@@ -56,7 +56,7 @@
 		</ul>
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
 			<input class="form-control mr-sm-2" type="search"
-				placeholder="Search" aria-label="Search">
+				placeholder="Search" aria-label="Search" name="search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>

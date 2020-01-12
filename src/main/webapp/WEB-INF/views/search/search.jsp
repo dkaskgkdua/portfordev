@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE HTML>
 <!--
 	Theory by TEMPLATED
@@ -81,7 +82,7 @@
 			<!-- 본문 내용 -->
 			<div class="inner">
 			<div class="search_div">
-    		<h1 style="text-align: left;margin-top:10px">통합검색>어쩌구</h1>
+    		<h1 style="text-align: left;margin-top:10px">통합검색>${searchKeyword}</h1>
     		</div>
 				<!--@@@@@@@@@@@@@@@@@@@@@@@@ 검색결과  -->
 				<div>
@@ -134,9 +135,29 @@
 					<hr>
 					<h1 class="profile_h1 search_h1 sub">MEMBERS</h1>
 					<ul class="search_ul">
+					<c:forEach var="memberList" items="${memberResult}">
 						<li class="search_member">
+						<!-- 일등급 -->
+						<c:if test="${memberList.MEMBER_ACT>94}">
 							<img src="resources/Image/icon/level_1.png" style="width:30px;"/>
-							<a href="">lde1245</a>
+						</c:if>	
+						<!-- 이등급 -->
+						<c:if test="${memberList.MEMBER_ACT >79 && memberList.MEMBER_ACT <95}">
+							<img src="resources/Image/icon/level_2.png" style="width:30px;"/>
+						</c:if>	
+						<!-- 삼등급 -->
+						<c:if test="${memberList.MEMBER_ACT >49 && memberList.MEMBER_ACT <80}">
+							<img src="resources/Image/icon/level_3.png" style="width:30px;"/>
+						</c:if>	
+						<!-- 사등급 -->
+						<c:if test="${memberList.MEMBER_ACT >29 && memberList.MEMBER_ACT <50} ">
+							<img src="resources/Image/icon/level_4.png" style="width:30px;"/>
+						</c:if>	
+						<!-- 오등급 -->
+						<c:if test="${memberList.MEMBER_ACT >=0 && memberList.MEMBER_ACT <30}">
+							<img src="resources/Image/icon/level_5.png" style="width:30px;"/>
+						</c:if>	
+							<a href="">${memberList.MEMBER_ID}</a>
 							<br>
 							<div class="context_text">
 							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
@@ -144,61 +165,8 @@
 							<br>
 							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
 						</li>
+					</c:forEach>
 						
-						<li class="search_member">
-							<img src="resources/Image/icon/level_2.png" style="width:30px;"/>
-							<a href="">lde1245</a>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐</span>
-							</div>
-							<br>
-							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
-						</li>
-						
-						
-						<li class="search_member">
-							<img src="resources/Image/icon/level_2.png" style="width:30px;"/>
-							<a href="">lde1245</a>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐</span>
-							</div>
-							<br>
-							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
-						</li>
-						
-						<li class="search_member">
-							<img src="resources/Image/icon/level_4.png" style="width:30px;"/>
-							<a href="">lde1245</a>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐</span>
-							</div>
-							<br>
-							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
-						</li>
-						
-						<li class="search_member">
-							<img src="resources/Image/icon/level_5.png" style="width:30px;"/>
-							<a href="">lde1245</a>
-							<br>
-							<div class="context_text">
-							<span>자기소개 어쩌구 저는 어디서 뭐뭐뭐</span>
-							</div>
-							<br>
-							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
-						</li>
-						
-						<li class="search_member">
-							<img src="resources/Image/icon/level_1.png" style="width:30px;"/>
-							<a href="">lde1245</a>
-							<span>답변수 : 4</span>
-							<br>
-							<div class="context_text">
-							<span>자기소개 어쩌구 저는 어디서 뭐뭐뭐</span>
-							</div>
-						</li>
 						<li class="more"><a href="" >More ></a></li>
 					</ul>
 					

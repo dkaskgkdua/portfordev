@@ -40,4 +40,12 @@
 		INSERT INTO DEPT
 		VALUES(#{deptno}, #{dname}, #{loc})
 	</insert>
+	<select id="searchMember" resultType="member" parameterType="String">
+	<![CDATA[
+		select MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT from 
+			(select rownum r, b.* from
+				( select * from MEMBER where MEMBER_ID  like '%' ||  #{keyword} || '%' order by MEMBER_ACT desc)b
+			 ) where r < 6 order by r
+	]]>		 
+	</select>
 </mapper>
