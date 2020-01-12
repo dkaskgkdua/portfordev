@@ -59,8 +59,8 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">자유게시판</a>
-					<a class="dropdown-item" href="#">스터디(Q&A)</a>
+					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=1">스터디(Q&A)</a>
 				</div>
 			</li>
 		</ul>
