@@ -56,8 +56,11 @@ public class MemberController {
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
 		int result = memberservice.isId(id, password);
+		
 		if (result == 1) {
+			String nickname = memberservice.get_name(id);
 			session.setAttribute("id", id);
+			session.setAttribute("nickname", nickname);
 			Cookie savecookie = new Cookie("saveid", id);
 			if(!remember.equals("")) {
 				savecookie.setMaxAge(60*60);

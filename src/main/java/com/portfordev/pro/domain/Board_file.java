@@ -12,5 +12,4 @@ public class Board_file {
 	private int BOARD_ID;
 	private String BOARD_FILE;
 	private String BOARD_FILE_ORIGINAL;
-	private List<MultipartFile> uploadfile;
 }

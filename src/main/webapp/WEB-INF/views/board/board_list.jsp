@@ -22,19 +22,41 @@
 	}
 	#search_text {
 		margin-left : 5px;
-		width : 48%;
+		width : 50%;
 	}
 	#search_btn {
 		margin-left : 5px;
 		width : 18%;
 	}
+	
+	.center-block {
+		display : flex;
+		justify-content:center; /* 가운데 정렬 */
+	}
+	#search_form {
+		display: inline-block;
+		justify-content:center;
+		width : 100%;
+	}
+	
 </style>
 </head>
 <body>
 	<div class="container">
 		<h3 id ="h3_category" class="float-left"></h3> 
-		<a href ="#" id="add_board_button" 
+		<a href ="board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
 			class="write btn btn-success float-right">글쓰기</a>
+			
+		<form id = "search_form">
+				<select name="search_select" size="1" id="search_select" class = "float-left">
+					<option value="0">작성자</option>
+					<option value="1">제목</option>
+					<option value="2">내용</option>
+					<option value="3">제목+내용</option>
+				</select> 
+				<input type="text" id="search_text" name="search_text" placeholder="검색할 내용을 입력하세요." class="float-left">
+				<button type="submit" id="search_btn" class="float-left">검색</button>
+			</form>
 		<table class="table table-hover">
 			<thead>
 				<tr>
@@ -111,16 +133,7 @@
 		
 
 		<c:if test="${list_count > 0 }">
-			<form>
-				<select name="search_select" size="1" id="search_select" class = "float-left">
-					<option value="0">작성자</option>
-					<option value="1">제목</option>
-					<option value="2">내용</option>
-					<option value="3">제목+내용</option>
-				</select> 
-				<input type="text" id="search_text" name="search_text" placeholder="검색할 내용을 입력하세요." class="float-left">
-				<button type="submit" id="search_btn" class="float-left">검색</button>
-			</form>
+			
 			
 			<div class="center-block">
 				<div class="row">

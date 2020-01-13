@@ -26,6 +26,7 @@ public class Board {
 	private int MEMBER_ACT;
 	private int BOARD_RECO;
 	private String BOARD_COMMENT;
+	List<MultipartFile> uploadfile;
 	// qna_board_write.jsp에서 name 속성을 확인해야 한다.
 	// <input type="file" id ="upfile" name="uploadfile"> 확인
 	

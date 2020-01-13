@@ -40,4 +40,8 @@
 		INSERT INTO DEPT
 		VALUES(#{deptno}, #{dname}, #{loc})
 	</insert>
+	
+	<select id ="get_name" resultType="String" parameterType="String">
+		select MEMBER_NAME from MEMBER where MEMBER_ID=#{id}
+	</select>
 </mapper>
