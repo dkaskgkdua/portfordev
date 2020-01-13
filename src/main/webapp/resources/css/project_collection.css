@@ -14,6 +14,9 @@ table{
 	border-collapse:collapse;
 	border-spacing:0;
 }
+table td{
+	padding: 0;
+}
 tbody{
 	display:table-row-group;
 	vertical-align:middle;
@@ -113,49 +116,61 @@ tbody{
 
 
 .project-container{
-	margin:0;
+	margin:0 auto;
+	padding:0 15px;
 	margin-top:70px;
 	width:100%;
+}
+@media screen and (min-width: 1px){
+	.project-container{
+		width:100%;
+		max-width:1500px;
+	}
+}
+@media screen and (min-width: 768px){
+	.project-container{
+		width:750px;
+	}
+}
+@media screen and (min-width: 992px){
+	.project-container{
+		width:970px;
+	}
+}
+@media screen and (min-width: 1200px){
+	.project-container{
+		width:1170px;
+	}
+}
+@media screen and (min-width: 1500px){
+	.project-container{
+		width:1500px;
+	}
+}
+@media screen and (max-width: 991px){
+	.project-container {
+	    /*margin: 0 0%;*/
+	    float: none;
+	}	
+}
+
+@media screen and (max-width: 768px){
+	.project-container {
+		padding: 0 7px;
+		border-left:0;
+	}
 }
 @media screen and (max-width: 568px){
 	.project-container{
 		padding-top: 0;
 	}
 }
-@media screen and (max-width: 768px){
-	.project-container {
-	    border-left: 0;
-	    padding:0;
-	}
-}
-@media screen and (max-width: 991px){
-	.project-container {
-	    width: 100%;
-	    /*margin: 0 0%;*/
-	    float: none;
-	}	
-}
 
-@media screen and (min-width: 1px){
-	.project-container {
-	    /* width: 84.86%; */
-	    width: 100%;
-	}
-}
-@media screen and (max-width: 768px){
-	.project-container {
- 	   padding: 0;
-	}
-}
-@media screen and (max-width: 768px){
-	.project-container {
-   		padding: 0 7px;
-	}
-}
 .project-list{
 	box-sizing:border-box;
 	display:block;
 	-webkit-font-smoothing:antialiased;
+	padding: 0 30px;
 }
 @media screen and (max-width: 568px){
 	.project-list {
@@ -227,7 +242,7 @@ tbody{
 .project-list a:hover, .project-list a:active, .project-list a:visitied, .project-list a:focus{
 	text-decoration:none;
 }
-.project-list-item img{
+.project-list-item .img-wrapper img{
 	width:100%;
 	height:auto;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
@@ -315,17 +330,20 @@ img.icon-round{
 	}
 }
 .view-icon, .like-icon, .comment-icon{
-	width: 20%;
-}
-@media screen and (max-width: 568px){
-	.view-icon, .like-icon, .comment-icon {
-    	vertical-align: baseline;
-    	margin-right: 3px;
-	}
+	width:25%;
+	box-shadow:none;
 }
 @media screen and (min-width: 1px){
 	.view-icon, .like-icon, .comment-icon {
     	vertical-align: middle;
     	margin-right: 3px;
+		box-shadow:none;
+	}
+}
+@media screen and (max-width: 568px){
+	.view-icon, .like-icon, .comment-icon {
+    	vertical-align: baseline;
+    	margin-right: 3px;
+		box-shadow:none;
 	}
 }
