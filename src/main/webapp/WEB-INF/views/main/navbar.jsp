@@ -11,7 +11,7 @@
 <script src="resources/js/util.js"></script>
 <script src="resources/js/main.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="resources/css/main.css" />
 <script>
 	$(function() {
 		$('#login_button').click(function() {
@@ -33,7 +33,7 @@
 
 </style>
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-	<a class="navbar-brand" href="pro">PFD</a>
+	<a class="navbar-brand" href="/pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"

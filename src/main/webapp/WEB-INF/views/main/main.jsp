@@ -1,5 +1,4 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-<<<<<<< HEAD
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -7,24 +6,18 @@
 		<title>PFD Main Page</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<jsp:include page="navbar.jsp" />
 		<link rel="stylesheet" href="resources/css/main.css" />
+		<style>
+			.inner{
+				margin: 0 auto!important;
+			}
+		
+		</style>
 	</head>
 	<body>
-		<!-- Header -->
-		<header id="header">
-			<div class="inner">
-				<a href="#" class="logo">PFD</a>
-				<nav id="nav">
-					<a href="#">Home</a>
-					<a href="#">Menu A</a>
-					<a href="#">Menu B</a>
-					<a href="#">Menu C</a>
-					<a href="#">Menu D</a>
-				</nav>
-				<a href="#navPanel" class="navPanelToggle"><span class="fa fa-bars"></span></a>
-			</div>
-		</header>
-
+	
+		
 		<!-- Banner -->
 		<section id="banner">
 			<h1>Portfolio for Developers</h1>
@@ -34,30 +27,71 @@
 		<!-- One -->
 		<section id="one" class="wrapper">
 			<div class="inner">
-				<div class="flex flex-3">
+				<header class="align-center">
+					<h2>Why PFD?</h2>
+					<p>PFD만이 가진 장점</p>
+				</header>
+				<div class="flex flex-4">
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/Image/icon/portfolio.png" alt="Portfolio" />
+						</div>
+						<h3>Convenience</h3>
+						<p>쉽고 편리한 정보 입력으로 마치 개인 사이트를 호스팅한 것 같은 만족감</p>
+					</div>
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/Image/icon/feedback.png" alt="Feedback" />
+						</div>
+						<h3>FeedBack</h3>
+						<p>선배 개발자들로 부터 얻는 전문적인 평가와 조언</p>
+					</div>
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/Image/icon/community.png" alt="Community" />
+						</div>
+						<h3>Community</h3>
+						<p>자유롭게 의견을 나누는 소통의 창</p>
+					</div>
+					<div class="box">
+						<div class="image fit">
+							<img src="resources/Image/icon/study.png" alt="Study" />
+						</div>
+						<h3>Study</h3>
+						<p>Project 팀원 Study 그룹 모집 용이</p>
+					</div>
+				</div>
+			</div>
+		</section>
+
+		<!-- Two -->
+		<section id="two" class="wrapper special">
+			<div class="inner">
+				<header class="align-center">
+					<h2>Noteworthy Portfolios</h2>
+					<p>현재 주목받는 포트폴리오</p>
+				</header>
+				<div class="flex flex-2">
 					<article>
+						<div class="image fit">
+							<img src="resources/Image/pic01.jpg" alt="Pic 01" />
+						</div>
 						<header>
-							<h3>Magna tempus sed amet<br /> aliquam veroeros</h3>
+							<h3>Praesent placerat magna</h3>
 						</header>
-						<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
+						<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
 						<footer>
 							<a href="#" class="button special">More</a>
 						</footer>
 					</article>
 					<article>
+						<div class="image fit">
+							<img src="resources/Image/pic02.jpg" alt="Pic 02" />
+						</div>
 						<header>
-							<h3>Interdum lorem pulvinar<br /> adipiscing vitae</h3>
+							<h3>Fusce pellentesque tempus</h3>
 						</header>
-						<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-						<footer>
-							<a href="#" class="button special">More</a>
-						</footer>
-					</article>
-					<article>
-						<header>
-							<h3>Libero purus magna sapien<br /> sed ullamcorper</h3>
-						</header>
-						<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
+						<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
 						<footer>
 							<a href="#" class="button special">More</a>
 						</footer>
@@ -66,38 +100,74 @@
 			</div>
 		</section>
 
-		<!-- Two -->
-		<section id="two" class="wrapper style1 special">
+		<!-- Three -->
+		<section id="three" class="wrapper special">
+			<div class="inner">
+				<header class="align-center">
+					<h2>Latest IT News</h2>
+					<p>최신 IT 기술 동향과 정보를 쉽게 접하세요</p>
+				</header>
+				<div class="flex flex-2">
+					<article>
+						<div class="image fit">
+							<img src="resources/Image/pic01.jpg" alt="Pic 01" />
+						</div>
+						<header>
+							<h3>Praesent placerat magna</h3>
+						</header>
+						<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
+						<footer>
+							<a href="#" class="button special">More</a>
+						</footer>
+					</article>
+					<article>
+						<div class="image fit">
+							<img src="resources/Image/pic02.jpg" alt="Pic 02" />
+						</div>
+						<header>
+							<h3>Fusce pellentesque tempus</h3>
+						</header>
+						<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
+						<footer>
+							<a href="#" class="button special">More</a>
+						</footer>
+					</article>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Four -->
+		<section id="Four" class="wrapper style1 special">
 			<div class="inner">
 				<header>
-					<h2>개발자 포트폴리오</h2>
-					<p>PFD를 개발한 사람들</p>
+					<h2>PFD Developers</h2>
+					<p>PFD 개발자들의 포트폴리오를 만나보세요</p>
 				</header>
 				<div class="flex flex-4">
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/img/pic03.jpg" alt="Person 1" />
+							<img src="resources/Image/pic03.jpg" alt="Person 1" />
 						</div>
 						<h3>손민준</h3>
 						<p>팀장</p>
 					</div>
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/img/pic04.jpg" alt="Person 2" />
+							<img src="resources/Image/pic04.jpg" alt="Person 2" />
 						</div>
 						<h3>이다은</h3>
 						<p>팀원</p>
 					</div>
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/img/pic05.jpg" alt="Person 3" />
+							<img src="resources/Image/pic05.jpg" alt="Person 3" />
 						</div>
 						<h3>안현호</h3>
 						<p>팀원</p>
 					</div>
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/img/pic06.jpg" alt="Person 4" />
+							<img src="resources/Image/pic06.jpg" alt="Person 4" />
 						</div>
 						<h3>김대건</h3>
 						<p>팀원</p>
@@ -106,234 +176,30 @@
 			</div>
 		</section>
 
-		<!-- Three -->
-			<section id="three" class="wrapper special">
-				<div class="inner">
-					<header class="align-center">
-						<h2>Nunc Dignissim</h2>
-						<p>Aliquam erat volutpat nam dui </p>
-					</header>
-					<div class="flex flex-2">
-						<article>
-							<div class="image fit">
-								<img src="resources/img/pic01.jpg" alt="Pic 01" />
-							</div>
-							<header>
-								<h3>Praesent placerat magna</h3>
-							</header>
-							<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
-						</article>
-						<article>
-							<div class="image fit">
-								<img src="resources/img/pic02.jpg" alt="Pic 02" />
-							</div>
-							<header>
-								<h3>Fusce pellentesque tempus</h3>
-							</header>
-							<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
-							<footer>
-								<a href="#" class="button special">More</a>
-							</footer>
-						</article>
-					</div>
-				</div>
-			</section>
-
 		<!-- Footer -->
-			<footer id="footer">
-				<div class="inner">
-					<div class="flex">
-						<div class="copyright">
-							&copy; PFD. Design: <a href="#">AnHyunHo</a>. Images: <a href="#">PFD</a>.
-						</div>
-						<ul class="icons">
-							<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
-							<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
-							<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
-							<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
-							<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-						</ul>
+		<footer id="footer">
+			<div class="inner">
+				<div class="flex">
+					<div class="copyright">
+						&copy; PFD. Design: <a href="#">Team PFD</a>. Images: <a href="#">Team PFD</a>.
 					</div>
+					<ul class="icons">
+						<li>follow us in</li>
+						<li><a href="#" class="icon fa-facebook"><span class="label">Facebook</span></a></li>
+						<li><a href="#" class="icon fa-twitter"><span class="label">Twitter</span></a></li>
+						<li><a href="#" class="icon fa-linkedin"><span class="label">linkedIn</span></a></li>
+						<li><a href="#" class="icon fa-pinterest-p"><span class="label">Pinterest</span></a></li>
+						<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
+					</ul>
 				</div>
-			</footer>
+			</div>
+		</footer>
 
 		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/util.js"></script>
-			<script src="resources/js/main.js"></script>
+		<script src="resources/js/jquery.min.js"></script>
+		<script src="resources/js/skel.min.js"></script>
+		<script src="resources/js/util.js"></script>
+		<script src="resources/js/main.js"></script>
 
 	</body>
-=======
-	pageEncoding="UTF-8"%>
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
-<jsp:include page="navbar.jsp" />
-<title>PFD</title>
-</head>  
-<body>
-	<!-- Banner -->
-	<section id="banner">
-		<h1>Welcome to Theory</h1>
-		<p>A free responsive HTML5 website template by TEMPLATED.</p>
-	</section>
-
-	<!-- One -->
-	<section id="one" class="wrapper">
-		<div class="inner">
-			<div class="flex flex-3">
-				<article>
-					<header>
-						<h3>
-							Magna tempus sed amet<br /> aliquam veroeros
-						</h3>
-					</header>
-					<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus
-						lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-					<footer>
-						<a href="#" class="button special">More</a>
-					</footer>
-				</article>
-				<article>
-					<header>
-						<h3>
-							Interdum lorem pulvinar<br /> adipiscing vitae
-						</h3>
-					</header>
-					<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus
-						lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-					<footer>
-						<a href="#" class="button special">More</a>
-					</footer>
-				</article>
-				<article>
-					<header>
-						<h3>
-							Libero purus magna sapien<br /> sed ullamcorper
-						</h3>
-					</header>
-					<p>Morbi interdum mollis sapien. Sed ac risus. Phasellus
-						lacinia, magna a ullamcorper laoreet, lectus arcu.</p>
-					<footer>
-						<a href="#" class="button special">More</a>
-					</footer>
-				</article>
-			</div>
-		</div>
-	</section>
-
-	<!-- Two -->
-	<section id="two" class="wrapper style1 special">
-		<div class="inner">
-			<header>
-				<h2>Ipsum Feugiat</h2>
-				<p>Semper suscipit posuere apede</p>
-			</header>
-			<div class="flex flex-4">
-				<div class="box person">
-					<div class="image round">
-						<img src="resources/Image/pic03.jpg" alt="Person 1" />
-					</div>
-					<h3>Magna</h3>
-					<p>Cipdum dolor</p>
-				</div>
-				<div class="box person">
-					<div class="image round">
-						<img src="resources/Image/pic04.jpg" alt="Person 2" />
-					</div>
-					<h3>Ipsum</h3>
-					<p>Vestibulum comm</p>
-				</div>
-				<div class="box person">
-					<div class="image round">
-						<img src="resources/Image/pic05.jpg" alt="Person 3" />
-					</div>
-					<h3>Tempus</h3>
-					<p>Fusce pellentes</p>
-				</div>
-				<div class="box person">
-					<div class="image round">
-						<img src="resources/Image/pic06.jpg" alt="Person 4" />
-					</div>
-					<h3>Dolore</h3>
-					<p>Praesent placer</p>
-				</div>
-			</div>
-		</div>
-	</section>
-
-	<!-- Three -->
-	<section id="three" class="wrapper special">
-		<div class="inner">
-			<header class="align-center">
-				<h2>Nunc Dignissim</h2>
-				<p>Aliquam erat volutpat nam dui</p>
-			</header>
-			<div class="flex flex-2">
-				<article>
-					<div class="image fit">
-						<img src="resources/Image/pic01.jpg" alt="Pic 01" />
-					</div>
-					<header>
-						<h3>Praesent placerat magna</h3>
-					</header>
-					<p>Praesent dapibus, neque id cursus faucibus, tortor neque
-						egestas augue, eu vulputate magna eros eu erat. Aliquam erat
-						volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem
-						ipsum.</p>
-					<footer>
-						<a href="#" class="button special">More</a>
-					</footer>
-				</article>
-				<article>
-					<div class="image fit">
-						<img src="resources/Image/pic02.jpg" alt="Pic 02" />
-					</div>
-					<header>
-						<h3>Fusce pellentesque tempus</h3>
-					</header>
-					<p>Sed adipiscing ornare risus. Morbi est est, blandit sit
-						amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem.
-						Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
-					<footer>
-						<a href="#" class="button special">More</a>
-					</footer>
-				</article>
-			</div>
-		</div>
-	</section>
-
-	<!-- Footer -->
-	<footer id="footer">
-		<div class="inner">
-			<div class="flex">
-				<div class="copyright">
-					&copy; Untitled. Design: <a href="https://templated.co">TEMPLATED</a>.
-					Images: <a href="https://unsplash.com">Unsplash</a>.
-				</div>
-				<ul class="icons">
-					<li><a href="#" class="icon fa-facebook"><span
-							class="label">Facebook</span></a></li>
-					<li><a href="#" class="icon fa-twitter"><span
-							class="label">Twitter</span></a></li>
-					<li><a href="#" class="icon fa-linkedin"><span
-							class="label">linkedIn</span></a></li>
-					<li><a href="#" class="icon fa-pinterest-p"><span
-							class="label">Pinterest</span></a></li>
-					<li><a href="#" class="icon fa-vimeo"><span class="label">Vimeo</span></a></li>
-				</ul>
-			</div>
-		</div>
-	</footer>
-
-	<!-- Scripts -->
-
-
-</body>
->>>>>>> refs/remotes/origin/master
 </html>

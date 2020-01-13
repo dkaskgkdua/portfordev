@@ -7,7 +7,6 @@ public class Member {
 	private String MEMBER_ID;
 	private String MEMBER_PASSWORD;
 	private String MEMBER_NAME;
-<<<<<<< HEAD
 	
 	public String getMEMBER_ID(){return MEMBER_ID;}
 	public void setMEMBER_ID(String mEMBER_ID){MEMBER_ID = mEMBER_ID;}
@@ -16,9 +15,7 @@ public class Member {
 	public String getMEMBER_NAME(){return MEMBER_NAME;}
 	public void setMEMBER_NAME(String mEMBER_NAME){MEMBER_NAME = mEMBER_NAME;}
 	
-=======
 	private int MEMBER_POWER = 0;
 	private int MEMBER_POINT = 0;
 	private int MEMBER_ACT = 0;
->>>>>>> refs/remotes/origin/master
 }
