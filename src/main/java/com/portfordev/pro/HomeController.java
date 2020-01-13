@@ -23,14 +23,10 @@ public class HomeController {
 	 */
 	@RequestMapping(value = "/pro", method = RequestMethod.GET)
 	public String home(Locale locale, Model model) {
-<<<<<<< HEAD
 		logger.info("Welcome home! The client locale is {}.", locale);
 		
 				
 		return "main/main";
-=======
-		return "main/main";	
->>>>>>> refs/remotes/origin/master
 	}
 	
 }
