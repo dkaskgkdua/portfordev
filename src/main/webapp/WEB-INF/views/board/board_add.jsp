@@ -21,31 +21,35 @@ img:hover {
 }
 </style>
 <script>
-function show() {
-	if ($('#filevalue').text() == '') {
-		// 파일 이름이 있는 경우 remove 이미지를 보이게 하고 없는 경우는 보이지 않게 한다.
-		$(".remove").css('display', 'none');
-	} else {
-		$(".remove").css('display', 'inline-block');
-	}
-};
+	function show() {
+		if ($('#filevalue').text() == '') {
+			// 파일 이름이 있는 경우 remove 이미지를 보이게 하고 없는 경우는 보이지 않게 한다.
+			$(".remove").css('display', 'none');
+		} else {
+			$(".remove").css('display', 'inline-block');
+		}
+	};
 	$(function() {
+		show();
 		if("${BOARD_CATEGORY}"=="0") {
 			$('#h3_category').text("자유게시판");
 		} else {
 			$('#h3_category').text("스터디(Q&A)");
 		}	
+		
 		$("form").submit(function() {
 				if ($.trim($("#board_pass").val()) == "") {
 					alert("비밀번호를 입력하세요");
 					$("#board_pass").focus();
 					return false;
 				}
+				
 				if ($.trim($("#board_subject").val()) == "") {
 					alert("제목을 입력하세요");
 					$("#board_subject").focus();
 					return false;
 				}
+				
 				if ($.trim($("#board_content").val()) == "") {
 					alert("내용을 입력하세요");
 					$("#board_content").focus();
@@ -55,30 +59,29 @@ function show() {
 		});
 		$('#upfile').change(function() {
 			var array = $(this).get(0).files; 
-			alert(array);
-			var inputfile = $(this).val().split('\\');
-			$('#filevalue').text(inputfile[inputfile.length - 1]);
+			console.log(array);
+			var strArray ="";
+			for(var i=0; i < array.length; i++) {
+				strArray += array[i].name;
+				if(i < array.length-1) {
+					strArray += ", ";
+				}
+			}
+			$('#filevalue').text(strArray);
 			show();
 		});
 
 		$('.remove').click(function() {
 			$('#filevalue').text('');
-			$(this).css('display', 'none');
-			$("input[name=BOARD_ORIGINAL]").val('');
-			$("input[name=BOARD_FILE").val('');
-		});
-
-		// 남은 글자 수 표시
-		$("#board_content").keyup(function() {
-			var content = $(this).val();
-			$("#counter").html(content.length + '/500');
-	
-			if(content.length >= 500){
-				$(this).val(content.substr(0, 500));
-				$("#counter").css('background', 'red');
-			}else{
-				$("#counter").css('background', 'rgba(255, 0, 0, 0.5)');
+			var agent = navigator.userAgent.toLowerCase();
+			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
+			    // ie 일때 input[type=file] init.
+			    $("#upfile").replaceWith( $("#excelFile").clone(true) );
+			} else {
+			    //other browser 일때 input[type=file] init.
+			    $("#upfile").val("");
 			}
+			$(this).css('display', 'none');
 		});
 	});
 </script>
@@ -117,18 +120,18 @@ function show() {
 			</div>
 
 			<div class="form-group">
-				<label for="board_file">파일 첨부</label> 
-				<label for="upfile"> 
-					<img id=ig src="resources/Image/attach.png" alt="파일첨부">
+				<label style ="display:inline" for="board_file">파일 첨부</label> 
+				<label style ="display:inline" for="upfile" data-toggle="tooltip" data-placement="top" title="최대 용량 : 10MB"> 
+					<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
 				</label> 
-				<input multiple ="multiple" type="file" id="upfile" name="uploadfile">
+				<input  multiple ="multiple" type="file" id="upfile" name="uploadfile">
 				<span id="filevalue"></span>
+				<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove">
 			</div>
-
+			
 			<div class="form-group">
-				<button type=submit class="btn btn-primary">등록</button>
-				<input type='button' value="취소" class="back"
-					onClick='history.back(); return false;'>
+				<button type="submit" class="btn btn-primary">등록</button>
+				<button type="button" class="btn btn-secondary" onClick='history.back(); return false;'>취소</button>
 			</div>
 
 		</form>
