@@ -6,7 +6,7 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias alias="member" type="com.portfordev.pro.domain.Member"/>
+		<typeAlias alias="Member" type="com.portfordev.pro.domain.Member"/>
 		<typeAlias alias="MyBatisTestVO2" type="com.portfordev.pro.domain.MyBatisTestVO2"/>
 	</typeAliases>
 

@@ -42,10 +42,10 @@
 	</insert>
 	<select id="searchMember" resultType="member" parameterType="String">
 	<![CDATA[
-		select MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT from 
+	select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,nvl(REG_DATE,null) REG_DATE from 
 			(select rownum r, b.* from
-				( select * from MEMBER where MEMBER_ID  like '%' ||  #{keyword} || '%' order by MEMBER_ACT desc)b
-			 ) where r < 6 order by r
+				( select * from MEMBER where MEMBER_ID  like '%' ||  #{key} || '%' order by MEMBER_ACT desc)b
+			 )m left outer join PORT_FEEDBACK p on p.MEMBER_ID=m.MEMBER_ID where r < 6 order by r
 	]]>		 
 	</select>
 </mapper>

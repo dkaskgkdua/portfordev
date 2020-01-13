@@ -13,7 +13,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="resources/css/main.css" />
-		<link rel="stylesheet" href="resources/css/portfolio_main_slidebar.css" />
+		<link rel="stylesheet" href="resources/css/profile_main_slidebar.css" />
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
 		<script src="resources/js/search.js"></script>
 		<style>
@@ -42,6 +42,7 @@
 		hr{border:1px solid rgba(0,0,0,.1);}
 		.search_board a{text-decoration: underline;}
 		.search_board_span{color:black}
+		.member_ul a{color:#9a9a9a; font-size: 15pt}
 		</style>
 	</head>
 	<body class="subpage">
@@ -61,12 +62,12 @@
     		<div style="width:200px;margin: 0 auto;margin-top: 20px;margin-left: 50px;" id="sidebar">
     			<h1 class="profile_h1 search_h1">MENU</h1>
     			<div class="sidebar">
-    			<ul class="search_ul">
-    			<li>PROJECT</li>
-    			<li>MEMBER</li>
-    			<li>FREE BOARD</li>
-    			<li>STUDY & QnA</li>
-    			<li>COMMUNITY</li>
+    			<ul class="search_ul member_ul">
+    			<li><a href="#project">PROJECT</a></li>
+    			<li><a href="#Memberlist">MEMBER</a></li>
+    			<li><a href="#board">FREE BOARD</a></li>
+    			<li> <a href="#study">STUDY</a></li>
+    			<li><a href="#qna">QnA</a></li>
     			</ul>
     			</div>
     		</div>
@@ -86,7 +87,7 @@
     		</div>
 				<!--@@@@@@@@@@@@@@@@@@@@@@@@ 검색결과  -->
 				<div>
-				<h1 class="profile_h1 search_h1 sub">PROJECT</h1>
+				<h1 class="profile_h1 search_h1 sub" id="project">PROJECT</h1>
 				
 					
 					<!--@@@@@@@@@@@@@@@프로젝트 검색결과 -->
@@ -132,9 +133,10 @@
 					
 					<!-- @@@@@@@@@@@@@회원 검색결과 -->
 					<!-- 등급 높은순 -->
-					<hr>
-					<h1 class="profile_h1 search_h1 sub">MEMBERS</h1>
-					<ul class="search_ul">
+					<hr id="Memberlist">
+					<h1 class="profile_h1 search_h1 sub" >MEMBER</h1>
+					<ul class="search_ul" >
+					<c:if test="${!empty memberResult}">
 					<c:forEach var="memberList" items="${memberResult}">
 						<li class="search_member">
 						<!-- 일등급 -->
@@ -163,16 +165,26 @@
 							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
 							</div>
 							<br>
-							<span>답변수 : 4    &nbsp; 최근 활동일 : 2019/12/31</span> 
+							<c:if test="${memberList.REG_DATE!=null}">
+								<span>총 피드백 : 4    &nbsp; 최근 피드백 등록일 : ${memberList.REG_DATE}</span> 
+							</c:if>
+							<c:if test="${memberList.REG_DATE==null}">
+								<span>총 피드백 : 0</span> 
+							</c:if>
 						</li>
 					</c:forEach>
 						
 						<li class="more"><a href="" >More ></a></li>
+					</c:if>
+					<!-- 검색결과 없으면 -->
+					<c:if test="${empty memberResult}">
+						<h1 style="color:gray">회원 검색결과가 존재 하지 않습니다.</h1>
+					</c:if>	
 					</ul>
 					
 					
 					<!-- @@@@@@@@@@@@@게시판 검색결과 -->
-					<hr>
+					<hr id="board">
 					<h1 class="profile_h1 search_h1 sub">FREE BOARD</h1>
 					<ul class="search_ul search_board">
 						<li>
@@ -230,7 +242,7 @@
 						<li class="more"><a href="" >More ></a></li>
 					</ul>
 					
-					<hr>
+					<hr id="study">
 					<!-- @@@@@@@@@@@@@스터디 검색결과 -->
 					<h1 class="profile_h1 search_h1 sub">STUDY</h1>
 					<ul class="search_ul">
@@ -304,7 +316,7 @@
 						<li class="more"><a href="" >More ></a></li>
 					</ul>
 					<!-- @@@@@@@@@@@@@ 질문글 검색결과 -->
-					<hr>
+					<hr id="qna">
 					<h1 class="profile_h1 search_h1 sub">QnA</h1>
 					<ul class="search_ul">
 						<li>

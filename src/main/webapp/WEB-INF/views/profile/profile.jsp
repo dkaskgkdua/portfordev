@@ -7,7 +7,7 @@
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/css/portfolio_main_slidebar.css"/>
+		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
 	<style>
 	 .inner {
 		margin-left: 450px;
@@ -18,14 +18,42 @@
         var top = $('#adside').offset().top - parseFloat($('#adside').css('marginTop').replace(/auto/, 0));
         $(window).scroll(function (event) {
         var y = $(this).scrollTop();
+        	
+  });//scroll끝
   
-  });
+        var width = $(window).width();
+  var cnt=0;
+        console.log(width);
+        if(width<700){
+        	$('.profile_btn').click(function(){
+        		cnt++;
+        		var obj=$('#adside');
+        		obj.show();
+        		
+        		obj.css('z-index','20');
+        		console.log('클릭횟수'+cnt+'//'+cnt%2);
+        		if(cnt%2==1){
+        		obj.animate({
+        			  left:10
+        			},1000);
+        		}else{
+        			obj.animate({
+        				left:-300
+          			},1000);	
+        		}
+        		
+        		$('.sidebar').css('display','none');
+        	})
+        	
+        	
+        	
+        } 
 });
 </script>
 	</head>
 	<body>
 	
-
+	<img src = "resources/Image/userdefault.png" class="profile_btn"/>
 
 
 	 
@@ -38,12 +66,12 @@
     		
     		
     		<!-- 프로필 사진 칸 -->
-    		<div style="width:200px;margin: 0 auto;margin-top: 20px;margin-left: 50px;">
+    		<div style="width:200px;margin: 0 auto;margin-top: 20px;margin-left: 50px;" id="p_div">
     			<h1 class="profile_h1">PROFILE</h1>
     			<div class="profile"><img src="resources/Image/sample2.jpg" class="profile"></div>
     			<div>
     			<br>
-    			<h1 class="name">LEE DAEUN / 이다은</h1>
+    			<h1 class="name">LEE DAEUN / 이다은 </h1><button type="button" onclick="location.href='portfolio_form'">등록</button>
     			<p>Web programmer</p>
     			</div>
     			
@@ -81,15 +109,12 @@
     		</div>
 			</div>
   			</div>
-			<!-- <div class="background">
-					<img src="resources/Image/background2.png" width=100% height="500"/>
-					<h1 class="h1">PROJECT</h1>
-					
-					<header class="align-center">
-					<div class="your-class background_in"></div>
-					</header>
-				</div>  -->
+  			<!-- 모바일일때 프로필 숨겨진거 나타나게하기 -->
+  				<!-- 모바일일때 프로필 숨겨진거 나타나게하기 끝-->
 				<div class="inner">
+  			<div class="p_btn">
+  			PROFILE
+  			</div>
 				
 				<!-- <h1 class="h1">PROJECT</h1> -->
 					<header class="align-center">
@@ -150,7 +175,7 @@
 					<br>
 					<h1 class="h1">SKILL</h1>
 					<!-- <img src="resources/Image/skill1.png" width=50 class="skill"> -->
-					<table class="skill_table">
+					<table class="skill_table skill_stack">
 						<tr>
 							<td rowspan="3" width="30%">
 							<img src="resources/Image/front.png" class="skill_img_m">
@@ -169,28 +194,28 @@
 						</tr>
 					</table>
 					<br>
-					<table class="skill_table">
+					<table class="skill_table skill_stack">
 					<tr>
 							<td rowspan="3" width="30%">
 							<img src="resources/Image/back.png" class="skill_img_m">
 							<p class="h1">Backend</p>
 							</td>
-							<td><img src="resources/Image/java.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/java.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/jsp.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
 						</tr>
 						<tr>	
-							<td><img src="resources/Image/jsp.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/php.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/jsp.png"class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/php.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
 						</tr>
 						<tr>
-							<td><img src="resources/Image/git.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" width=50 ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/git.png"class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<td><img src="resources/Image/jsp.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
 						</tr>
 					</table>
 					
-					<h1 style="font-size: 15pt">기술 스택소개</h1>
-					<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-					<p>At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+					<h1 style="font-size: 15pt" id="adad">기술 스택소개</h1>
+					<p class="adad_content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
+					<p class="adad_content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
 					<br>
 					<br>
 					<hr>
@@ -242,7 +267,17 @@
 					  autoplay: true,
 					  autoplaySpeed:4000,
 					  pauseOnHover:true, 
-					  speed:3000 
+					  speed:3000 ,
+					  verticalSwiping: false,
+					  responsive : [ {
+				            breakpoint : 580,
+				            settings : {
+				            	slidesToShow: 1,
+								  slidesToScroll: 1,
+				         }
+				         } ]
+
+					  
 					});
 				
 				

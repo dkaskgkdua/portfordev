@@ -18,4 +18,13 @@ create table member_test3(
 );
 select * from dept;
 /*회원 점수 정렬로 다섯명 뽑아오기*/
-select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) where r < 6 order by r;
+select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) 
+natural join 
+where r < 6 order by r;
+
+select * from MEMBER;
+
+select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,nvl(REG_DATE,null) from 
+			(select rownum r, b.* from
+				( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b
+			 )m left outer join PORT_FEEDBACK p on p.MEMBER_ID=m.MEMBER_ID where r < 6 order by r
