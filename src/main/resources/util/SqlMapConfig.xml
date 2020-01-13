@@ -6,7 +6,10 @@
 		<setting name="jdbcTypeForNull" value="NULL"/>
 	</settings>
 	<typeAliases>
-		<typeAlias alias="member" type="com.portfordev.pro.domain.Member"/>
+		<typeAlias alias="Member" type="com.portfordev.pro.domain.Member"/>
+		<typeAlias alias="Board" type="com.portfordev.pro.domain.Board"/>
+		<typeAlias alias="Comment" type="com.portfordev.pro.domain.Comment"/>
+		<typeAlias alias="Board_file" type="com.portfordev.pro.domain.Board_file"/>
 		<typeAlias alias="MyBatisTestVO2" type="com.portfordev.pro.domain.MyBatisTestVO2"/>
 	</typeAliases>
 
@@ -14,5 +17,7 @@
 
 	<mappers>
 		<mapper resource="sql/member.xml"/>
+		<mapper resource="sql/board.xml"/>
+		<mapper resource="sql/comment.xml"/>
 	</mappers>
 </configuration>

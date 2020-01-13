@@ -14,10 +14,12 @@ import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
 public class MemberController {
@@ -53,10 +55,7 @@ public class MemberController {
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
-
 		int result = memberservice.isId(id, password);
-		System.out.println("결과는 " + result);
-
 		if (result == 1) {
 			session.setAttribute("id", id);
 			Cookie savecookie = new Cookie("saveid", id);
@@ -87,6 +86,24 @@ public class MemberController {
 		}
 	}
 	
+	@ResponseBody
+	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
+	public int VerifyRecaptcha(HttpServletRequest request) {
+	    VerifyRecaptcha.setSecretKey("6LfgOM4UAAAAAAlpZXseeiF3zzHxqVUi_WEq3w-_");
+	    String gRecaptchaResponse = request.getParameter("recaptcha");
+	    System.out.println(gRecaptchaResponse);
+	    //0 = 성공, 1 = 실패, -1 = 오류
+	    try {
+	       if(VerifyRecaptcha.verify(gRecaptchaResponse))
+	          return 0;
+	       else return 1;
+	    } catch (Exception e) {
+	        e.printStackTrace();
+	        return -1;
+	    }
+	}
+
+	
 	@RequestMapping(value = "/logout", method = RequestMethod.GET)
 	public String logout(HttpServletResponse response, HttpSession session) throws Exception {
 		session.invalidate();
@@ -100,17 +117,24 @@ public class MemberController {
 		return null;
 	}
 
-	@RequestMapping(value = "/joinProcess", method = RequestMethod.GET)
-	public void joinProcess(Member member, HttpServletResponse response) throws Exception {
+	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST)
+	public void joinProcess(Member member, HttpServletResponse response,  HttpSession session,
+			@RequestParam(value="auth", defaultValue="") String auth) throws Exception {
 		int result = memberservice.insert(member);
 		
 		response.setContentType("text/html;charset=utf-8");
-
+		
 		PrintWriter out = response.getWriter();
 		out.println("<script>");
 		if (result == 1) {
-			out.println("alert('가입성공');");
-			out.println("location.href='login';");
+			if(auth.equals("auth")) {
+				session.setAttribute("id", member.getMEMBER_ID());
+				out.println("alert('"+member.getMEMBER_NAME()+"님 환영합니다.');");
+				out.println("location.href='pro';");
+			} else {
+				out.println("alert('가입성공');");
+				out.println("location.href='login';");
+			}
 		} else if (result == -1) {
 			out.println("alert('아이디 중복');");
 			out.println("history.go(-1);");

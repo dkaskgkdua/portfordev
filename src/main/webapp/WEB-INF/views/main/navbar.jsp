@@ -24,14 +24,23 @@
 </script>
 <style>
 #account_modal {
-	display : flex;
 	width : 200px;
 	justify-content : flex_end;
 }
 
-
+@media screen and (min-width:992px){
+.nav-wrap{width: 100%;height: 61px;}
+}
+@media screen and (max-width: 991px){
+.navbar-toggler{height : 40px;}
+.nav-wrap{width: 100%;height: 59px;}
+}
+@media screen and (max-width: 481px){
+.nav-wrap{width: 100%;height: 99px;}
+}
 
 </style>
+<div class="nav-wrap">
 <nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
 	<a class="navbar-brand" href="/pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
@@ -50,18 +59,18 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">자유게시판</a>
-					<a class="dropdown-item" href="#">스터디(Q&A)</a>
+					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=1">스터디(Q&A)</a>
 				</div>
 			</li>
 		</ul>
-		<form class="form-inline my-2 my-lg-0">
+		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
 			<input class="form-control mr-sm-2" type="search"
 				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>
-					<c:when test="${power=='2'}">
+					<c:when test="${power=='1'}">
 						<button id="admin_button" type="button">
 							<img src="resources/Image/icon/person.svg" alt="admin" width="32" height="32">
 						</button>
@@ -80,6 +89,7 @@
 		</form>
 	</div>
 </nav>
+</div>
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog" role="document">
     <div class="modal-content">

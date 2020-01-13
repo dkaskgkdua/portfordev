@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Boards">
+	<select id="count" parameterType="java.util.Map" resultType="int">
+		select count(*) from board where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+	</select>
+	<select id="countOR" parameterType="java.util.Map" resultType="int">
+		select count(*) from board where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+		or #{field2} like %#{text}%  
+	</select>
+	<select id="list" parameterType="java.util.Map" resultType="Board">
+		select * from (select rownum rnum, b.* 
+                   from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
+                           (select * from 
+                              (select board_id, count(*) BOARD_RECO from board inner join BOARD_RECOMMEND using(board_id) group by board_id) 
+                             inner join 
+                              (select board_id, count(*) BOARD_COMMENT from board inner join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
+                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+                             order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
+                        ) b
+                      ) where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	<select id="listOR" parameterType="java.util.Map" resultType="Board">
+		select * from (select rownum rnum, b.* 
+                   from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
+                           (select * from 
+                              (select board_id, count(*) BOARD_RECO from board inner join BOARD_RECOMMEND using(board_id) group by board_id) 
+                             inner join 
+                              (select board_id, count(*) BOARD_COMMENT from board inner join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
+                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+                             or ${field2} like '%'||#{text}||'%' order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
+                        ) b
+                      ) where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	<insert id="insert" parameterType="Board">
+		insert into BOARD values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, BOARD_SEQ.NEXTVAL, 0, 0, 0, SYSDATE)
+	</insert>
+	<insert id="insert_file" parameterType="Board_file">
+		insert into BOARD_FILE values(BOARD_FILE_SEQ.NEXTVAL, #{BOARD_ID}, #{BOARD_FILE}, #{BOARD_FILE_ORIGINAL})
+	</insert>
+	<select id ="select_max_id" resultType="int">
+		select nvl(max(BOARD_ID),0)+1 from BOARD
+	</select>
+</mapper>
