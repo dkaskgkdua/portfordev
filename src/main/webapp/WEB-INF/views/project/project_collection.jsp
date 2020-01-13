@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 	<head>
@@ -11,7 +12,7 @@
 	</head>
 	<body>
 		<div class="clearfix">
-			<div class="sort-list" style="margin-top: 0px;">
+			<div class="sort-list" style="margin-top: 100px;">
       			<div class="category-list">
 					<div class="category-list-item">전체분야</div>
 				</div>

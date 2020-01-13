@@ -55,6 +55,21 @@ tbody{
 .sort-list .select{
 	margin-right:10px;
 }
+
+.sort-list .select>button {
+    padding: 22px 20px;
+    font-weight: bold;
+    color: #f85272;
+    font-size: 13px;
+    background: #fff;
+    border: 0;
+}
+
+.bootstrap-select.btn-group .btn .filter-option {
+    left: 20px;
+}
+
+
 .category-list{
 	float:left;
 	font-size: 13px;
