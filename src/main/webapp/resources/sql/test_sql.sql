@@ -27,7 +27,7 @@ insert into board_comment values(board_comment_seq.nextval, 1, '1174216237991095
 insert into BOARD_RECOMMEND values(BOARD_RECO_ID.nextval, '117421623799109543474', 1, sysdate);
 select * from board;
 select * from board_recommend;
-
+select * from board_file;
 select * from (select rownum rnum, b.* from 
 					(select * from board inner join BOARD_COMMENT using(board_id) 
 					 group by board_id where category = '0' order by BOARD_RE_REF desc,BOARD_RE_SEQ asc) 

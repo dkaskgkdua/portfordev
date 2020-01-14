@@ -1,11 +1,14 @@
 package com.portfordev.pro.controller;
 
 import java.io.File;
+import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -15,8 +18,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
@@ -200,12 +203,35 @@ public class board_controller {
 		return "redirect:board_list";
 
 	}
+	@ResponseBody
+	@PostMapping("/summer_image")
+	public void summer_image(MultipartFile file, HttpServletRequest request,
+			HttpServletResponse response) throws Exception {
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		String file_name = file.getOriginalFilename();
+		String server_file_name = fileDBName(file_name, save_folder);
+		System.out.println("server file : " + server_file_name);
+		file.transferTo(new File(save_folder + server_file_name));
+		out.println("resources/upload"+server_file_name);
+		out.close();
+	}
+	
 
 	// 글쓰기
 	@GetMapping(value = "/board_write") // RequestMapping(value="/BoardWrite.bo", method=RequestMethod.GET)
 	public ModelAndView board_write(
 			@RequestParam(value = "BOARD_CATEGORY", defaultValue = "0", required = false) int BOARD_CATEGORY,
-			ModelAndView mv) throws Exception {
+			 HttpSession session,	HttpServletResponse response, ModelAndView mv) throws Exception {
+		if(session.getAttribute("id") == null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인을 해주세요.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+		}
 		mv.setViewName("board/board_add");
 		mv.addObject("BOARD_CATEGORY", BOARD_CATEGORY);
 		return mv;

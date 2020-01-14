@@ -1,11 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+	<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>   
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>자유게시판 작성</title>
 <jsp:include page="../main/navbar.jsp" />
+<script src="https://www.google.com/recaptcha/api.js"></script>
+<link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.js"></script>
+<script src="https://github.com/summernote/summernote/tree/master/lang/summernote-ko-KR.js"></script>
 <style>
 .container {
    padding-top: 55px;
@@ -29,15 +34,45 @@ img:hover {
 			$(".remove").css('display', 'inline-block');
 		}
 	};
+	function sendFile(file, el) {
+		var form_data = new FormData();
+		form_data.append('file', file);
+		$.ajax({
+			data: form_data,
+			type : "post",
+			url: 'summer_image',
+			cache :false,
+			contentType : false,
+			enctype : 'multipart/form-data',
+			processData : false,
+			success : function(img_name) {
+				$(el).summernote('editor.insertImage', img_name);
+			}
+		});
+	}
 	$(function() {
 		show();
-		if("${BOARD_CATEGORY}"=="0") {
-			$('#h3_category').text("자유게시판");
-		} else {
-			$('#h3_category').text("스터디(Q&A)");
-		}	
+		 $('#board_content').summernote({
+			 	placeholder: '최대 500자 작성 가능합니다.',
+		        height: 300,
+		        lang: 'ko-KR',
+		        callbacks: {
+		        	onImageUpload: function(files, editor, welEditable) {
+		        		for(var i = files.length -1; i>=0; i--) {
+		        			sendFile(files[i], this);
+		        		}
+		        	}
+		        }
+		 });
+		 if("${BOARD_CATEGORY}"=="0") {
+				$('#h3_category').text("자유게시판");
+			} else if("${BOARD_CATEGORY}"=="1"){
+				$('#h3_category').text("스터디");
+			} else {
+				$('#h3_category').text("Q&A");
+			}	
 		
-		$("form").submit(function() {
+		$("#add_board_button").click(function() {
 				if ($.trim($("#board_pass").val()) == "") {
 					alert("비밀번호를 입력하세요");
 					$("#board_pass").focus();
@@ -55,6 +90,29 @@ img:hover {
 					$("#board_content").focus();
 					return false;
 				}
+				$.ajax({
+		            url: '/pro/VerifyRecaptcha',
+		            type: 'post',
+		            data: {
+		                recaptcha: $("#g-recaptcha-response").val()
+		            },
+		            success: function(data) {
+		                switch (data) {
+		                    case 0:
+		                        console.log("자동 생성 방지 봇 통과");
+		                        $('#board_form').submit();
+		                		break;
+		                    case 1:
+		                        alert("자동 생성 방지 봇을 확인 한뒤 진행 해 주세요.");
+		                        break;
+		                    default:
+		                        alert("자동 생성 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+		                   		break;
+		                }
+		            }, error: function() {
+		            	console.log('captcha 에러');
+		            }
+		        });
 					
 		});
 		$('#upfile').change(function() {
@@ -90,7 +148,7 @@ img:hover {
 
 
 	<div class="container">
-		<form action="board_add_action" method="post"
+		<form id="board_form"action="board_add_action" method="post"
 			enctype="multipart/form-data" name="boardform">
 			<h3 id="h3_category">자유게시판 글쓰기</h3>
 			<input type="hidden" name="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
@@ -115,8 +173,7 @@ img:hover {
 
 			<div class="form-group">
 				<label for="board_content">내용</label>
-				<textarea name="BOARD_CONTENT" id="board_content" cols="67"
-					rows="10" class="form-control" maxlength ="500" placeholder="내용을 입력해주세요.(최대 500자)"></textarea>
+				<textarea name="BOARD_CONTENT" id="board_content"></textarea>
 			</div>
 
 			<div class="form-group">
@@ -128,9 +185,12 @@ img:hover {
 				<span id="filevalue"></span>
 				<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove">
 			</div>
-			
 			<div class="form-group">
-				<button type="submit" class="btn btn-primary">등록</button>
+				<div class="g-recaptcha" data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld>
+				</div>
+			</div>
+			<div class="form-group">
+				<button id="add_board_button"type="button" class="btn btn-primary">등록</button>
 				<button type="button" class="btn btn-secondary" onClick='history.back(); return false;'>취소</button>
 			</div>
 

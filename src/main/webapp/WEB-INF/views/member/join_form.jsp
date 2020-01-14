@@ -142,6 +142,7 @@
 </style>
 </head>
 <body>
+	
 	<div class="container">
 		<form action="joinProcess" id="add_member_form" method="post">
 			<fieldset>
@@ -183,7 +184,7 @@
 						data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld></div>
 				</div>
 				<div class="form-group">
-					<button id="join_button" type="button">회원가입</button>
+					<button id="join_button" class = "btn btn-secondary" type="button">회원가입</button>
 				</div>
 			</fieldset>
 		</form>

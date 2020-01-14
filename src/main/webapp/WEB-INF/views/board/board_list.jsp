@@ -11,8 +11,10 @@
 	$(function() {
 		if("${BOARD_CATEGORY}"=="0") {
 			$('#h3_category').text("자유게시판");
+		} else if("${BOARD_CATEGORY}"=="1"){
+			$('#h3_category').text("스터디");
 		} else {
-			$('#h3_category').text("스터디(Q&A)");
+			$('#h3_category').text("Q&A");
 		}	
 	});
 </script>
