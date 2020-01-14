@@ -1,9 +1,7 @@
 package com.portfordev.pro.service;
 
 import java.io.File;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.Calendar;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -16,6 +14,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.portfordev.pro.dao.board_dao;
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Board_file;
+import com.portfordev.pro.domain.Board_recommend;
 @Service
 public class board_service_impl implements board_service{
 	@Autowired
@@ -124,21 +123,30 @@ public class board_service_impl implements board_service{
 	
 	@Override
 	public int setReadCountUpdate(int num) {
-		return dao.setReadCountUpdate(num);
+		return dao.set_readcount_update(num);
 	}
 	
 	@Override
 	public Board getDetail(int num) {
 		if(setReadCountUpdate(num)!=1)
 			return null;
-		return dao.getDetail(num);
+		return dao.get_board(num);
 	}
+	@Override
+	public List<Board_recommend> get_reco_list(int board_id) {
+		return dao.get_reco_list(board_id);
+	}
+	
+	@Override
+	public List<Board_file> get_file_list(int board_id) {
+		return dao.get_file_list(board_id);
+	}
+	
 	
 	@Override
 	@Transactional
 	public int boardReply(Board board) {
 		boardReplyUpdate(board);
-		double e= 1/0;
 		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
 		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
 		return dao.boardReply(board);
@@ -150,7 +158,7 @@ public class board_service_impl implements board_service{
 	@Override
 	public int boardDelete(int num) {
 		int result =0;
-		Board board = dao.getDetail(num);
+		Board board = dao.get_board(num);
 		if(board != null) {
 			result = dao.boardDelete(board);
 		}

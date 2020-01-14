@@ -102,7 +102,7 @@
 										<!-- 원문인 경우 -->
 						 				&nbsp;
 						 			</c:if>
-									<a href="BoardDetailAction.bo?num=${b.BOARD_ID}">
+									<a href="board_view_action?board_id=${b.BOARD_ID}">
 										${b.BOARD_SUBJECT}&nbsp;<span class="board_comment">&#91;${b.BOARD_COMMENT}&#93;</span>
 									</a>
 								</div>

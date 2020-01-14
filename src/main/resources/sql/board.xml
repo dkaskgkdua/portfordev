@@ -42,4 +42,18 @@
 	<select id ="select_max_id" resultType="int">
 		select nvl(max(BOARD_ID),0)+1 from BOARD
 	</select>
+	<update id = "readcount_update" parameterType="int">
+		update BOARD
+		set BOARD_READCOUNT = BOARD_READCOUNT+1
+		where BOARD_ID = #{number}
+	</update>
+	<select id="get_board" parameterType="int" resultType="board">
+		select * from BOARD where BOARD_ID = #{number}
+	</select>
+	<select id="get_reco_list" parameterType="int" resultType="Board_recommend">
+		select * from BOARD_RECOMMEND where BOARD_ID = #{id}
+	</select>
+	<select id="get_file_list" parameterType="int" resultType="Board_file">
+		select * from BOARD_FILE where BOARD_ID = #{id}
+	</select>
 </mapper>

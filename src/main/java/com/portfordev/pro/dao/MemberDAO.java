@@ -30,4 +30,8 @@ public class MemberDAO {
 	public String get_name(String id) {
 		return sqlSession.selectOne("Members.get_name", id);
 	}
+	
+	public Member get_member(String id) {
+		return sqlSession.selectOne("Members.get_member", id);
+	}
 }

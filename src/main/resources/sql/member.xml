@@ -14,7 +14,11 @@
 		from MEMBER
 		where MEMBER_ID = #{inputid}
 	</select>
-	
+	<select id="get_member" parameterType="String" resultType="Member">
+		select MEMBER_ID, MEMBER_NAME, MEMBER_ACT
+		from MEMBER
+		where MEMBER_ID = #{inputid}
+	</select>
 	<insert id="insert" parameterType="Member">
 		insert into MEMBER values(#{MEMBER_ID}, #{MEMBER_PASSWORD}, #{MEMBER_NAME},
 		#{MEMBER_POWER}, #{MEMBER_POINT}, #{MEMBER_ACT})

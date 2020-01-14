@@ -43,4 +43,8 @@ public class MemberServiceImpl implements MemberService {
 	public String get_name(String id) {
 		return dao.get_name(id);
 	}
+	@Override
+	public Member get_member(String id) {
+		return dao.get_member(id);
+	}
 }

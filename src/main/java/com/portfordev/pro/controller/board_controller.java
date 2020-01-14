@@ -25,6 +25,10 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Board_file;
+import com.portfordev.pro.domain.Board_recommend;
+import com.portfordev.pro.domain.Comment;
+import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.comment_service;
 
@@ -35,6 +39,9 @@ public class board_controller {
 
 	@Autowired
 	private comment_service comment_service;
+	
+	@Autowired
+	private MemberService member_service;
 
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -160,25 +167,48 @@ public class board_controller {
 	  mv.addObject("message", "게시판 답변 작성페이지 가져오기 실패"); } else {
 	  mv.addObject("boarddata", board); mv.setViewName("board/qna_board_reply"); }
 	  return mv; }
-	  
+	   */
 	  // 상세보기
 	  
-	  @GetMapping("/BoardDetailAction.bo") public ModelAndView Detail(int num,
-	  ModelAndView mv, HttpServletRequest request) { Board board =
-	  board_service.getDetail(num); if (board == null) {
-	  System.out.println("상세 보기 실패"); mv.setViewName("error/error");
-	  mv.addObject("url", request.getRequestURL()); mv.addObject("message",
-	  "상세보기 실패입니다."); } else { System.out.println("상세보기 성공"); int count =
-	  commentService.getListCount(num); mv.setViewName("board/qna_board_view");
-	  mv.addObject("count", count); mv.addObject("boarddata", board); }
-	  
-	  return mv; }
-	 */
+	@GetMapping("/board_view_action") 
+	public ModelAndView Detail(int board_id, ModelAndView mv, HttpServletResponse response, 
+			HttpServletRequest request) throws Exception {
+		Board board = board_service.getDetail(board_id); 
+		if (board == null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('상세보기 실패');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+		} else { // 게시판정보, 회원 정보, 파일 리스트, 추천 리스트, 댓글 리스트
+			Member member = member_service.get_member(board.getMEMBER_ID());
+			List<Board_recommend> board_reco_list = board_service.get_reco_list(board_id);
+			System.out.println(board_reco_list);
+			List<Board_file> board_file_list = board_service.get_file_list(board_id);
+			System.out.println(board_file_list);
+			List<Comment> comment_list = comment_service.get_list(board_id); 
+			System.out.println(comment_list);
+			board.setMEMBER_NAME(member.getMEMBER_NAME());
+			board.setMEMBER_ACT(member.getMEMBER_ACT());
+			
+			
+			System.out.println("상세보기 성공"); 
+			
+			mv.setViewName("board/board_view");
+			mv.addObject("board_file_list", board_file_list);
+			mv.addObject("board_reco_list",board_reco_list);
+			mv.addObject("comment_list", comment_list); 
+			mv.addObject("board_data", board); 
+		}	
+		return mv; 
+	  }
+	
 
 	// 글쓰기
 	@PostMapping("/board_add_action")
-	public String board_add_action(Board board, RedirectAttributes redirect
-			) throws Exception {
+	public String board_add_action(Board board, RedirectAttributes redirect) throws Exception {
 		List<MultipartFile> uploadfile = board.getUploadfile();
 		int board_id = board_service.select_max_id();
 		System.out.println(board);

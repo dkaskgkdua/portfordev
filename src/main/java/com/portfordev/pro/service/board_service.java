@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Board_file;
+import com.portfordev.pro.domain.Board_recommend;
 
 public interface board_service {
 	// 글 목록
@@ -34,4 +35,8 @@ public interface board_service {
 		public void insert_file(Board_file board_file);
 		// 게시판 마지막번호
 		public int select_max_id();
+		// 게시판 추천 리스트
+		public List<Board_recommend> get_reco_list(int board_id);
+		// 게시판 첨부파일 리스트
+		public List<Board_file> get_file_list(int board_id);
 }
