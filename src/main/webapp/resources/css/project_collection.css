@@ -147,9 +147,8 @@ tbody{
 	margin-right:10px;
 }
 .sort-condition .btn:focus{
-	box-shadow:none!important;;
+	box-shadow:none!important;
 }
-
 
 /* 프로젝트 */
 .project-container{
@@ -242,23 +241,26 @@ tbody{
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
     transition: all 0.3s;
     border-bottom-right-radius: 1px;
+    height:360px;
 }
 .project-list .project-list-item:hover{
 	opacity:0.7;
 	transition:0.7s;
 	border-radius:5%;
 }
-@media screen and (max-width: 400px){
+@media screen and (max-width: 450px){
 	.project-list .project-list-item {
     	width: 100%;
     	margin: 9px auto;
+    	height:360px;
 	}
 }
-@media screen and (max-width: 768px) and (min-width: 400px){
+@media screen and (max-width: 768px) and (min-width: 450px){
 	.project-list .project-list-item {
     	width: 48%;
     	margin-right: 2%;
     	margin-bottom: 15px;
+    	height:360px;
 	}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){
@@ -270,16 +272,18 @@ tbody{
 }
 @media screen and (max-width: 1300px) and (min-width: 991px){
 	.project-list .project-list-item {
-   	 	width: 24.25%;
+   	 	width: 23.25%;
     	margin-right: 1%;
     	margin-bottom: 47px;
+    	height:360px;
 	}
 }
 @media screen and (min-width: 1300px){
 	.project-list .project-list-item{
-		width: 20%;
+		width: 18%;
     	margin-right: 2%;
     	margin-bottom: 47px;
+    	height:365px;
 	}
 }
 .project-list a{
@@ -309,7 +313,7 @@ tbody{
 }
 @media screen and (max-width: 768px){
 	.project-list-item .info {
-    	height: 125px;
+    	height: 112px;
 	}
 }
 @media screen and (max-width: 668px){
@@ -330,7 +334,7 @@ tbody{
     padding: 0;
     /* position: absolute; */
     width: 100%;
-    font-size: 14px;
+    font-size: 16px;
     font-weight: bold;
     text-overflow: ellipsis;
     overflow: hidden;
@@ -349,6 +353,7 @@ tbody{
     word-wrap: normal !important;
     display: block;
     z-index:99;
+    font-size:13px;
 }
 .user-profile:hover{
 	font-weight:bold;
@@ -420,4 +425,14 @@ img.icon-round{
 	background:white;
 	outline:none!important;
 	color:black;
+}
+#move_top_btn:hover{
+	cursor:pointer;
+}
+
+@media screen and (max-width: 480px){
+	#move_top_btn{
+    	width: 100%;
+    	bottom:5px;
+	}
 }
