@@ -4,14 +4,14 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PFD Project Collection</title>
+		<title>PFD Profile Collection</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="../main/navbar.jsp" />
-		<link rel="stylesheet" href="resources/css/project_collection.css" />
-		<script src="resources/js/project_collection.js"></script>
+		<link rel="stylesheet" href="resources/css/profile_collection.css" />
+		<script src="resources/js/profile_collection.js"></script>
 	</head>
-	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
+	<body>
 		<div class="clearfix">
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
@@ -54,10 +54,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="project-container">
-				<div class="project-list">
+			<div class="profile-container">
+				<div class="profile-list">
 					<c:forEach var="item" begin="0" end="20" step="1">
-					<div class="project-list-item">
+					<div class="profile-list-item">
 						<div class="img-wrapper">
 							<!-- <img src="resources/Image/sample.jpg"> -->
 						</div>
