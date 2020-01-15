@@ -18,25 +18,63 @@
 				font-weight:600!important;
 			}
 			#banner p{
-				font-weight:500!important;
+				font-weight:600!important;
 				font-size:1.5em;
 			}
 			h2+p{
 				font-size:1.5em!important;
-				font-weight:400;
+				font-weight:500;
 			}
 			h3{
 				font-weight:400!important;
 			}
+			#two .box:hover{
+				cursor:pointer;
+				border-radius:2%;
+				opacity:0.7;
+				transition:0.3s;
+			}
+			.best-port-filter{
+				font-weight:500;
+				font-size:2em!important;
+				text-align:center;
+				margin:0 30px;
+			}
+			.best-port-filter:hover{
+				opacity:0.7;
+				cursor:pointer;
+				transition:0.3s;
+			}
+			.filter-active{
+				font-weight:650;
+				color:#5385c1;
+			}
+			@media screen and (max-width:736px){
+				.best-port-filter{
+					margin:0 15px;
+				}
+			}
+			@media screen and (max-width:436px){
+				.best-port-filter{
+					font-size:1.5em!important;
+					margin:0 13px;
+				}
+			}
 			.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;}
-			.slide_in{height:400px;margin: 10px;background:#5385c1;}
+			.slide_in{height:283px;margin: 10px;background:#5385c1;}
+			.slide_in:hover{
+				cursor:pointer;
+				border-radius:2%;
+				transition:0.3s;
+				opacity:0.7;
+			}
 		</style>
 	</head>
-	<body>
+	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 		<!-- Banner -->
 		<section id="banner">
-			<h1>Portfolio for Developers</h1>
-			<p>개발자들을 위한 무료 포트폴리오 게시 웹사이트</p>
+			<h1>Portfolio for Developer</h1>
+			<p>개발자들을 위한 포트폴리오</p>
 		</section>
 
 		<!-- One -->
@@ -45,6 +83,11 @@
 				<header class="align-center">
 					<h2>Noteworthy Portfolios</h2>
 					<p>현재 주목받는 포트폴리오</p>
+					<p>
+						<span class="best-port-filter filter-active">Daily</span>
+						<span class="best-port-filter">Weekly</span>
+						<span class="best-port-filter">Monthly</span>
+					</p>
 				</header>
 				<header class="align-center">
 					<div class="slide">
@@ -56,24 +99,9 @@
 	  					<div class="slide_in">Best6</div>
 					</div>
 				</header>
-				<div class="flex flex-4">
-					<div class="box">
-						<h3>PFD's PICK</h3>
-						<p>하이라이트</p>
-					</div>
-					<div class="box">
-						<h3>Daily Best</h3>
-						<p>오늘의 베스트</p>
-					</div>
-					<div class="box">
-						<h3>Weekly Best</h3>
-						<p>이 주의 베스트</p>
-					</div>
-					<div class="box">
-						<h3>Monthly Best</h3>
-						<p>이 달의 베스트</p>
-					</div>
-				</div>
+				<footer>
+					<a href="portfolio/collection" class="button special">More</a>
+				</footer>
 			</div>
 		</section>
 
@@ -85,33 +113,33 @@
 					<p>PFD만이 가진 장점</p>
 				</header>
 				<div class="flex flex-4">
-					<div class="box">
+					<div class="box" onclick="javascript:location.href='#'">
 						<div class="image fit">
 							<img src="resources/Image/icon/portfolio.png" alt="Portfolio" />
 						</div>
 						<h3>Convenience</h3>
-						<p>쉽고 편리한 정보 입력으로 마치 개인 사이트를 호스팅한 것 같은 만족감</p>
+						<p>간편한 정보 입력으로 쉽게 만드는 포트폴리오</p>
 					</div>
-					<div class="box">
+					<div class="box" onclick="javascript:location.href='#'">
 						<div class="image fit">
 							<img src="resources/Image/icon/feedback.png" alt="Feedback" />
 						</div>
 						<h3>FeedBack</h3>
 						<p>선배 개발자들로 부터 얻는 전문적인 평가와 조언</p>
 					</div>
-					<div class="box">
+					<div class="box" onclick="javascript:location.href='#'">
 						<div class="image fit">
 							<img src="resources/Image/icon/community.png" alt="Community" />
 						</div>
 						<h3>Community</h3>
-						<p>자유롭게 의견을 나누는 소통의 창</p>
+						<p>자유롭게 의견을 나누며 소통하는 게시판</p>
 					</div>
-					<div class="box">
+					<div class="box" onclick="javascript:location.href='#'">
 						<div class="image fit">
 							<img src="resources/Image/icon/study.png" alt="Study" />
 						</div>
 						<h3>Study</h3>
-						<p>Project 팀원 Study 그룹 모집 용이</p>
+						<p>편리한 프로젝트 팀원, 스터디 그룹원 모집</p>
 					</div>
 				</div>
 			</div>
@@ -122,7 +150,7 @@
 			<div class="inner">
 				<header class="align-center">
 					<h2>Latest IT News</h2>
-					<p>최신 IT 기술 동향과 정보를 쉽게 접하세요</p>
+					<p>최신 IT 기술 동향과 정보</p>
 				</header>
 				<div class="flex flex-2">
 					<article>
@@ -158,7 +186,7 @@
 			<div class="inner">
 				<header>
 					<h2>PFD Developers</h2>
-					<p>PFD 개발자들의 포트폴리오를 만나보세요</p>
+					<p>PFD 개발자들의 포트폴리오</p>
 				</header>
 				<div class="flex flex-4">
 					<div class="box person">
@@ -236,6 +264,22 @@
 						  }
 					  ]
 					});
+				$('.best-port-filter').click(function(){
+					$('.best-port-filter').removeClass('filter-active');
+					$(this).addClass('filter-active');
+					if($(this).text() == 'Daily')
+					{
+						// alert('dd');
+					}
+					else if($(this).text() == 'Weekly')
+					{
+						// alert('ww');
+					}
+					else if($(this).text() == 'Monthly')
+					{
+						// alert('MM');
+					}
+				});
 			});
 		</script>
 	</body>
