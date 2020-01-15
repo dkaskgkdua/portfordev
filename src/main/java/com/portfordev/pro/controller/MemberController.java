@@ -56,8 +56,11 @@ public class MemberController {
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
 		int result = memberservice.isId(id, password);
+		
 		if (result == 1) {
+			String nickname = memberservice.get_name(id);
 			session.setAttribute("id", id);
+			session.setAttribute("nickname", nickname);
 			Cookie savecookie = new Cookie("saveid", id);
 			if(!remember.equals("")) {
 				savecookie.setMaxAge(60*60);
@@ -128,7 +131,9 @@ public class MemberController {
 		out.println("<script>");
 		if (result == 1) {
 			if(auth.equals("auth")) {
+				String nickname = memberservice.get_name(member.getMEMBER_ID());
 				session.setAttribute("id", member.getMEMBER_ID());
+				session.setAttribute("nickname", nickname);
 				out.println("alert('"+member.getMEMBER_NAME()+"님 환영합니다.');");
 				out.println("location.href='pro';");
 			} else {

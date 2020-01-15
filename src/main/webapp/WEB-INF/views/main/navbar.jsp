@@ -10,15 +10,16 @@
 <script src="resources/js/skel.min.js"></script>
 <script src="resources/js/util.js"></script>
 <script src="resources/js/main.js"></script>
-<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="resources/css/main.css?ver=1" />
 <script>
 	$(function() {
 		$('#login_button').click(function() {
-			location.href = 'login';
+			location.href = '/pro/login';
 		})
+		
 		$('#logout_button').click(function() {
-			location.href = 'logout';
+			location.href = '/pro/logout';
 		})
 	})
 </script>
@@ -27,28 +28,29 @@
 	width : 200px;
 	justify-content : flex_end;
 }
-
-@media screen and (min-width:992px){
-.nav-wrap{width: 100%;height: 61px;}
+.navbar-toggler {
+	width : 60px;
+	height : 40px;
 }
-@media screen and (max-width: 991px){
-.navbar-toggler{height : 40px;}
-.nav-wrap{width: 100%;height: 59px;}
+	.nav-wrap {
+		height : 60px !important;
+	}
+@media screen and (min-width: 576px){
+	.navbar {
+		height : 60px !important;
+	}
 }
-@media screen and (max-width: 481px){
-.nav-wrap{width: 100%;height: 99px;}
-}
-
 </style>
 <div class="nav-wrap">
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
-	<a class="navbar-brand" href="pro">PFD</a>
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
+	<a class="navbar-brand" href="/pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
 		aria-label="Toggle navigation">
 		<span class="navbar-toggler-icon"></span>
 	</button>
+
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
 			<li class="nav-item dropdown">
@@ -56,16 +58,17 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="profile">임시 프로필링크</a> 
+					<a class="dropdown-item" href="profile">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="#">자유게시판</a>
-					<a class="dropdown-item" href="#">스터디(Q&A)</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=2">Q&A</a>
 				</div>
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
 			<input class="form-control mr-sm-2" type="search"
-				placeholder="Search" aria-label="Search" name="search">
+				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>

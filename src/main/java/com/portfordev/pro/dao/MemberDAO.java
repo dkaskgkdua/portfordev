@@ -26,4 +26,12 @@ public class MemberDAO {
 	public int memberRegisterDept(HashMap<String, String> map) {
 		return sqlSession.insert("Members.registerDept", map);
 	}
+	
+	public String get_name(String id) {
+		return sqlSession.selectOne("Members.get_name", id);
+	}
+	
+	public Member get_member(String id) {
+		return sqlSession.selectOne("Members.get_member", id);
+	}
 }

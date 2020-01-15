@@ -112,9 +112,6 @@
   			<!-- 모바일일때 프로필 숨겨진거 나타나게하기 -->
   				<!-- 모바일일때 프로필 숨겨진거 나타나게하기 끝-->
 				<div class="inner">
-  			<div class="p_btn">
-  			PROFILE
-  			</div>
 				
 				<!-- <h1 class="h1">PROJECT</h1> -->
 					<header class="align-center">
