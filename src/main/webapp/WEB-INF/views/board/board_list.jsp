@@ -77,7 +77,7 @@
 				<!--  게시글이 없는 경우 -->
 				<c:if test="${list_count == 0 }">
 					<tr>
-						<td colspan="5" style="text-align: center">등록된 글이 없습니다.</td>
+						<td colspan="6" style="text-align: center">등록된 글이 없습니다.</td>
 					</tr>
 				</c:if>
 
@@ -102,14 +102,14 @@
 										<!-- 원문인 경우 -->
 						 				&nbsp;
 						 			</c:if>
-									<a href="board_view_action?board_id=${b.BOARD_ID}">
+									<a href="/pro/board_view_action?board_id=${b.BOARD_ID}">
 										${b.BOARD_SUBJECT}&nbsp;<span class="board_comment">&#91;${b.BOARD_COMMENT}&#93;</span>
 									</a>
 								</div>
 							</td>
 							<td>
 								<div>
-									<a href="${b.MEMBER_ID}">${b.MEMBER_NAME}
+									<a href="/pro/profile?id=${b.MEMBER_ID}">${b.MEMBER_NAME}
 										<span style ="font-size:10pt">
 											<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${b.MEMBER_ACT}
 										</span>

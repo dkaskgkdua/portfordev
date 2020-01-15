@@ -25,10 +25,25 @@ span {
 .container {
 	padding-top: 55px;
 }
+#content {
+	width:100%
+}
+.title {
+	font-size : 20pt;
+	font-weight : bold;
+}
 </style>
 <script>
 	$(function() {
-		$("#comment table").hide();
+		if("${board_data.BOARD_CATEGORY}"=="0") {
+			$('#h3_category').text("자유게시판");
+		} else if("${board_data.BOARD_CATEGORY}"=="1"){
+			$('#h3_category').text("스터디");
+		} else {
+			$('#h3_category').text("Q&A");
+		}
+		
+		
 		$("#write").click(function() {
 			buttonText = $("#write").text();
 			content = $("#content").val();
@@ -106,14 +121,6 @@ span {
 		$(".start").click(function() {
 			getList();
 		});
-		$("#content").on('input', function() {
-			length = $(this).val().length;
-			if (length > 50) {
-				length = 50;
-				content = content.substring(0, length);
-			}
-			$(".float-left").text(length + "/50");
-		});
 		// 수정버튼 클릭경우(댓글)
 		$("#comment").on('click', '.update', function() {
 			before = $(this).parent().prev().text(); 
@@ -143,79 +150,108 @@ span {
 <body>
 	<input type="hidden" id="loginid" value="${id}" name="loginid">
 	<div class="container">
-
+		<h3 id ="h3_category" class="float-left"></h3> 	
 		<table class="table table-bordered">
-			<tr>
-				<th colspan="2">자유게시판 - view 페이지</th>
-			</tr>
-			<tr>
-				<td><div>글쓴이</div></td>
-				<td><div>${board_data.MEMBER_NAME}</div></td>
-			</tr>
-			<tr>
-				<td><div>제목</div></td>
-				<td><div>${board_data.BOARD_SUBJECT}</div></td>
-			</tr>
-			<tr>
-				<td><div>내용</div></td>
-				<td><textarea class="form-control" rows="5" readOnly
-						style="width: 102%">${board_data.BOARD_CONTENT}</textarea></td>
-			</tr>
-
-			<tr>
-				<td><div>첨부파일</div></td>
-				<td><c:if test="${!empty boarddata.BOARD_FILE}">
-						<img src="resources/Image/down.png" width ="10px">
-						<a href="BoardFileDown.bo?filename=${boarddata.BOARD_FILE}&original=${boarddata.BOARD_ORIGINAL}">
-							${boarddata.BOARD_ORIGINAL}</a>
-					</c:if></td>
-			</tr>
-
-			<tr>
-				<td colspan="2" class="center">
-					<button class="btn btn-primary start">댓글</button> <span id="count">${count}</span>
-
-					<a href="BoardReplyView.bo?num=${boarddata.BOARD_NUM}">
-						<button class="btn btn-primary">답변</button>
-				</a> <c:if test="${boarddata.BOARD_NAME == id || id == 'admin'}">
-						<a href="BoardModifyView.bo?num=${boarddata.BOARD_NUM}">
-							<button class="btn btn-info">수정</button>
+			<thead>
+				<tr>
+					<td>
+						<a href="/pro/profile?id=${board_data.MEMBER_ID}">${board_data.MEMBER_NAME}
+							<span style ="font-size:10pt">
+								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
+							</span>
+							<br>
+							<span style="font-size:9pt">${board_data.BOARD_DATE}에 작성됨</span>
 						</a>
-
+					</td>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td>
+						<div class="title">
+							<c:if test="${board_data.BOARD_RE_LEV !=0}">
+								<c:forEach var="a" begin="0" end="${board_data.BOARD_RE_LEV}" step="1">
+									[re]
+								</c:forEach>
+							</c:if>
+							${board_data.BOARD_SUBJECT}
+						</div>
+						<hr>
+						<div>${board_data.BOARD_CONTENT}</div>
+					</td>
+				</tr>
+				<c:if test="${!empty board_file_list}">
+				<tr>
+					<td>
+						<div>첨부파일</div>
+						<div>
+						<c:forEach var="files" items="${board_file_list}">
+							<img src="resources/Image/down.png" width ="12px">
+							<a href="BoardFileDown.bo?filename=${files.BOARD_FILE_ID}&original=${files.BOARD_FILE_ORIGINAL}">
+								${files.BOARD_FILE_ORIGINAL}</a>
+							&#32;/&#32;
+						</c:forEach>
+						</div>
+					</td>
+				</tr>
+				</c:if>
+			<tr>
+				<td class="center">
+					<button style="background:transparent"><img src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
+					<button style="background:transparent"><img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}</button>
+					<button class="btn btn-primary">답변</button>
+					<c:if test="${board_data.MEMBER_ID == id}">
+						<a href="BoardModifyView.bo?num=${board_data.BOARD_ID}">
+							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px"></button>
+						</a>
 						<a href="#">
-							<button class="btn btn-danger" data-toggle="modal"
-								data-target="#myModal">삭제</button>
+							<button style="background:transparent" data-toggle="modal"
+								data-target="#myModal"><img src="resources/Image/icon/trash.svg" width ="25px"></button>
 						</a>
-						<%--앵커로 넘기는 방법
-				<a href ="BoardDelete.bo?num=${boarddata.BOARD_NUM}">
-					<button class= " btn btn-danger">삭제</button>
-				</a>
-				 --%>
 					</c:if> 
-					<a href="BoardList.bo">
+					<a href="/pro/board_list">
 						<button class="btn btn-primary">목록</button>
 					</a>
 				</td>
 			</tr>
+			</tbody>
 		</table>
 		<div id="comment">
-			<button class="btn btn-info float-left">총 50자까지 가능합니다.</button>
-			<button id="write" class="btn btn-info float-right">등록</button>
-			<textarea rows=3 class="form-control" name="content" id="content"
-				maxLength="50"></textarea>
 			<table class="table table_striped">
 				<thead>
 					<tr>
-						<td>아이디</td>
-						<td>내용</td>
-						<td>날짜</td>
+						<td>댓글 (${board_data.BOARD_COMMENT}개)</td>
 					</tr>
 				</thead>
 				<tbody>
+					<c:if test="${!empty comment_list}">
+					<c:forEach var="comments" items="${comment_list}">
+					<tr>
+						<td>
+							${comments.MEMBER_NAME}
+							<span style ="font-size:10pt">
+								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${comments.MEMBER_ACT}
+							</span>
+							<br>
+							${comments.BOARD_CO_DATE}
+							<hr>
+							${comments.BOARD_CO_CONTENT}
+						</td>
+					</tr>
+					</c:forEach>
+					</c:if>
+					<tr>
+						<td>
+							<span style="color:gray">총 80자까지 가능합니다.</span>
+							<textarea class="float-left" rows="2" name="content" id="content" maxLength="80"></textarea>
+							<button type="button" id="write" class="btn btn-info float-right">등록</button>
+						</td>
+					</tr>
 				</tbody>
 			</table>
-			<div id="message"></div>
 		</div>
+		
+		
 		<%-- delete 모달 --%>
 	<div class="modal" id="myModal">
 			<div class="modal-dialog">
@@ -226,10 +262,6 @@ span {
 					<div class="modal-body">
 						<form name="deleteForm" action="BoardDeleteAction.bo"
 							method="post">
-							<input type="hidden" name="num" value="${param.num}"
-								id="BOARD_RE_REF">
-							 <input type="hidden" name="BOARD_FILE" value="${boarddata.BOARD_FILE}">
-
 							<div class="form-group">
 								<label for="pwd">비밀번호</label> 
 								<input type="password"

@@ -30,7 +30,7 @@
 						return;
 					}
 					$.ajax({
-						url : "idcheck",
+						url : "/pro/idcheck",
 						data : {
 							"id" : id
 						},
@@ -144,7 +144,7 @@
 <body>
 	
 	<div class="container">
-		<form action="joinProcess" id="add_member_form" method="post">
+		<form action="/pro/joinProcess" id="add_member_form" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label for="add_member_id">아이디</label> <input type="text"

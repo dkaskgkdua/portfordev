@@ -19,7 +19,7 @@ create table member_test3(
 select * from dept;
 
 select * from MEMBER;
- 
+select * from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
 select * from board;
 
 insert into board values(3, '117421623799109543474', '0','1234', '제목','내용',1, 0, 0, 0, sysdate);

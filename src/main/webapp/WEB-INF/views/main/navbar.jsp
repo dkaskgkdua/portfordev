@@ -15,11 +15,11 @@
 <script>
 	$(function() {
 		$('#login_button').click(function() {
-			location.href = 'login';
+			location.href = '/pro/login';
 		})
 		
 		$('#logout_button').click(function() {
-			location.href = 'logout';
+			location.href = '/pro/logout';
 		})
 	})
 </script>
@@ -44,7 +44,7 @@
 </style>
 <div class="nav-wrap">
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
-	<a class="navbar-brand" href="pro">PFD</a>
+	<a class="navbar-brand" href="/pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"
 		aria-controls="navbarSupportedContent" aria-expanded="false"
@@ -61,9 +61,9 @@
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=0">자유게시판</a>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=1">스터디</a>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=2">Q&A</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=2">Q&A</a>
 				</div>
 			</li>
 		</ul>

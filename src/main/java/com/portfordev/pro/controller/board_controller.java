@@ -192,7 +192,9 @@ public class board_controller {
 			System.out.println(comment_list);
 			board.setMEMBER_NAME(member.getMEMBER_NAME());
 			board.setMEMBER_ACT(member.getMEMBER_ACT());
-			
+			 
+			board.setBOARD_COMMENT(""+((comment_list == null) ? 0:comment_list.size()));
+			board.setBOARD_RECO(board_reco_list == null ? 0:board_reco_list.size());
 			
 			System.out.println("상세보기 성공"); 
 			
@@ -227,8 +229,6 @@ public class board_controller {
 			board_file.setBOARD_ID(board_id);
 			board_service.insert_file(board_file);
 		}
-
-		
 		redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
 		return "redirect:board_list";
 

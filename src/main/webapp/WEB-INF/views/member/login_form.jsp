@@ -35,7 +35,7 @@
 			var name = profile.getName();
 			signOut();
 			$.ajax({
-				url : "idcheck",
+				url : "/pro/idcheck",
 				data : {"id":id},
 				success : function(rdata) {
 					$("#remember").prop("checked", false);
@@ -71,7 +71,7 @@
 			}
 		});
 		$(".join").click(function() {
-			location.href = "join";
+			location.href = "/pro/join";
 		});
 		if ("${saveid}" != "") {
 			$("#remember").attr('checked', 'checked');
@@ -98,7 +98,7 @@
 					url : '/v2/user/me',
 					success : function(res) {
 						$.ajax({
-							url : "idcheck",
+							url : "/pro/idcheck",
 							data : {"id" : res.id},
 							success : function(rdata) {
 								$("#remember").prop("checked", false);
@@ -168,7 +168,7 @@
 </head>
 <body>
 	<div class="container">
-		<form method="post" action="loginProcess.net" name="loginform"
+		<form method="post" action="/pro/loginProcess" name="loginform"
 			id="loginform">
 
 			<fieldset>

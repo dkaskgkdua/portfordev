@@ -154,7 +154,8 @@ img:hover {
 			<input type="hidden" name="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
 			<input type="hidden" name="MEMBER_ID" value="${id}">
 			<div class="form-group">
-				<label for="board_name">글쓴이</label> <input name="BOARD_NAME"
+				<label for="board_name">글쓴이</label> 
+				<input name="MEMBER_NAME"
 					id="board_name" value="${nickname}" readOnly type="text" size="10"
 					maxlength="30" class="form-control" placeholder="Enter board_name">
 			</div>

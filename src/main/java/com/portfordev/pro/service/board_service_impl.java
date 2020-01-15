@@ -177,6 +177,8 @@ public class board_service_impl implements board_service{
 	}
 	@Override
 	public void insert_board(Board board) {
+		board.setBOARD_SUBJECT(replaceParameter(board.getBOARD_SUBJECT()));
+		board.setBOARD_CONTENT(replaceParameter(board.getBOARD_CONTENT()));
 		dao.insert_board(board);
 	}
 	@Override
@@ -190,5 +192,17 @@ public class board_service_impl implements board_service{
 	@Override
 	public int select_max_id() {
 		return dao.select_max_id();
+	}
+	
+	private String replaceParameter(String param) {
+		String result = param;
+		if(param != null) {
+			result = result.replaceAll("<","&lt;");
+			result = result.replaceAll(">","&gt;");
+			result = result.replaceAll("$","&#36;");
+			result = result.replaceAll("(","&#40;");
+			result = result.replaceAll(")","&#41;");
+		}
+		return result;
 	}
 }
