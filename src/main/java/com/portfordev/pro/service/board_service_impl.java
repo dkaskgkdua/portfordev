@@ -178,7 +178,6 @@ public class board_service_impl implements board_service{
 	@Override
 	public void insert_board(Board board) {
 		board.setBOARD_SUBJECT(replaceParameter(board.getBOARD_SUBJECT()));
-		board.setBOARD_CONTENT(replaceParameter(board.getBOARD_CONTENT()));
 		dao.insert_board(board);
 	}
 	@Override
@@ -193,15 +192,25 @@ public class board_service_impl implements board_service{
 	public int select_max_id() {
 		return dao.select_max_id();
 	}
+	@Override
+	public int get_reco_count(int board_id) {
+		return dao.get_reco_count(board_id);
+	}
+	@Override
+	public void insert_reco(int board_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_id", board_id);
+		map.put("member_id",member_id);
+		dao.insert_reco(map);
+	}
 	
 	private String replaceParameter(String param) {
 		String result = param;
 		if(param != null) {
 			result = result.replaceAll("<","&lt;");
 			result = result.replaceAll(">","&gt;");
-			result = result.replaceAll("$","&#36;");
-			result = result.replaceAll("(","&#40;");
-			result = result.replaceAll(")","&#41;");
+			result = result.replaceAll("[(]","&#40;");
+			result = result.replaceAll("[)]","&#41;");
 		}
 		return result;
 	}

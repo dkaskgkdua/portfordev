@@ -56,4 +56,10 @@
 	<select id="get_file_list" parameterType="int" resultType="Board_file">
 		select * from BOARD_FILE where BOARD_ID = #{id}
 	</select>
+	<select id="get_reco_count" parameterType="int" resultType="int">
+		select count(*) from BOARD_RECOMMEND where BOARD_ID = #{board_id}
+	</select>
+	<insert id="insert_reco" parameterType="java.util.Map">
+		insert into BOARD_RECOMMEND values(BOARD_RECO_ID.NEXTVAL, #{member_id}, #{board_id}, SYSDATE)
+	</insert>
 </mapper>

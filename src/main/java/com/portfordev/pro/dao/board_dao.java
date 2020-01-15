@@ -53,6 +53,14 @@ public class board_dao {
 	public List<Board_file> get_file_list(int board_id) {
 		return sqlSession.selectList("Boards.get_file_list", board_id);
 	}
+	public int get_reco_count(int board_id) {
+		return sqlSession.selectOne("Boards.get_reco_count", board_id);
+	}
+	public void insert_reco(Map<String, Object> map) {
+		System.out.println(map);
+		System.out.println(sqlSession.insert("Boards.insert_reco", map));
+	}
+	
 	//미구현
 	public int boardReply(Board board) {
 		return sqlSession.insert("Boards.reply_insert", board);

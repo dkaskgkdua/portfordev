@@ -169,7 +169,15 @@ public class board_controller {
 	  return mv; }
 	   */
 	  // 상세보기
-	  
+	@ResponseBody
+	@PostMapping("/reco_add")
+	public int reco_add(@RequestParam("board_id") int board_id,
+			@RequestParam("member_id") String member_id, HttpServletResponse response) {
+		board_service.insert_reco(board_id, member_id);
+		int reco_count = board_service.get_reco_count(board_id);
+		return reco_count;
+	}
+	
 	@GetMapping("/board_view_action") 
 	public ModelAndView Detail(int board_id, ModelAndView mv, HttpServletResponse response, 
 			HttpServletRequest request) throws Exception {

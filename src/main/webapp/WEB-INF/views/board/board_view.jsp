@@ -34,7 +34,42 @@ span {
 }
 </style>
 <script>
+	function insert_reco(board_id, member_id) {
+		$.ajax({
+			type : "post",
+			url : '/pro/reco_add',
+			data : {
+				"board_id" : board_id,
+				"member_id" : member_id
+			},
+			success : function(rdata) {
+				$("#reco_button").empty();
+				var text = '<img id = "reco_img" src="resources/Image/icon/heart-fill.svg" width ="18px">';
+				$("#reco_button").append(text+rdata);
+			},
+			error : function() {
+				alert("추천에 실패했습니다.(관리자에게 문의하세요.)");
+			}
+		});
+	};
+	function delete_reco(board_id, member_id) {
+		$.ajax({
+			type : "post",
+			url : '/pro/reco_delete',
+			data : {
+				"board_id" : board_id,
+				"member_id" : member_id
+			},
+			success : function(rdata) {
+				
+			},
+			error : function() {
+				alert("추천 취소에 실패했습니다.(관리자에게 문의하세요.)");
+			}
+		});
+	};
 	$(function() {
+		// 제목(카테고리)
 		if("${board_data.BOARD_CATEGORY}"=="0") {
 			$('#h3_category').text("자유게시판");
 		} else if("${board_data.BOARD_CATEGORY}"=="1"){
@@ -42,6 +77,24 @@ span {
 		} else {
 			$('#h3_category').text("Q&A");
 		}
+		
+		
+		
+		<c:forEach var="recos" items="${board_reco_list}">
+			if("${recos.MEMBER_ID}" =="${id}") {
+				$("#reco_img").attr("src","resources/Image/icon/heart-fill.svg");
+			}
+		</c:forEach>
+		
+		$("#reco_button").click(function() {
+			// 추천아님 -> 추천
+			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
+				insert_reco("${board_data.BOARD_ID}", "${id}");
+			} else { // 추천 -> 추천아님
+				$("#reco_img").attr("src","resources/Image/icon/heart.svg");
+			}
+			
+		});
 		
 		
 		$("#write").click(function() {
@@ -196,8 +249,9 @@ span {
 				</tr>
 				</c:if>
 			<tr>
+				<!-- 버튼 모음 -->
 				<td class="center">
-					<button style="background:transparent"><img src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
+					<button id="reco_button"style="background:transparent"><img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
 					<button style="background:transparent"><img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}</button>
 					<button class="btn btn-primary">답변</button>
 					<c:if test="${board_data.MEMBER_ID == id}">

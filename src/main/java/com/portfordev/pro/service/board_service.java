@@ -39,4 +39,8 @@ public interface board_service {
 		public List<Board_recommend> get_reco_list(int board_id);
 		// 게시판 첨부파일 리스트
 		public List<Board_file> get_file_list(int board_id);
+		// 추천 카운트 반환
+		public int get_reco_count(int board_id);
+		// 추천 삽입
+		public void insert_reco(int board_id, String member_id);
 }
