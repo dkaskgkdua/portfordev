@@ -19,5 +19,6 @@ public class Portfolio
 	private String PORT_SITE;
 	private int PORT_SHOW;
 	private int PORT_FEED;
+	private Date PORT_REGIDATE;
 	private int PORT_READCOUNT;
 }

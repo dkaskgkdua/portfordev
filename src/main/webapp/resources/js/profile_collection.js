@@ -105,4 +105,7 @@ $(document).ready(function(){
 			return;
 		}
 	}
+	$('.profile-list-item').click(function(){
+		location.href='/pro/profile';
+	});
 });

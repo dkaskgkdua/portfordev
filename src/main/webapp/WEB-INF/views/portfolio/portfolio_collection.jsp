@@ -8,6 +8,7 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="../main/navbar.jsp" />
+		<jsp:include page="../portfolio/portfolio_detail.jsp" />
 		<link rel="stylesheet" href="../resources/css/portfolio_collection.css" />
 		<script src="../resources/js/portfolio_collection.js"></script>
 	</head>

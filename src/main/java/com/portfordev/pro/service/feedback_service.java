@@ -9,7 +9,7 @@ import com.portfordev.pro.domain.Feedback_recommend;
 import com.portfordev.pro.domain.Port_recommend;
 import com.portfordev.pro.domain.Port_scrap;
 
-public interface portfolio_service 
+public interface feedback_service 
 {
-	public List<Portfolio> getPortfolioList(int page, int limit);
+	
 }
