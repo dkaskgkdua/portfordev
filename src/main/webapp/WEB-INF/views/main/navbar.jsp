@@ -27,6 +27,17 @@
 	width : 200px;
 	justify-content : flex_end;
 }
+.navbar-toggler {
+	width : 60px;
+	height : 40px;
+}
+	.nav-wrap {
+		height : 60px !important;
+	}
+@media screen and (min-width: 576px){
+	.navbar {
+		height : 60px !important;
+	}
 
 @media screen and (min-width:992px){
 .nav-wrap{width: 100%;height: 61px;}
@@ -41,7 +52,7 @@
 
 </style>
 <div class="nav-wrap">
-<nav class="navbar navbar-expand-lg navbar-light bg-light fixed-top">
+<nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 	<a class="navbar-brand" href="/pro">PFD</a>
 	<button class="navbar-toggler" type="button" data-toggle="collapse"
 		data-target="#navbarSupportedContent"

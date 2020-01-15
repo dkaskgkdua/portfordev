@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Board_file;
+import com.portfordev.pro.domain.Board_recommend;
 
 @Repository
 public class board_dao {
@@ -30,30 +31,39 @@ public class board_dao {
 		}
 		
 	}
-	public int boardDelete(Board board) {
-		return sqlSession.delete("Boards.delete", board);
+	public int set_readcount_update(int num) {
+		return sqlSession.update("Boards.readcount_update", num);
 	}
 	
-	public int setReadCountUpdate(int num) {
-		return sqlSession.update("Boards.ReadCountUpdate", num);
+	public Board get_board(int num) {
+		return sqlSession.selectOne("Boards.get_board", num);
 	}
+	public void insert_board(Board board) {
+		sqlSession.insert("Boards.insert", board);
+	}
+	public void insert_file(Board_file board_file) {
+		sqlSession.insert("Boards.insert_file", board_file);
+	}
+	public int select_max_id() {
+		return sqlSession.selectOne("Boards.select_max_id");
+	}
+	public List<Board_recommend> get_reco_list(int board_id) {
+		return sqlSession.selectList("Boards.get_reco_list", board_id);
+	}
+	public List<Board_file> get_file_list(int board_id) {
+		return sqlSession.selectList("Boards.get_file_list", board_id);
+	}
+	//미구현
 	public int boardReply(Board board) {
 		return sqlSession.insert("Boards.reply_insert", board);
 	}
 	public int boardModify(Board modifyboard) {
 		return sqlSession.update("Boards.modify", modifyboard);
 	}
-	public Board getDetail(int num) {
-		return sqlSession.selectOne("Boards.Detail", num);
+	public int boardDelete(Board board) {
+		return sqlSession.delete("Boards.delete", board);
 	}
 	
-	public void insert_board(Board board) {
-		sqlSession.insert("Boards.insert", board);
-	}
-	
-	public void insert_file(Board_file board_file) {
-		sqlSession.insert("Boards.insert_file", board_file);
-	}
 	public int boardReplyUpdate(Board board) {
 		return sqlSession.update("Boards.reply_update", board);
 	}
@@ -68,7 +78,5 @@ public class board_dao {
 		sqlSession.delete("Boards.delete_delete_file");
 		return list;
 	}
-	public int select_max_id() {
-		return sqlSession.selectOne("Boards.select_max_id");
-	}
+	
 }

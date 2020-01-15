@@ -41,5 +41,12 @@ public class MemberServiceImpl implements MemberService {
 	public int memberRegisterDept(HashMap<String, String> map) {
 		return dao.memberRegisterDept(map);
 	}
-
+	@Override
+	public String get_name(String id) {
+		return dao.get_name(id);
+	}
+	@Override
+	public Member get_member(String id) {
+		return dao.get_member(id);
+	}
 }
