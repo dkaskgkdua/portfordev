@@ -45,3 +45,15 @@ select * from BOARD_FILE;
 select * from (select rownum rnum, b.* from (select * from (select * from board inner join MEMBER using(member_id)) inner join (select * from (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) inner join (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)) using(board_id) where BOARD_CATEGORY = '0' order by BOARD_RE_REF desc, BOARD_RE_SEQ asc) b) where rnum >=0 and rnum <= 10;
 select * from (select board_id, count(BOARD_RECO_ID) from board left outer join board_recommend using(board_id) group by board_id) inner join (select board_id, count(BOARD_CO_ID) from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)) using(board_id) where BOARD_CATEGORY = '0' order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
 select board_id, count(*) BOARD_RECO from board inner join BOARD_RECOMMEND using(board_id) group by board_id
+
+/*회원 점수 정렬로 다섯명 뽑아오기*/
+select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) 
+natural join 
+where r < 6 order by r;
+
+select * from MEMBER;
+
+select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,nvl(REG_DATE,null) from 
+			(select rownum r, b.* from
+				( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b
+			 )m left outer join PORT_FEEDBACK p on p.MEMBER_ID=m.MEMBER_ID where r < 6 order by r

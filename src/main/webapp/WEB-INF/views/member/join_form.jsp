@@ -12,7 +12,6 @@
 <title>PFD 회원가입</title>
 <script>
 	$(function() {
-
 		var idCheck = false;
 		$("#add_member_id").on(
 				'keyup',
@@ -22,7 +21,6 @@
 					var pattern = /^\w{4,15}$/;
 					//var pattern = /^\w+@\w*[.]\w{3}$/;
 					var id = $("#add_member_id").val();
-
 					if (!pattern.test(id)) {
 						$("#add_member_id_message").css('color', 'red').html(
 								"형식(4자~15자)에 맞춰주세요.");
@@ -51,7 +49,6 @@
 						}
 					});//ajax
 				}); // keyup
-
 		var rule_value = 0;
 		$("#account_rule_btn").click(function() {
 			rule_value += 50;
@@ -65,9 +62,7 @@
 			$(".progress-bar").text(rule_value + "%");
 			$("#info_rule_btn").off('click');
 		});
-
 		$("#join_button").click(function() {
-
 			if (rule_value != 100) {
 				alert("약관을 읽어주세요");
 				return false;
@@ -81,26 +76,22 @@
 				alert("ID 중복되었습니다.");
 				return false;
 			}
-
 			if ($('#add_member_password').val() == "") {
 				alert("비밀번호를 입력하세요");
 				$('#add_member_password').focus();
 				return false;
 			}
-
 			var password_pattern = /^\w{6,15}$/;
 			if (!password_pattern.test($('#add_member_password').val())) {
 				alert("비밀번호를 최소 6자리, 최대 15자리로 맞춰주세요.");
 				$('#add_member_password').focus();
 				return false;
 			}
-
 			if ($('#add_member_name').val() == "") {
 				alert("이름을 입력하세요");
 				$('#add_member_name').focus();
 				return false;
 			}
-
 			$.ajax({
 	            url: '/pro/VerifyRecaptcha',
 	            type: 'post',
@@ -125,7 +116,6 @@
 	            }
 	        });
 		});
-
 	});
 </script>
 <style>
@@ -135,7 +125,6 @@
 	padding: 20px;
 	margin-top: 80px;
 }
-
 #join_button {
 	width: 100%;
 }

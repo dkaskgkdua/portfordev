@@ -150,86 +150,86 @@ tbody{
 	box-shadow:none!important;
 }
 
-/* 프로젝트 */
-.project-container{
+/* 포트폴리오 */
+.portfolio-container{
 	margin:0 auto;
 	padding:0 15px;
 	margin-top:70px;
 	width:100%;
 }
 @media screen and (min-width: 1px){
-	.project-container{
+	.portfolio-container{
 		width:100%;
 		max-width:1500px;
 	}
 }
 @media screen and (min-width: 768px){
-	.project-container{
+	.portfolio-container{
 		width:750px;
 	}
 }
 @media screen and (min-width: 992px){
-	.project-container{
+	.portfolio-container{
 		width:970px;
 	}
 }
 @media screen and (min-width: 1200px){
-	.project-container{
+	.portfolio-container{
 		width:1170px;
 	}
 }
 @media screen and (min-width: 1500px){
-	.project-container{
+	.portfolio-container{
 		width:1500px;
 	}
 }
 @media screen and (max-width: 991px){
-	.project-container {
+	.portfolio-container {
 	    /*margin: 0 0%;*/
 	    float: none;
 	}	
 }
 
 @media screen and (max-width: 768px){
-	.project-container {
+	.portfolio-container {
 		padding: 0 7px;
 		border-left:0;
 	}
 }
 @media screen and (max-width: 568px){
-	.project-container{
+	.portfolio-container{
 		padding-top: 0;
 	}
 }
 
-.project-list{
+.portfolio-list{
 	box-sizing:border-box;
 	display:block;
 	-webkit-font-smoothing:antialiased;
 	padding: 0 30px;
 }
 @media screen and (max-width: 568px){
-	.project-list {
+	.portfolio-list {
     	padding: 0 7px;
 	}
 }
 @media screen and (max-width: 991px){
-	.project-list {
+	.portfolio-list {
 		padding: 0 15px;
 	}
 }
 @media screen and (max-width: 568px){
-	.project-list{
+	.portfolio-list{
     	padding-right: 7px;
     	padding-left: 7px;
 	}
 }
 @media screen and (max-width: 1440px){
-	.project-list {
+	.portfolio-list {
     	padding: 0 30px;
 	}
 }
-.project-list .project-list-item {
+.portfolio-list .portfolio-list-item {
     overflow: hidden;
     background: #f6f6f6;
     float: left;
@@ -243,20 +243,20 @@ tbody{
     border-bottom-right-radius: 1px;
     height:360px;
 }
-.project-list .project-list-item:hover{
+.portfolio-list .portfolio-list-item:hover{
 	opacity:0.7;
 	transition:0.7s;
 	border-radius:5%;
 }
 @media screen and (max-width: 450px){
-	.project-list .project-list-item {
+	.portfolio-list .portfolio-list-item {
     	width: 100%;
     	margin: 9px auto;
     	height:360px;
 	}
 }
 @media screen and (max-width: 768px) and (min-width: 450px){
-	.project-list .project-list-item {
+	.portfolio-list .portfolio-list-item {
     	width: 48%;
     	margin-right: 2%;
     	margin-bottom: 15px;
@@ -264,14 +264,14 @@ tbody{
 	}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){
-	.project-list .project-list-item {
+	.portfolio-list .portfolio-list-item {
     	width: 31%;
     	margin-right: 2%;
     	margin-bottom: 30px;
 	}
 }
 @media screen and (max-width: 1300px) and (min-width: 991px){
-	.project-list .project-list-item {
+	.portfolio-list .portfolio-list-item {
    	 	width: 23.25%;
     	margin-right: 1%;
     	margin-bottom: 47px;
@@ -279,23 +279,23 @@ tbody{
 	}
 }
 @media screen and (min-width: 1300px){
-	.project-list .project-list-item{
+	.portfolio-list .portfolio-list-item{
 		width: 18%;
     	margin-right: 2%;
     	margin-bottom: 47px;
     	height:365px;
 	}
 }
-.project-list a{
+.portfolio-list a{
 	color: #505050;
 	text-decoration:none;
 	background:transparent;
 }
-.project-list a:hover, .project-list a:active, .project-list a:visitied, .project-list a:focus{
+.portfolio-list a:hover, .portfolio-list a:active, .portfolio-list a:visitied, .portfolio-list a:focus{
 	text-decoration:none;
 }
 /* 프로젝트 썸네일 들어갈 자리*/
-.project-list-item .img-wrapper{
+.portfolio-list-item .img-wrapper{
 	width:100%;
 	height:200px;
 	background-size: cover;
@@ -307,22 +307,22 @@ tbody{
 	border-top:0.5em solid #5385c1;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
-.project-list-item .info {
+.portfolio-list-item .info {
     padding: 18px 13px;
     position: relative;
 }
 @media screen and (max-width: 768px){
-	.project-list-item .info {
+	.portfolio-list-item .info {
     	height: 112px;
 	}
 }
 @media screen and (max-width: 668px){
-	.project-list-item .info {
+	.portfolio-list-item .info {
     	height: 110px;
 	}
 }
 @media screen and (max-width: 425px){
-	.project-list-item .info {
+	.portfolio-list-item .info {
 	}
 }
 .info .info-detail{

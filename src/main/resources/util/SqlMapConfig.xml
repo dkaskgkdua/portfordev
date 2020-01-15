@@ -13,9 +13,6 @@
 		<typeAlias alias="Board_recommend" type="com.portfordev.pro.domain.Board_recommend"/>
 		<typeAlias alias="MyBatisTestVO2" type="com.portfordev.pro.domain.MyBatisTestVO2"/>
 	</typeAliases>
-
-		
-
 	<mappers>
 		<mapper resource="sql/member.xml"/>
 		<mapper resource="sql/board.xml"/>

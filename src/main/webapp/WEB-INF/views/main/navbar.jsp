@@ -7,11 +7,11 @@
 <script  src="http://code.jquery.com/jquery-latest.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
-<script src="resources/js/skel.min.js"></script>
-<script src="resources/js/util.js"></script>
-<script src="resources/js/main.js"></script>
+<script src="/pro/resources/js/skel.min.js"></script>
+<script src="/pro/resources/js/util.js"></script>
+<script src="/pro/resources/js/main.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
-<link rel="stylesheet" href="resources/css/main.css" />
+<link rel="stylesheet" href="/pro/resources/css/main.css" />
 <script>
 	$(function() {
 		$('#login_button').click(function() {
@@ -68,33 +68,34 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
+					<a class="dropdown-item" href="/pro/profile/collection">프로필</a> 
+					<a class="dropdown-item" href="/pro/portfolio/collection">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=0">자유게시판</a>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=1">스터디</a>
-					<a class="dropdown-item" href="board_list?BOARD_CATEGORY=2">Q&A</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
+					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=2">Q&amp;A</a>
 				</div>
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
 			<input class="form-control mr-sm-2" type="search"
-				placeholder="Search" aria-label="Search">
+				placeholder="Search" aria-label="Search" name="search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>
 					<c:when test="${power=='1'}">
 						<button id="admin_button" type="button">
-							<img src="resources/Image/icon/person.svg" alt="admin" width="32" height="32">
+							<img src="/pro/resources/Image/icon/person.svg" alt="admin" width="32" height="32">
 						</button>
 					</c:when>
 				</c:choose>
 				<button id="account_button" class = "btn" type="button" data-toggle="modal" data-target="#account_modal">
-					<img src="resources/Image/icon/person-fill.svg" alt="account" width="32" height="32">
+					<img src="/pro/resources/Image/icon/person-fill.svg" alt="account" width="32" height="32">
 				</button>
 			</c:if>
 			<c:if test="${empty id}">
 				<button id = "login_button" class="btn" type="button">
-					<img src="resources/Image/icon/person.svg" alt="login" width="32" height="32">
+					<img src="/pro/resources/Image/icon/person.svg" alt="login" width="32" height="32">
 				</button>
 			</c:if>
 			

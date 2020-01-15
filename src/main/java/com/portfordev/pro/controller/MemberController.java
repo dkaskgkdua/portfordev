@@ -56,7 +56,6 @@ public class MemberController {
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
 		int result = memberservice.isId(id, password);
-		
 		if (result == 1) {
 			String nickname = memberservice.get_name(id);
 			session.setAttribute("id", id);

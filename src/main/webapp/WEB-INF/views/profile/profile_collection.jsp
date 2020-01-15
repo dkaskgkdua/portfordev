@@ -8,8 +8,8 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="../main/navbar.jsp" />
-		<link rel="stylesheet" href="resources/css/profile_collection.css" />
-		<script src="resources/js/profile_collection.js"></script>
+		<link rel="stylesheet" href="../resources/css/profile_collection.css" />
+		<script src="/pro/resources/js/profile_collection.js"></script>
 	</head>
 	<body>
 		<div class="clearfix">
@@ -65,7 +65,7 @@
 							<div class="info-detail">
 								<div class="title">제목 들어갈 자리</div>
 								<div class="user-profile">
-									<img class="pic icon-round" src="resources/Image/sample2.jpg">
+									<img class="pic icon-round" src="/pro/resources/Image/sample2.jpg">
 									이름 들어갈 자리
 								</div>
 							</div>
@@ -75,15 +75,15 @@
 								<tbody>
 									<tr>
 										<td class="view-cnt">
-											<img class="view-icon" src="resources/Image/icon/view-gray.png">
+											<img class="view-icon" src="/pro/resources/Image/icon/view-gray.png">
 											1234
 										</td>
 										<td class="like-cnt">
-											<img class="like-icon" src="resources/Image/icon/like-gray.png">
+											<img class="like-icon" src="/pro/resources/Image/icon/like-gray.png">
 											55
 										</td>
 										<td class="comment-cnt">
-											<img class="comment-icon" src="resources/Image/icon/comment-gray.png">
+											<img class="comment-icon" src="/pro/resources/Image/icon/comment-gray.png">
 											22
 										</td>
 									</tr>

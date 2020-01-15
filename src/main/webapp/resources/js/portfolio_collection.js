@@ -72,12 +72,12 @@ $(document).ready(function(){
 	{
 		if(isEnd)return;
 		//$.ajax({});
-		var output = '<div class="project-list-item"><div class="img-wrapper">이미지 들어갈 자리</div>';
+		var output = '<div class="portfolio-list-item"><div class="img-wrapper">이미지 들어갈 자리</div>';
 			output +=		'<div class="info">';
 			output +=		'<div class="info-detail">';
 			output +=		'<div class="title">제목 들어갈 자리</div>';
 			output +=		'<div class="user-profile">';
-			output +=		'<img class="pic icon-round" src="resources/Image/sample.jpg">';
+			output +=		'<img class="pic icon-round" src="/pro/resources/Image/sample.jpg">';
 			output +=		'이름 들어갈 자리</div>';
 			output +=		'</div></div>';
 			output +=		'<div class="bottom">';
@@ -85,17 +85,17 @@ $(document).ready(function(){
 			output +=		'<tbody>';
 			output +=		'<tr>';
 			output +=		'<td class="view-cnt">';
-			output +=		'<img class="view-icon" src="resources/Image/icon/view-gray.png">';
+			output +=		'<img class="view-icon" src="/pro/resources/Image/icon/view-gray.png">';
 			output +=		'1234</td>';
 			output +=		'<td class="like-cnt">';
-			output +=		'<img class="like-icon" src="resources/Image/icon/like-gray.png">';
+			output +=		'<img class="like-icon" src="/pro/resources/Image/icon/like-gray.png">';
 			output +=		'55</td>';
 			output +=		'<td class="comment-cnt">';
-			output +=		'<img class="comment-icon" src="resources/Image/icon/comment-gray.png">';
+			output +=		'<img class="comment-icon" src="/pro/resources/Image/icon/comment-gray.png">';
 			output +=		startRow + '</td>';
 			output +=		'</tr></tbody></table></div></div>';
 		
-		$('.project-list').append(output);
+		$('.portfolio-list').append(output);
 			// .animate({'opacity':'0.5'}, 1000);
 		startRow++;
 		if(startRow>=endRow)

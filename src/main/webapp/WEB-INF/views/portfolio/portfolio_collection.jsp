@@ -4,12 +4,12 @@
 <!DOCTYPE html>
 <html>
 	<head>
-		<title>PFD Project Collection</title>
+		<title>PFD Portfolio Collection</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="../main/navbar.jsp" />
-		<link rel="stylesheet" href="resources/css/project_collection.css" />
-		<script src="resources/js/project_collection.js"></script>
+		<link rel="stylesheet" href="../resources/css/portfolio_collection.css" />
+		<script src="../resources/js/portfolio_collection.js"></script>
 	</head>
 	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 		<div class="clearfix">
@@ -54,10 +54,10 @@
 					</div>
 				</div>
 			</div>
-			<div class="project-container">
-				<div class="project-list">
+			<div class="portfolio-container">
+				<div class="portfolio-list">
 					<c:forEach var="item" begin="0" end="20" step="1">
-					<div class="project-list-item">
+					<div class="portfolio-list-item">
 						<div class="img-wrapper">
 							<!-- <img src="resources/Image/sample.jpg"> -->
 						</div>
@@ -65,7 +65,7 @@
 							<div class="info-detail">
 								<div class="title">제목 들어갈 자리</div>
 								<div class="user-profile">
-									<img class="pic icon-round" src="resources/Image/sample2.jpg">
+									<img class="pic icon-round" src="../resources/Image/sample2.jpg">
 									이름 들어갈 자리
 								</div>
 							</div>
@@ -75,15 +75,15 @@
 								<tbody>
 									<tr>
 										<td class="view-cnt">
-											<img class="view-icon" src="resources/Image/icon/view-gray.png">
+											<img class="view-icon" src="../resources/Image/icon/view-gray.png">
 											1234
 										</td>
 										<td class="like-cnt">
-											<img class="like-icon" src="resources/Image/icon/like-gray.png">
+											<img class="like-icon" src="../resources/Image/icon/like-gray.png">
 											55
 										</td>
 										<td class="comment-cnt">
-											<img class="comment-icon" src="resources/Image/icon/comment-gray.png">
+											<img class="comment-icon" src="../resources/Image/icon/comment-gray.png">
 											22
 										</td>
 									</tr>
