@@ -67,7 +67,7 @@ $(document).ready(function(){
 			$('html, body').animate({scrollTop : scrollTopHeight}, 100);
 		}
 	});
-	
+	// 다음 요소 ajax 통해 자동 호출
 	function loadNext()
 	{
 		if(isEnd)return;

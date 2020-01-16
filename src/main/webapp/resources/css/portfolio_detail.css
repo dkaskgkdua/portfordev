@@ -9,7 +9,14 @@
 .not-scroll{
 	overflow:hidden;
 }
-
+.never-show{
+	position:fixed;
+	width:0.1px;
+	height:0.1px;
+	right:-1;
+	bottom:-1;
+	display:none!important;
+}
 .exit-modal{
 	visibility:hidden;
 	position:fixed;
@@ -28,8 +35,8 @@
 .comment-show{
 	visibility:hidden;
 	position:fixed;
-	bottom:0;
-	right:0;
+	bottom:20px;
+	right:20px;
 	z-index:999;
 }
 .comment-show:hover{
@@ -147,36 +154,96 @@
 	border-radius:2%;
 	transition:0.3s;
 }
+/* 추천, 스크랩, 피드백 콘솔 */
+.drag-activity-menu{
+	position: fixed;
+    background: #5385c1;
+    bottom: 45px;
+    left: 3px;
+    width: 60px;
+    height: 60px;
+    padding:3px;
+    display:none;
+    z-index:200;
+    border:1px solid lightgrey;
+    border-left:0;
+    border-radius:0 50% 50% 0;
+}
+.drag-activity-menu:hover{
+	cursor:pointer;
+	opacity:0.7;
+	transition:0.3s;
+}
+.drag-activity-menu img{
+	width:100%;
+	height:auto:
+}
 .portfolio-detail-activity{
 	z-index:105;
 	position:absolute;
-	bottom:20px;
+	bottom:30px;
 	width:100%;
 	max-height:100px;
 	text-align:center;
 }
-/* 세로가 작을 경우 사이드로 이동 */
+/* 세로가 작을 경우 메뉴바 사이드로 이동 */
+@media screen and (min-height:990px){
+	.portfolio-detail-activity{
+		bottom:90px;
+	}
+}
 @media screen and (max-height:900px){
+	#portfolio-detail-wrap{
+		z-index:107;
+		bottom:45px;
+		height:auto;
+	}
+	#portfolio-feedback-wrap{
+		display:none!important;
+	}
+	.feed-show-btn{
+		display:inline-block!important;
+	}
+}
+@media screen and (min-height:740px){
+	.portfolio-detail-activity{
+		left:0!important;
+		right:0!important;
+	}
+}
+@media screen and (max-height:740px){
+	.drag-activity-menu{
+		display:block!important;
+	}
 	.portfolio-detail-activity{
 		height: auto;
 	    padding: 48px 0;
 	    max-height: 354px;
 	    background-color: #5385c1;
 	    position: fixed;
-	    left: 14px;
+	    left: -200px;
 	    width: 120px;
 	    bottom: 45px;
 	    text-align: center;
 	    border-radius: 25%;
 	    border:1px solid darkgrey;
 	    z-index:108;
-	}	
+	    display:none;
+	}
 	.portfolio-detail-activity .icon-tail-fit{
 		z-index:109;
 	}
-	#portfolio-detail-wrap{
-		z-index:107;
+	.feed-show-btn{
+		display:none!important;
 	}
+	.comment-show{
+		visibility:visible;
+	    bottom: 60px;
+	    right: 32%;
+	}
+}
+@media screen and (max-height:590px){
+	
 }
 .portfolio-detail-activity .icon-tail-fit{
 	display:inline-block;
@@ -220,7 +287,7 @@
 	width:100%;
     height:100%;
 }
-
+/* FEEDBACK SECTION */
 #portfolio-feedback-wrap{
 	position:absolute;
 	display:block;
@@ -228,7 +295,7 @@
 	bottom:45px;
 	padding:1%;
 	border:0;
-	height:26%;
+	height:25%;
 	width:65%;
 	background:#5385c1;
 	z-index:105;
@@ -239,17 +306,210 @@
 	background-color:lightgrey;
 	z-index:106;
 }
+/* FEEDBACK 작성 폼 */
+.feedback-write-container{
+	display:none;
+    background-color: white;
+    border-radius: 0 0 30% 0;
+}
+.feed-writer-profile{
+	margin-top:10px;
+	display:inline-block;
+	height:140px;
+	width: calc(30% - 20px);
+	text-align:center;
+	float:left;
+}
+.feed-writer-profile-img{
+	height:80px;
+	margin:10px;
+	clear:both;
+}
+.feed-writer-profile-nick{
+	height:20px;
+	display:inline-block;
+	font-weight:1000;
+	font-size:16px;
+}
+#FEED_CONTENT{
+	float: right;
+    height: 140px;
+    width: calc(70% - 20px);
+    margin-top: 10px;
+    margin-right: 10px;
+}
+#FEED_CONTENT:focus{
+	transition:0.4s;
+	background:white;
+}
+.portfolio-feedback-container button{
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.portfolio-feedback-container button:hover{
+	outline:none!important;
+	border-radius:2%;
+	opacity:0.7;
+	transition:0.3s;
+}
+/* FEEDBACK 헤더 */
+.portfolio-feedback-header{
+	position: absolute;
+    width: 100%;
+    height:50px;
+    background: whitesmoke;
+    top: 0;
+    left: 0;
+    padding: 0;
+}
+/* FEEDBACK 필터 */
+.portfolio-feedback-filter{
+	height:100%;
+	display:inline-block;
+	float:right;
+	text-align:right;
+}
+.portfolio-feedback-filter .select{
+	width:auto;
+	display:inline-block;
+	border-radius:25%;
+	text-align:center;
+	margin:0 10px;
+}
+.portfolio-feedback-filter .select:hover, .portfolio-feedback-filter .select:focus, .portfolio-feedback-filter .select:active{
+	cursor:pointer;
+	opacity:0.8;
+	color:white;
+	background:grey;
+	transition:0.4s;
+}
+.portfolio-feedback-filter #feedPick{
+	
+}
+.portfolio-feedback-filter #feedOrder{
+	
+}
+/* FEEDBACK 리스트 */
+.portfolio-feedback-list{
+	display:block;
+	overflow-x:hidden;
+	overflow-y:scroll;
+	width:100%;
+	height:100%;
+	background:white;
+	padding:20px 10px;
+}
+.portfolio-feedback-item{
+	width:100%;
+	height:100%;
+	margin:10px auto;
+	display:block;
+	border-top:1px solid lightgrey;
+	padding-top:10px;
+}
+/* 피드백 정보 */
+.feedback-info{
+	width:20%;
+	height:80%;
+	display:inline-block;
+	float:left;
+}
+/* 피드백 작성자 프로필 */
+.feedback-info .feedback-writer-profile{
+	width:80%;
+	height:100%;
+	display:inline-block;
+	text-align:center;
+}
+.feedback-info .feedback-writer-profile:hover{
+	cursor:pointer;
+	font-size:bold;
+	opacity:0.7;
+	transition:0.3s;
+}
+.feedback-writer-profile .feedback-writer-img{
+	max-height:80%;
+	border-radius:50%;
+}
+.feedback-writer-profile .feedback-writer-nick{
+	max-height:20%;
+	max-height:50px;
+	display:block;
+}
+.feedback-info .feedback-recommend-cnt{
+	display:inline-block;
+	text-align:center;
+	width:20%;
+	height:100%;
+	float:right;
+}
+.feedback-content{
+	width:75%;
+	height:80%;
+	float:right;
+	padding:10px;
+}
+.feedback-content .feedback-content-text{
+	width:100%;
+	height:100%;
+	overflow-y:scroll;
+	overflow-x:hidden;
+}
+.feedback-controller{
+	height:18%;
+	width:100%;
+	display:inline-block;
+	clear:both;
+}
+.feedback-controller .feedback-recommend{
+	height:100%;
+	text-align:center;
+	display:inline-block;
+	float:left;
+}
+.feedback-recommend .feed-recom-icon{
+	height:70%;
+	float:left;
+}
+.feedback-recommend .feed-recom-tail{
+	height:30%;
+	flaot:left;
+	display:inline-block;
+}
+.feedback-controller button{
+	margin:0 10px;
+	height:100%;
+	float:right;
+}
+.feedback-controller button:hover{
+	opacity:0.7;
+	transition:0.3s;
+	border-radius:3%;
+}
+.feedback-controller .feedback-update{
+	
+}
+.feedback-controller .feedback-delete{
+	
+}
 /* 작은 PC */
 @media screen and (max-width: 1200px){
-	.portfolio-info-container {
-    	
+	.detail-summary-regidate{
+		position:absolute;
+		top:-24px;
+		right:10px;
+	}
+	.feed-writer-profile-nick {
+		font-size:17px;
+	}
+}
+@media screen and (max-width: 1024px){
+	.feed-writer-profile-nick {
+		font-size:14px;
 	}
 }
 /* 태블릿 */
 @media screen and (max-width: 992px){
-	.portfolio-info-container {
-	
-	}
 	.detail-summary-subject{
 		margin:0;
 		margin-left:10px;
@@ -262,12 +522,14 @@
 	.summary-info img{
 		margin:0 5px;
 	}
-	.detail-summary-regidate{
-		display:none;
+}
+@media screen and (max-width: 880px){
+	.feed-writer-profile-nick {
+		font-size:12px;
 	}
 }
 /* 모바일 */
-@media screen and (max-width: 768px){
+@media screen and (max-width: 778px){
 	#portfolio-detail-wrap {
    	 	width: 100%;
    	 	height:calc(100% - 100px);
@@ -280,6 +542,11 @@
 	}
 	.comment-show{
 		visibility:visible;
+		bottom:20px!important;
+		right:20px!important;
+	}
+	.feed-show-btn{
+		display:none!important;
 	}
 	#portfolio-info-wrap{
 		visibility:hidden;
@@ -289,6 +556,10 @@
 	}
 	.summary-info img{
 		margin:0 10px;
+	}
+	.drag-activity-menu{
+	    bottom: 7px;
+	    left: 1%;	
 	}
 }
 /* 작은 모바일 */
@@ -325,5 +596,8 @@
 	}
 	.portfolio-detail-summary{
 		text-align:center;
+	}
+	.detail-summary-regidate{
+		top:47px;
 	}
 }

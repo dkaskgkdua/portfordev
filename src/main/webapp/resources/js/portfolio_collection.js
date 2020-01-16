@@ -14,7 +14,11 @@ $(document).ready(function(){
 		$('.category-list-item').removeClass('active-category');
 		$('#recomOnly').addClass('active-category');
 	});
-	
+	// 스크랩 클릭시
+	$('#scrapOnly').click(function(){
+		$('.category-list-item').removeClass('active-category');
+		$('#scrapOnly').addClass('active-category');
+	});
 	// dropdown toggle button 클릭 시
 	$('.dropdown-menu').children('button').click(function(){
 		// 선택한 메뉴로 버튼 텍스트 변경
@@ -33,7 +37,13 @@ $(document).ready(function(){
 	
 	// from 변경 시
 	
-
+	// .user-profile 클릭 시 profile 상세페이지로 이동
+	$('.user-profile').click(function(e){
+		e.stopPropagation();
+		location.href='/pro/profile';
+	})
+	
+	// Top 버튼 클릭 시 맨 위로 스크롤
 	// Scroll Top
 	$(window).scroll(function(){
 		if($(this).scrollTop() > 500)
@@ -67,7 +77,7 @@ $(document).ready(function(){
 			$('html, body').animate({scrollTop : scrollTopHeight}, 100);
 		}
 	});
-	
+	// 스크롤 내릴 시 자동으로 ajax 를 통해 다음 요소를 생성
 	function loadNext()
 	{
 		if(isEnd)return;

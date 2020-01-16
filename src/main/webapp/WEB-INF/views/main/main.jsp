@@ -87,6 +87,7 @@
 						<span class="best-port-filter filter-active">Daily</span>
 						<span class="best-port-filter">Weekly</span>
 						<span class="best-port-filter">Monthly</span>
+						<span class="best-port-filter" onclick="javascript:location.href='portfolio/collection'">ALL</span>
 					</p>
 				</header>
 				<header class="align-center">
@@ -99,9 +100,6 @@
 	  					<div class="slide_in">Best6</div>
 					</div>
 				</header>
-				<footer>
-					<a href="portfolio/collection" class="button special">More</a>
-				</footer>
 			</div>
 		</section>
 

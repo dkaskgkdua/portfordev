@@ -19,6 +19,7 @@
 					<div class="category-list-item active-category" id="cateAll">전체</div>
 					<div class="category-list-item" id="feedNeedOnly">피드백</div>
 					<div class="category-list-item" id="recomOnly">추천</div>
+					<div class="category-list-item" id="scrapOnly">스크랩</div>
 				</div>
 				<div class="sort-condition">
 					<div class="dropdown" style="display:inline-block;">
@@ -67,7 +68,8 @@
 								<div class="title">제목 들어갈 자리</div>
 								<div class="user-profile">
 									<img class="pic icon-round" src="../resources/Image/sample2.jpg">
-									이름 들어갈 자리
+									<input type="hidden" class="user-nick-hidden" value="손민준">
+									손민준
 								</div>
 							</div>
 						</div>
@@ -77,14 +79,17 @@
 									<tr>
 										<td class="view-cnt">
 											<img class="view-icon" src="../resources/Image/icon/view-gray.png">
+											<input type="hidden" class="view-cnt-hidden" value="1234">
 											1234
 										</td>
 										<td class="like-cnt">
 											<img class="like-icon" src="../resources/Image/icon/like-gray.png">
+											<input type="hidden" class="like-cnt-hidden" value="55">
 											55
 										</td>
 										<td class="comment-cnt">
 											<img class="comment-icon" src="../resources/Image/icon/comment-gray.png">
+											<input type="hidden" class="comment-cnt-hidden" value="55">
 											22
 										</td>
 									</tr>

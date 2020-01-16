@@ -15,10 +15,10 @@
 <script>
 	$(function() {
 		$('#login_button').click(function() {
-			location.href = 'login';
+			location.href = '/pro/login';
 		})
 		$('#logout_button').click(function() {
-			location.href = 'logout';
+			location.href = '/pro/logout';
 		})
 	})
 </script>
