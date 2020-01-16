@@ -57,14 +57,16 @@ public class board_dao {
 		return sqlSession.selectOne("Boards.get_reco_count", board_id);
 	}
 	public void insert_reco(Map<String, Object> map) {
-		System.out.println(map);
 		System.out.println(sqlSession.insert("Boards.insert_reco", map));
 	}
-	
-	//미구현
-	public int boardReply(Board board) {
-		return sqlSession.insert("Boards.reply_insert", board);
+	public void delete_reco(Map<String, Object> map) {
+		System.out.println(sqlSession.delete("Boards.delete_reco", map));
 	}
+	public int insert_board_reply(Board board) {
+		return sqlSession.insert("Boards.insert_board_reply", board);
+	}
+	//미구현
+	
 	public int boardModify(Board modifyboard) {
 		return sqlSession.update("Boards.modify", modifyboard);
 	}

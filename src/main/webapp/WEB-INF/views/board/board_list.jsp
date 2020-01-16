@@ -46,7 +46,7 @@
 <body>
 	<div class="container">
 		<h3 id ="h3_category" class="float-left"></h3> 
-		<a href ="board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
+		<a href ="/pro/board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
 			class="write btn btn-success float-right">글쓰기</a>
 			
 		<form id = "search_form">

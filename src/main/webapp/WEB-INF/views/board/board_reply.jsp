@@ -155,11 +155,14 @@ img:hover {
 
 
 	<div class="container">
-		<form id="board_form"action="/pro/board_add_action" method="post"
+		<form id="board_form"action="/pro/board_reply_action" method="post"
 			enctype="multipart/form-data" name="boardform">
-			<h3 id="h3_category">자유게시판 글쓰기</h3>
-			<input type="hidden" name="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
+			<h3 id="h3_category"></h3>
+			<input type="hidden" name="BOARD_CATEGORY" value="${board_data.BOARD_CATEGORY}">
 			<input type="hidden" name="MEMBER_ID" value="${id}">
+			<input type="hidden" name="BOARD_RE_REF" value="${board_data.BOARD_RE_REF}">
+			<input type="hidden" name="BOARD_RE_LEV" value="${board_data.BOARD_RE_LEV}">
+			<input type="hidden" name="BOARD_RE_SEQ" value="${board_data.BOARD_RE_SEQ}">
 			<div class="form-group">
 				<label for="board_name">글쓴이</label> 
 				<input name="MEMBER_NAME"

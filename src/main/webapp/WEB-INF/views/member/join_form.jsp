@@ -18,9 +18,7 @@
 				'keyup',
 				function() {
 					$("add_member_id_message").empty();
-					// \w => [A-Za-z0-9_]
 					var pattern = /^\w{4,15}$/;
-					//var pattern = /^\w+@\w*[.]\w{3}$/;
 					var id = $("#add_member_id").val();
 
 					if (!pattern.test(id)) {
@@ -88,7 +86,7 @@
 				return false;
 			}
 
-			var password_pattern = /^\w{6,15}$/;
+			var password_pattern = /^\^{6,15}$/;
 			if (!password_pattern.test($('#add_member_password').val())) {
 				alert("비밀번호를 최소 6자리, 최대 15자리로 맞춰주세요.");
 				$('#add_member_password').focus();

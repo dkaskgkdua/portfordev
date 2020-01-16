@@ -1,11 +1,15 @@
 package com.portfordev.pro.controller;
 
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.ServletContext;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -66,43 +70,7 @@ public class board_controller {
 	  out.println("location.href='BoardList.bo';"); out.println("</script>");
 	  out.close(); return null; }
 	  
-	  @GetMapping("BoardFileDown.bo") public void BoardFileDown(String filename,
-	  HttpServletRequest request, String original, HttpServletResponse response)
-	  throws Exception { String savePath = "resources/upload"; // 서블릿 실행 환경 정보를 담고
-	   있는 객체를 리턴 ServletContext context = request.getSession().getServletContext();
-	  String sDownloadPath = context.getRealPath(savePath); // 1. 직접 경로 설정 //
-	  String sFilePath = sDownloadpath + "\\" + fileName; // "\"를 추가하기 위해 "\\"를 사용
-	  //String sFilePath = sDownloadPath + "/" + filename;
 	  
-	  // 2. properties 활용 경로 설정 String sFilePath = save_folder +"/"+filename;
-	  System.out.println(sFilePath);
-	  
-	  byte b[] = new byte[4096]; // sFilePath에 있는 파일의 MimeType을 구해온다. String
-	  sMimeType = context.getMimeType(sFilePath); System.out.println("sMimeType>>>"
-	  + sMimeType);
-	  
-	  if(sMimeType == null) sMimeType = "application/octet-stream";
-	  
-	  response.setContentType(sMimeType); // - 이 부분이 한글 파일명이 깨지는 것을 방지해준다. String
-	  sEncoding = new String(original.getBytes("utf-8"), "ISO-8859-1");
-	  System.out.println(sEncoding);
-	  
-	  // Content-Disposition : attachment : 브라우저는 해당 Content를 처리하지 않고,
-	  response.setHeader("Content-Disposition", "attachment; filename= " +
-	  sEncoding);
-	  
-	  // 프로젝트 속성 - Project-facets에서 자바버전 1.8로 수정 try ( // 웹브라우저로의 출력 스트림을 생성한다.
-	  BufferedOutputStream out2 = new
-	  BufferedOutputStream(response.getOutputStream());
-	  
-	  // sFilePath로 지정한 팡리에 대한 입력 스트림을 생성한다. BufferedInputStream in = new
-	  BufferedInputStream(new FileInputStream(sFilePath));) { int numRead; //
-	  read(b, 0, b.length) : 바이트 배열 b의 0번 부터 b.length // 크기 만큼 읽어옵니다.
-	  while((numRead = in.read(b, 0, b.length)) != -1) {// 읽은 데이터가 // 바이트 배열 b의
-	  0번부터 numRead크기 만큼 브라우저로 출력 out2.write(b, 0, numRead); } } catch(Exception e)
-	  { e.printStackTrace(); }
-	  
-	  }
 	  
 	  @PostMapping("BoardModifyAction.bo") public ModelAndView
 	  BoardModifyAction(Board board, String before_file, ModelAndView mv,
@@ -153,31 +121,72 @@ public class board_controller {
 	  mv.addObject("boarddata", board); mv.setViewName("board/qna_board_modify"); }
 	  return mv; }
 	  
-	  @PostMapping("BoardReplyAction.bo") public ModelAndView
-	  BoardReplyAction(Board board, ModelAndView mv, HttpServletRequest request)
-	  throws Exception { int result = boardService.boardReply(board); if (result ==
-	  0) { mv.setViewName("error/error"); mv.addObject("url",
-	  request.getRequestURL()); mv.addObject("message", "게시판 답변글 가져오기 실패"); } else
-	  { mv.setViewName("redirect:BoardList.bo"); } return mv; }
+	 
 	  
-	  @GetMapping("BoardReplyView.bo") public ModelAndView BoardReplyView(int num,
-	  ModelAndView mv, HttpServletRequest request) { Board board =
-	  board_service.getDetail(num); if (board == null) {
-	  mv.setViewName("error/error"); mv.addObject("url", request.getRequestURL());
-	  mv.addObject("message", "게시판 답변 작성페이지 가져오기 실패"); } else {
-	  mv.addObject("boarddata", board); mv.setViewName("board/qna_board_reply"); }
-	  return mv; }
+	
 	   */
-	  // 상세보기
+	
+	
+	  
+	@GetMapping("board_file_down")
+	public void BoardFileDown(String filename, HttpServletRequest request, String original, HttpServletResponse response) throws Exception {
+		ServletContext context = request.getSession().getServletContext();
+				
+		String sFilePath = save_folder +"/"+filename;
+		System.out.println(sFilePath);
+		
+		byte b[] = new byte[4096];
+		// sFilePath에 있는 파일의 MimeType을 구해온다.
+		String sMimeType = context.getMimeType(sFilePath);
+		System.out.println("sMimeType>>>" + sMimeType);
+		
+		if(sMimeType == null)
+			sMimeType = "application/octet-stream";
+		
+		response.setContentType(sMimeType);
+		String sEncoding = new String(original.getBytes("utf-8"), "ISO-8859-1");
+		System.out.println(sEncoding);
+		
+		response.setHeader("Content-Disposition", "attachment; filename= " + sEncoding);
+		
+		
+		try (
+			BufferedOutputStream out2 = new BufferedOutputStream(response.getOutputStream());
+			BufferedInputStream in = new BufferedInputStream(new FileInputStream(sFilePath));) 
+		{
+			int numRead;
+			while((numRead = in.read(b, 0, b.length)) != -1) {// 읽은 데이터가 
+				out2.write(b, 0, numRead);
+			}
+		} catch(Exception e) {
+			e.printStackTrace();
+		}
+		
+	}
+	
+	
+	// 게시판 추천 시
 	@ResponseBody
 	@PostMapping("/reco_add")
 	public int reco_add(@RequestParam("board_id") int board_id,
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.insert_reco(board_id, member_id);
+		member_service.add_receive_act(member_id, board_id, 2);
+		int reco_count = board_service.get_reco_count(board_id);
+		return reco_count;
+	}
+	// 게시판 추천 취소 시
+	@ResponseBody
+	@PostMapping("/reco_delete")
+	public int reco_delete(@RequestParam("board_id") int board_id,
+			@RequestParam("member_id") String member_id, HttpServletResponse response) {
+		board_service.delete_reco(board_id, member_id);
+		member_service.add_receive_act(member_id, board_id, -2);
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
 	}
 	
+	// 게시판 상세 보기
 	@GetMapping("/board_view_action") 
 	public ModelAndView Detail(int board_id, ModelAndView mv, HttpServletResponse response, 
 			HttpServletRequest request) throws Exception {
@@ -221,8 +230,8 @@ public class board_controller {
 	public String board_add_action(Board board, RedirectAttributes redirect) throws Exception {
 		List<MultipartFile> uploadfile = board.getUploadfile();
 		int board_id = board_service.select_max_id();
-		System.out.println(board);
 		board.setBOARD_ID(board_id);
+		member_service.add_write_act(board.getMEMBER_ID(), 5);
 		board_service.insert_board(board); // 저장 메서드 호출
 		for (MultipartFile mf : uploadfile) {
 			if(mf.getSize() == 0) {
@@ -241,6 +250,34 @@ public class board_controller {
 		return "redirect:board_list";
 
 	}
+	// 답글쓰기
+	 @PostMapping("/board_reply_action") 
+	 public String BoardReplyAction(Board board, RedirectAttributes redirect)
+			 throws Exception { 
+		 List<MultipartFile> uploadfile = board.getUploadfile();
+		 int board_id = board_service.select_max_id();
+		 board.setBOARD_ID(board_id);
+		 member_service.add_write_act(board.getMEMBER_ID(), 5);
+		 board_service.insert_board_Reply(board); 
+		 
+		 for (MultipartFile mf : uploadfile) {
+				if(mf.getSize() == 0) {
+					break;
+				}
+				Board_file board_file = new Board_file();
+				String fileName = mf.getOriginalFilename(); // 원래 파일명
+				board_file.setBOARD_FILE_ORIGINAL(fileName); // 원래 파일명 저장
+				String fileDBName = fileDBName(fileName, save_folder);
+				mf.transferTo(new File(save_folder + fileDBName));
+				board_file.setBOARD_FILE(fileDBName);
+				board_file.setBOARD_ID(board_id);
+				board_service.insert_file(board_file);
+			}
+		 
+		 redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
+		 return "redirect:board_list";
+	 }
+	// 썸머노트 이미지 넣을 경우 서버에 저장
 	@ResponseBody
 	@PostMapping("/summer_image")
 	public void summer_image(MultipartFile file, HttpServletRequest request,
@@ -274,7 +311,26 @@ public class board_controller {
 		mv.addObject("BOARD_CATEGORY", BOARD_CATEGORY);
 		return mv;
 	}
-
+	@GetMapping("board_reply_view")
+	public ModelAndView BoardReplyView(int id, ModelAndView mv, HttpServletRequest request, HttpSession session, HttpServletResponse response) throws Exception{
+		if(session.getAttribute("id") == null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인을 해주세요.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+		}
+		Board board = board_service.getDetail(id); 
+		mv.addObject("board_data", board); 
+		mv.setViewName("board/board_reply"); 
+		
+		return mv; 
+	}
+	
+	
+	// 게시판 리스트
 	@RequestMapping(value = "/board_list", method = { RequestMethod.GET })
 	public ModelAndView boardList(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
 			@RequestParam(value = "search_select", defaultValue = "1", required = false) int search_select,

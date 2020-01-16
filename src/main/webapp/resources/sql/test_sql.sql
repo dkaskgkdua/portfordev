@@ -21,7 +21,7 @@ select * from dept;
 select * from MEMBER;
 select * from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
 select * from board;
-
+update (select * from MEMBER inner join BOARD using(MEMBER_ID) where board_id = 1) set MEMBER_ACT = MEMBER_ACT + 5;
 insert into board values(3, '117421623799109543474', '0','1234', '제목','내용',1, 0, 0, 0, sysdate);
 insert into board_comment values(board_comment_seq.nextval, 1, '117421623799109543474', '내용2', sysdate);
 insert into BOARD_RECOMMEND values(BOARD_RECO_ID.nextval, '117421623799109543474', 1, sysdate);

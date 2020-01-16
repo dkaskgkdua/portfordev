@@ -59,7 +59,7 @@
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="portfolio">포트폴리오</a> 
+					<a class="dropdown-item" href="profile">포트폴리오</a> 
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
@@ -68,7 +68,7 @@
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
-			<input class="form-control mr-sm-2" type="search"
+			<input class="form-control mr-sm-2 " type="search" name="search"
 				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">

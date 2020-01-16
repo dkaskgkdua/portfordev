@@ -1,13 +1,13 @@
 package com.portfordev.pro.dao;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.portfordev.pro.domain.Member;
-import com.portfordev.pro.domain.MyBatisTestVO2;
 
 @Repository
 public class MemberDAO {
@@ -33,5 +33,11 @@ public class MemberDAO {
 	
 	public Member get_member(String id) {
 		return sqlSession.selectOne("Members.get_member", id);
+	}
+	public void add_write_act(Map<String, Object> map) {
+		sqlSession.update("Members.add_write_act", map);
+	}
+	public void add_receive_act(Map<String, Object> map) {
+		sqlSession.update("Members.add_receive_act", map);
 	}
 }

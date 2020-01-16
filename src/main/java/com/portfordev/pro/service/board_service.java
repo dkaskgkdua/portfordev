@@ -14,7 +14,7 @@ public interface board_service {
 		// 글 내용
 		public Board getDetail(int num);
 		// 글 답변
-		public int boardReply(Board board);
+		public int insert_board_Reply(Board board);
 		// 글 수정
 		public int boardModify(Board modifyboard);
 		// 글 삭제
@@ -43,4 +43,6 @@ public interface board_service {
 		public int get_reco_count(int board_id);
 		// 추천 삽입
 		public void insert_reco(int board_id, String member_id);
+		// 추천 삭제
+		public void delete_reco(int board_id, String member_id);
 }

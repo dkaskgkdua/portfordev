@@ -62,4 +62,18 @@
 	<insert id="insert_reco" parameterType="java.util.Map">
 		insert into BOARD_RECOMMEND values(BOARD_RECO_ID.NEXTVAL, #{member_id}, #{board_id}, SYSDATE)
 	</insert>
+	<delete id = "delete_reco" parameterType="Map">
+		delete from BOARD_RECOMMEND where MEMBER_ID = #{member_id} and BOARD_ID = #{board_id}
+	</delete>
+	<update id="reply_update" parameterType="board">
+		update board
+		set BOARD_RE_SEQ=BOARD_RE_SEQ+1
+		where BOARD_RE_REF=#{BOARD_RE_REF}
+		and BOARD_RE_SEQ <![CDATA[>]]> #{BOARD_RE_SEQ}
+	</update>
+	<insert id="insert_board_reply" parameterType="board">
+		insert into board values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, #{BOARD_RE_REF},
+		#{BOARD_RE_LEV}, #{BOARD_RE_SEQ}, 0, sysdate)
+	</insert>
+	
 </mapper>

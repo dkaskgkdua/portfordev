@@ -1,6 +1,7 @@
 package com.portfordev.pro.service;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -46,5 +47,20 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public Member get_member(String id) {
 		return dao.get_member(id);
+	}
+	@Override
+	public void add_write_act(String id, int point) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("MEMBER_ID", id);
+		map.put("POINT", point);
+		dao.add_write_act(map);
+	}
+	@Override
+	public void add_receive_act(String member_id, int board_id, int point) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("MEMBER_ID", member_id);
+		map.put("BOARD_ID", board_id);
+		map.put("POINT", point);
+		dao.add_receive_act(map);
 	}
 }

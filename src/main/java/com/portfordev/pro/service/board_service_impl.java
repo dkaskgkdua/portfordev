@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -143,14 +145,7 @@ public class board_service_impl implements board_service{
 	}
 	
 	
-	@Override
-	@Transactional
-	public int boardReply(Board board) {
-		boardReplyUpdate(board);
-		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
-		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
-		return dao.boardReply(board);
-	}
+	
 	@Override
 	public int boardModify(Board modifyboard) {
 		return dao.boardModify(modifyboard);
@@ -177,9 +172,20 @@ public class board_service_impl implements board_service{
 	}
 	@Override
 	public void insert_board(Board board) {
-		board.setBOARD_SUBJECT(replaceParameter(board.getBOARD_SUBJECT()));
+		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
 	}
+	
+	@Override
+	@Transactional
+	public int insert_board_Reply(Board board) {
+		boardReplyUpdate(board);
+		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
+		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
+		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
+		return dao.insert_board_reply(board);
+	}
+	
 	@Override
 	public int boardReplyUpdate(Board board) {
 		return dao.boardReplyUpdate(board);
@@ -203,15 +209,19 @@ public class board_service_impl implements board_service{
 		map.put("member_id",member_id);
 		dao.insert_reco(map);
 	}
+	@Override
+	public void delete_reco(int board_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_id", board_id);
+		map.put("member_id",member_id);
+		dao.delete_reco(map);
+	}
 	
-	private String replaceParameter(String param) {
-		String result = param;
-		if(param != null) {
-			result = result.replaceAll("<","&lt;");
-			result = result.replaceAll(">","&gt;");
-			result = result.replaceAll("[(]","&#40;");
-			result = result.replaceAll("[)]","&#41;");
+	private String xss_clean_check(String value) {
+		String safe_value = Jsoup.clean(value, Whitelist.basic());
+		if(safe_value.equals("") || safe_value == null) {
+			safe_value = "XSS 공격이 감지되었습니다.";
 		}
-		return result;
+		return safe_value;
 	}
 }

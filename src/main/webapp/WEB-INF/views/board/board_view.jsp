@@ -61,7 +61,9 @@ span {
 				"member_id" : member_id
 			},
 			success : function(rdata) {
-				
+				$("#reco_button").empty();
+				var text = '<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px">';
+				$("#reco_button").append(text+rdata);
 			},
 			error : function() {
 				alert("추천 취소에 실패했습니다.(관리자에게 문의하세요.)");
@@ -91,7 +93,7 @@ span {
 			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
 				insert_reco("${board_data.BOARD_ID}", "${id}");
 			} else { // 추천 -> 추천아님
-				$("#reco_img").attr("src","resources/Image/icon/heart.svg");
+				delete_reco("${board_data.BOARD_ID}", "${id}");
 			}
 			
 		});
@@ -223,7 +225,7 @@ span {
 					<td>
 						<div class="title">
 							<c:if test="${board_data.BOARD_RE_LEV !=0}">
-								<c:forEach var="a" begin="0" end="${board_data.BOARD_RE_LEV}" step="1">
+								<c:forEach var="a" begin="1" end="${board_data.BOARD_RE_LEV}" step="1">
 									[re]
 								</c:forEach>
 							</c:if>
@@ -240,7 +242,7 @@ span {
 						<div>
 						<c:forEach var="files" items="${board_file_list}">
 							<img src="resources/Image/down.png" width ="12px">
-							<a href="BoardFileDown.bo?filename=${files.BOARD_FILE_ID}&original=${files.BOARD_FILE_ORIGINAL}">
+							<a href="board_file_down?filename=${files.BOARD_FILE}&original=${files.BOARD_FILE_ORIGINAL}">
 								${files.BOARD_FILE_ORIGINAL}</a>
 							&#32;/&#32;
 						</c:forEach>
@@ -253,7 +255,7 @@ span {
 				<td class="center">
 					<button id="reco_button"style="background:transparent"><img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
 					<button style="background:transparent"><img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}</button>
-					<button class="btn btn-primary">답변</button>
+					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}"><button class="btn btn-primary">답변</button></a>
 					<c:if test="${board_data.MEMBER_ID == id}">
 						<a href="BoardModifyView.bo?num=${board_data.BOARD_ID}">
 							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px"></button>

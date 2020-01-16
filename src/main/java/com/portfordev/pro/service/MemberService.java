@@ -12,4 +12,6 @@ public interface MemberService {
 	public int memberRegisterDept(HashMap<String, String> map);
 	public String get_name(String id);
 	public Member get_member(String id);
+	public void add_write_act(String member_id, int point);
+	public void add_receive_act(String member_id, int board_id, int point);
 }
