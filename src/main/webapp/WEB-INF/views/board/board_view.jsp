@@ -8,6 +8,9 @@
 <meta charset="UTF-8">
 <title>게시판 뷰</title>
 <style>
+hr {
+	margin : 5px;
+}
 span {
 	width: 20px;
 }
@@ -91,9 +94,9 @@ span {
 		$("#reco_button").click(function() {
 			// 추천아님 -> 추천
 			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
-				insert_reco("${board_data.BOARD_ID}", "${id}");
+				insert_reco($("#board_id").val(), "${id}");
 			} else { // 추천 -> 추천아님
-				delete_reco("${board_data.BOARD_ID}", "${id}");
+				delete_reco($("#board_id").val(), "${id}");
 			}
 			
 		});
@@ -102,19 +105,27 @@ span {
 		$("#write").click(function() {
 			buttonText = $("#write").text();
 			content = $("#content").val();
-			$(".float-left").text('총 50자까지 가능합니다.');
+			if($("#loginid").val() == "") {
+				alert("로그인을 먼저 해주세요");
+				return false;
+			}
+			if(content == "") {
+				alert("댓글을 입력하세요");
+				$("#content").focus();
+				return false;
+			}
 			if (buttonText == "등록") { //추가 하는 경우
-				url = "CommentAdd.bo";
+				url = "/pro/comment_add";
 				data = {
-					"content" : content,
-					"id" : $("#loginid").val(),
-					"BOARD_RE_REF" : $("#BOARD_RE_REF").val()
+					"BOARD_CO_CONTENT" : content,
+					"MEMBER_ID" : $("#loginid").val(),
+					"BOARD_ID" : $("#board_id").val()
 				};
 			} else { // 수정하는 경우
-				url = "CommentUpdate.bo";
+				url = "/pro/comment_update";
 				data = {
-					"num" : num,
-					"content" : content
+					"BOARD_CO_ID" : $("#comment_id").val(),
+					"BOARD_CO_CONTENT" : content
 				};
 				$("#write").text("등록");
 			}
@@ -132,66 +143,59 @@ span {
 		})
 		function getList() {
 			$.ajax({
-						type : "post",
-						url : "CommentList.bo",
+						type : "get",
+						url : "/pro/comment_list",
 						data : {
-							"BOARD_RE_REF" : $("#BOARD_RE_REF").val()
+							"BOARD_ID" : $("#board_id").val()
 						},
 						dataType : "json",
-						success : function(rdata) {
-							if (rdata.length > 0) {
-								$("#comment table").show(); //문서 로딩될 때 숨긴게 나온다.
-								$("#comment thead").show();
+						cache : false,
+						success : function(data) {
+							if (data.leng > 0) {
 								$("#comment tbody").empty();
-								$("#message").text('');
 								output = '';
-								$(rdata).each(function() {
-													img = '';
-													if ($("#loginid").val() == this.id) {
-														img = "<img src='resources/Image/pencil2.png' width = '15px' class='update'>"
-																+ "<img src='resources/Image/remove.png' width = '15px' class='remove'>"
-																+ "<input type='hidden' value='" +this.num + "'>";
-													}
-													output += "<tr><td>"
-															+ this.id
-															+ "</td>";
-													output += "<td>"
-															+ this.content
-															+ "</td>";
-													output += "<td>"
-															+ this.reg_date
-															+ img
-															+ "</td></tr>";
-												});
+								$.each(data.comment_list, function(index, item) {
+										output += "<tr><td>"
+										       + item.member_NAME
+										       + "<span style='font-size: 10pt'><img src='resources/Image/icon/award.svg' alt='act' width ='14' height='14'>"
+										       + item.member_ACT
+										       + "</span> <br><span style='display:none'>"
+										       + item.board_CO_ID
+										       + "</span> " + item.board_CO_DATE;
+										       if($("#loginid").val() == item.member_ID) {
+												    output += "<span class='comment_update' style='font-size: 10pt'>"
+												           + "<img src='resources/Image/icon/pencil.svg' alt='update' width='14' height='14'></span>"
+												           + "<span class='comment_remove' style='font-size: 10pt'>"
+												           + "<img src='resources/Image/icon/trash.svg' alt='remove' width='14' height='14'></span>";
+											   }
+										output += "<hr><span>" + item.board_CO_CONTENT +"</span></td></tr>";
+								});
 								$("#comment tbody").append(output);
 							} else {
-								$("#message").text("등록된 댓글이 없다.");
-								$("#comment thead").hide();
 								$("#comment tbody").empty();
 							}
-							$("#count").text(rdata.length);
+							$("#comment_length").text('댓글 ('+data.leng+'개)');
+						}, error : function() {
+							alert("댓글 불러오기 실패");
 						}
-					})
-		}
-		$(".start").click(function() {
-			getList();
-		});
+			});
+		};
 		// 수정버튼 클릭경우(댓글)
-		$("#comment").on('click', '.update', function() {
-			before = $(this).parent().prev().text(); 
+		$(document).on('click', '.comment_update', function() {
+			before = $(this).next().next().next().text(); 
 			$("#content").focus().val(before); 
-			num = $(this).next().next().val(); 
-			$("#write").text("수정완료"); 
-			$(this).parent().parent().css('background', 'lightgray');
+			num = $(this).prev().text();
+			$("#comment_id").val(num);
+			$("#write").text("수정"); 
 		});
 		// 삭제버튼 클릭경우(댓글)
-		$("#comment").on('click', '.remove', function() {
-			var num = $(this).next().val();//댓글번호
+		$(document).on('click', '.comment_remove', function() {
+			num = $(this).prev().prev().text();
 			$.ajax({
-				type : "post",
-				url : "CommentDelete.bo",
+				type : "get",
+				url : "/pro/comment_delete",
 				data : {
-					"num" : num
+					"BOARD_CO_ID" : num
 				},
 				success : function(result) {
 					if (result == 1)
@@ -199,11 +203,13 @@ span {
 				}
 			})
 		})
+		
 	})
 </script>
 </head>
 <body>
-	<input type="hidden" id="loginid" value="${id}" name="loginid">
+	<input type="hidden" id="loginid" value="${id}">
+	<input type="hidden" id="board_id" value="${board_data.BOARD_ID}">
 	<div class="container">
 		<h3 id ="h3_category" class="float-left"></h3> 	
 		<table class="table table-bordered">
@@ -215,7 +221,7 @@ span {
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
 							<br>
-							<span style="font-size:9pt">${board_data.BOARD_DATE}에 작성됨</span>
+							&#35;<span style="font-weight:bold">board_data.BOARD_ID</span><span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
 						</a>
 					</td>
 				</tr>
@@ -254,12 +260,19 @@ span {
 				<!-- 버튼 모음 -->
 				<td class="center">
 					<button id="reco_button"style="background:transparent"><img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
-					<button style="background:transparent"><img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}</button>
-					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}"><button class="btn btn-primary">답변</button></a>
+					<button style="background:transparent">
+						<img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}
+					</button>
+					<!-- 답변 -->
+					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}">
+						<button class="btn btn-primary">답변</button>
+					</a>
 					<c:if test="${board_data.MEMBER_ID == id}">
+						<!-- 수정 -->
 						<a href="BoardModifyView.bo?num=${board_data.BOARD_ID}">
 							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px"></button>
 						</a>
+						<!-- 삭제 -->
 						<a href="#">
 							<button style="background:transparent" data-toggle="modal"
 								data-target="#myModal"><img src="resources/Image/icon/trash.svg" width ="25px"></button>
@@ -276,7 +289,7 @@ span {
 			<table class="table table_striped">
 				<thead>
 					<tr>
-						<td>댓글 (${board_data.BOARD_COMMENT}개)</td>
+						<td id="comment_length">댓글 (${board_data.BOARD_COMMENT}개)</td>
 					</tr>
 				</thead>
 				<tbody>
@@ -289,21 +302,33 @@ span {
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${comments.MEMBER_ACT}
 							</span>
 							<br>
-							${comments.BOARD_CO_DATE}
+							<span style="display:none">${comments.BOARD_CO_ID}</span> ${comments.BOARD_CO_DATE}
+							<!-- 수정, 삭제 -->
+							<c:if test="${comments.MEMBER_ID == id}">
+								<span class="comment_update" style ="font-size:10pt">
+									<img src="resources/Image/icon/pencil.svg" alt="update" width="14" height="14">
+								</span>
+								<span class="comment_remove" style ="font-size:10pt">
+									<img src="resources/Image/icon/trash.svg" alt="remove" width="14" height="14">
+								</span>
+							</c:if>
 							<hr>
-							${comments.BOARD_CO_CONTENT}
+							<span>${comments.BOARD_CO_CONTENT}</span>
 						</td>
 					</tr>
 					</c:forEach>
 					</c:if>
+				</tbody>
+				<tfoot>
 					<tr>
 						<td>
 							<span style="color:gray">총 80자까지 가능합니다.</span>
 							<textarea class="float-left" rows="2" name="content" id="content" maxLength="80"></textarea>
+							<input id ="comment_id" type="hidden"></input>
 							<button type="button" id="write" class="btn btn-info float-right">등록</button>
 						</td>
 					</tr>
-				</tbody>
+				</tfoot>
 			</table>
 		</div>
 		

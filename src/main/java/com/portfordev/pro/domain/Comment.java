@@ -10,4 +10,5 @@ public class Comment {
 	private String MEMBER_NAME;
 	private String BOARD_CO_CONTENT;
 	private String BOARD_CO_DATE;
+	private String MEMBER_ACT;
 }

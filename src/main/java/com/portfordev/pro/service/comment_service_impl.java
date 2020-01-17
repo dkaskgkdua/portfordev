@@ -21,4 +21,16 @@ public class comment_service_impl implements comment_service{
 	public List<Comment> get_list(int BOARD_ID) {
 		return dao.get_list(BOARD_ID);
 	}
+	@Override
+	public int comment_insert(Comment co) {
+		return dao.comment_insert(co);
+	}
+	@Override
+	public int comment_update(Comment co) {
+		return dao.comment_update(co);
+	}
+	@Override
+	public int comment_delete(int id) {
+		return dao.comment_delete(id);
+	}
 }
