@@ -9,6 +9,7 @@
 .not-scroll{
 	overflow:hidden;
 }
+/* 화면상에 절대 노출 시키지 않는 클래스*/
 .never-show{
 	position:fixed;
 	width:0.1px;
@@ -17,6 +18,7 @@
 	bottom:-1;
 	display:none!important;
 }
+/* 모달 종료 */
 .exit-modal{
 	visibility:hidden;
 	position:fixed;
@@ -44,6 +46,7 @@
 	opacity:0.8;
 	transition:0.3s;
 }
+/* 전체 모달 관여 */
 .portfolio-modal-container {
     width: 100%;
     height: 100%;
@@ -57,6 +60,7 @@
     z-index: 100;
     overflow: hidden;
 }
+/* DETAIL SECTION */
 #portfolio-detail-wrap{
 	position:absolute;
 	display:block;
@@ -154,30 +158,30 @@
 	border-radius:2%;
 	transition:0.3s;
 }
-/* 추천, 스크랩, 피드백 콘솔 */
+/* 콘솔 활성 비활성 버튼 */
 .drag-activity-menu{
 	position: fixed;
     background: #5385c1;
     bottom: 45px;
-    left: 3px;
-    width: 60px;
+    left: -119px;
+    width: calc(119px + 60px);
     height: 60px;
     padding:3px;
     display:none;
-    z-index:200;
+    z-index:107;
     border:1px solid lightgrey;
     border-left:0;
-    border-radius:0 50% 50% 0;
+    border-radius:0 25% 25% 0;
 }
 .drag-activity-menu:hover{
 	cursor:pointer;
 	opacity:0.7;
-	transition:0.3s;
 }
 .drag-activity-menu img{
-	width:100%;
-	height:auto:
+	height:100%;
+	float:right;
 }
+/* 포트폴리오 추천, 스크랩, 피드백 콘솔 */
 .portfolio-detail-activity{
 	z-index:105;
 	position:absolute;
@@ -186,71 +190,12 @@
 	max-height:100px;
 	text-align:center;
 }
-/* 세로가 작을 경우 메뉴바 사이드로 이동 */
-@media screen and (min-height:990px){
-	.portfolio-detail-activity{
-		bottom:90px;
-	}
-}
-@media screen and (max-height:900px){
-	#portfolio-detail-wrap{
-		z-index:107;
-		bottom:45px;
-		height:auto;
-	}
-	#portfolio-feedback-wrap{
-		display:none!important;
-	}
-	.feed-show-btn{
-		display:inline-block!important;
-	}
-}
-@media screen and (min-height:740px){
-	.portfolio-detail-activity{
-		left:0!important;
-		right:0!important;
-	}
-}
-@media screen and (max-height:740px){
-	.drag-activity-menu{
-		display:block!important;
-	}
-	.portfolio-detail-activity{
-		height: auto;
-	    padding: 48px 0;
-	    max-height: 354px;
-	    background-color: #5385c1;
-	    position: fixed;
-	    left: -200px;
-	    width: 120px;
-	    bottom: 45px;
-	    text-align: center;
-	    border-radius: 25%;
-	    border:1px solid darkgrey;
-	    z-index:108;
-	    display:none;
-	}
-	.portfolio-detail-activity .icon-tail-fit{
-		z-index:109;
-	}
-	.feed-show-btn{
-		display:none!important;
-	}
-	.comment-show{
-		visibility:visible;
-	    bottom: 60px;
-	    right: 32%;
-	}
-}
-@media screen and (max-height:590px){
-	
-}
-.portfolio-detail-activity .icon-tail-fit{
+.icon-tail-fit{
 	display:inline-block;
 	width:100px;
 	z-index:106;
 }
-.portfolio-detail-activity .icon-tail-fit:hover{
+.icon-tail-fit:hover{
 	cursor:pointer;
 	opacity:0.7;
 	transition:0.3s;
@@ -354,13 +299,29 @@
 }
 /* FEEDBACK 헤더 */
 .portfolio-feedback-header{
-	position: absolute;
     width: 100%;
     height:50px;
     background: whitesmoke;
-    top: 0;
-    left: 0;
     padding: 0;
+	padding-top:5px;
+	display:block;
+}
+/* FEEDBACK 정보 */
+.portfolio-feedback-info{
+	height:100%;
+	display:inline-block;
+	float:left;
+	text-align:left;
+	width:auto;
+}
+.portfolio-feedback-info h2{
+	font-weight:700;
+	margin:0;
+	margin-left:10px;
+	display:inline-block;
+}
+.portfolio-feedback-info .portfolio-feedback-cnt{
+	
 }
 /* FEEDBACK 필터 */
 .portfolio-feedback-filter{
@@ -395,14 +356,16 @@
 	overflow-x:hidden;
 	overflow-y:scroll;
 	width:100%;
-	height:100%;
+	height:calc(100% - 50px );
 	background:white;
-	padding:20px 10px;
+	padding:0px 10px;
 }
 .portfolio-feedback-item{
 	width:100%;
 	height:100%;
-	margin:10px auto;
+	margin:0 auto;
+	margin-top:0;
+	margin-bottom:10px;
 	display:block;
 	border-top:1px solid lightgrey;
 	padding-top:10px;
@@ -410,13 +373,14 @@
 /* 피드백 정보 */
 .feedback-info{
 	width:20%;
-	height:80%;
+	height:100%;
 	display:inline-block;
 	float:left;
+	padding:10px;
 }
 /* 피드백 작성자 프로필 */
 .feedback-info .feedback-writer-profile{
-	width:80%;
+	width:100%;
 	height:100%;
 	display:inline-block;
 	text-align:center;
@@ -428,23 +392,23 @@
 	transition:0.3s;
 }
 .feedback-writer-profile .feedback-writer-img{
-	max-height:80%;
+	max-height:calc(80% - 50px);
 	border-radius:50%;
 }
 .feedback-writer-profile .feedback-writer-nick{
-	max-height:20%;
-	max-height:50px;
+	max-height:52px;
+	overflow:hidden;
 	display:block;
 }
-.feedback-info .feedback-recommend-cnt{
+.feedback-writer-profile .activity-score{
+	max-height:25px;
+}
+.feedback-writer-profile .feedback-writer-score{
+	max-height:25px;
 	display:inline-block;
-	text-align:center;
-	width:20%;
-	height:100%;
-	float:right;
 }
 .feedback-content{
-	width:75%;
+	width:80%;
 	height:80%;
 	float:right;
 	padding:10px;
@@ -457,34 +421,55 @@
 }
 .feedback-controller{
 	height:18%;
-	width:100%;
+	width:80%;
 	display:inline-block;
 	clear:both;
+	bottom:0;
 }
+/* 피드백 추천 */
 .feedback-controller .feedback-recommend{
 	height:100%;
 	text-align:center;
 	display:inline-block;
 	float:left;
+	width:auto;
 }
-.feedback-recommend .feed-recom-icon{
-	height:70%;
+.feedback-recommend .icon-tail-fit{
+	margin-left:10px;
+	height:20px;
+	text-align:center;
+	padding:0;
+	width:auto;
 	float:left;
 }
+.feedback-recommend .feed-recom-icon{
+	height:100%;
+	float:left;
+	margin-right:5px;
+}
 .feedback-recommend .feed-recom-tail{
-	height:30%;
-	flaot:left;
+	height:100%;
 	display:inline-block;
+	float:left;
+}
+
+.feedback-recommend .feedback-recommend-cnt{
+	display:inline-block;
+	text-align:center;
+	height:100%;
+	float:left;
+	margin-left:20px;
 }
 .feedback-controller button{
 	margin:0 10px;
 	height:100%;
 	float:right;
+	line-height:normal;
 }
 .feedback-controller button:hover{
 	opacity:0.7;
 	transition:0.3s;
-	border-radius:3%;
+	border-radius:5%;
 }
 .feedback-controller .feedback-update{
 	
@@ -492,6 +477,72 @@
 .feedback-controller .feedback-delete{
 	
 }
+
+/* 반응형 */
+/* 세로 */
+/* 세로가 작을 경우 메뉴바 사이드로 이동 */
+@media screen and (min-height:990px){
+	.portfolio-detail-activity{
+		bottom:90px;
+	}
+}
+@media screen and (max-height:900px){
+	#portfolio-detail-wrap{
+		z-index:107;
+		height:calc(100% - 145px)!important;
+		bottom:45px;
+	}
+	#portfolio-feedback-wrap{
+		display:none!important;
+	}
+	.feed-show-btn{
+		display:inline-block!important;
+	}
+}
+@media screen and (min-height:740px){
+	.portfolio-detail-activity{
+		left:0!important;
+		right:0!important;
+	}
+}
+@media screen and (max-height:740px){
+	.drag-activity-menu{
+		display:block!important;
+	}
+	#portfolio-feedback-wrap{
+		visibility:hidden;
+	}
+	.portfolio-detail-activity{
+		height: auto;
+	    padding: 48px 0;
+	    max-height: 354px;
+	    background-color: #5385c1;
+	    position: fixed;
+	    left: -119px;
+	    width: 120px;
+	    bottom:45px;
+	    text-align: center;
+	    border-radius: 0 10% 0 0;
+	    border:1px solid darkgrey;
+	    z-index:108;
+	    display:none;
+	}
+	.icon-tail-fit{
+		z-index:109;
+	}
+	.feed-show-btn{
+		display:none!important;
+	}
+	.comment-show{
+		visibility:visible;
+	    bottom: 60px;
+	    right: 32%;
+	}
+}
+@media screen and (max-height:590px){
+	
+}
+/* 가로 */
 /* 작은 PC */
 @media screen and (max-width: 1200px){
 	.detail-summary-regidate{
@@ -532,33 +583,37 @@
 @media screen and (max-width: 778px){
 	#portfolio-detail-wrap {
    	 	width: 100%;
-   	 	height:calc(100% - 100px);
+   	 	height:calc(70% - 100px);
    	 	top:100px;
    	 	right:0;
    	 	left:0;
+	}
+	#portfolio-info-wrap{
+		visibility:hidden;
+	}
+	#portfolio-feedback-wrap{
+		width:100%;
+		height:30%;
+		left:0;
+		right:0;
+		bottom:0;
 	}
 	.exit-modal{
 		visibility:visible;
 	}
 	.comment-show{
 		visibility:visible;
-		bottom:20px!important;
+		bottom:46px!important;
 		right:20px!important;
 	}
 	.feed-show-btn{
 		display:none!important;
 	}
-	#portfolio-info-wrap{
-		visibility:hidden;
-	}
-	#portfolio-feedback-wrap{
-		visibility:hidden;
-	}
 	.summary-info img{
 		margin:0 10px;
 	}
 	.drag-activity-menu{
-	    bottom: 7px;
+	    bottom: 45px;
 	    left: 1%;	
 	}
 }
@@ -571,6 +626,9 @@
 	.summary-info img+span{
 		font-size:17px;
 		line-height:13px;
+	}
+	#portfolio-feedback-wrap{
+		display:none;
 	}
 }
 @media screen and (max-width: 500px){

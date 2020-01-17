@@ -81,16 +81,6 @@
 		<section id="one" class="wrapper special">
 			<div class="inner">
 				<header class="align-center">
-					<h2>Noteworthy Portfolios</h2>
-					<p>현재 주목받는 포트폴리오</p>
-					<p>
-						<span class="best-port-filter filter-active">Daily</span>
-						<span class="best-port-filter">Weekly</span>
-						<span class="best-port-filter">Monthly</span>
-						<span class="best-port-filter" onclick="javascript:location.href='portfolio/collection'">ALL</span>
-					</p>
-				</header>
-				<header class="align-center">
 					<div class="slide">
 	  					<div class="slide_in">Best1</div>
 	  					<div class="slide_in">Best2</div>
@@ -99,6 +89,16 @@
 	  					<div class="slide_in">Best5</div>
 	  					<div class="slide_in">Best6</div>
 					</div>
+				</header>
+				<header class="align-center">
+					<h2>Noteworthy Portfolios</h2>
+					<p>현재 주목받는 포트폴리오</p>
+					<p>
+						<span class="best-port-filter filter-active">Daily</span>
+						<span class="best-port-filter">Weekly</span>
+						<span class="best-port-filter">Monthly</span>
+						<span class="best-port-filter" onclick="javascript:location.href='portfolio/collection'">All</span>
+					</p>
 				</header>
 			</div>
 		</section>

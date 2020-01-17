@@ -8,8 +8,26 @@
 <script src="/pro/resources/js/portfolio_detail.js"></script>
 <!-- 포트폴리오 상세정보를 보여주는 modal -->
 <div id="portfolioModalContainer" class="portfolio-modal-container" oncontextmenu="return false" onselectstart="return false" ondragstart="return false" style="display:none">
+	<!-- hidden values -->
+	<input id="MEMBER_ID" type="hidden" name="MEMBER_ID" value="79">
+	<input id="MEMBER_NAME" type="hidden" name="MEMBER_NAME" value="본인닉네임들어갈자리">
+	<input id="PORT_ID" type="hidden" name="PORT_ID" value="13">
+	<input id="PORT_WRITER" type="hidden" name="PORT_WRITER_ID" value="작성자닉네임들어갈곳">
+	<input id="PORT_SUBJECT" type="hidden" name="PORT_SUBJECT" value="제목들어갈 자리">
+	<input id="PORT_CONTENT" type="hidden" name="PORT_CONTENT" value="포트폴리오 상세내용 들어갈 자리">
+	<input id="PORT_FILE" type="hidden" name="PORT_FILE" value="포트폴리오이미지들들어갈자리">
+	<input id="PORT_START_DAY" type="hidden" name="PORT_START_DAY" value="2020/01/01">
+	<input id="PORT_END_DAY" type="hidden" name="PORT_END_DAY" value="2020/01/25">
+	<input id="PORT_TEAM" type="hidden" name="PORT_TEAM" value="1">
+	<input id="PORT_GITHUB" type="hidden" name="PORT_GITHUB" value="GITHUB 주소 들어갈 자리">
+	<input id="PORT_SITE" type="hidden" name="PORT_SITE" value="SITE 도메인 주소 들어갈 자리">
+	<input id="PORT_FEED" type="hidden" name="PORT_FEED" value="0">
+	<input id="PORT_REGIDATE" type="hidden" name="PORT_REGIDATE" value="2020/01/25">
+	<input id="PORT_READCOUNT" type="hidden" name="PORT_READCOUNT" value="1234123432">
+	
 	<!-- 모바일용 exit -->
 	<div class="exit-modal">x</div>
+	<!-- PORTFOLIO DETAIL SECTION -->
 	<section id="portfolio-detail-wrap">
 		<!-- 모바일용 comment -->
 		<div class="comment-show">
@@ -73,29 +91,33 @@
 			</footer>
 		</div>
 	</section>
+	<!-- PORTFOLIO INFO SECTION -->
 	<section id="portfolio-info-wrap">
 		<div class="portfolio-info-container">
-			
+				
 		</div>
 	</section>
+	<!-- FEEDBACK SECTION -->
 	<section id="portfolio-feedback-wrap">
-		<!-- 피드백 -->
 		<div class="portfolio-feedback-container">
 			<!-- 피드백 작성 -->
 			<div class="feedback-write-container" style="display:none;">
 				<div class="feed-writer-profile">
 					<img class="feed-writer-profile-img" src="/pro/resources/Image/userdefault.png">
-					<span class="feed-writer-profile-nick">손민준이다은안현호팀</span>
+					<span class="feed-writer-profile-nick"></span>
 				</div>
 				<textarea id="FEED_CONTENT" name="FEEDBACK_CONTENT"></textarea>
 				<button type="button" class="feed-write-done">작성완료</button>
 				<button type="button" class="feed-write-cancel">작성취소</button>
-				<!-- hidden -->
-				<input id="FEED_MEMBER_ID" type="hidden" name="MEMBER_ID" value="">
-				<input id="FEED_PORT_ID" type="hidden" name="PORT_ID" value="">
 			</div>
-			<!-- 피드백 필터 -->
+			<!-- 피드백 헤더 -->
 			<div class="portfolio-feedback-header">
+				<!-- 피드백 정보 -->
+				<div class="portfolio-feedback-info">
+					<h2>Feedback</h2>
+					<h2>(&nbsp;<span class="portfolio-feedback-cnt">2</span>&nbsp;)</h2>
+				</div>
+				<!-- 피드백 필터 -->
 				<div class="portfolio-feedback-filter">
 					<select name="feedPick" class="select" id="feedPick">
 						<option value="allFeed" selected>전체</option>
@@ -110,43 +132,53 @@
 			<!-- 피드백 리스트 -->
 			<div class="portfolio-feedback-list">
 				<div class="portfolio-feedback-item best-feedback">
+					<!-- hidden feedback id -->
+					<input type="hidden" id="FEEDBACK_13" class="FEEDBACK_ID" name="FEEDBACK_ID" value="13">
 					<div class="feedback-info">
 						<div class="feedback-writer-profile">
 							<img class="feedback-writer-img" src="/pro/resources/Image/userdefault.png">
 							<span class="feedback-writer-nick">닉네임은10글자가능</span>
+							<img class="activity-score" src="/pro/resources/Image/icon/award.svg">
+							<span class="feedback-writer-score">99529999</span>
 						</div>
-						<span class="feedback-recommend-cnt">9952</span>
 					</div>
 					<div class="feedback-content">
 						<textarea class="feedback-content-text" readonly>어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 </textarea>
 					</div>
 					<div class="feedback-controller">
 						<div class="feedback-recommend">
-							<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">
-							<span class="feed-recom-tail">추천하기</span>
+							<div class="icon-tail-fit">
+								<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">
+								<span class="feed-recom-tail">추천하기</span>
+							</div>
+							<span class="feedback-recommend-cnt">9952</span>
 						</div>
-						<button type="button" class="feedback-update">수정</button>
 						<button type="button" class="feedback-delete">삭제</button>
+						<button type="button" class="feedback-update">수정</button>
 					</div>
 				</div>
 				<div class="portfolio-feedback-item">
+					<input type="hidden" id="FEEDBACK_14" class="FEEDBACK_ID" name="FEEDBACK_ID" value="14">
 					<div class="feedback-info">
 						<div class="feedback-writer-profile">
 							<img class="feedback-writer-img" src="/pro/resources/Image/userdefault.png">
 							<span class="feedback-writer-nick">어쩌구저쩌구닉넴10</span>
+							<img class="activity-score" src="/pro/resources/Image/icon/award.svg">
+							<span class="feedback-writer-score">299</span>
 						</div>
-						<span class="feedback-recommend-cnt">35</span>
 					</div>
 					<div class="feedback-content">
 						<textarea class="feedback-content-text" readonly>어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 어쩌구저쩌구해서 어쩌구리 저쩌구리 여차저차 고치세요 별로네요 </textarea>
 					</div>
 					<div class="feedback-controller">
 						<div class="feedback-recommend">
-							<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">
-							<span class="feed-recom-tail">추천하기</span>
+							<div class="icon-tail-fit">
+								<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">
+								<span class="feed-recom-tail">추천하기</span>
+							</div>
+							<span class="feedback-recommend-cnt">111111</span>
 						</div>
-						<button type="button" class="feedback-update">수정</button>
-						<button type="button" class="feedback-delete">삭제</button>
+						
 					</div>
 				</div>
 			</div>

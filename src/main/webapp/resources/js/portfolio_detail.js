@@ -1,4 +1,6 @@
 $(document).ready(function(){
+	var member_id = $('#MEMBER_ID').val();
+	var member_name = $('#MEMBER_NAME').val();
 	// 포트폴리오 상세 출력
 	$('.portfolio-list-item').click(function(){
 		showDetail();
@@ -67,7 +69,8 @@ $(document).ready(function(){
 			  ]
 		});
 	}
-	function doActivity(){
+	function doActivity()
+	{
 		if($(this).children('img').hasClass('recom-icon'))
 		{
 			recommend_portfolio();
@@ -78,11 +81,17 @@ $(document).ready(function(){
 		}
 		else if($(this).children('img').hasClass('write-icon'))
 		{
-			feedback_write();
+			feedback_write(member_id, member_name);
+		}
+		else if($(this).children('img').hasClass('feed-recom-icon'))
+		{
+			var feed_id = $(this).parent().parent().parent().children('.FEEDBACK_ID').val();
+			feedback_recommend(member_id, feed_id);
 		}
 	}
 	// 포트폴리오 추천 / 취소
-	function recommend_portfolio(){
+	function recommend_portfolio()
+	{
 		// 추천이 아직 안되어있을 경우
 		if($('.icon-tail-fit>.recom-tail').text() == '추천 하기')
 		{
@@ -101,7 +110,8 @@ $(document).ready(function(){
 		}
 	}
 	// 포트폴리오 스크랩 / 취소
-	function scrap_portfolio(){
+	function scrap_portfolio()
+	{
 		// 스크랩을 아직 안했을 경우
 		if($('.icon-tail-fit>.scrap-tail').text() == '스크랩 하기')
 		{
@@ -117,7 +127,9 @@ $(document).ready(function(){
 	}
 	$('.feed-write-cancel').click(feedback_write);
 	// 피드백 작성 클릭 시
-	function feedback_write(){
+	function feedback_write(mid, mname)
+	{
+		$('.feed-writer-profile-nick').text(mname);
 		if($('.icon-tail-fit>.write-tail').text() == '피드백 작성')
 		{
 			$('.icon-tail-fit>.write-tail').text('작성 취소');
@@ -133,20 +145,44 @@ $(document).ready(function(){
 			$('.feedback-write-container').css('display', 'none');
 		}
 	}
-	$('.drag-activity-menu').click(openActivityMenu);
+	// 피드백 추천 클릭 시
+	function feedback_recommend(mid, fid)
+	{
+		var clicked = $('#FEEDBACK_' + fid).parent().children('.feedback-controller').children('.feedback-recommend').children('.icon-tail-fit');
+		if(clicked == null)console.log('null');
+		if(clicked.children('.feed-recom-tail').text() == '추천하기')
+		{
+			clicked.children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-on.png');
+			clicked.children('.feed-recom-tail').text('추천취소');
+			clicked.parent().children('.feedback-recommend-cnt').text((Number(clicked.parent().children('.feedback-recommend-cnt').text()) + 1));
+		}
+		else
+		{
+			clicked.children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-off.png');
+			clicked.children('.feed-recom-tail').text('추천하기');
+			clicked.parent().children('.feedback-recommend-cnt').text((Number(clicked.parent().children('.feedback-recommend-cnt').text()) - 1));
+		}
+	}
+	
+	
 	// 포트폴리오 콘솔 > 클릭 시
+	$('.drag-activity-menu').click(openActivityMenu);
 	function openActivityMenu()
 	{
 		$(this).toggleClass('openMenu');
 	    if($(this).hasClass('openMenu'))
 	    {
+	    	$('.portfolio-detail-activity').css('display', 'block');
 	    	$(this).children('img').attr('src', '/pro/resources/Image/left.png').css('margin-left','-10px');
-	    	$('.portfolio-detail-activity').css('display','block').animate({left: '14px'}, 400);
+	    	$(this).stop().animate({left: '0px'}, {duration:400,queue:false});
+	    	$('.portfolio-detail-activity').stop().animate({left: '0px'}, {duration:400,queue:false});
 	    }
 	    else
 	    {
 	    	$(this).children('img').attr('src', '/pro/resources/Image/right.png').css('margin-left','0px');
-	    	$('.portfolio-detail-activity').animate({left: '-270px'}, 400).css('dsiplay','none');
+	    	$(this).stop().animate({left: '-119px'}, {duration:400,queue:false});
+	    	$('.portfolio-detail-activity').stop().animate({left: '-119px'}, {duration:400,queue:false});
+	    	
 	    }
 	}
 	
