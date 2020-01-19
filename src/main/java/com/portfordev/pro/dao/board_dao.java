@@ -39,6 +39,7 @@ public class board_dao {
 		return sqlSession.selectOne("Boards.get_board", num);
 	}
 	public void insert_board(Board board) {
+		System.out.println(board.getBOARD_CONTENT());
 		sqlSession.insert("Boards.insert", board);
 	}
 	public void insert_file(Board_file board_file) {
@@ -67,11 +68,11 @@ public class board_dao {
 	}
 	//미구현
 	
-	public int boardModify(Board modifyboard) {
-		return sqlSession.update("Boards.modify", modifyboard);
+	public int edit_board(Board edit_board) {
+		return sqlSession.update("Boards.board_edit", edit_board);
 	}
-	public int boardDelete(Board board) {
-		return sqlSession.delete("Boards.delete", board);
+	public int board_delete(Board board) {
+		return sqlSession.delete("Boards.board_delete", board);
 	}
 	
 	public int boardReplyUpdate(Board board) {
@@ -83,10 +84,19 @@ public class board_dao {
 	public void insert_deleteFile(String before_file) {
 		sqlSession.insert("Boards.insert_deleteFile",before_file);
 	}
+	public void delete_board_file(int board_id) {
+		sqlSession.delete("Boards.delete_board_file", board_id);
+	}
+	public List<String> select_file(int board_id) {
+		return sqlSession.selectList("Boards.get_file_list_name", board_id);
+	}
 	public List<String> select_delete_file() {
 		List<String> list = sqlSession.selectList("Boards.delete_file");
 		sqlSession.delete("Boards.delete_delete_file");
 		return list;
 	}
-	
+	// board_id를 참조하는 게시판 리스트 불러오기(id)
+	public List<Integer> get_board_reg(int board_id) {
+		return sqlSession.selectList("Boards.get_board_reg", board_id);
+	}
 }

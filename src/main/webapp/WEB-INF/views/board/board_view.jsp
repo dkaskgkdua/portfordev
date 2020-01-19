@@ -75,9 +75,9 @@ span {
 	};
 	$(function() {
 		// 제목(카테고리)
-		if("${board_data.BOARD_CATEGORY}"=="0") {
+		if($("#BOARD_CATEGORY")=="0") {
 			$('#h3_category').text("자유게시판");
-		} else if("${board_data.BOARD_CATEGORY}"=="1"){
+		} else if($("#BOARD_CATEGORY")=="1"){
 			$('#h3_category').text("스터디");
 		} else {
 			$('#h3_category').text("Q&A");
@@ -209,7 +209,6 @@ span {
 </head>
 <body>
 	<input type="hidden" id="loginid" value="${id}">
-	<input type="hidden" id="board_id" value="${board_data.BOARD_ID}">
 	<div class="container">
 		<h3 id ="h3_category" class="float-left"></h3> 	
 		<table class="table table-bordered">
@@ -221,7 +220,7 @@ span {
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
 							<br>
-							&#35;<span style="font-weight:bold">board_data.BOARD_ID</span><span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
+							&#35;<span style="font-weight:bold">${board_data.BOARD_ID}</span><span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
 						</a>
 					</td>
 				</tr>
@@ -269,7 +268,7 @@ span {
 					</a>
 					<c:if test="${board_data.MEMBER_ID == id}">
 						<!-- 수정 -->
-						<a href="BoardModifyView.bo?num=${board_data.BOARD_ID}">
+						<a href="board_edit_view?num=${board_data.BOARD_ID}">
 							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px"></button>
 						</a>
 						<!-- 삭제 -->
@@ -341,16 +340,18 @@ span {
 
 					<!-- Modal body -->
 					<div class="modal-body">
-						<form name="deleteForm" action="BoardDeleteAction.bo"
+						<form name="deleteForm" action="board_delete_action"
 							method="post">
 							<div class="form-group">
-								<label for="pwd">비밀번호</label> 
+								<label for="board_password">비밀번호</label> 
+								<input type="hidden" name="BOARD_ID" id="board_id" value="${board_data.BOARD_ID}">
+								<input type="hidden" name="BOARD_CATEGORY" id="BOARD_CATEGORY" value="${board_data.BOARD_CATEGORY}">
 								<input type="password"
 									class="form-control" placeholder="Enter password"
-									name="BOARD_PASS" id="board_pass">
+									name="BOARD_PASSWORD" id="board_password">
 							</div>
-							<button type="submit" class="btn btn-primary">Submit</button>
-							<button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+							<button type="submit" class="btn btn-primary">삭제</button>
+							<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
 						</form>
 					</div>
 				</div>

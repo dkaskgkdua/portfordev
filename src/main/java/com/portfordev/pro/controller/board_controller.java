@@ -49,83 +49,132 @@ public class board_controller {
 
 	@Value("${savefoldername}")
 	private String save_folder;
-	/*
-	  @PostMapping("BoardDeleteAction.bo") public String BoardDeleteAction(String
-	  BOARD_PASS, int num, HttpServletResponse response) throws Exception { boolean
-	  usercheck = board_service.isBoardWriter(num, BOARD_PASS);
-	  
-	  if (usercheck == false) { response.setContentType("text/html;charset=utf-8");
-	  PrintWriter out = response.getWriter(); out.println("<script>");
-	  out.println("alert('비밀번호가 다릅니다!');"); out.println("history.back();");
-	  out.println("</script>"); out.close(); return null; }
-	  
-	  int result = board_service.boardDelete(num);
-	  
-	  if (result == 0) { System.out.println("게시판 삭제 실패"); }
-	  
-	  System.out.println("게시판 삭제 성공");
-	  response.setContentType("text/html;charset=utf-8"); PrintWriter out =
-	  response.getWriter(); out.println("<script>");
-	  out.println("alert('삭제 되었습니다.');");
-	  out.println("location.href='BoardList.bo';"); out.println("</script>");
-	  out.close(); return null; }
-	  
-	  
-	  
-	  @PostMapping("BoardModifyAction.bo") public ModelAndView
-	  BoardModifyAction(Board board, String before_file, ModelAndView mv,
-	  HttpServletResponse response, HttpServletRequest request) throws Exception {
-	  boolean usercheck = board_service.isBoardWriter(board.getBOARD_ID(),
-	  board.getBOARD_PASSWORD()); // 비밀번호가 다를 경우 if (usercheck == false) {
-	  response.setContentType("text/html;charset=utf-8"); PrintWriter out =
-	  response.getWriter(); out.println("<script>");
-	  out.println("alert('비밀번호가 다릅니다!');"); out.println("history.back();");
-	  out.println("</script>"); out.close(); return null; } MultipartFile
-	  uploadfile = board.getUploadfile(); String saveFolder =
-	  request.getSession().getServletContext().getRealPath("resources") +
-	  "/upload/";
-	  
-	  if (uploadfile != null && !uploadfile.isEmpty()) { // 파일 변경한 경우
-	  System.out.println("변경"); String fileName = uploadfile.getOriginalFilename();
-	  board.setBOARD_ORIGINAL(fileName);
-	  
-	  String fileDBName = fileDBName(fileName, saveFolder); // transferTo(File
-	  path) : 업로드한 파일을 매개변수의 경로에 저장합니다. uploadfile.transferTo(new File(saveFolder +
-	  fileDBName));
-	  
-	  // 바뀐 파일명으로 저장 board.setBOARD_FILE(fileDBName);
-	  
-	  } else { // uploadfile.isEmpty() 인경우 - 파일 선택하지 않은 경우
-	  System.out.println(" uploadfile.isEmpty()"); // <input type="hidden"
-	  name="BOARD_ORIGINAL" // value="${boarddata.BOARD_ORIGINAL}"> // 위 태그에 값이 있다면
-	  ""로 값을 변경합니다. board.setBOARD_ORIGINAL(""); }
-	  
-	  // DAO에서 수정 메서드 호출하여 수정합니다. int result = boardService.boardModify(board);
-	  
-	  // 수정에 실패시 if (result == 0) { System.out.println("게시판 수정 실패!");
-	  mv.setViewName("error/error"); mv.addObject("url", request.getRequestURL());
-	  mv.addObject("message", "게시판 수정 실패~"); } else {
-	  System.out.println("게시판 수정 완료!"); String url =
-	  "redirect:BoardDetailAction.bo?num=" + board.getBOARD_NUM();
-	  
-	  // 수정 전에 파일이 있고 새로운 파일을 선택한 경우는 삭제할 목록을 테이블에 추가한다. if(!before_file.equals("")
-	  && !before_file.equals(board.getBOARD_FILE())) {
-	  boardService.insert_deleteFile(before_file); } // 수정한 글 내용을 보여주기 위하여 글 내용 보기
-	   페이지로 이동할 경로를 설정합니다. mv.setViewName(url); } return mv; }
-	  
-	  @GetMapping("BoardModifyView.bo") public ModelAndView BoardModifyView(int
-	  num, ModelAndView mv, HttpServletRequest request) throws Exception { Board
-	  board = board_service.getDetail(num); if (board == null) {
-	  mv.setViewName("error/error"); mv.addObject("url", request.getRequestURL());
-	  mv.addObject("message", "게시판 수정 페이지 가져오기 실패"); } else {
-	  mv.addObject("boarddata", board); mv.setViewName("board/qna_board_modify"); }
-	  return mv; }
-	  
-	 
-	  
 	
-	   */
-	
+	@PostMapping("board_delete_action") 
+	public String BoardDeleteAction(Board board, HttpServletResponse response) throws Exception { 
+		int pass_check = board_service.is_password(board.getBOARD_ID(), board.getBOARD_PASSWORD());
+	  
+		if (pass_check == -1) { 
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter(); 
+			out.println("<script>");
+			out.println("alert('비밀번호가 다릅니다');"); 
+			out.println("history.back();");
+			out.println("</script>"); 
+			out.close(); 
+			return null; 
+		}
+		int result = board_service.board_delete(board.getBOARD_ID(), save_folder);
+	  
+		if (result == 0) { System.out.println("게시판 삭제 실패"); }
+	  
+		System.out.println("게시판 삭제 성공");
+		response.setContentType("text/html;charset=utf-8"); 
+		PrintWriter out = response.getWriter(); 
+		out.println("<script>");
+		out.println("alert('삭제 되었습니다.');");
+		out.println("location.href='/pro/board_list?BOARD_CATEGORY="+board.getBOARD_CATEGORY()+"';"); 
+		out.println("</script>");
+		out.close(); 
+		return null; 
+	}
+	  
+	  
+	 @PostMapping("board_modify_action") 
+	 public String BoardModifyAction(Board board, @RequestParam("FILE_CHANGE") int file_change, RedirectAttributes redirect,
+			 ModelAndView mv, HttpServletResponse response, HttpServletRequest request) throws Exception {
+		 
+		 List<MultipartFile> uploadfile = board.getUploadfile();
+		 System.out.println("파일 변경 : " + file_change);
+		 
+		 if(file_change == 1) { // 파일 변경한 경우
+			 board_service.delete_board_file(board.getBOARD_ID(), save_folder);
+			 for (MultipartFile mf : uploadfile) {
+					if(mf.getSize() == 0) {
+						break;
+					}
+					Board_file board_file = new Board_file();
+					String fileName = mf.getOriginalFilename(); // 원래 파일명
+					board_file.setBOARD_FILE_ORIGINAL(fileName); // 원래 파일명 저장
+					String fileDBName = fileDBName(fileName, save_folder);
+					mf.transferTo(new File(save_folder + fileDBName));
+					board_file.setBOARD_FILE(fileDBName);
+					board_file.setBOARD_ID(board.getBOARD_ID());
+					board_service.insert_file(board_file);
+			}
+		 } else if(file_change == 2){ //파일 삭제한 경우(빈경우)
+			 board_service.delete_board_file(board.getBOARD_ID(), save_folder);
+		 }
+		 int result = board_service.board_edit(board);
+		 if (result == 0) { 
+			 response.setContentType("text/html;charset=utf-8");
+			 PrintWriter out = response.getWriter();
+			 out.println("<script>");
+			 out.println("alert('수정 실패');");
+			 out.println("history.go(-1);");
+			 out.println("</script>");
+			 out.close();
+		 }
+		 redirect.addAttribute("board_id", board.getBOARD_ID());
+		 return "redirect:board_view_action";
+	}
+
+		// 글쓰기
+	@PostMapping("/board_add_action")
+	public String board_add_action(Board board, RedirectAttributes redirect) throws Exception {
+		List<MultipartFile> uploadfile = board.getUploadfile();
+		int board_id = board_service.select_max_id();
+		board.setBOARD_ID(board_id);
+		member_service.add_write_act(board.getMEMBER_ID(), 5);
+		board_service.insert_board(board); // 저장 메서드 호출
+		for (MultipartFile mf : uploadfile) {
+			if(mf.getSize() == 0) {
+				break;
+			}
+			Board_file board_file = new Board_file();
+			String fileName = mf.getOriginalFilename(); // 원래 파일명
+			board_file.setBOARD_FILE_ORIGINAL(fileName); // 원래 파일명 저장
+			String fileDBName = fileDBName(fileName, save_folder);
+			mf.transferTo(new File(save_folder + fileDBName));
+			board_file.setBOARD_FILE(fileDBName);
+			board_file.setBOARD_ID(board_id);
+			board_service.insert_file(board_file);
+		}
+		redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
+		return "redirect:/board_list";
+
+	}
+	  
+	@PostMapping("board_password_check")
+	public void board_password_check(@RequestParam("BOARD_PASSWORD") String password, 
+			@RequestParam("BOARD_ID") int id, HttpServletResponse response) throws Exception {
+		int result = board_service.is_password(id, password);
+		System.out.println(result);
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		out.print(result);
+	}
+	@GetMapping("board_edit_view") 
+	public ModelAndView BoardModifyView(int num, ModelAndView mv, 
+			HttpServletResponse response, HttpServletRequest request) throws Exception { 
+		Board board = board_service.getDetail(num); 
+		List<Board_file> board_file_list = board_service.get_file_list(num);
+		if (board == null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('상세보기 실패');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+		} else {
+			mv.addObject("board_data", board);
+			mv.addObject("board_file_list",board_file_list);
+			System.out.println(board.getBOARD_CONTENT());
+			mv.setViewName("board/board_edit"); 
+		}
+		return mv; 
+	}
 	
 	  
 	@GetMapping("board_file_down")
@@ -225,31 +274,6 @@ public class board_controller {
 	  }
 	
 
-	// 글쓰기
-	@PostMapping("/board_add_action")
-	public String board_add_action(Board board, RedirectAttributes redirect) throws Exception {
-		List<MultipartFile> uploadfile = board.getUploadfile();
-		int board_id = board_service.select_max_id();
-		board.setBOARD_ID(board_id);
-		member_service.add_write_act(board.getMEMBER_ID(), 5);
-		board_service.insert_board(board); // 저장 메서드 호출
-		for (MultipartFile mf : uploadfile) {
-			if(mf.getSize() == 0) {
-				break;
-			}
-			Board_file board_file = new Board_file();
-			String fileName = mf.getOriginalFilename(); // 원래 파일명
-			board_file.setBOARD_FILE_ORIGINAL(fileName); // 원래 파일명 저장
-			String fileDBName = fileDBName(fileName, save_folder);
-			mf.transferTo(new File(save_folder + fileDBName));
-			board_file.setBOARD_FILE(fileDBName);
-			board_file.setBOARD_ID(board_id);
-			board_service.insert_file(board_file);
-		}
-		redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
-		return "redirect:board_list";
-
-	}
 	// 답글쓰기
 	 @PostMapping("/board_reply_action") 
 	 public String BoardReplyAction(Board board, RedirectAttributes redirect)

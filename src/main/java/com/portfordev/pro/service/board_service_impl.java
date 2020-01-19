@@ -23,14 +23,37 @@ public class board_service_impl implements board_service{
 	private board_dao dao;
 	
 	@Override
+	public int is_password(int id, String password) {
+		String get_password = dao.get_board(id).getBOARD_PASSWORD();
+		if(get_password.equals(password)) {
+			return 1;
+		} 
+		return -1;
+	}
+	
+	@Override
 	public void insert_deleteFile(String before_file) {
 		dao.insert_deleteFile(before_file);
 	}
 	@Override
+	public void delete_board_file(int board_id, String save_folder) {
+		System.out.println("board id = " + board_id);
+		List<String> list = dao.select_file(board_id);
+		list.forEach(item -> {
+			String path = save_folder + item;
+			File file = new File(path);
+			if(file.exists() == true) {
+				if(file.delete()) {
+					System.out.println("파일 삭제");
+				}
+			}
+		});
+		dao.delete_board_file(board_id);
+	}
+	
+	@Override
 	public void delete_file(String saveFolder) {
 		List<String> list = dao.select_delete_file();
-		
-		
 		list.forEach(item -> {
 			String path = saveFolder + item;
 			File file = new File(path);
@@ -144,34 +167,29 @@ public class board_service_impl implements board_service{
 		return dao.get_file_list(board_id);
 	}
 	
-	
-	
 	@Override
-	public int boardModify(Board modifyboard) {
-		return dao.boardModify(modifyboard);
+	public int board_edit(Board edit_board) {
+		edit_board.setBOARD_CONTENT(edit_board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		edit_board.setBOARD_SUBJECT(xss_clean_check(edit_board.getBOARD_SUBJECT()));
+		return dao.edit_board(edit_board);
 	}
+	
 	@Override
-	public int boardDelete(int num) {
+	public int board_delete(int board_id, String save_folder) {
 		int result =0;
-		Board board = dao.get_board(num);
-		if(board != null) {
-			result = dao.boardDelete(board);
-		}
+		Board board = dao.get_board(board_id);
+		if(board == null) { return result;}
+		List<Integer> board_id_list = dao.get_board_reg(board_id);
+		board_id_list.forEach(item -> {
+			delete_board_file(item, save_folder);
+		});
+		result = dao.board_delete(board);
 		return result;
 	}
-	@Override
-	public boolean isBoardWriter(int num, String pass) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("num", num);
-		map.put("pass", pass);
-		Board result = dao.isBoardWriter(map);
-		if(result == null)
-			return false;
-		else
-			return true;
-	}
+	
 	@Override
 	public void insert_board(Board board) {
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
 	}

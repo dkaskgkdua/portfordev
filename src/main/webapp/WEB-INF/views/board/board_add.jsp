@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>자유게시판 작성</title>
+<title>게시판 작성</title>
 <jsp:include page="../main/navbar.jsp" />
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <link href="https://cdn.jsdelivr.net/npm/summernote@0.8.15/dist/summernote.min.css" rel="stylesheet">
@@ -34,6 +34,7 @@ img:hover {
 			$(".remove").css('display', 'inline-block');
 		}
 	};
+	// 썸머노트에 첨부된 이미지를 서버에 저장한다.
 	function sendFile(file, el) {
 		var form_data = new FormData();
 		form_data.append('file', file);
@@ -52,6 +53,7 @@ img:hover {
 	}
 	$(function() {
 		show();
+		// 서머노트 초기화
 		 $('#board_content').summernote({
 			 	placeholder: '최대 500자 작성 가능합니다.',
 		        height: 300,
@@ -64,14 +66,15 @@ img:hover {
 		        	}
 		        }
 		 });
-		 if("${BOARD_CATEGORY}"=="0") {
+		 // 카테고리
+		 if($("#board_category").val()=="0") {
 				$('#h3_category').text("자유게시판");
 			} else if("${BOARD_CATEGORY}"=="1"){
 				$('#h3_category').text("스터디");
 			} else {
 				$('#h3_category').text("Q&A");
 			}	
-		
+		// submit
 		$("#add_board_button").click(function() {
 				if ($.trim($("#board_pass").val()) == "") {
 					alert("비밀번호를 입력하세요");
@@ -97,6 +100,7 @@ img:hover {
 					$("#board_content").focus();
 					return false;
 				}
+				// recaptcha
 				$.ajax({
 		            url: '/pro/VerifyRecaptcha',
 		            type: 'post',
@@ -122,9 +126,9 @@ img:hover {
 		        });
 					
 		});
+		// 파일 수정 시
 		$('#upfile').change(function() {
 			var array = $(this).get(0).files; 
-			console.log(array);
 			var strArray ="";
 			for(var i=0; i < array.length; i++) {
 				strArray += array[i].name;
@@ -135,7 +139,7 @@ img:hover {
 			$('#filevalue').text(strArray);
 			show();
 		});
-
+		// 파일 제거 시
 		$('.remove').click(function() {
 			$('#filevalue').text('');
 			var agent = navigator.userAgent.toLowerCase();
@@ -157,8 +161,8 @@ img:hover {
 	<div class="container">
 		<form id="board_form"action="/pro/board_add_action" method="post"
 			enctype="multipart/form-data" name="boardform">
-			<h3 id="h3_category">자유게시판 글쓰기</h3>
-			<input type="hidden" name="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
+			<h3 id="h3_category">게시판 글쓰기</h3>
+			<input id="board_category" type="hidden" name="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
 			<input type="hidden" name="MEMBER_ID" value="${id}">
 			<div class="form-group">
 				<label for="board_name">글쓴이</label> 
