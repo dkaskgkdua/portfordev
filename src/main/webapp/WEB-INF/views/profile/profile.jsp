@@ -71,17 +71,11 @@
     			<div class="profile"><img src="resources/Image/sample2.jpg" class="profile"></div>
     			<div>
     			<br>
-    			<h1 class="name">LEE DAEUN / 이다은 </h1><button type="button" onclick="location.href='portfolio_form'">등록</button>
+    			<h1 class="name">LEE DAEUN / 이다은 </h1><button type="button" onclick="location.href='profile_form'">등록</button>
     			<p>Web programmer</p>
     			</div>
     			
     			<div class="contact_div">
-    				<!-- <ul>
-    					<li>
-    						<img class="contact" src="resources/Image/phone.png"/>
-    						<span>010-9954-8516</span>
-    					</li>
-    				</ul> -->
     				<img class="contact" src="resources/Image/phone.png"/>
     				<span>010-9954-8516</span>
     				<br>

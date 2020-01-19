@@ -16,3 +16,10 @@ insert into MEMBER values('user11','1111','이다은',0,0,80);
 insert into PORTFOLIO values(nvl(PORTFOLIO_SEQ.nextval,1),'user2','d','d','d','d',sysdate,sysdate,'0','d','d','0','0')
 --포트폴리오 피드백 테이블
 insert into PORT_FEEDBACK values(nvl(PORT_FEEDBACK_SEQ.nextval,1),1,'user9','gg',sysdate)
+--게시판
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);    
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구1','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구3','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구4','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구5','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구6','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);

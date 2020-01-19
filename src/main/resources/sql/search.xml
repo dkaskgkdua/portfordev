@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="search">
+	<select id="searchBoard" resultType="Board" parameterType="String">
+	<![CDATA[
+		select * from 
+			(select rownum r, b.* from
+				( select BOARD_SUBJECT,BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%' order by BOARD_DATE desc)b
+			 )
+			 where r < 6 order by r asc 
+	]]>		 
+	</select>
+	
+	
+	<select id="searchMember" resultType="Member" parameterType="String">
+	<![CDATA[
+		select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
+			(select rownum r, b.* from
+				( select * from MEMBER where MEMBER_ID  like '%' ||  #{keyword} || '%' order by MEMBER_ACT desc)b
+			 )m left outer join (select MEMBER_ID ,nvl(MAX(REG_DATE),null) REG_DATE  from	PORT_FEEDBACK group by MEMBER_ID) p on p.MEMBER_ID=m.MEMBER_ID 
+			 where r < 6 order by r asc ,REG_DATE DESC
+	]]>		 
+	</select>
+	
+	
+	
+
+</mapper>

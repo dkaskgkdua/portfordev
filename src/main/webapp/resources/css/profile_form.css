@@ -1,0 +1,59 @@
+			input[type=radio]{opacity:1;float:none;
+							-webkit-appearance: radio; display: inline-block;margin-right:0em;}
+			.slide{width:100%;box-sizing: border-box;margin-top: 30px;color:black;}
+			.slide_in{background:white;text-align: left;overflow: auto;}
+			.container {
+							width: 40%;
+							border: 1px solid lightgray;
+							padding: 30px;
+							margin-top:80px;
+							
+						}
+			.insert_h1{font-size:20pt; font-weight: bold; color:black;}
+			.slick-next{visibility: hidden;}
+			.slick-prev{visibility: hidden;}
+			#progress{display: none}
+			#profile_icon{width:100px; margin:0 auto }
+			#btn{margin-top: 100px;}
+			.pre-next{display: none; margin-bottom:20px;height:50px;background:#2096f3; border-radius: 100%}
+			#pre{position:relative; left:0px}
+			#next{float:right}
+			.slide_in p {color: black;text-align:left;margin: 2px;}
+			.slide_in hr{margin:10px;}
+			#addimg{width:30px;}
+			#skill{width:45%;display:inline-block;
+					background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
+			#skill_detail{width:45%;display:inline-block;
+							background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
+			
+			.delete{width:10px}
+			#select_result{ display: inline-block;width:90%}
+			#select_result2{ display: inline-block;width:90%}
+			#select_result_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
+			#select_result2_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
+			.result_div{margin-top:20px;}
+			#submit{background:#2196F3!important;}
+			button:hover{background: #2096f3;}
+			.end{display: inline-block; width:48%;margin-top:100px;}
+			#finish{text-align: center;}
+			
+/*반응형 css*/
+@media (max-width: 480px ) {
+	.container{  border:0px;margin-top:0px}
+	.insert_h1{font-size:15pt;margin-top: 50px; }
+	#profile_icon {
+    width: 50px;
+    margin: 0 auto;
+	}
+	#profile_form{margin-top:0px}
+	
+	#btn {
+    margin-top: 50px;
+	}
+	
+	.slide{height: 380px;margin-top: 0px;text-align: center;}
+	.slide_in{display: inline-block;display: flex; justify-content: center; align-items: center;}
+	
+	#pre,#next{  width: 50px;}
+	#select_result_delete{width:30px}
+	#select_result2_delete{width:30px}

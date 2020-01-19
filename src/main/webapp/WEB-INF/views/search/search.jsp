@@ -10,11 +10,13 @@
 <html>
 	<head>
 		<title>검색결과</title>
+		<jsp:include page="../main/navbar.jsp"></jsp:include>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<link rel="stylesheet" href="resources/css/main.css" />
 		<link rel="stylesheet" href="resources/css/profile_main_slidebar.css" />
-		<jsp:include page="../main/navbar.jsp"></jsp:include>
+		<link rel="stylesheet" href="resources/css/search.css" />
+		
 		<script src="resources/js/search.js"></script>
 		<style>
 		#date{margin-left: 10px;}
@@ -86,7 +88,7 @@
     		<h1 style="text-align: left;margin-top:10px">통합검색>${searchKeyword}</h1>
     		</div>
 				<!--@@@@@@@@@@@@@@@@@@@@@@@@ 검색결과  -->
-				<div>
+				<div id="search_result">
 				<h1 class="profile_h1 search_h1 sub" id="project">PROJECT</h1>
 				
 					
@@ -96,7 +98,10 @@
 						<li>
 							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
 							<div class="context_text">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a><span id="date">2019년 12월 11일</span><br>
+							 <div id="div_sub">
+								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
+							 </div>	
+								<span id="date">2019년 12월 11일</span><br>
 								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 									정보: No Spring WebApplicationInitializer types detected on classpath
 								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
@@ -106,23 +111,31 @@
 							</div>
 						</li>
 						<li>
-						<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
-						<div class="context_text">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a><span id="date">2019년 12월 11일</span><br>
+							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
+							<div class="context_text">
+							 <div id="div_sub">
+								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
+							 </div>	
+								<span id="date">2019년 12월 11일</span><br>
 								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 									정보: No Spring WebApplicationInitializer types detected on classpath
+								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
 								1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 								정보: No Spring WebApplicationInitializer types detected on classpath
 								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars</span>
 							</div>
 						</li>
 						<li>
-						<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
-						<div class="context_text">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a><span id="date">2019년 12월 11일</span><br>
+							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
+							<div class="context_text">
+							 <div id="div_sub">
+								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
+							 </div>	
+								<span id="date">2019년 12월 11일</span><br>
 								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 									정보: No Spring WebApplicationInitializer types detected on classpath
 								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
+								1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 								정보: No Spring WebApplicationInitializer types detected on classpath
 								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars</span>
 							</div>
@@ -166,10 +179,10 @@
 							</div>
 							<br>
 							<c:if test="${memberList.REG_DATE!=null}">
-								<span>총 피드백 : 4    &nbsp; 최근 피드백 등록일 : ${memberList.REG_DATE}</span> 
+								<span>&nbsp; 최근 피드백 등록일 : ${memberList.REG_DATE}</span> 
 							</c:if>
 							<c:if test="${memberList.REG_DATE==null}">
-								<span>총 피드백 : 0</span> 
+								<span>피드백 활동이 없는 회원입니다.</span> 
 							</c:if>
 						</li>
 					</c:forEach>
@@ -187,59 +200,27 @@
 					<hr id="board">
 					<h1 class="profile_h1 search_h1 sub">FREE BOARD</h1>
 					<ul class="search_ul search_board">
-						<li>
-							<a href="">날씨가 좋아요</a><span id="date">2019년 12월 11일</span>
+					<c:if test="${!empty boardResult}">
+					 <c:forEach var="boardList" items="${boardResult}">
+					 	<li>
+							<a href="">${boardList.BOARD_SUBJECT}</a><span id="date">${boardList.BOARD_DATE}</span>
 							<br>
 							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
-							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-							정보: Initializing Spring root WebApplicationContext
-							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
-							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext initialized in 1898 ms
-							1월 11, 2020 9:07:07 오후 org.apache.catalina.core.ApplicationContext log
-							정보: Initializing Spring DispatcherServlet 'appServlet'
-							INFO : org.springframework.web.servlet.D</span>
+							<span class="search_board_span">${boardList.BOARD_CONTENT}</span>
 							</div>
-							<p>작성자 : lde1245</p>
+							<p>작성자 : ${boardList.MEMBER_ID}</p>
 						</li>
+					
 						
-						<li>
-							<a href="">maven은 이렇게 잡으시면됩니다.</a><span id="date">2019년 12월 11일</span>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">server에서 add project 할때 올릴 프로젝트가 없다고나올때</span>
-							</div>
-							<p>작성자 : lde1245</p>
-						</li>
+
+					 </c:forEach>
+					<li class="more"><a href="" >More ></a></li>
+					</c:if>	
 						
-						<li>
-							<a href="">maven은 이렇게 잡으시면됩니다.</a><span id="date">2019년 12월 11일</span>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">server에서 add project 할때 올릴 프로젝트가 없다고나올때</span>
-							</div>
-							<p>작성자 : lde1245</p>
-						</li>
+					<c:if test="${empty boardResult}">
+						<h1 style="color:gray">자유게시판 검색결과가 존재 하지 않습니다.</h1>
+					</c:if>	
 						
-						<li>
-							<a href="">날씨가 좋아요</a><span id="date">2019년 12월 11일</span>
-							<br>
-							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
-							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-							정보: Initializing Spring root WebApplicationContext
-							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
-							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext initialized in 1898 ms
-							1월 11, 2020 9:07:07 오후 org.apache.catalina.core.ApplicationContext log
-							정보: Initializing Spring DispatcherServlet 'appServlet'
-							INFO : org.springframework.web.servlet.D</span>
-							</div>
-							<p>작성자 : lde1245</p>
-						</li>
-						
-						<li class="more"><a href="" >More ></a></li>
 					</ul>
 					
 					<hr id="study">
@@ -250,8 +231,7 @@
 							<a href="">스터디원 모집합니다..</a><span id="date">2019년 12월 11일</span>
 							<br>
 							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
+							<span class="search_board_span">dd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
 							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 							정보: Initializing Spring root WebApplicationContext
 							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
@@ -267,8 +247,7 @@
 							<a href="">같이 스터디 하실분(종로)</a><span id="date">2019년 12월 11일</span>
 							<br>
 							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
+							<span class="search_board_span">안녕ddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
 							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 							정보: Initializing Spring root WebApplicationContext
 							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
@@ -284,8 +263,7 @@
 							<a href="">3년차 개발자입니다..</a><span id="date">2019년 12월 11일</span>
 							<br>
 							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
+							<span class="search_board_span">ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
 							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 							정보: Initializing Spring root WebApplicationContext
 							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started
@@ -301,8 +279,7 @@
 							<a href="">ajax란?</a><span id="date">2019년 12월 11일</span>
 							<br>
 							<div class="context_text">
-							<span class="search_board_span">안녕하세요 어쩌구저꺼주자ㅜ기dddddddddddddddddddddddddddddddddddddd
-							dddddddddddddddaaaaaaddddddddddddddddddddddddddddddddddddddddddddddd바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
+							<span class="search_board_span">바ㅜㅏㅣ적어도 하나의 JAR가 TLD들을 찾기 위해 스캔되었으나 아무 것도 찾지 못했습니다. 스캔했으나 TLD가 없는 JAR들의 전체 목록을 보시려면, 로그 레벨을 디버그 레벨로 설정하십시오. 스캔 과정에서 불필요한 JAR들을 건너뛰면, 시스템 시작 시간과 JSP 컴파일 시간을 단축시킬 수 있습니다.
 							1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
 							정보: Initializing Spring root WebApplicationContext
 							INFO : org.springframework.web.context.ContextLoader - Root WebApplicationContext: initialization started

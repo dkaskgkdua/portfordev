@@ -23,8 +23,20 @@ natural join
 where r < 6 order by r;
 
 select * from MEMBER;
-
-select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,nvl(REG_DATE,null) from 
+select * from profile;
+/*회원 검색 결과+최근 피드백 활동일*/
+select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
 			(select rownum r, b.* from
 				( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b
-			 )m left outer join PORT_FEEDBACK p on p.MEMBER_ID=m.MEMBER_ID where r < 6 order by r
+			 )m left outer join (select MEMBER_ID ,nvl(MAX(REG_DATE),null) REG_DATE  from	PORT_FEEDBACK group by MEMBER_ID) p on p.MEMBER_ID=m.MEMBER_ID 
+			 where r < 6 order by r asc ,REG_DATE DESC;
+			 
+/*게시판 검색 결과*/
+select * from 
+			(select rownum r, b.* from
+				( select BOARD_SUBJECT,BOARD_CONTENT,BOARD_DATE from  BOARD where BOARD_SUBJECT  like '%' || '어' || '%' 
+					or BOARD_CONTENT like '%' ||  '어' || '%' order by BOARD_DATE desc)b
+			 )
+			 where r < 6 order by r asc 			 
+			 
+select MEMBER_ID , MAX(REG_DATE)  from	PORT_FEEDBACK group by MEMBER_ID ;		 
