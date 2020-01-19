@@ -17,8 +17,8 @@
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
 					<div class="category-list-item active-category" id="cateAll">전체</div>
-					<div class="category-list-item" id="feedNeedOnly">피드백</div>
-					<div class="category-list-item" id="recomOnly">추천</div>
+					<div class="category-list-item" id="feedNeedOnly">피니</div>
+					<div class="category-list-item" id="recomOnly">베스트</div>
 					<div class="category-list-item" id="scrapOnly">스크랩</div>
 				</div>
 				<div class="sort-condition">
@@ -59,9 +59,15 @@
 			<div class="portfolio-container">
 				<div class="portfolio-list">
 					<c:forEach var="item" begin="0" end="20" step="1">
-					<div class="portfolio-list-item">
+					<div class="portfolio-list-item clickable">
 						<div class="img-wrapper">
 							<!-- <img src="resources/Image/sample.jpg"> -->
+							<div class="port-scrap-area">
+								<img src="/pro/resources/Image/icon/Scrap_unclicked_icon.svg">
+							</div>
+							<div class="port-fini-area">
+								<img src="/pro/resources/Image/icon/Fini_icon.svg">
+							</div>
 						</div>
 						<div class="info">
 							<div class="info-detail">

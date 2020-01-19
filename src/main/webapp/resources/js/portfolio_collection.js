@@ -36,6 +36,28 @@ $(document).ready(function(){
 	// order 변경 시
 	
 	// from 변경 시
+
+	// portfolio scrap 호버시
+	$('.port-scrap-area').hover(function(){
+		$(this).parent().parent().removeClass('clickable');
+	}, function(){
+		$(this).parent().parent().addClass('clickable');
+	});
+
+	// portfolio scrap 클릭시
+	$('.port-scrap-area').click(function(e){
+		e.stopPropagation();
+		// 스크랩이 되어 있을 경우
+		if($(this).children('img').attr('src') == '/pro/resources/Image/icon/Scrap_clicked_icon.svg')
+		{
+			$(this).children('img').attr('src', '/pro/resources/Image/icon/Scrap_unclicked_icon.svg');
+		}
+		// 스크랩이 안되어 있을 경우
+		else
+		{
+			$(this).children('img').attr('src', '/pro/resources/Image/icon/Scrap_clicked_icon.svg');
+		}
+	});
 	
 	// .user-profile 클릭 시 profile 상세페이지로 이동
 	$('.user-profile').click(function(e){
