@@ -64,7 +64,7 @@
 
 /*모바일*/
 @media (max-width: 480px ) {
-  #adside{display: none;left:-400px;} 
+  #adside{display: none;left:-400px;margin-top:20px!important;} 
   .inner{margin-left:auto!important}
   body{min-width:100%!important}
   #info{padding-left: 0px; padding-right: 0px;padding-top:30px;font-size:11pt;font-weight: 300;padding-bottom:30px!important}
@@ -85,7 +85,7 @@
 	.skill_stack tr:nth-child(1) td:nth-child(1){height:100px}
 	#adad{font-size:10pt!important; color:gray;font-weight: 600}
 	.adad_content{font-size:9pt}
-	.p_btn{background: black;color:white;position:absolute;width:300px;top:100px;display: block}
+	.p_btn{background: black;color:white;position:absolute;width:280px;top:70px;display: block}
 	.profile_btn{width:40px;position:fixed;bottom: 20px;right:20px;border-radius: 100%;display:block}
 	#p_div{margin-top:50px!important}
 	.profile{width:200px;}

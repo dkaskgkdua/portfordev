@@ -17,9 +17,7 @@
 				'keyup',
 				function() {
 					$("add_member_id_message").empty();
-					// \w => [A-Za-z0-9_]
 					var pattern = /^\w{4,15}$/;
-					//var pattern = /^\w+@\w*[.]\w{3}$/;
 					var id = $("#add_member_id").val();
 					if (!pattern.test(id)) {
 						$("#add_member_id_message").css('color', 'red').html(
@@ -28,7 +26,7 @@
 						return;
 					}
 					$.ajax({
-						url : "idcheck",
+						url : "/pro/idcheck",
 						data : {
 							"id" : id
 						},
@@ -83,7 +81,7 @@
 			}
 			var password_pattern = /^\w{6,15}$/;
 			if (!password_pattern.test($('#add_member_password').val())) {
-				alert("비밀번호를 최소 6자리, 최대 15자리로 맞춰주세요.");
+				alert("비밀번호를 6자리~15자리로 맞춰주세요.(문자, 숫자, _ )");
 				$('#add_member_password').focus();
 				return false;
 			}
@@ -131,9 +129,8 @@
 </style>
 </head>
 <body>
-	
 	<div class="container">
-		<form action="joinProcess" id="add_member_form" method="post">
+		<form action="/pro/joinProcess" id="add_member_form" method="post">
 			<fieldset>
 				<div class="form-group">
 					<label for="add_member_id">아이디</label> <input type="text"

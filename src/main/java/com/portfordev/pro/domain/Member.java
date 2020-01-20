@@ -14,4 +14,5 @@ public class Member {
 	
 	/*search(member최근 활동일)추가 -join with PORT_FEEDBACK*/
 	private Date REG_DATE;
+	private String CNT_FEEDBACK;
 }

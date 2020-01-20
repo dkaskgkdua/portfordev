@@ -130,7 +130,9 @@ public class MemberController {
 		out.println("<script>");
 		if (result == 1) {
 			if(auth.equals("auth")) {
+				String nickname = memberservice.get_name(member.getMEMBER_ID());
 				session.setAttribute("id", member.getMEMBER_ID());
+				session.setAttribute("nickname", nickname);
 				out.println("alert('"+member.getMEMBER_NAME()+"님 환영합니다.');");
 				out.println("location.href='pro';");
 			} else {

@@ -10,6 +10,7 @@
 		<typeAlias alias="Board" type="com.portfordev.pro.domain.Board"/>
 		<typeAlias alias="Comment" type="com.portfordev.pro.domain.Comment"/>
 		<typeAlias alias="Board_file" type="com.portfordev.pro.domain.Board_file"/>
+		<typeAlias alias="Profile" type="com.portfordev.pro.domain.Profile"/>
 		<typeAlias alias="Board_recommend" type="com.portfordev.pro.domain.Board_recommend"/>
 		<typeAlias alias="MyBatisTestVO2" type="com.portfordev.pro.domain.MyBatisTestVO2"/>
 		<typeAlias alias="Portfolio" type="com.portfordev.pro.domain.Portfolio"/>
@@ -24,5 +25,7 @@
 		<mapper resource="sql/comment.xml"/>
 		<mapper resource="sql/portfolio.xml"/>
 		<mapper resource="sql/feedback.xml"/>
+		<mapper resource="sql/profile.xml"/>
+		<mapper resource="sql/search.xml"/>
 	</mappers>
 </configuration>

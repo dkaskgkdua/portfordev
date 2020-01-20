@@ -2478,14 +2478,11 @@
 	}
 
 		table tbody tr {
-			border: solid 1px #dbdbdb;
+			border: solid 1px white;
 			border-left: 0;
 			border-right: 0;
 		}
 
-			table tbody tr:nth-child(2n + 1) {
-				background-color: rgba(144, 144, 144, 0.075);
-			}
 
 		table td {
 			padding: 0.75em 0.75em;
@@ -2551,7 +2548,6 @@
 		background-color: #5a5a5a;
 		border-radius: 0;
 		border: 0;
-		color: #ffffff ;
 		cursor: pointer;
 		display: inline-block;
 		font-weight: 600;

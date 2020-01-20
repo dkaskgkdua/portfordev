@@ -1,4 +1,35 @@
 $(function(){
+/* 	var out="";
+	var searchword = $('#searchword').val();
+	$.each($('.search_board_span'),function(index,item){
+		var text=$('.search_board_span').text();
+		var result = text.split(searchword);
+		 var test=text.split("하");
+		console.log("한글자는 왜 안되는거임"+test); 
+		console.log("검색할 문자 "+searchword);
+		console.log("text"+text);
+		console.log("result[0]"+result[0]);
+		console.log("result[1]"+result[1]);
+		if(result[1]){
+			out+="<span class='search_board_span'>";
+			out+="<span style='background:yellow'>";
+			out+=searchword+" ";
+			out+="</span>"+result[1]+"</span>";
+			$(this).text('');
+			$(this).html(out);
+		}
+		 if(result[0]){
+			out+="<span class='search_board_span'>";
+			out+="<span style='background:yellow'>";
+			out+=searchword+" ";
+			out+="</span>"+result+"</span>";
+			$(this).text('');
+			$(this).html(out);
+		} 
+	}) 
+	*/
+
+
 	$("#sidebar_btn").click(function(){
 		if($("#sidebar_btn").attr("src")==="resources/Image/left.png"){
 			close();
@@ -40,6 +71,7 @@ $(function(){
 		
 		
 	})
+	
 
 	
 	
