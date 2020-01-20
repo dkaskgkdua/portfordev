@@ -197,7 +197,7 @@
 					<h2>(&nbsp;<span class="portfolio-feedback-cnt">10</span>&nbsp;)</h2>
 				</div>
 				<!-- 피드백 접기 -->
-				<div class="portfolio-feedback-hide">접기</div>
+				<div class="portfolio-feedback-hide" style="display:none;">접기</div>
 				<!-- 피드백 필터 -->
 				<div class="portfolio-feedback-filter">
 					<select name="feedPick" class="select" id="feedPick">
