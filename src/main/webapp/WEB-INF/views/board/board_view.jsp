@@ -8,6 +8,7 @@
 <meta charset="UTF-8">
 <title>게시판 뷰</title>
 <style>
+<<<<<<< HEAD
 hr {
 	margin : 5px;
 }

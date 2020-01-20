@@ -21,6 +21,13 @@
 		$('#logout_button').click(function() {
 			location.href = '/pro/logout';
 		})
+		
+		$('#searchform').submit(function(){
+			if($('input[type=search]').val()==''){
+				alert('검색어를 입력해주세요');
+				return false;
+			}
+		})
 	})
 </script>
 <style>
@@ -39,7 +46,6 @@
 	.navbar {
 		height : 60px !important;
 	}
-
 }
 </style>
 <div class="nav-wrap">
@@ -67,8 +73,8 @@
 				</div>
 			</li>
 		</ul>
-		<form class="form-inline my-2 my-lg-0" action ="search" method ="get">
-			<input class="form-control mr-sm-2 " type="search" name="search"
+		<form class="form-inline my-2 my-lg-0" action ="search" method ="get" id="searchform">
+			<input class="form-control mr-sm-2" type="search" name="search"
 				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
 			<c:if test="${!empty id}">

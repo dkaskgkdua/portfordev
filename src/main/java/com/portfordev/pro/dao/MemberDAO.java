@@ -39,4 +39,5 @@ public class MemberDAO {
 	public void add_receive_act(Map<String, Object> map) {
 		sqlSession.update("Members.add_receive_act", map);
 	}
+
 }

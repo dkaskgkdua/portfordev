@@ -123,7 +123,6 @@
 	            }
 	        });
 		});
-
 	});
 </script>
 <style>
@@ -133,14 +132,12 @@
 	padding: 20px;
 	margin-top: 80px;
 }
-
 #join_button {
 	width: 100%;
 }
 </style>
 </head>
 <body>
-	
 	<div class="container">
 		<form action="/pro/joinProcess" id="add_member_form" method="post">
 			<fieldset>

@@ -1,5 +1,7 @@
 package com.portfordev.pro.domain;
 
+import java.sql.Date;
+
 import lombok.Data;
 
 @Data
@@ -10,4 +12,8 @@ public class Member {
 	private int MEMBER_POWER = 0;
 	private int MEMBER_POINT = 0;
 	private int MEMBER_ACT = 0;
+	
+	/*search(member최근 활동일)추가 -join with PORT_FEEDBACK*/
+	private Date REG_DATE;
+	private String CNT_FEEDBACK;
 }

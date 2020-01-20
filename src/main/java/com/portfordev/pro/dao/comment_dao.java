@@ -19,6 +19,7 @@ public class comment_dao {
 	public List<Comment> get_list(int BOARD_ID) {
 		return sqlSession.selectList("Comments.get_list", BOARD_ID);
 	}
+
 	public int comment_insert(Comment co) {
 		return sqlSession.insert("Comments.insert", co);
 	}
