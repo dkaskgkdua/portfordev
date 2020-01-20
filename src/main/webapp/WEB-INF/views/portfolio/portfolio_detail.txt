@@ -40,3 +40,20 @@ div #portfolioModalContainer .portfolio-modal-container
 				div .portfolio-feedback-item
 					div .feedback-info
 					div .feedback-content
+					
+================================================================================
+
+division info-wrap 에 포함되어야하는 부분
+MEMBER_ID : 포트폴리오 작성자
+MEMBER_NAME : 작성자 닉네임
+MEMBER_ACT : 작성자 직업 (개발자 보안 퍼블리셔)
+
+PORT_SUBJECT : 프로젝트 제목
+PORT_START_DAY : 프로젝트 시작일
+PORT_END_DAY : 프로젝트 종료일
+PORT_TEAM : 개인 / 팀작업 유무 (0:개인 1:팀)
+
+PORT_CONTENT : 포트폴리오에 관한 전반적인 설명
+
+PORT_GITHUB : 프로젝트 GITHUB 주소
+PORT_SITE : 프로젝트 도메인 주소

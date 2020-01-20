@@ -22,6 +22,11 @@ tbody{
 	vertical-align:middle;
 	border-color:inherit;
 }
+.clickable:hover{
+	opacity:0.7;
+	transition:0.7s;
+	border-radius:5%;
+}
 .clearfix{
 	position:relative;
 	color: #414042;
@@ -243,11 +248,6 @@ tbody{
     border-bottom-right-radius: 1px;
     height:360px;
 }
-.portfolio-list .portfolio-list-item:hover{
-	opacity:0.7;
-	transition:0.7s;
-	border-radius:5%;
-}
 @media screen and (max-width: 450px){
 	.portfolio-list .portfolio-list-item {
     	width: 100%;
@@ -306,6 +306,29 @@ tbody{
 	text-align:center;
 	border-top:0.5em solid #5385c1;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+.portfolio-list-item .img-wrapper .port-fini-area{
+	height:40px;
+	float:left;
+	z-index:100;
+}
+.port-fini-area img{
+	height:100%;
+}
+.portfolio-list-item .img-wrapper .port-scrap-area{
+	height:40px;
+	float:right;
+	text-align:center;
+	/*background:rgba(255,255,255,0.5);*/
+	z-index:100;
+}
+.portfolio-list-item .img-wrapper .port-scrap-area:hover{
+	cursor:pointer;
+	opacity:0.8;
+	transition:0.3s;
+}
+.port-scrap-area img{
+	height:100%;
 }
 .portfolio-list-item .info {
     padding: 18px 13px;

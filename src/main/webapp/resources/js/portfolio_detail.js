@@ -44,29 +44,40 @@ $(document).ready(function(){
 	{
 		$('.port-slide-list').slick({
 			  infinite: false,	// 맨끝이미지에서 끝내지 않고 맨앞으로 이동
-			  slidesToShow: 3,	// 화면에 보여질 이미지 갯수
+			  slidesToShow: 1,	// 화면에 보여질 이미지 갯수
 			  slidesToScroll: 1, // 스크롤시 이동할 이미지 갯수
 			  arrows: true,	// 화살표
+			  vertical:true,	// 세로방향으로 슬라이드
+			  verticalSwiping:true,	// 세로방향 슬라이드 가능
 			  dots:true,	// 아래 점
-			  autoplay: true,	// 자동으로 다음 이미지 보여주기
+			  autoplay: false,	// 자동으로 다음 이미지 보여주기
 			  autoplaySpeed:4000,	// 다음 이미지로 넘어갈 시간
 			  pauseOnHover:true,	// 마우스 호버시 슬라이드 이동멈춤
-			  speed:1500, 			// 다음 이미지로 넘겨질때 걸리는 시간
-			  // vertical:true		// 세로방향으로 슬라이드를 원하면 추가
+			  speed:1000, 			// 다음 이미지로 넘겨질때 걸리는 시간
 			  responsive:[
 				  {	// 반응형 웹
 					  breakpoint:1024,	// 기준화면 사이즈
-					  settings:{slidesToShow:2}	// 사이즈에 적용될 설정
+					  settings:{slidesToShow:1}	// 사이즈에 적용될 설정
 				  },
 				  {
 					  breakpoint:600,
-					  settings:{slidesToShow:2}
+					  settings:{slidesToShow:1}
 				  },
 				  {
 					  breakpoint:500,
 					  settings:{slidesToShow:1}
 				  }
 			  ]
+		});
+		$('.port-slide-list').on('swipe', function(event, slick, direction){
+			console.log('swiped');
+		});
+		$('.port-slide-item').on('click', function(){
+			$('#portfolio-pdf-enlargement-wrap').fadeIn();
+			$('#portfolio-pdf-enlargement-wrap').click(function(e){
+				e.stopPropagation();
+				$('#portfolio-pdf-enlargement-wrap').fadeOut();
+			});
 		});
 	}
 	function doActivity()
@@ -95,7 +106,7 @@ $(document).ready(function(){
 		// 추천이 아직 안되어있을 경우
 		if($('.icon-tail-fit>.recom-tail').text() == '추천 하기')
 		{
-			var recomCnt = Number($('.port-recom-cnt').text()) + 1;
+			var recomCnt = Number($('#portfolio-detail-wrap .port-recom-cnt').text()) + 1;
 			$('.port-recom-cnt').text(recomCnt);
 			$('.recom-icon').attr('src', '/pro/resources/Image/icon/heart-on.png');
 			$('.icon-tail-fit>.recom-tail').text('추천 취소');
@@ -103,7 +114,7 @@ $(document).ready(function(){
 		// 이미 추천을 했을 경우
 		else
 		{
-			var recomCnt = Number($('.port-recom-cnt').text()) - 1;
+			var recomCnt = Number($('#portfolio-detail-wrap .port-recom-cnt').text()) - 1;
 			$('.port-recom-cnt').text(recomCnt);
 			$('.recom-icon').attr('src', '/pro/resources/Image/icon/heart-off.png');
 			$('.icon-tail-fit>.recom-tail').text('추천 하기');
@@ -136,6 +147,7 @@ $(document).ready(function(){
 			$('.portfolio-feedback-list').css('display', 'none');
 			$('.portfolio-feedback-header').css('display', 'none');
 			$('.feedback-write-container').css('display', 'block');
+			$('#FEED_CONTENT').focus();
 		}
 		else
 		{
@@ -143,6 +155,7 @@ $(document).ready(function(){
 			$('.portfolio-feedback-list').css('display', 'block');
 			$('.portfolio-feedback-header').css('display', 'block');
 			$('.feedback-write-container').css('display', 'none');
+			$('#FEED_CONTENT').val('');
 		}
 	}
 	// 피드백 추천 클릭 시
@@ -163,7 +176,6 @@ $(document).ready(function(){
 			clicked.parent().children('.feedback-recommend-cnt').text((Number(clicked.parent().children('.feedback-recommend-cnt').text()) - 1));
 		}
 	}
-	
 	
 	// 포트폴리오 콘솔 > 클릭 시
 	$('.drag-activity-menu').click(openActivityMenu);
@@ -186,6 +198,37 @@ $(document).ready(function(){
 	    }
 	}
 	
+	// portfolio-info-section
+	// 프로필 클릭 시
+	$('.portfolio-info-writer').click(function(e){
+		e.stopPropagation();
+		var writerNick = $('.portfolio-info-writer-nick').text();
+		if(confirm(writerNick + '님의 프로필로 이동하시겠습니까?'))
+			location.href="/pro/profile";
+	});
+	// 방문하기 img 클릭시
+	$('.port-github-img').click(function(e){
+		e.stopPropagation();
+		var github = $('.port-github-href').val();
+		if(confirm(github + '로 이동하시겠습니까?'))
+			location.href= github;
+	});
+	$('.port-site-img').click(function(e){
+		e.stopPropagation();
+		var site = $('.port-site-href').val();
+		if(confirm(site + '로 이동하시겠습니까?'))
+			location.href= site;
+	});
+	
+	// portfolio-feeback-section show/hide
+	$('#feed-icon-tail').click(function(e){
+		e.stopPropagation();
+		$('#portfolio-feedback-wrap').show();
+	});
+	$('.portfolio-feedback-hide').click(function(e){
+		e.stopPropagation();
+		$('#portfolio-feedback-wrap').hide();
+	}); 
 	
 	function slickCheck(){
 		var slickInfoObj={
