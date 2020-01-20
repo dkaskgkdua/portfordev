@@ -159,17 +159,27 @@ $(document).ready(function(){
 			$('.portfolio-feedback-header').css('display', 'none');
 			$('.feedback-write-container').css('display', 'block');
 			$('#FEED_CONTENT').focus();
-			$('#portfolio-feedback-wrap').stop().animate({top: '60%'}, {duration:500,queue:false});
+			if($(window).height() < 740)
+				$('#portfolio-feedback-wrap').stop().animate({top: '60%'}, {duration:500,queue:false});
 		}
 		else
 		{
 			$('.icon-tail-fit>.write-tail').text('피드백 작성');
 			$('#FEED_CONTENT').val('');
-			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
+			if($(window).height() < 740)
+			{
+				$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
+					$('.portfolio-feedback-list').css('display', 'block');
+					$('.portfolio-feedback-header').css('display', 'block');
+					$('.feedback-write-container').css('display', 'none');
+				});
+			}
+			else
+			{
 				$('.portfolio-feedback-list').css('display', 'block');
 				$('.portfolio-feedback-header').css('display', 'block');
 				$('.feedback-write-container').css('display', 'none');
-			});
+			}
 		}
 	}
 	// 피드백 추천 클릭 시
@@ -297,6 +307,10 @@ $(document).ready(function(){
 			else
 			{
 				$('#portfolio-feedback-wrap').css('top', '100%');
+			}
+			if($('#write-icon-tail').hasClass('doFeedWrite'))
+			{
+				$('#write-icon-tail').trigger('click');
 			}
 		}
 		if($(window).width() > 778)
