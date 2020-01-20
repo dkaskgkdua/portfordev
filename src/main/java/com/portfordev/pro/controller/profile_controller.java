@@ -25,8 +25,8 @@ public class profile_controller {
 	@Autowired
 	private profile_service_impl service;
 	
-	/* @Value("${savefoldername}") */
-//	private String saveFolder;
+	 @Value("${savefoldername}") 
+	 private String saveFolder;
 	
 	@RequestMapping(value="/profile")
 	public String profile_main() throws Exception {
@@ -77,7 +77,7 @@ public class profile_controller {
 			//String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
 			//2.특정폴더
-			String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
+			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
 			String homedir = saveFolder + year + "-" + month + "-" + date;
 			
 			System.out.println(homedir);
