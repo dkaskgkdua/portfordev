@@ -26,4 +26,14 @@ public class search_service_impl implements search_service{
 		return dao.searchBoard(search);
 	}
 
+	@Override
+	public List<Board> searchStudy(String search) {
+		return dao.searchStudy(search);
+	}
+
+	@Override
+	public List<Board> searchQnA(String search) {
+		return dao.searchQnA(search);
+	}
+
 }

@@ -7,10 +7,10 @@
 	<![CDATA[
 		select * from 
 			(select rownum r, b.* from
-				( select BOARD_SUBJECT,BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
-					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%' order by BOARD_DATE desc)b
+				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '0' order by BOARD_DATE desc)b
 			 )
-			 where r < 6 order by r asc 
+			 where r < 6  order by r asc
 	]]>		 
 	</select>
 	
@@ -25,6 +25,27 @@
 	]]>		 
 	</select>
 	
+	<select id="searchStudy" resultType="Board" parameterType="String">
+	  <![CDATA[
+		select * from 
+			(select rownum r, b.* from
+				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '1' order by BOARD_DATE desc)b
+			 )
+			 where r < 6 order by r asc 
+		]]>		 
+	</select>
+	
+	<select id="searchQnA" resultType="Board" parameterType="String">
+	  <![CDATA[
+		select * from 
+			(select rownum r, b.* from
+				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where  (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '2' order by BOARD_DATE desc)b
+			 )
+			 where r < 6 order by r asc 
+		]]>		 
+	</select>
 	
 	
 

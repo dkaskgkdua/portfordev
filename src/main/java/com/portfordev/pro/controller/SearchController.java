@@ -25,15 +25,29 @@ public class SearchController {
 		System.out.println("검색될 문자 개수 "+s.length);
 		List<Member>memberresult=new ArrayList<Member>();
 		List<Board>boardresult = new ArrayList<Board>();
+		List<Board>studyresult = new ArrayList<Board>();
+		List<Board>qnaresult = new ArrayList<Board>();
 		
-		for(int i=0; i<s.length; i++) {
-			memberresult.addAll(service.searchMember(s[i]));
-			boardresult.addAll(service.searchBoard(s[i]));
-			System.out.println("검색 키워드="+s[i]);
-		}
+//		for(int i=0; i<s.length; i++) {
+//			memberresult.addAll(service.searchMember(s[i]));
+//			boardresult.addAll(service.searchBoard(s[i]));
+//			
+//			
+//			System.out.println("검색 키워드="+s[i]);
+//		}
+		
+		memberresult=service.searchMember(search);
+		boardresult= service.searchBoard(search);
+		studyresult =service.searchStudy(search);
+		qnaresult = service.searchQnA(search);
+		
+		
+		
 		mv.addObject("searchKeyword",search);
 		mv.addObject("boardResult",boardresult);
 		mv.addObject("memberResult", memberresult);
+		mv.addObject("studyResult",studyresult);
+		mv.addObject("qnaResult",qnaresult);
 		mv.setViewName("search/search");
 		
 		return mv;

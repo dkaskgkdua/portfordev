@@ -24,4 +24,12 @@ public class SearchDAO {
 	 
 	 return sqlSession.selectList("search.searchBoard",search);
  }
+ 
+ public List<Board> searchStudy(String search){
+	 return sqlSession.selectList("search.searchStudy",search);
+ }
+ 
+ public List<Board> searchQnA(String search){
+	 return sqlSession.selectList("search.searchQnA",search);
+ }
 }

@@ -8,5 +8,7 @@ import com.portfordev.pro.domain.Member;
 public interface search_service {
 	public List<Member>searchMember(String search);
 	public List<Board> searchBoard(String search);
+	public List<Board>searchStudy(String search);
+	public List<Board> searchQnA(String search);
 
 }

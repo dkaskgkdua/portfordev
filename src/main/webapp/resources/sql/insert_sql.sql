@@ -20,6 +20,9 @@ insert into PORT_FEEDBACK values(nvl(PORT_FEEDBACK_SEQ.nextval,1),1,'user9','gg'
 insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);    
 insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구1','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
 insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구3','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
-insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구4','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
-insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구5','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
-insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','1','어쩌구6','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','0','어쩌구4','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','0','어쩌구5','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','0','어쩌구6','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','2','어쩌구4','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','2','어쩌구5','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
+insert into BOARD values(nvl(BOARD_SEQ.nextval,1),'forkkk','a','2','어쩌구6','저쩌구저쩌궁망마ㅣ우ㅠㄹ류ㅠ류 류ㅠ류류류류',0,0,0,0,sysdate);
