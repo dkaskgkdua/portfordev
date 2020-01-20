@@ -73,7 +73,7 @@ public class board_service_impl implements board_service{
 		String field2 = "";
 		switch(search_select) {
 		case 0:  //작성자
-			field = "MEMBER_ID";
+			field = "MEMBER_NAME";
 			break;
 		case 1:  //제목
 			field = "BOARD_SUBJECT";
@@ -94,13 +94,13 @@ public class board_service_impl implements board_service{
 		return dao.getListCount(map);
 	}
 	@Override
-	public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int BOARD_CATEGORY) {
+	public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int BOARD_CATEGORY, String sort) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String field = "";
 		String field2 = "";
 		switch(search_select) {
 		case 0:  //작성자
-			field = "MEMBER_ID";
+			field = "MEMBER_NAME";
 			break;
 		case 1:  //제목
 			field = "BOARD_SUBJECT";
@@ -123,6 +123,7 @@ public class board_service_impl implements board_service{
 		map.put("text", search_text);
 		map.put("start", startrow);
 		map.put("end", endrow);
+		map.put("sort", sort);
 		
 		
 		

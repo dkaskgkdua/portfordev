@@ -360,6 +360,7 @@ public class board_controller {
 			@RequestParam(value = "search_select", defaultValue = "1", required = false) int search_select,
 			@RequestParam(value = "search_text", defaultValue = "", required = false) String search_text,
 			@RequestParam(value = "BOARD_CATEGORY", defaultValue = "0", required = false) int BOARD_CATEGORY,
+			@RequestParam(value = "sort", defaultValue="BOARD_DATE", required = false) String sort,
 			ModelAndView mv) throws Exception {
 		int limit = 15;
 		int list_count = board_service.getListCount(search_select, search_text, BOARD_CATEGORY); // 총 리스트 수를 받아옴
@@ -374,7 +375,7 @@ public class board_controller {
 		if (end_page > max_page)
 			end_page = max_page;
 
-		List<Board> board_list = board_service.getBoardList(page, limit, search_select, search_text, BOARD_CATEGORY);
+		List<Board> board_list = board_service.getBoardList(page, limit, search_select, search_text, BOARD_CATEGORY, sort);
 		System.out.println(board_list);
 		mv.setViewName("board/board_list");
 		mv.addObject("page", page);
@@ -384,48 +385,42 @@ public class board_controller {
 		mv.addObject("list_count", list_count);
 		mv.addObject("board_list", board_list);
 		mv.addObject("search_select", search_select);
+		mv.addObject("search_text", search_text);
 		mv.addObject("limit", limit);
 		mv.addObject("BOARD_CATEGORY", BOARD_CATEGORY);
 		return mv;
 	}
 
 	/*
-	 * @ResponseBody
-	 * 
-	 * @RequestMapping(value = "/BoardListAjax.bo", method = {RequestMethod.POST })
-	 * public Object boardListAjax(@RequestParam(value = "page", defaultValue = "1",
-	 * required = false) int page,
-	 * 
-	 * @RequestParam(value = "limit", defaultValue = "10", required = false) int
-	 * limit,
-	 * 
-	 * @RequestParam(value = "search_select", defaultValue = "1", required = false)
-	 * int search_select,
-	 * 
-	 * @RequestParam(value = "search_text", defaultValue = "", required = false)
-	 * String search_text ) throws Exception { int listcount =
-	 * board_service.getListCount(search_select, search_text); // 총 리스트 수를 받아옴 // 총
-	 * 페이지 수 int maxpage = (listcount + limit - 1) / limit; // 현재 페이지에 보여줄 시작 페이지 수
-	 * int startpage = ((page - 1) / 10) * 10 + 1; // 현재 페이지에 보여줄 마지막 페이지 수(10, 20,
-	 * 30...) int endpage = startpage + 10 - 1;
-	 * 
-	 * if (endpage > maxpage) endpage = maxpage;
-	 * 
-	 * List<Board> boardlist = board_service.getBoardList(page, limit,
-	 * search_select, search_text); //BoardAjax 이용하기 BoardAjax ba = new BoardAjax();
-	 * ba.setPage(page); ba.setMaxpage(maxpage); ba.setStartpage(startpage);
-	 * ba.setEndpage(endpage); ba.setListcount(listcount);
-	 * ba.setBoardlist(boardlist); ba.setSearch_select(search_select);
-	 * ba.setLimit(limit);
-	 * 
-	 * // Map 이용하기 /* Map<String, Object> ba = new HashMap<String, Object>();
-	 * ba.put("page",page); ba.put("maxpage", maxpage); ba.put("startpage",
-	 * startpage); ba.put("endpage", endpage); ba.put("listcount", listcount);
-	 * ba.put("boardlist", boardlist); ba.put("limit",limit);
-	 */
-	/*
-	 * return ba; }
-	 */
+	@ResponseBody 
+	@RequestMapping(value = "/BoardListAjax.bo", method = {RequestMethod.POST })
+	public Object boardListAjax(@RequestParam(value = "page", defaultValue = "1", required = false) int page,
+			@RequestParam(value = "limit", defaultValue = "10", required = false) int limit,
+			@RequestParam(value = "search_select", defaultValue = "1", required = false) int search_select,
+			@RequestParam(value = "search_text", defaultValue = "", required = false) String search_text ) throws Exception { 
+		int listcount = board_service.getListCount(search_select, search_text); // 총 리스트 수를 받아옴 
+		// 총 페이지 수 
+		int maxpage = (listcount + limit - 1) / limit; // 현재 페이지에 보여줄 시작 페이지 수
+		int startpage = ((page - 1) / 10) * 10 + 1; // 현재 페이지에 보여줄 마지막 페이지 수(10, 20,30...) 
+		int endpage = startpage + 10 - 1;
+	
+		if (endpage > maxpage) endpage = maxpage;
+	
+		List<Board> boardlist = board_service.getBoardList(page, limit,search_select, search_text); 
+		//BoardAjax 이용하기 
+		Board_ajax ba = new Board_ajax();
+		ba.setPage(page); 
+		ba.setMaxpage(maxpage); 
+		ba.setStartpage(startpage);
+		ba.setEndpage(endpage); 
+		ba.setListcount(listcount);
+		ba.setBoardlist(boardlist); 
+		ba.setSearch_select(search_select);
+		ba.setLimit(limit);
+		 
+	
+	 return ba; }
+	*/
 	private String fileDBName(String fileName, String saveFolder) {
 		Calendar c = Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);

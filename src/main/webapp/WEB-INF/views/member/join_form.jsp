@@ -86,9 +86,9 @@
 				return false;
 			}
 
-			var password_pattern = /^\^{6,15}$/;
+			var password_pattern = /^\w{6,15}$/;
 			if (!password_pattern.test($('#add_member_password').val())) {
-				alert("비밀번호를 최소 6자리, 최대 15자리로 맞춰주세요.");
+				alert("비밀번호를 6자리~15자리로 맞춰주세요.(문자, 숫자, _ )");
 				$('#add_member_password').focus();
 				return false;
 			}

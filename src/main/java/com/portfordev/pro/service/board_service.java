@@ -8,7 +8,7 @@ import com.portfordev.pro.domain.Board_recommend;
 
 public interface board_service {
 		// 글 목록
-		public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int category);
+		public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int category, String sort);
 		// 글 갯수
 		public int getListCount(int search_select, String search_text, int category);
 		// 글 내용

@@ -12,6 +12,9 @@
 	<logger name="Members">
 		<level value="trace"/>
 	</logger>
+	<logger name="Boards">
+		<level value="trace"/>
+	</logger>
 	<!-- Application Loggers -->
 	<logger name="com.portfordev.pro">
 		<level value="info" />

@@ -3,14 +3,14 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Boards">
 	<select id="count" parameterType="java.util.Map" resultType="int">
-		select count(*) from board where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+		select count(*) from board inner join member using(member_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
 	</select>
 	<select id="countOR" parameterType="java.util.Map" resultType="int">
-		select count(*) from board where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
-		or #{field2} like %#{text}%  
+		select count(*) from board inner join member using(member_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and (${field} like '%'||#{text}||'%'
+		or ${field2} like '%'||#{text}||'%')
 	</select>
 	<select id="list" parameterType="java.util.Map" resultType="Board">
-		select * from (select rownum rnum, b.* 
+		select * from (select rownum rnum, b.*
                    from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
                            (select * from 
                               (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) 
@@ -25,11 +25,11 @@
 		select * from (select rownum rnum, b.* 
                    from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
                            (select * from 
-                              (select board_id, count(BOARD_RECO_ID) from board left outer join board_recommend using(board_id) group by board_id) 
+                              (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) 
                              inner join 
-                              (select board_id, count(BOARD_CO_ID) from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
-                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
-                             or ${field2} like '%'||#{text}||'%' order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
+                              (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
+                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and (${field} like '%'||#{text}||'%'
+                             or ${field2} like '%'||#{text}||'%') order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
                         ) b
                       ) where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
