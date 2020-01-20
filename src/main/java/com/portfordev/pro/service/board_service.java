@@ -7,22 +7,20 @@ import com.portfordev.pro.domain.Board_file;
 import com.portfordev.pro.domain.Board_recommend;
 
 public interface board_service {
-	// 글 목록
-		public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int category);
+		// 글 목록
+		public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int category, String sort);
 		// 글 갯수
 		public int getListCount(int search_select, String search_text, int category);
 		// 글 내용
 		public Board getDetail(int num);
 		// 글 답변
-		public int boardReply(Board board);
+		public int insert_board_Reply(Board board);
 		// 글 수정
-		public int boardModify(Board modifyboard);
+		public int board_edit(Board edit_board);
 		// 글 삭제
-		public int boardDelete(int num);
+		public int board_delete(int board_id, String save_folder);
 		// 조회수 업데이트
 		public int setReadCountUpdate(int num);
-		//글쓴이인지 확인
-		public boolean isBoardWriter(int num, String pass);
 		// 글 등록하기
 		public void insert_board(Board board);
 		// 시퀀스 수정
@@ -39,4 +37,14 @@ public interface board_service {
 		public List<Board_recommend> get_reco_list(int board_id);
 		// 게시판 첨부파일 리스트
 		public List<Board_file> get_file_list(int board_id);
+		// 추천 카운트 반환
+		public int get_reco_count(int board_id);
+		// 추천 삽입
+		public void insert_reco(int board_id, String member_id);
+		// 추천 삭제
+		public void delete_reco(int board_id, String member_id);
+		// 비밀번호 체크
+		public int is_password(int id, String password);
+		// 파일 삭제
+		public void delete_board_file(int board_id, String save_folder);
 }

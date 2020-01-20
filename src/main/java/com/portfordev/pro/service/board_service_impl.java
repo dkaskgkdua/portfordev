@@ -7,6 +7,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.jsoup.Jsoup;
+import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,14 +23,37 @@ public class board_service_impl implements board_service{
 	private board_dao dao;
 	
 	@Override
+	public int is_password(int id, String password) {
+		String get_password = dao.get_board(id).getBOARD_PASSWORD();
+		if(get_password.equals(password)) {
+			return 1;
+		} 
+		return -1;
+	}
+	
+	@Override
 	public void insert_deleteFile(String before_file) {
 		dao.insert_deleteFile(before_file);
 	}
 	@Override
+	public void delete_board_file(int board_id, String save_folder) {
+		System.out.println("board id = " + board_id);
+		List<String> list = dao.select_file(board_id);
+		list.forEach(item -> {
+			String path = save_folder + item;
+			File file = new File(path);
+			if(file.exists() == true) {
+				if(file.delete()) {
+					System.out.println("파일 삭제");
+				}
+			}
+		});
+		dao.delete_board_file(board_id);
+	}
+	
+	@Override
 	public void delete_file(String saveFolder) {
 		List<String> list = dao.select_delete_file();
-		
-		
 		list.forEach(item -> {
 			String path = saveFolder + item;
 			File file = new File(path);
@@ -48,7 +73,7 @@ public class board_service_impl implements board_service{
 		String field2 = "";
 		switch(search_select) {
 		case 0:  //작성자
-			field = "MEMBER_ID";
+			field = "MEMBER_NAME";
 			break;
 		case 1:  //제목
 			field = "BOARD_SUBJECT";
@@ -69,13 +94,13 @@ public class board_service_impl implements board_service{
 		return dao.getListCount(map);
 	}
 	@Override
-	public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int BOARD_CATEGORY) {
+	public List<Board> getBoardList(int page, int limit, int search_select, String search_text, int BOARD_CATEGORY, String sort) {
 		Map<String, Object> map = new HashMap<String, Object>();
 		String field = "";
 		String field2 = "";
 		switch(search_select) {
 		case 0:  //작성자
-			field = "MEMBER_ID";
+			field = "MEMBER_NAME";
 			break;
 		case 1:  //제목
 			field = "BOARD_SUBJECT";
@@ -98,6 +123,7 @@ public class board_service_impl implements board_service{
 		map.put("text", search_text);
 		map.put("start", startrow);
 		map.put("end", endrow);
+		map.put("sort", sort);
 		
 		
 		
@@ -142,45 +168,43 @@ public class board_service_impl implements board_service{
 		return dao.get_file_list(board_id);
 	}
 	
+	@Override
+	public int board_edit(Board edit_board) {
+		edit_board.setBOARD_CONTENT(edit_board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		edit_board.setBOARD_SUBJECT(xss_clean_check(edit_board.getBOARD_SUBJECT()));
+		return dao.edit_board(edit_board);
+	}
+	
+	@Override
+	public int board_delete(int board_id, String save_folder) {
+		int result =0;
+		Board board = dao.get_board(board_id);
+		if(board == null) { return result;}
+		List<Integer> board_id_list = dao.get_board_reg(board_id);
+		board_id_list.forEach(item -> {
+			delete_board_file(item, save_folder);
+		});
+		result = dao.board_delete(board);
+		return result;
+	}
+	
+	@Override
+	public void insert_board(Board board) {
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
+		dao.insert_board(board);
+	}
 	
 	@Override
 	@Transactional
-	public int boardReply(Board board) {
+	public int insert_board_Reply(Board board) {
 		boardReplyUpdate(board);
+		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
 		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
-		return dao.boardReply(board);
+		return dao.insert_board_reply(board);
 	}
-	@Override
-	public int boardModify(Board modifyboard) {
-		return dao.boardModify(modifyboard);
-	}
-	@Override
-	public int boardDelete(int num) {
-		int result =0;
-		Board board = dao.get_board(num);
-		if(board != null) {
-			result = dao.boardDelete(board);
-		}
-		return result;
-	}
-	@Override
-	public boolean isBoardWriter(int num, String pass) {
-		Map<String, Object> map = new HashMap<String, Object>();
-		map.put("num", num);
-		map.put("pass", pass);
-		Board result = dao.isBoardWriter(map);
-		if(result == null)
-			return false;
-		else
-			return true;
-	}
-	@Override
-	public void insert_board(Board board) {
-		board.setBOARD_SUBJECT(replaceParameter(board.getBOARD_SUBJECT()));
-		board.setBOARD_CONTENT(replaceParameter(board.getBOARD_CONTENT()));
-		dao.insert_board(board);
-	}
+	
 	@Override
 	public int boardReplyUpdate(Board board) {
 		return dao.boardReplyUpdate(board);
@@ -193,16 +217,30 @@ public class board_service_impl implements board_service{
 	public int select_max_id() {
 		return dao.select_max_id();
 	}
+	@Override
+	public int get_reco_count(int board_id) {
+		return dao.get_reco_count(board_id);
+	}
+	@Override
+	public void insert_reco(int board_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_id", board_id);
+		map.put("member_id",member_id);
+		dao.insert_reco(map);
+	}
+	@Override
+	public void delete_reco(int board_id, String member_id) {
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("board_id", board_id);
+		map.put("member_id",member_id);
+		dao.delete_reco(map);
+	}
 	
-	private String replaceParameter(String param) {
-		String result = param;
-		if(param != null) {
-			result = result.replaceAll("<","&lt;");
-			result = result.replaceAll(">","&gt;");
-			result = result.replaceAll("$","&#36;");
-			result = result.replaceAll("(","&#40;");
-			result = result.replaceAll(")","&#41;");
+	private String xss_clean_check(String value) {
+		String safe_value = Jsoup.clean(value, Whitelist.basic());
+		if(safe_value.equals("") || safe_value == null) {
+			safe_value = "XSS 공격이 감지되었습니다.";
 		}
-		return result;
+		return safe_value;
 	}
 }

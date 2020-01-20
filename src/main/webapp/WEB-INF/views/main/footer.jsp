@@ -17,10 +17,4 @@
 					</div>
 				</div>
 			</footer>
-
-		<!-- Scripts -->
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/util.js"></script>
-			<script src="resources/js/main.js"></script>
 			<script type="text/javascript" src="resources/slick/slick.min.js"></script>
