@@ -254,13 +254,18 @@ $(document).ready(function(){
 		{
 			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-on.png');
 			$('#info-icon-tail').children('span').text('그만 보기');
-			$('#portfolio-info-wrap').stop().animate({left: '60%'}, {duration:500,queue:false});
+			if($(window).width() > 640)
+				$('#portfolio-info-wrap').stop().animate({left: '60%'}, {duration:500,queue:false});
+			else
+				$('#portfolio-info-wrap').stop().animate({left: '50%'}, {duration:500,queue:false});
 		}
 		else
 		{
 			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-off.png');
 			$('#info-icon-tail').children('span').text('정보 보기');
-			$('#portfolio-info-wrap').stop().animate({left: '100%'}, {duration:500,queue:false});
+			$('#portfolio-info-wrap').stop().animate({left: '100%'}, 500, function(){
+				$('#portfolio-info-wrap').scrollTop(0);
+			});
 		}
 	}
 	// portfolio-feeback-section show/hide
@@ -286,32 +291,45 @@ $(document).ready(function(){
 		{
 			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-off.png');
 			$('#feed-icon-tail').children('span').text('피드백 보기');
-			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, {duration:500,queue:false});
+			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
+				$('.portfolio-feedback-list').scrollTop(0);
+			});
 		}
 	}
 	$('.portfolio-feedback-hide').click(feed_show_hide);
 	
 	// 창 크기 조절 할 경우
 	$(window).resize(function(){
-		if($(window).height() > 740)
+		if($(window).height() > 740 && $(window).height() < 1240)
 		{
-			$('#portfolio-feedback-wrap').css('top', 'calc(60% + 100px)');
+			if($(window).width() < 778)
+				$('#portfolio-feedback-wrap').css('top', '70%');
+			else
+				$('#portfolio-feedback-wrap').css('top', '65%');
 		}
 		else
 		{
-			if($('#feed-icon-tail').hasClass('showFeed'))
+			if($(window).height() <= 740)
 			{
-				$('#portfolio-feedback-wrap').css('top', '100px');
-				$('#feed-icon-tail').trigger('click');
+				if($('#feed-icon-tail').hasClass('showFeed'))
+				{
+					$('#portfolio-feedback-wrap').css('top', '100px');
+					$('#feed-icon-tail').trigger('click');
+				}
+				else
+				{
+					$('#portfolio-feedback-wrap').css('top', '100%');
+				}
+				if($('#write-icon-tail').hasClass('doFeedWrite'))
+				{
+					$('#write-icon-tail').trigger('click');
+				}
 			}
 			else
 			{
-				$('#portfolio-feedback-wrap').css('top', '100%');
+				$('#portfolio-feedback-wrap').css('top', '845px');
 			}
-			if($('#write-icon-tail').hasClass('doFeedWrite'))
-			{
-				$('#write-icon-tail').trigger('click');
-			}
+			
 		}
 		if($(window).width() > 778)
 		{
@@ -321,7 +339,10 @@ $(document).ready(function(){
 		{
 			if($('#info-icon-tail').hasClass('showInfo'))
 			{
-				$('#portfolio-info-wrap').css('left', '60%');
+				if($(window).width() > 640)
+					$('#portfolio-info-wrap').css('left', '60%');
+				else
+					$('#portfolio-info-wrap').css('left', '50%');
 				$('#info-icon-tail').trigger('click');
 			}
 			else

@@ -163,7 +163,7 @@ textarea:focus{
 	left:5%;
 	top:100px;
 	width:65%;
-	height:60%;
+	height:calc(65% - 100px);
 	max-height:745px;
 	padding:1%;
 	border:0;
@@ -503,11 +503,11 @@ textarea:focus{
 	position:absolute;
 	display:block;
 	left:5%;
-	top:calc(60% + 100px);
+	top:calc(65%);
 	padding:1%;
 	padding-bottom:0;
 	border:0;
-	height:calc(40% - 100px);
+	height:35%;
 	width:65%;
 	z-index:105;
 	/*background:#5385c1;*/
@@ -606,6 +606,8 @@ textarea:focus{
 }
 .portfolio-feedback-container button{
 	margin:10px;
+	color:white;
+	background-color:slategrey;
 }
 .portfolio-feedback-container button:hover{
 	outline:none!important;
@@ -858,7 +860,7 @@ textarea:focus{
 @media screen and (min-height:1240px){
 	#portfolio-feedback-wrap{
 		top:845px;
-		height: calc(100% - 845px);
+		height: calc(100% - 845px)!important;
 	}
 }
 @media screen and (min-height:900px){
@@ -1057,6 +1059,12 @@ textarea:focus{
 	.drag-activity-menu{
 	    bottom: 45px;
 	    left: -119px;	
+	}
+}
+@media screen and (max-width: 640px){
+	#portfolio-info-wrap{
+		width:50%;
+		left:50%;
 	}
 }
 /* 작은 모바일 */
