@@ -68,10 +68,14 @@
 					<th class ="d-none d-lg-table-cell" width="7%"><div>번호</div></th>
 					<th width="45%"><div>제목_댓글</div></th>
 					<th width="15%"><div>작성자</div></th>
-					<th class ="d-none d-sm-table-cell" width="13%"><div>작성일</div></th>
+					<th class ="d-none d-sm-table-cell" width="13%">
+						<div>
+							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=DATE">작성일</a>
+						</div>
+					</th>
 					<th class ="d-none d-sm-table-cell" width="10%">
 						<div>
-							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=BOARD_READCOUNT">조회</a>
+							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=READCOUNT">조회</a>
 						</div>
 					</th>
 					<th class ="d-none d-sm-table-cell" width="10%"><div>추천</div></th>
@@ -154,7 +158,7 @@
 							</c:if>
 							<c:if test="${page > 1 }">
 								<li class="page-item"><a
-									href="board_list?page=${page-1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}" class="page-link">이전</a>
+									href="board_list?page=${page-1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}" class="page-link">이전</a>
 									&nbsp;</li>
 							</c:if>
 
@@ -164,7 +168,7 @@
 									</li>
 								</c:if>
 								<c:if test="${a != page }">
-									<li class="page-item"><a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}"
+									<li class="page-item"><a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}"
 										class="page-link">${a }</a></li>
 								</c:if>
 							</c:forEach>
@@ -175,7 +179,7 @@
 							</c:if>
 							<c:if test="${page < max_page }">
 								<li class="page-item"><a
-									href="board_list?page=${page+1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}" class="page-link">&nbsp;다음</a>
+									href="board_list?page=${page+1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}" class="page-link">&nbsp;다음</a>
 								</li>
 							</c:if>
 						</ul>
