@@ -45,9 +45,10 @@ delete from BOARD;
 
 select * from 
 			(select rownum r, b.* from
-				( select BOARD_SUBJECT, SUBSTR(BOARD_CONTENT,(instr(BOARD_CONTENT,'연어초밥',1,1)-5),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where  (BOARD_SUBJECT  like '%' ||  '연어초밥' || '%' 
+				( select BOARD_SUBJECT, SUBSTR(BOARD_CONTENT,(instr(BOARD_CONTENT,'연어초밥',1,1)),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where  (BOARD_SUBJECT  like '%' ||  '연어초밥' || '%' 
 					or BOARD_CONTENT like '%' ||  '연어초밥' || '%' or MEMBER_ID like '%' || '연어초밥' || '%') and BOARD_CATEGORY = '0' order by BOARD_DATE desc)b
 			 )
 			 where r < 6 order by r asc 
+select instr(BOARD_CONTENT,'연어초밥',1,1)-6 from BOARD;
 			 
 select * from emp where ename='SCOTT';
