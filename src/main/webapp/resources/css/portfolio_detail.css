@@ -164,6 +164,7 @@ textarea:focus{
 	top:100px;
 	width:65%;
 	height:60%;
+	max-height:745px;
 	padding:1%;
 	border:0;
 	z-index: 101;
@@ -354,17 +355,13 @@ textarea:focus{
 	bottom:0px;
 }
 #feed-icon-tail{
-	position: fixed;
-    right: 30%;
-    bottom: 7%;
-    color: black;
+	position: relative;
 }
 #info-icon-tail{
 	display:none;
-	position:fixed;
-	color:black;
-	right:1%;
-	bottom:20%;
+	position:absolute;
+	left:210px;
+	bottom:0px;
 }
 /* PORTFOLIO INFO SECTION */
 #portfolio-info-wrap{
@@ -375,19 +372,20 @@ textarea:focus{
 	top:100px;
 	padding: 1%;
     width:25%;
+    height:auto;
     min-width:150px;
-    bottom:45px;
     border:0;
     overflow-y:scroll;
 	/*background:#5385c1;*/
 	background:lightgrey;
 	border-left:0.5px solid darkgrey;
+    /*bottom:45px;*/
 
 	/* scroll bar 감주기 */
 	-ms-overflow-style:none;	/* IE and Edge */
 	scrollbar-width:none;	/* Firefox */
 }
-.portfolio-info-wrap::-webkit-scrollbar{
+#portfolio-info-wrap::-webkit-scrollbar{
 	display:none;	/* Chrome, Safari, Opera */
 }
 .portfolio-info-container{
@@ -505,10 +503,11 @@ textarea:focus{
 	position:absolute;
 	display:block;
 	left:5%;
-	bottom:45px;
+	top:calc(60% + 100px);
 	padding:1%;
+	padding-bottom:0;
 	border:0;
-	height:25%;
+	height:calc(40% - 100px);
 	width:65%;
 	z-index:105;
 	/*background:#5385c1;*/
@@ -527,12 +526,54 @@ textarea:focus{
 	display:none;
     background-color: white;
     height:100%;
+    padding-bottom:10px;
     /*border-radius: 0 0 30% 0;*/
+}
+/* 작성 폼 HEADER */
+.feed-write-header{
+    width: 100%;
+    height:50px;
+    background: whitesmoke;
+    padding: 0;
+	padding-top:5px;
+	display:block;
+}
+.feed-write-header h2{
+	font-weight:700;
+	margin:0;
+	margin-left:10px;
+	display:inline-block;
+}
+/* 작성폼 접기 */
+.feedback-write-hide{
+	position:absolute;
+    background: rgba(255, 255, 255, 0.7);
+	border-radius:0 0 90% 90%;
+    border: 3px solid slategrey;
+	border-top:0;
+	display:inline-block;
+	width:90px;
+	height:40px;
+	top:0;
+	left:calc(50% - 45px);
+	color:slategrey;
+	font-weight:500;
+	font-size:1.2em;
+	text-align:center;
+}
+.feedback-write-hide:hover{
+	cursor:pointer;
+	opacity:0.8;
+	transition:0.3s;
+}
+.feedback-write-hide img{
+	height:100%;
 }
 .feed-writer-profile{
 	margin-top:10px;
 	display:inline-block;
-	height:140px;
+    height: calc(100% - 110px);
+    max-height:180px;
 	width: calc(30% - 20px);
 	text-align:center;
 	float:left;
@@ -550,7 +591,8 @@ textarea:focus{
 }
 #FEED_CONTENT{
 	float: right;
-    height: 140px;
+    height: calc(100% - 110px);
+    max-height:180px;
     width: calc(70% - 20px);
     margin-top: 10px;
     margin-right: 10px;
@@ -563,14 +605,18 @@ textarea:focus{
 	color:black!important;
 }
 .portfolio-feedback-container button{
-	margin-top: 10px;
-	margin-left: 10px;
+	margin:10px;
 }
 .portfolio-feedback-container button:hover{
 	outline:none!important;
 	border-radius:2%;
 	opacity:0.7;
 	transition:0.3s;
+}
+/* 작성, 취소 버튼 */
+.feed-write-cancel, .feed-write-done{
+	height:40px!important;
+	float:right;
 }
 /* FEEDBACK 헤더 */
 .portfolio-feedback-header{
@@ -601,9 +647,9 @@ textarea:focus{
 /* FEEDBACK 접기 */
 .portfolio-feedback-hide{
 	position:absolute;
-	background:white;
+    background: rgba(255, 255, 255, 0.7);
 	border-radius:0 0 90% 90%;
-	border: 1px solid grey;
+    border: 3px solid slategrey;
 	border-top:0;
 	display:inline-block;
 	width:90px;
@@ -614,6 +660,14 @@ textarea:focus{
 	font-weight:500;
 	font-size:1.2em;
 	text-align:center;
+}
+.portfolio-feedback-hide:hover{
+	cursor:pointer;
+	opacity:0.8;
+	transition:0.3s;
+}
+.portfolio-feedback-hide img{
+	height:100%;
 }
 /* FEEDBACK 필터 */
 .portfolio-feedback-filter{
@@ -801,6 +855,12 @@ textarea:focus{
 /* 반응형 */
 /* 세로 */
 /* 세로가 작을 경우 메뉴바 사이드로 이동 */
+@media screen and (min-height:1240px){
+	#portfolio-feedback-wrap{
+		top:845px;
+		height: calc(100% - 845px);
+	}
+}
 @media screen and (min-height:900px){
 	.portfolio-detail-activity{
 		bottom:45px;
@@ -809,17 +869,20 @@ textarea:focus{
 	}
 }
 @media screen and (max-height:900px){
+	#portfolio-info-wrap{
+		bottom:0;
+	}
 	.portfolio-detail-activity{
 		height: auto;
-	    padding: 48px 0;
-	    max-height: 354px;
+	    padding: 10px 0;
+	    max-height: 450px;
 	    background-color: #5385c1;
 	    position: fixed;
 	    left: -119px;
 	    width: 120px;
 	    bottom:45px!important;
 	    text-align: center;
-	    border-radius: 0 10% 0 0;
+	    border-radius: 0 5px 0 0;
 	    border:1px solid darkgrey;
 	    z-index:108;
 	    color:lightgray;
@@ -833,7 +896,7 @@ textarea:focus{
 		border-radius:0;
 		padding:0;
 	}
-	#recom-icon-tail, #scrap-icon-tail, #write-icon-tail{
+	#recom-icon-tail, #scrap-icon-tail, #write-icon-tail, #info-icon-tail{
 		position:relative;
 		left:0;
 		bottom:0;
@@ -858,17 +921,20 @@ textarea:focus{
 @media screen and (max-height:740px){
 	#portfolio-detail-wrap{
 		z-index:107;
-		height:calc(100% - 145px)!important;
-		bottom:45px;
+		height:calc(100% - 100px)!important;
+		bottom:0;
 	}
 	#portfolio-feedback-wrap{
-		display:none;
+		position:fixed;
 		width:90%;
 		height:calc(100% - 100px)!important;
 		left:5%;
 		right:5%;
-		top:100px;
+		top:100%;
 		z-index:200;
+	}
+	.feedback-write-container{
+		height:250px;
 	}
 	#feed-icon-tail{
 		display:inline-block!important;
@@ -876,9 +942,17 @@ textarea:focus{
 	.portfolio-feedback-hide{
 		display:inline-block!important;
 	}
+	.feedback-write-hide{
+		display:inline-block!important;
+	}
 }
 @media screen and (max-height:590px){
-	
+	.drag-activity-menu{
+		bottom:0!important;
+	}
+	.portfolio-detail-activity{
+		bottom:0!important;
+	}
 }
 /* 가로 */
 /* 작은 PC */
@@ -954,7 +1028,11 @@ textarea:focus{
    	 	left:0;
 	}
 	#portfolio-info-wrap{
-		visibility:hidden;
+		left:100%;
+		width:40%;
+		top:100px;
+		height: calc(100% - 100px);
+		z-index:200;
 	}
 	#portfolio-feedback-wrap{
 		width:100%;
@@ -962,14 +1040,13 @@ textarea:focus{
 		left:0;
 		right:0;
 		bottom:0;
+		top:70%;
 	}
 	#feed-icon-tail{
 		right:1%;
 	}
 	#info-icon-tail{
 		display:inline-block!important;
-		right:1%;
-		bottom:20%;
 	}
 	.exit-modal{
 		visibility:visible;

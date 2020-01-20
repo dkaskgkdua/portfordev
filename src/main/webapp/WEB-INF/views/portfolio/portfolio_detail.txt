@@ -57,3 +57,24 @@ PORT_CONTENT : 포트폴리오에 관한 전반적인 설명
 
 PORT_GITHUB : 프로젝트 GITHUB 주소
 PORT_SITE : 프로젝트 도메인 주소
+
+=============================================================================================
+$('.drag-activity-menu').click(openActivityMenu);
+	function openActivityMenu()
+	{
+		$(this).toggleClass('openMenu');
+	    if($(this).hasClass('openMenu'))
+	    {
+	    	$('.portfolio-detail-activity').css('display', 'block');
+	    	$(this).children('img').attr('src', '/pro/resources/Image/left.png').css('margin-left','-10px');
+	    	$(this).stop().animate({left: '0px'}, {duration:400,queue:false});
+	    	$('.portfolio-detail-activity').stop().animate({left: '0px'}, {duration:400,queue:false});
+	    }
+	    else
+	    {
+	    	$(this).children('img').attr('src', '/pro/resources/Image/right.png').css('margin-left','0px');
+	    	$(this).stop().animate({left: '-119px'}, {duration:400,queue:false});
+	    	$('.portfolio-detail-activity').stop().animate({left: '-119px'}, {duration:400,queue:false});
+	    	
+	    }
+	}

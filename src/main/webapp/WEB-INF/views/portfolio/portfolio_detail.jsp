@@ -122,7 +122,7 @@
 				</div>
 				<!-- 피드백 보기 버튼 -->
 				<div class="icon-tail-fit" id="feed-icon-tail" style="display:none">
-					<img class="feed-show-icon" src="/pro/resources/Image/icon/comment-gray.png">
+					<img class="feed-show-icon" src="/pro/resources/Image/icon/feed-show-off.png">
 					<span class="feed-show-tail">피드백 보기</span>
 				</div>
 				<!-- 피드백 작성 / 취소 버튼 -->
@@ -132,7 +132,7 @@
 				</div>
 				<!-- info 보기 버튼 -->
 				<div class="icon-tail-fit" id="info-icon-tail" style="display:none">
-					<img class="info-show-icon" src="/pro/resources/Image/icon/comment-gray.png">
+					<img class="info-show-icon" src="/pro/resources/Image/icon/info-show-off.png">
 					<span class="info-show-tail">정보 보기</span>
 				</div>
 			</footer>
@@ -181,13 +181,21 @@
 		<div class="portfolio-feedback-container">
 			<!-- 피드백 작성 -->
 			<div class="feedback-write-container" style="display:none;">
+				<!-- 작성 폼 헤더 -->
+				<div class="feed-write-header">
+					<h2>Feedback Write</h2>
+					<!-- 작성 폼 접기 -->
+					<div class="feedback-write-hide" style="display:none;">
+						<img src="/pro/resources/Image/icon/down-arrow.png">
+					</div>
+				</div>
 				<div class="feed-writer-profile">
 					<img class="feed-writer-profile-img" src="/pro/resources/Image/userdefault.png">
 					<span class="feed-writer-profile-nick"></span>
 				</div>
 				<textarea id="FEED_CONTENT" name="FEEDBACK_CONTENT"></textarea>
-				<button type="button" class="feed-write-done">작성완료</button>
 				<button type="button" class="feed-write-cancel">작성취소</button>
+				<button type="button" class="feed-write-done">작성완료</button>
 			</div>
 			<!-- 피드백 헤더 -->
 			<div class="portfolio-feedback-header">
@@ -197,7 +205,9 @@
 					<h2>(&nbsp;<span class="portfolio-feedback-cnt">10</span>&nbsp;)</h2>
 				</div>
 				<!-- 피드백 접기 -->
-				<div class="portfolio-feedback-hide" style="display:none;">접기</div>
+				<div class="portfolio-feedback-hide" style="display:none;">
+					<img src="/pro/resources/Image/icon/down-arrow.png">
+				</div>
 				<!-- 피드백 필터 -->
 				<div class="portfolio-feedback-filter">
 					<select name="feedPick" class="select" id="feedPick">

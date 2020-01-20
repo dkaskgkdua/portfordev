@@ -80,20 +80,25 @@ $(document).ready(function(){
 			});
 		});
 	}
+	// 여러가지 동작을 시행하는 함수
 	function doActivity()
 	{
+		// 추천하기 클릭 시
 		if($(this).children('img').hasClass('recom-icon'))
 		{
 			recommend_portfolio();
 		}
+		// 스크랩하기 클릭 시
 		else if($(this).children('img').hasClass('scrap-icon'))
 		{
 			scrap_portfolio();
 		}
+		// 작성하기 클릭 시
 		else if($(this).children('img').hasClass('write-icon'))
 		{
 			feedback_write(member_id, member_name);
 		}
+		// 피드백 추천 클릭 시
 		else if($(this).children('img').hasClass('feed-recom-icon'))
 		{
 			var feed_id = $(this).parent().parent().parent().children('.FEEDBACK_ID').val();
@@ -137,10 +142,16 @@ $(document).ready(function(){
 		}
 	}
 	$('.feed-write-cancel').click(feedback_write);
+	$('.feedback-write-hide').click(feedback_write);
 	// 피드백 작성 클릭 시
 	function feedback_write(mid, mname)
 	{
 		$('.feed-writer-profile-nick').text(mname);
+		$('#write-icon-tail').toggleClass('doFeedWrite');
+		if($('#feed-icon-tail').hasClass('showFeed'))
+		{
+			$('#feed-icon-tail').trigger('click');
+		}
 		if($('.icon-tail-fit>.write-tail').text() == '피드백 작성')
 		{
 			$('.icon-tail-fit>.write-tail').text('작성 취소');
@@ -148,14 +159,17 @@ $(document).ready(function(){
 			$('.portfolio-feedback-header').css('display', 'none');
 			$('.feedback-write-container').css('display', 'block');
 			$('#FEED_CONTENT').focus();
+			$('#portfolio-feedback-wrap').stop().animate({top: '60%'}, {duration:500,queue:false});
 		}
 		else
 		{
 			$('.icon-tail-fit>.write-tail').text('피드백 작성');
-			$('.portfolio-feedback-list').css('display', 'block');
-			$('.portfolio-feedback-header').css('display', 'block');
-			$('.feedback-write-container').css('display', 'none');
 			$('#FEED_CONTENT').val('');
+			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
+				$('.portfolio-feedback-list').css('display', 'block');
+				$('.portfolio-feedback-header').css('display', 'block');
+				$('.feedback-write-container').css('display', 'none');
+			});
 		}
 	}
 	// 피드백 추천 클릭 시
@@ -219,16 +233,89 @@ $(document).ready(function(){
 		if(confirm(site + '로 이동하시겠습니까?'))
 			location.href= site;
 	});
-	
+
+	// portfolio-info-section show/hide
+	// 정보 보기 / 그만 보기 클릭 시
+	$('#info-icon-tail').click(info_show_hide);
+	function info_show_hide()
+	{
+		$('#info-icon-tail').toggleClass('showInfo');
+		if($('#info-icon-tail').hasClass('showInfo'))
+		{
+			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-on.png');
+			$('#info-icon-tail').children('span').text('그만 보기');
+			$('#portfolio-info-wrap').stop().animate({left: '60%'}, {duration:500,queue:false});
+		}
+		else
+		{
+			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-off.png');
+			$('#info-icon-tail').children('span').text('정보 보기');
+			$('#portfolio-info-wrap').stop().animate({left: '100%'}, {duration:500,queue:false});
+		}
+	}
 	// portfolio-feeback-section show/hide
-	$('#feed-icon-tail').click(function(e){
-		e.stopPropagation();
-		$('#portfolio-feedback-wrap').show();
+	// 피드백 보기 / 그만 보기 클릭 시
+	$('#feed-icon-tail').click(feed_show_hide);
+	function feed_show_hide()
+	{
+		$('#feed-icon-tail').toggleClass('showFeed');
+		if($('#write-icon-tail').hasClass('doFeedWrite'))
+		{
+			$('#write-icon-tail').trigger('click');
+		}
+		if($('#feed-icon-tail').hasClass('showFeed'))
+		{
+			$('.portfolio-feedback-list').css('display', 'block');
+			$('.portfolio-feedback-header').css('display', 'block');
+			$('.feedback-write-container').css('display', 'none');
+			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-on.png');
+			$('#feed-icon-tail').children('span').text('그만 보기');
+			$('#portfolio-feedback-wrap').stop().animate({top: '100px'}, {duration:500,queue:false});
+		}
+		else
+		{
+			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-off.png');
+			$('#feed-icon-tail').children('span').text('피드백 보기');
+			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, {duration:500,queue:false});
+		}
+	}
+	$('.portfolio-feedback-hide').click(feed_show_hide);
+	
+	// 창 크기 조절 할 경우
+	$(window).resize(function(){
+		if($(window).height() > 740)
+		{
+			$('#portfolio-feedback-wrap').css('top', 'calc(60% + 100px)');
+		}
+		else
+		{
+			if($('#feed-icon-tail').hasClass('showFeed'))
+			{
+				$('#portfolio-feedback-wrap').css('top', '100px');
+				$('#feed-icon-tail').trigger('click');
+			}
+			else
+			{
+				$('#portfolio-feedback-wrap').css('top', '100%');
+			}
+		}
+		if($(window).width() > 778)
+		{
+			$('#portfolio-info-wrap').css('left', '70%');
+		}
+		else
+		{
+			if($('#info-icon-tail').hasClass('showInfo'))
+			{
+				$('#portfolio-info-wrap').css('left', '60%');
+				$('#info-icon-tail').trigger('click');
+			}
+			else
+			{
+				$('#portfolio-info-wrap').css('left', '100%');
+			}
+		}
 	});
-	$('.portfolio-feedback-hide').click(function(e){
-		e.stopPropagation();
-		$('#portfolio-feedback-wrap').hide();
-	}); 
 	
 	function slickCheck(){
 		var slickInfoObj={
