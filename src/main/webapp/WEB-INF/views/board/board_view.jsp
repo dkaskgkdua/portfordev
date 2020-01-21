@@ -229,9 +229,10 @@ span {
 							<span style ="font-size:10pt">
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
-							<br>
-							&#35;<span style="font-weight:bold">${board_data.BOARD_ID}</span><span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
 						</a>
+							<br>
+							&#35;<span style="font-weight:bold">${board_data.BOARD_ID}</span>&#32;<span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
+						
 					</td>
 				</tr>
 			</thead>

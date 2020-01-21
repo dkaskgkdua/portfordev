@@ -46,6 +46,7 @@ $(function() {
 			$(this).css('display', 'none');
 		});
 		$("#add_button").click(function() {
+			$("#add_portfolio_form").submit();
 			/*
 			if ($('#add_member_id').val() == "") {
 				alert("ID를 입력하세요");
@@ -129,11 +130,11 @@ h3 {
 </head>
 <body>
 	<div class="container">
-		<form action="/pro/portfolio_add" id="add_portfolio_form" method="post" enctype="multipart/form-data">
+		<form action="/pro/portfolio_add_action" id="add_portfolio_form" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<h3>프로젝트 등록</h3>
 				<div class="form-group">
-					<label for="PORT_SUBJECT">주제</label> 
+					<label for="PORT_SUBJECT">제목</label> 
 					<input type="text" class="form-control" id="PORT_SUBJECT" placeholder="Enter Subject"
 						name="PORT_SUBJECT" maxLength="20">
 				</div>
@@ -146,7 +147,7 @@ h3 {
 					<label style ="display:inline" for="PORT_SUM_IMAGE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
 						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
 					</label> 
-					<input  class="file_up" type="file" id="PORT_SUM_IMAGE" name="PORT_SUM_IMAGE">
+					<input  class="file_up" type="file" id="PORT_SUM_IMAGE" name="PORT_SUM_UPLOADIMAGE">
 					<span id="sum_filevalue"></span>
 					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove">
 				</div>
@@ -155,7 +156,7 @@ h3 {
 					<label style ="display:inline" for="PORT_FILE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
 						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
 					</label> 
-					<input  class="file_up" type="file" id="PORT_FILE" name="PORT_FILE">
+					<input  class="file_up" type="file" id="PORT_FILE" name="PORT_UPLOADFILE">
 					<span id="port_filevalue"></span>
 					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove2">
 				</div>
