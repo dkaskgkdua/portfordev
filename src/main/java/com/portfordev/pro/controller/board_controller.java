@@ -50,6 +50,22 @@ public class board_controller {
 	@Value("${savefoldername}")
 	private String save_folder;
 	
+	@GetMapping("portfolio_add")
+	public ModelAndView portfolio_add(HttpSession session,	HttpServletResponse response, 
+			ModelAndView mv) throws Exception {
+		if(session.getAttribute("id") == null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인을 해주세요.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+		}
+		mv.setViewName("portfolio/portfolio_add");
+		return mv;
+	}
+	
 	@PostMapping("board_delete_action") 
 	public String BoardDeleteAction(Board board, HttpServletResponse response) throws Exception { 
 		int pass_check = board_service.is_password(board.getBOARD_ID(), board.getBOARD_PASSWORD());

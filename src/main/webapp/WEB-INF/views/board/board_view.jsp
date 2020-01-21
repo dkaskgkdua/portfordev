@@ -81,9 +81,9 @@ span {
 	};
 	$(function() {
 		// 제목(카테고리)
-		if($("#BOARD_CATEGORY")=="0") {
+		if($("#BOARD_CATEGORY").val()=="0") {
 			$('#h3_category').text("자유게시판");
-		} else if($("#BOARD_CATEGORY")=="1"){
+		} else if($("#BOARD_CATEGORY").val()=="1"){
 			$('#h3_category').text("스터디");
 		} else {
 			$('#h3_category').text("Q&A");
@@ -98,6 +98,10 @@ span {
 		</c:forEach>
 		
 		$("#reco_button").click(function() {
+			if($('#loginid').val() =="") {
+				alert('로그인을 먼저 해주세요');
+				return false;
+			}
 			// 추천아님 -> 추천
 			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
 				insert_reco($("#board_id").val(), "${id}");
