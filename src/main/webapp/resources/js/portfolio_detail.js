@@ -36,6 +36,10 @@ $(document).ready(function(){
 		{
 			$('#move_top_btn').fadeIn();
 		}
+		if($('.drag-activity-menu').hasClass('openMenu'))
+		{
+			$('.drag-activity-menu').trigger('click');
+		}
 		
 		$('.icon-tail-fit').off('click', doActivity);
 	}
@@ -72,11 +76,14 @@ $(document).ready(function(){
 		$('.port-slide-list').on('swipe', function(event, slick, direction){
 			console.log('swiped');
 		});
+		// 이미지 클릭 시 포트폴리오  확대
 		$('.port-slide-item').on('click', function(){
 			$('#portfolio-pdf-enlargement-wrap').fadeIn();
+			$('.exit-modal').fadeOut();
 			$('#portfolio-pdf-enlargement-wrap').click(function(e){
 				e.stopPropagation();
 				$('#portfolio-pdf-enlargement-wrap').fadeOut();
+				$('.exit-modal').fadeIn();
 			});
 		});
 	}
@@ -142,7 +149,6 @@ $(document).ready(function(){
 		}
 	}
 	$('.feed-write-cancel').click(feedback_write);
-	$('.feedback-write-hide').click(feedback_write);
 	// 피드백 작성 클릭 시
 	function feedback_write(mid, mname)
 	{
@@ -160,7 +166,13 @@ $(document).ready(function(){
 			$('.feedback-write-container').css('display', 'block');
 			$('#FEED_CONTENT').focus();
 			if($(window).height() < 740)
-				$('#portfolio-feedback-wrap').stop().animate({top: '60%'}, {duration:500,queue:false});
+			{
+				$('#cover-wrap').fadeIn();
+				$('.exit-cover').css('bottom', '41%');
+				$('#portfolio-feedback-wrap').stop().animate({top: '60%'}, 500, function(){
+					$('.exit-cover').fadeIn();
+				});
+			}
 		}
 		else
 		{
@@ -168,10 +180,12 @@ $(document).ready(function(){
 			$('#FEED_CONTENT').val('');
 			if($(window).height() < 740)
 			{
+				$('.exit-cover').fadeOut();
 				$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
 					$('.portfolio-feedback-list').css('display', 'block');
 					$('.portfolio-feedback-header').css('display', 'block');
 					$('.feedback-write-container').css('display', 'none');
+					$('#cover-wrap').fadeOut();
 				});
 			}
 			else
@@ -208,16 +222,17 @@ $(document).ready(function(){
 		$(this).toggleClass('openMenu');
 	    if($(this).hasClass('openMenu'))
 	    {
-	    	$('.portfolio-detail-activity').css('display', 'block');
+	    	$('.portfolio-detail-activity').css('border', '1px solid darkgrey');
 	    	$(this).children('img').attr('src', '/pro/resources/Image/left.png').css('margin-left','-10px');
-	    	$(this).stop().animate({left: '0px'}, {duration:400,queue:false});
+	    	$(this).stop().animate({left: '120px'}, {duration:400,queue:false});
 	    	$('.portfolio-detail-activity').stop().animate({left: '0px'}, {duration:400,queue:false});
 	    }
 	    else
 	    {
+	    	$('.portfolio-detail-activity').css('border', '0');
 	    	$(this).children('img').attr('src', '/pro/resources/Image/right.png').css('margin-left','0px');
-	    	$(this).stop().animate({left: '-119px'}, {duration:400,queue:false});
-	    	$('.portfolio-detail-activity').stop().animate({left: '-119px'}, {duration:400,queue:false});
+	    	$(this).stop().animate({left: '0px'}, {duration:400,queue:false});
+	    	$('.portfolio-detail-activity').stop().animate({left: '-120px'}, {duration:400,queue:false});
 	    	
 	    }
 	}
@@ -285,22 +300,33 @@ $(document).ready(function(){
 			$('.feedback-write-container').css('display', 'none');
 			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-on.png');
 			$('#feed-icon-tail').children('span').text('그만 보기');
-			$('#portfolio-feedback-wrap').stop().animate({top: '100px'}, {duration:500,queue:false});
+			$('#cover-wrap').fadeIn();
+			$('.exit-cover').css('bottom','81%');
+			$('#portfolio-feedback-wrap').stop().animate({top: '20%'}, 500,function(){
+				$('.exit-cover').fadeIn();
+			});
 		}
 		else
 		{
+			$('.exit-cover').fadeOut();
 			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-off.png');
 			$('#feed-icon-tail').children('span').text('피드백 보기');
 			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
 				$('.portfolio-feedback-list').scrollTop(0);
+				$('#cover-wrap').fadeOut();
 			});
 		}
 	}
-	$('.portfolio-feedback-hide').click(feed_show_hide);
+	$('.exit-cover').click(function(){
+		if($('#write-icon-tail').hasClass('doFeedWrite'))
+			feedback_write();
+		else if($('#feed-icon-tail').hasClass('showFeed'))
+			feed_show_hide();
+	});
 	
 	// 창 크기 조절 할 경우
 	$(window).resize(function(){
-		if($(window).height() > 740 && $(window).height() < 1240)
+		if($(window).height() > 740 && $(window).height() < 1300)
 		{
 			if($(window).width() < 778)
 				$('#portfolio-feedback-wrap').css('top', '70%');
@@ -311,6 +337,7 @@ $(document).ready(function(){
 		{
 			if($(window).height() <= 740)
 			{
+				$('#cover-wrap').css('bottom', '0').css('display', 'none');
 				if($('#feed-icon-tail').hasClass('showFeed'))
 				{
 					$('#portfolio-feedback-wrap').css('top', '100px');

@@ -26,8 +26,28 @@
 	<input id="PORT_REGIDATE" type="hidden" name="PORT_REGIDATE" value="2020/01/25">
 	<input id="PORT_READCOUNT" type="hidden" name="PORT_READCOUNT" value="1234123432">
 	
+	<!-- 안내문구를 보여줄 SECTION -->
+	<section id="alert-wrap">
+		<div class="alert-box">
+			<b>알림</b>
+			<hr>
+			회원만이 이용가능한 기능입니다.<br>
+			로그인페이지로 이동하시겠습니까?
+			<hr>
+			<div class="alert-btn-area">
+				<button class="goLoginBtn" type="button" onclick="javascript:location.href='/pro/login'">확인</button>
+				<button class="cancelBtn" type="button">취소</button>
+			</div>
+		</div>
+	</section>
 	<!-- 모바일용 exit -->
 	<div class="exit-modal">x</div>
+	<!-- 피드백 작성, 펼치기 시 보여주는 가림막 section -->
+	<section id="cover-wrap">
+		<div class="exit-cover">
+			<img src="/pro/resources/Image/icon/down-arrow.png">
+		</div>
+	</section>
 	<!-- PORTFOLIO IMG ENLARGEMENT -->
 	<section id="portfolio-pdf-enlargement-wrap">
 		<header class="port-pdf-header">
@@ -185,9 +205,9 @@
 				<div class="feed-write-header">
 					<h2>Feedback Write</h2>
 					<!-- 작성 폼 접기 -->
-					<div class="feedback-write-hide" style="display:none;">
+					<!-- <div class="feedback-write-hide" style="display:none;">
 						<img src="/pro/resources/Image/icon/down-arrow.png">
-					</div>
+					</div> -->
 				</div>
 				<div class="feed-writer-profile">
 					<img class="feed-writer-profile-img" src="/pro/resources/Image/userdefault.png">
@@ -205,9 +225,9 @@
 					<h2>(&nbsp;<span class="portfolio-feedback-cnt">10</span>&nbsp;)</h2>
 				</div>
 				<!-- 피드백 접기 -->
-				<div class="portfolio-feedback-hide" style="display:none;">
+				<!-- <div class="portfolio-feedback-hide" style="display:none;">
 					<img src="/pro/resources/Image/icon/down-arrow.png">
-				</div>
+				</div> -->
 				<!-- 피드백 필터 -->
 				<div class="portfolio-feedback-filter">
 					<select name="feedPick" class="select" id="feedPick">

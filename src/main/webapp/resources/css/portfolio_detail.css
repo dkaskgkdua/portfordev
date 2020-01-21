@@ -6,6 +6,9 @@
 	vh, vw : fixed 조건에서 각 높,너비를 1/100로 표현
 	vmin, vmax : 화면의 높,너비 값 중 min과 max
 */
+/*
+	main theme color : #5385c1
+*/
 body, input, select{
 	color:slategrey;
 }
@@ -28,6 +31,58 @@ textarea:focus{
 	bottom:-1!important;
 	display:none!important;
 }
+
+
+/* 안내문구를 보여줄 section */
+#alert-wrap{
+	position: fixed;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+    z-index: 999;
+}
+#alert-wrap .alert-box{
+	position:absolute;
+	background:#fff;
+	border-radius:6px;
+	width:300px;
+	top:calc(50% - 50px);
+	left:calc(50% - 150px);
+	text-align:center;
+}
+.alert-box b{
+	display:block;
+	padding:5px;
+	font-size:1.2em;
+	text-align:left;
+}
+.alert-box hr{
+	margin: 1em 0;
+}
+#alert-wrap .alert-box .alert-btn-area{
+	position:relative;
+	bottom:0;
+	text-align: right;
+}
+.alert-btn-area button{
+	margin-right:10px;
+	margin-bottom:10px;
+	background:#5385c1;
+	outline:none!important;
+	cursor:pointer;
+	border-radius:4px;
+}
+.alert-btn-area .goLoginBtn{
+	color:#fff;
+}
+.alert-btn-area .cancelBtn{
+	background:transparent;
+}
 /* 모달 종료 */
 .exit-modal{
 	/*visibility:hidden;*/
@@ -37,12 +92,46 @@ textarea:focus{
 	font-size:40px;
 	font-weight:bold;
 	color:white;
-	z-index:999;
+	z-index:998;
 }
 .exit-modal:hover{
 	cursor:pointer;
 	opacity:0.8;
 	transition:0.3s;
+}
+/* FEEDBACK 작성, 펼치기 시 보여주는 가림막 */
+#cover-wrap{
+	position: fixed;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 200;
+}
+.exit-cover{
+	display:none;
+	position: absolute;
+    bottom: 0px;
+    right: calc(50% - 20px);
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-top:5px;
+    text-align: center;
+}
+.exit-cover:hover{
+	cursor:pointer;
+	opacity:0.7;
+	transition:0.3s;
+}
+.exit-cover img{
+	margin:0 auto;
+	height:80%;
 }
 /* 전체 모달 관여 */
 .portfolio-modal-container {
@@ -186,7 +275,7 @@ textarea:focus{
 	height:80px;
 	background:white;
 	z-index:103;
-	/*border-radius:43% 0 0 0;*/
+	border-radius:5px;
 }
 .detail-summary-floater{
 	height:50%;
@@ -277,10 +366,11 @@ textarea:focus{
 /* 콘솔 활성 비활성 버튼 */
 .drag-activity-menu{
 	position: fixed;
-    background: #5385c1;
+    background: rgba(83, 133, 193, 0.6);
     bottom: 45px;
-    left: -119px;
-    width: calc(119px + 40px);
+    left: 0px;
+    /*width: calc(119px + 40px);*/
+    width:40px;
     height: 60px;
     padding:0;
     display:none;
@@ -303,7 +393,7 @@ textarea:focus{
 .portfolio-detail-activity{
 	z-index:105;
 	position:absolute;
-	bottom:30px;
+	bottom:10px;
 	width:100%;
 	max-height:100px;
 	text-align:center;
@@ -378,12 +468,9 @@ textarea:focus{
     min-width:150px;
     border:0;
     overflow-y:scroll;
-	/*background:#5385c1;*/
 	background:lightgrey;
 	border-left:0.5px solid darkgrey;
-    /*bottom:45px;*/
-
-	/* scroll bar 감주기 */
+    /* scroll bar 감주기 */
 	-ms-overflow-style:none;	/* IE and Edge */
 	scrollbar-width:none;	/* Firefox */
 }
@@ -403,6 +490,7 @@ textarea:focus{
 	background:lightslategrey;
 	text-align:center;
 	padding:15px 0;
+	border-radius:5px 5px 0 0;
 }
 .portfolio-info-writer:hover{
 	cursor:pointer;
@@ -479,6 +567,7 @@ textarea:focus{
 	border-bottom:1px solid lightgrey;
 	background:white;
 	padding:10px;
+	border-radius:0 0 5px 5px;
 }
 .port-info-site-span{
 	text-align:left;
@@ -630,6 +719,7 @@ textarea:focus{
     padding: 0;
 	padding-top:5px;
 	display:block;
+	border-radius: 5px 5px 0 0;
 }
 /* FEEDBACK 정보 */
 .portfolio-feedback-info{
@@ -859,7 +949,7 @@ textarea:focus{
 /* 반응형 */
 /* 세로 */
 /* 세로가 작을 경우 메뉴바 사이드로 이동 */
-@media screen and (min-height:1240px){
+@media screen and (min-height:1300px){
 	#portfolio-feedback-wrap{
 		top:845px;
 		height: calc(100% - 845px)!important;
@@ -867,7 +957,7 @@ textarea:focus{
 }
 @media screen and (min-height:900px){
 	.portfolio-detail-activity{
-		bottom:45px;
+		bottom:10px;
 		left:0!important;
 		right:0;
 	}
@@ -882,16 +972,22 @@ textarea:focus{
 	    max-height: calc(100% - 60px);
 	    overflow:hidden;
 	    overflow-y:scroll;
-	    background-color: #5385c1;
+	    background-color: rgba(83, 133, 193, 0.9);
 	    position: fixed;
-	    left: -119px;
+	    border:0;
+	    left: -120px;
 	    width: 120px;
 	    bottom:45px!important;
 	    text-align: center;
 	    border-radius: 0 5px 0 0;
-	    border:1px solid darkgrey;
 	    z-index:108;
-	    color:lightgray;
+	    color:lightgray;	
+	    /* scroll bar 감주기 */
+		-ms-overflow-style:none;	/* IE and Edge */
+		scrollbar-width:none;	/* Firefox */
+	}
+	.portfolio-detail-activity::-webkit-scrollbar{
+		display:none;	/* Chrome, Safari, Opera */
 	}
 	.drag-activity-menu{
 		display:block!important;
@@ -933,7 +1029,7 @@ textarea:focus{
 	#portfolio-feedback-wrap{
 		position:fixed;
 		width:90%;
-		height:calc(100% - 100px)!important;
+		height:80%!important;
 		left:5%;
 		right:5%;
 		top:100%;
@@ -1062,7 +1158,7 @@ textarea:focus{
 	}
 	.drag-activity-menu{
 	    bottom: 45px;
-	    left: -119px;	
+	    left: -120px;	
 	}
 }
 @media screen and (max-width: 640px){
