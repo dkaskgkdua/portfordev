@@ -36,7 +36,10 @@ $(document).ready(function(){
 		{
 			$('#move_top_btn').fadeIn();
 		}
-		
+		if($('.drag-activity-menu').hasClass('openMenu'))
+		{
+			$('.drag-activity-menu').trigger('click');
+		}
 		$('.icon-tail-fit').off('click', doActivity);
 	}
 	// 포트폴리오 파일 이미지 변환후 slick 출력
