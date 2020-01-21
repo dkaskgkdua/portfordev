@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %> 
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,12 +22,15 @@
 				font-weight:600!important;
 				font-size:1.5em;
 			}
+			h2{
+				font-weight:600!important;
+			}
 			h2+p{
 				font-size:1.5em!important;
 				font-weight:500;
 			}
 			h3{
-				font-weight:400!important;
+				font-weight:500!important;
 			}
 			#two .box:hover{
 				cursor:pointer;
@@ -109,30 +113,30 @@
 					<p>PFD만이 가진 장점</p>
 				</header>
 				<div class="flex flex-4">
-					<div class="box" onclick="javascript:location.href='#'">
+					<div class="box" onclick="javascript:location.href='profile'">
 						<div class="image fit">
-							<img src="resources/Image/icon/portfolio.png" alt="Portfolio" />
+							<img src="resources/Image/icon/laptop.png" alt="Portfolio" />
 						</div>
 						<h3>Convenience</h3>
 						<p>간편한 정보 입력으로 쉽게 만드는 포트폴리오</p>
 					</div>
-					<div class="box" onclick="javascript:location.href='#'">
+					<div class="box" onclick="javascript:location.href='portfolio/collection'">
 						<div class="image fit">
 							<img src="resources/Image/icon/feedback.png" alt="Feedback" />
 						</div>
 						<h3>FeedBack</h3>
 						<p>선배 개발자들로 부터 얻는 전문적인 평가와 조언</p>
 					</div>
-					<div class="box" onclick="javascript:location.href='#'">
+					<div class="box" onclick="javascript:location.href='board_list?BOARD_CATEGORY=0'">
 						<div class="image fit">
-							<img src="resources/Image/icon/community.png" alt="Community" />
+							<img src="resources/Image/icon/class.png" alt="Community" />
 						</div>
 						<h3>Community</h3>
 						<p>자유롭게 의견을 나누며 소통하는 게시판</p>
 					</div>
-					<div class="box" onclick="javascript:location.href='#'">
+					<div class="box" onclick="javascript:location.href='board_list?BOARD_CATEGORY=1'">
 						<div class="image fit">
-							<img src="resources/Image/icon/study.png" alt="Study" />
+							<img src="resources/Image/icon/team.png" alt="Study" />
 						</div>
 						<h3>Study</h3>
 						<p>편리한 프로젝트 팀원, 스터디 그룹원 모집</p>
@@ -142,6 +146,7 @@
 		</section>
 
 		<!-- Three -->
+		<c:if test="${!empty newsList}">
 		<section id="three" class="wrapper special">
 			<div class="inner">
 				<header class="align-center">
@@ -149,34 +154,21 @@
 					<p>최신 IT 기술 동향과 정보</p>
 				</header>
 				<div class="flex flex-2">
+					<c:forEach var="news" items="${newsList}">
 					<article>
-						<div class="image fit">
-							<img src="resources/Image/pic01.jpg" alt="Pic 01" />
-						</div>
 						<header>
-							<h3>Praesent placerat magna</h3>
+							<h3>${news.title}</h3>
 						</header>
-						<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
+						<p>${news.description}</p>
 						<footer>
-							<a href="#" class="button special">More</a>
+							<a href="${news.originallink}" class="button special">보러가기</a>
 						</footer>
 					</article>
-					<article>
-						<div class="image fit">
-							<img src="resources/Image/pic02.jpg" alt="Pic 02" />
-						</div>
-						<header>
-							<h3>Fusce pellentesque tempus</h3>
-						</header>
-						<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
-						<footer>
-							<a href="#" class="button special">More</a>
-						</footer>
-					</article>
+					</c:forEach>
 				</div>
 			</div>
 		</section>
-		
+		</c:if>
 		<!-- Four -->
 		<section id="Four" class="wrapper style1 special">
 			<div class="inner">
@@ -238,6 +230,7 @@
 		<script type="text/javascript" src="resources/slick/slick.min.js"></script>
 		<script>
 			$(document).ready(function(){
+				// 베스트 포트폴리오 슬라이드
 				$('.slide').slick({
 					  infinite: true,	// 맨끝이미지에서 끝내지 않고 맨앞으로 이동
 					  slidesToShow: 3,	// 화면에 보여질 이미지 갯수
@@ -260,6 +253,7 @@
 						  }
 					  ]
 					});
+				// 베스트 포트폴리오 필터 변경시
 				$('.best-port-filter').click(function(){
 					$('.best-port-filter').removeClass('filter-active');
 					$(this).addClass('filter-active');
@@ -274,6 +268,23 @@
 					else if($(this).text() == 'Monthly')
 					{
 						// alert('MM');
+					}
+				});
+				
+				// 네이버 뉴스 API
+				$.ajax({
+					data: {
+						display: 10, 
+						start: 1
+					}, 
+					type: "get", 
+					url: "/pro/news", 
+					cache: false, 
+					contentType: false, 
+					success : function(news){
+						$.each(news, function(){
+							console.log(this.title);
+						});
 					}
 				});
 			});
