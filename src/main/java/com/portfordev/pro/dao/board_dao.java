@@ -24,11 +24,14 @@ public class board_dao {
 		}
 	}
 	public List<Board> getBoardList(Map<String, Object> map) {
-		if(map.get("field2").equals("")) {
+		if(map.get("sort").equals("DATE")) { // "DATE" 정렬 날짜 순
 			return sqlSession.selectList("Boards.list", map);
-		} else { // 제목+내용일 경우
-			return sqlSession.selectList("Boards.listOR", map);
+		} else if(map.get("sort").equals("READCOUNT")){ // "READCOUNT" 조회 순
+			return sqlSession.selectList("Boards.sort_read_list", map);
+		} else { // "RECO" 추천 순
+			return sqlSession.selectList("Boards.sort_reco_list", map);
 		}
+		
 		
 	}
 	public int set_readcount_update(int num) {
