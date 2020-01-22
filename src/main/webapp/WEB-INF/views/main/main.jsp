@@ -8,71 +8,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="navbar.jsp" />
-		<link rel="stylesheet" href="resources/css/main.css" />
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
-		<style>
-			.inner{
-				margin: 0 auto!important;
-			}
-			#banner h1{
-				font-weight:600!important;
-			}
-			#banner p{
-				font-weight:600!important;
-				font-size:1.5em;
-			}
-			h2{
-				font-weight:600!important;
-			}
-			h2+p{
-				font-size:1.5em!important;
-				font-weight:500;
-			}
-			h3{
-				font-weight:500!important;
-			}
-			#two .box:hover{
-				cursor:pointer;
-				border-radius:2%;
-				opacity:0.7;
-				transition:0.3s;
-			}
-			.best-port-filter{
-				font-weight:500;
-				font-size:2em!important;
-				text-align:center;
-				margin:0 30px;
-			}
-			.best-port-filter:hover{
-				opacity:0.7;
-				cursor:pointer;
-				transition:0.3s;
-			}
-			.filter-active{
-				font-weight:650;
-				color:#5385c1;
-			}
-			@media screen and (max-width:736px){
-				.best-port-filter{
-					margin:0 15px;
-				}
-			}
-			@media screen and (max-width:436px){
-				.best-port-filter{
-					font-size:1.5em!important;
-					margin:0 13px;
-				}
-			}
-			.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;}
-			.slide_in{height:283px;margin: 10px;background:#5385c1;}
-			.slide_in:hover{
-				cursor:pointer;
-				border-radius:2%;
-				transition:0.3s;
-				opacity:0.7;
-			}
-		</style>
+		<link rel="stylesheet" type="text/css" href="resources/css/main_page.css"/>
 	</head>
 	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 		<!-- Banner -->
@@ -144,33 +82,8 @@
 				</div>
 			</div>
 		</section>
-
 		<!-- Three -->
-		<c:if test="${!empty newsList}">
-		<section id="three" class="wrapper special">
-			<div class="inner">
-				<header class="align-center">
-					<h2>Latest IT News</h2>
-					<p>최신 IT 기술 동향과 정보</p>
-				</header>
-				<div class="flex flex-2">
-					<c:forEach var="news" items="${newsList}">
-					<article>
-						<header>
-							<h3>${news.title}</h3>
-						</header>
-						<p>${news.description}</p>
-						<footer>
-							<a href="${news.originallink}" class="button special">보러가기</a>
-						</footer>
-					</article>
-					</c:forEach>
-				</div>
-			</div>
-		</section>
-		</c:if>
-		<!-- Four -->
-		<section id="Four" class="wrapper style1 special">
+		<section id="Three" class="wrapper style1 special">
 			<div class="inner">
 				<header>
 					<h2>PFD Developers</h2>
@@ -268,23 +181,6 @@
 					else if($(this).text() == 'Monthly')
 					{
 						// alert('MM');
-					}
-				});
-				
-				// 네이버 뉴스 API
-				$.ajax({
-					data: {
-						display: 10, 
-						start: 1
-					}, 
-					type: "get", 
-					url: "/pro/news", 
-					cache: false, 
-					contentType: false, 
-					success : function(news){
-						$.each(news, function(){
-							console.log(this.title);
-						});
 					}
 				});
 			});

@@ -31,11 +31,19 @@
 		<div class="alert-box">
 			<b>알림</b>
 			<hr>
-			회원만이 이용가능한 기능입니다.<br>
-			로그인페이지로 이동하시겠습니까?
+			<span class="alert-message login-alert">
+				회원만이 이용가능한 기능입니다.<br>
+				로그인페이지로 이동하시겠습니까?
+			</span>
+			<span class="alert-message site-alert">
+				<strong><span class="site-url"></span></strong>로 이동하시겠습니까?
+			</span>
+			<span class="alert-message profile-alert">
+				<strong><span class="profile-nick"></span></strong>님의 프로필로 이동하시겠습니까?
+			</span>
 			<hr>
 			<div class="alert-btn-area">
-				<button class="goLoginBtn" type="button" onclick="javascript:location.href='/pro/login'">확인</button>
+				<button class="goBtn" type="button">확인</button>
 				<button class="cancelBtn" type="button">취소</button>
 			</div>
 		</div>

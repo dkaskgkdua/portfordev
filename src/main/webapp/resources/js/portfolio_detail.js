@@ -25,23 +25,25 @@ $(document).ready(function(){
 		doSlick();
 		$('.port-slide-list').resize();
 		$('.icon-tail-fit').on('click', doActivity);
+		$('.feedback-writer-profile').on('click', goProfile);
 	}
 	// 포트폴리오 상세 모달 종료
 	function closeDetail(){
-		$('#portfolioModalContainer').fadeOut();
-		$('.port-slide-list').slick('unslick');
-		$('body').removeClass('not-scroll');
-		$('#move_top_btn').removeClass('never-show');
-		if($(window).scrollTop() > 500)
-		{
-			$('#move_top_btn').fadeIn();
-		}
-		if($('.drag-activity-menu').hasClass('openMenu'))
-		{
-			$('.drag-activity-menu').trigger('click');
-		}
-		
+		$('#portfolioModalContainer').fadeOut(400, function(){
+			$('.port-slide-list').slick('unslick');
+			$('body').removeClass('not-scroll');
+			$('#move_top_btn').removeClass('never-show');
+			if($(window).scrollTop() > 500)
+			{
+				$('#move_top_btn').fadeIn();
+			}
+			if($('.drag-activity-menu').hasClass('openMenu'))
+			{
+				$('.drag-activity-menu').trigger('click');
+			}
+		});
 		$('.icon-tail-fit').off('click', doActivity);
+		$('.feed-writer-profile').off('click', goProfile);
 	}
 	// 포트폴리오 파일 이미지 변환후 slick 출력
 	function doSlick()
@@ -93,21 +95,25 @@ $(document).ready(function(){
 		// 추천하기 클릭 시
 		if($(this).children('img').hasClass('recom-icon'))
 		{
+			if(!askLogin())return;
 			recommend_portfolio();
 		}
 		// 스크랩하기 클릭 시
 		else if($(this).children('img').hasClass('scrap-icon'))
 		{
+			if(!askLogin())return;
 			scrap_portfolio();
 		}
 		// 작성하기 클릭 시
 		else if($(this).children('img').hasClass('write-icon'))
 		{
+			if(!askLogin())return;
 			feedback_write(member_id, member_name);
 		}
 		// 피드백 추천 클릭 시
 		else if($(this).children('img').hasClass('feed-recom-icon'))
 		{
+			if(!askLogin())return;
 			var feed_id = $(this).parent().parent().parent().children('.FEEDBACK_ID').val();
 			feedback_recommend(member_id, feed_id);
 		}
@@ -180,7 +186,7 @@ $(document).ready(function(){
 			$('#FEED_CONTENT').val('');
 			if($(window).height() < 740)
 			{
-				$('.exit-cover').fadeOut();
+				$('.exit-cover').fadeOut(250);
 				$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
 					$('.portfolio-feedback-list').css('display', 'block');
 					$('.portfolio-feedback-header').css('display', 'block');
@@ -237,26 +243,108 @@ $(document).ready(function(){
 	    }
 	}
 	
+	// login need alert
+	// 로그인이 필요한 동작을 시행 시
+	function askLogin()
+	{
+		if(member_id == '' || member_id == null)
+		{
+			return false;
+		}
+		$('#alert-wrap').fadeIn(200, function(){
+			$('#alert-wrap .login-alert').css('display', 'block');
+			$('#alert-wrap .alert-box').fadeIn();
+			$('#alert-wrap .goBtn').on('click', function(){
+				location.href = '/pro/login';
+			});
+			$('#alert-wrap .cancelBtn').on('click', function(){
+				$('#alert-wrap .alert-box').fadeOut(200, function(){
+					$('#alert-wrap').fadeOut();
+					$('#alert-wrap .login-alert').css('display', 'none');
+					$('#alert-wrap .goBtn').off('click');
+					$('#alert-wrap .cancelBtn').off('click');
+				});
+			})
+		})
+	}
+	
 	// portfolio-info-section
 	// 프로필 클릭 시
-	$('.portfolio-info-writer').click(function(e){
-		e.stopPropagation();
-		var writerNick = $('.portfolio-info-writer-nick').text();
-		if(confirm(writerNick + '님의 프로필로 이동하시겠습니까?'))
-			location.href="/pro/profile";
-	});
-	// 방문하기 img 클릭시
+	$('.portfolio-info-writer').click(goProfile);
+	function goProfile()
+	{
+		var writerNick = '';
+		if($(this).hasClass('portfolio-info-writer'))
+		{
+			writerNick = $('.portfolio-info-writer-nick').text();
+		}
+		else if($(this).hasClass('feedback-writer-profile'))
+		{
+			writerNick = $(this).children('.feedback-writer-nick').text();
+		}
+		else
+		{
+			return;
+		}
+		$('#alert-wrap').fadeIn(200, function(){
+			$('#alert-wrap .profile-alert').css('display', 'block');
+			$('#alert-wrap .profile-nick').text(writerNick);
+			$('#alert-wrap .alert-box').fadeIn();
+			$('#alert-wrap .goBtn').on('click', function(){
+				location.href = '/pro/profile';
+			});
+			$('#alert-wrap .cancelBtn').on('click', function(){
+				$('#alert-wrap .alert-box').fadeOut(200, function(){
+					$('#alert-wrap').fadeOut();
+					$('#alert-wrap .profile-alert').css('display', 'none');
+					$('#alert-wrap .goBtn').off('click');
+					$('#alert-wrap .cancelBtn').off('click');
+				});
+			})
+		})
+	}
+	// GitHub 방문하기 클릭시
 	$('.port-github-img').click(function(e){
 		e.stopPropagation();
 		var github = $('.port-github-href').val();
-		if(confirm(github + '로 이동하시겠습니까?'))
-			location.href= github;
+		$('#alert-wrap').fadeIn(200);
+		$('#alert-wrap .site-alert').css('display', 'block');
+		$('#alert-wrap .site-url').text(github);
+		$('#alert-wrap .alert-box').fadeIn();
+		$('#alert-wrap .goBtn').on('click', function(){
+			location.href = github;
+		})
+		$('#alert-wrap .cancelBtn').on('click', function(){
+			$('#alert-wrap .alert-box').fadeOut(200, function(){
+				$('#alert-wrap').fadeOut();
+				$('#alert-wrap .site-alert').css('display', 'none');
+				$('#alert-wrap .site-url').text('');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+			});
+		})
 	});
+	// 사이트 방문하기 클릭 시
 	$('.port-site-img').click(function(e){
 		e.stopPropagation();
 		var site = $('.port-site-href').val();
-		if(confirm(site + '로 이동하시겠습니까?'))
-			location.href= site;
+		$('#alert-wrap').fadeIn(200, function(){
+			$('#alert-wrap .site-alert').css('display', 'block');
+			$('#alert-wrap .site-url').text(site);
+			$('#alert-wrap .alert-box').fadeIn();
+			$('#alert-wrap .goBtn').on('click', function(){
+				location.href = site;
+			})
+			$('#alert-wrap .cancelBtn').on('click', function(){
+				$('#alert-wrap .alert-box').fadeOut(200, function(){
+					$('#alert-wrap').fadeOut();
+					$('#alert-wrap .site-alert').css('display', 'none');
+					$('#alert-wrap .site-url').text('');
+					$('#alert-wrap .goBtn').off('click');
+					$('#alert-wrap .cancelBtn').off('click');
+				});
+			})
+		});
 	});
 
 	// portfolio-info-section show/hide
@@ -308,7 +396,7 @@ $(document).ready(function(){
 		}
 		else
 		{
-			$('.exit-cover').fadeOut();
+			$('.exit-cover').fadeOut(250);
 			$('#feed-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/feed-show-off.png');
 			$('#feed-icon-tail').children('span').text('피드백 보기');
 			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){

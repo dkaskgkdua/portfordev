@@ -10,6 +10,9 @@ import java.net.URLEncoder;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -18,7 +21,7 @@ import org.xmlpull.v1.XmlPullParserFactory;
 import com.portfordev.pro.domain.ItNews;
 
 @Service
-public class main_itnews_service
+public class it_news_service
 {
 	private static String clientID = "T8AzO0BiUJfCTfNXMUf2";
 	private static String clientSecret = "2t_11oEDPb";
@@ -61,7 +64,7 @@ public class main_itnews_service
 	                    String tag = parser.getName();
 	                    if(tag.equals("item"))
 	                    {
-	                        list.add(n);
+	                    	list.add(n);
 	                        n = null;
 	                    }
 	                }
@@ -87,6 +90,10 @@ public class main_itnews_service
 	                        if(n != null)
 	                            n.setDescription(parser.nextText());
 	                        break;
+	                    case "pubDate":
+	                        if(n != null)
+	                            n.setPubDate(parser.nextText());
+	                        break;
 	                    }
 	                }
                 }
@@ -111,4 +118,37 @@ public class main_itnews_service
         }
         return list;
     }
+	public List<ItNews> breakingNews(String category)
+	{
+		List<ItNews> list = null;
+		String newsUrl = "";
+		try
+		{
+			list = new ArrayList<ItNews>();
+			if(category.equals("IT일반"))
+				newsUrl = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=105&sid2=230&listType=photo";
+			else if(category.equals("컴퓨터"))
+				newsUrl = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=105&sid2=283&listType=photo";
+			else if(category.equals("인터넷"))
+				newsUrl = "https://news.naver.com/main/list.nhn?mode=LS2D&mid=sec&sid1=105&sid2=226&listType=photo";
+	        Document doc = Jsoup.connect(newsUrl).get();
+	        for(int j = 1; j <= 5; j++)
+	        {
+	        	for(int i = 1; i <= 4; i++)
+		        {
+	        		ItNews news = new ItNews();
+		        	Elements thumbImg = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr:nth-child(1)>td:nth-child("+i+")>a>img");
+		        	Elements headLine = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr.tit>td:nth-child("+i+")> a");
+		        	news.setImage(thumbImg);
+		        	news.setHeadLine(headLine);
+		        	list.add(news);
+		        }
+	        }       
+		}
+		catch(IOException ioe)
+		{
+			ioe.printStackTrace();
+		}
+		return list;
+	}
 }
