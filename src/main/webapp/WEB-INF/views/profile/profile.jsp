@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix = "c" uri = "http://java.sun.com/jsp/jstl/core" %>     
 <!DOCTYPE HTML>
 <html>
 	<head>
@@ -14,10 +15,27 @@
 	}
 	</style>
 <script>
-	$(document).ready(function () {  
-        var top = $('#adside').offset().top - parseFloat($('#adside').css('marginTop').replace(/auto/, 0));
+	$(document).ready(function () { 
+		
+		if($('#profileid').val()==""){
+    		alert('프로필 등록을 하지 않은 유저입니다.');
+    		if("${id}"=="${idch}"){
+    			 var move=confirm("프로필 등록을 하시겠습니까?");
+    			 if(move==true){
+    				location.href="profile_form";
+    			 }else{
+    				 history.back();
+    			 }
+    		}else{
+    		history.back();
+    		}
+		}	
+        
+    		
+    	var top = $('#adside').offset().top - parseFloat($('#adside').css('marginTop').replace(/auto/, 0));
         $(window).scroll(function (event) {
         var y = $(this).scrollTop();
+        	
   });//scroll끝
   
         var width = $(window).width();
@@ -50,42 +68,80 @@
 });
 </script>
 	</head>
-	<body>
 	
+	<body>
+
+	<input type="hidden" id="profileid" value="${profile.member_id}">
 	<img src = "resources/Image/userdefault.png" class="profile_btn"/>
 
 
 	 
 		<!-- Three -->
-		
+		<c:if test="${!empty profile.member_id}">
 			<section id="three" class="wrapper">
 			<div id="adsideWrapper">
     		<div id="adside" class="fixed"  >
     		<!-- style="overflow:scroll" -->
     		
-    		
     		<!-- 프로필 사진 칸 -->
     		<div style="width:200px;margin: 0 auto;margin-top: 20px;margin-left: 50px;" id="p_div">
     			<h1 class="profile_h1">PROFILE</h1>
-    			<div class="profile"><img src="resources/Image/sample2.jpg" class="profile"></div>
+    			<c:if test="${!empty profile.PROFILE_IMG_FILE}">
+    			<div class="profile"><img src="resources/upload/${profile.PROFILE_IMG_FILE}" class="profile"></div>
+    			</c:if>
+    			<c:if test="${empty profile.PROFILE_IMG_FILE}">
+    			<div class="profile"><img src="resources/Image/default_user.png" class="profile"></div>
+    			</c:if>
     			<div>
     			<br>
-    			<h1 class="name">LEE DAEUN / 이다은 </h1><button type="button" onclick="location.href='profile_form'">등록</button>
-    			<p>Web programmer</p>
+    			<button type="button" onclick="location.href='profile_form'">등록</button>
+    			
+    			<!-- 실명입력하면 실명 -->
+    			<c:if test="${!empty profile.PROFILE_REAL_NAME}">
+    			<h1 class="name">${profile.PROFILE_REAL_NAME}</h1>
+    			
+    			</c:if>
+    			<!-- 실명 입력 안했으면 그냥 닉네임 -->
+    			<c:if test="${empty profile.PROFILE_REAL_NAME}">
+    			<h1 class="name">${profile.member_id}</h1>
+    			</c:if>
+    			
+    			<c:if test="${!empty profile.PROFILE_JOB}">
+    				<c:if test="${profile.PROFILE_JOB=='회사원'}">
+    				<p>Employee</p>
+    				</c:if>
+    				<c:if test="${profile.PROFILE_JOB=='프리랜서'}">
+    				<p>Freelancer</p>
+    				</c:if>
+    				<c:if test="${profile.PROFILE_JOB=='준비생'}">
+    				<p>Job seekers</p>
+    				</c:if>
+    				<c:if test="${profile.PROFILE_JOB=='사업가'}">
+    				<p>CEO</p>
+    				</c:if>
+    			</c:if>
     			</div>
     			
     			<div class="contact_div">
+    			  <c:if test="${!empty profile.PROFILE_PHONE}">
     				<img class="contact" src="resources/Image/phone.png"/>
-    				<span>010-9954-8516</span>
+    				<span>${profile.PROFILE_PHONE}</span>
+    			  </c:if>
     				<br>
+    			  <c:if test="${!empty profile.PROFILE_EMAIL}">	
     				<img class="contact" src="resources/Image/email.png"/>
-    				<span>lde1245@naver.com</span>
+    				<span>${profile.PROFILE_EMAIL}</span>
+    			  </c:if>	
     				<br>
+    			 <c:if test="${!empty profile.PROFILE_BLOG}">	
     				<img class="contact" src="resources/Image/blog.png"/>
-    				<span><a href="">webruden.tistory.com/94</a></span>
+    				<span><a href="">${profile.PROFILE_BLOG}</a></span>
+    		   	</c:if>	
     				<br>
+    			<c:if test="${!empty profile.PROFILE_GIT}">	
     				<img class="contact" src="resources/Image/github.png"/>
-    				<span><a href="">webruden.tistory.com/94</a></span>
+    				<span><a href="">${profile.PROFILE_GIT}</a></span>
+    			</c:if>	
     			</div>
     			
     			<div class="sidebar">
@@ -140,7 +196,7 @@
 					
 					<!-- 스킬 table 나중에 ajax로 구현-->
 					<!-- 임시 아이콘임 -->
-					<h1 class="h1 user-name" >DEVELOPER O O O</h1>
+					<h1 class="h1 user-name" >DEVELOPER ${profile.PROFILE_REAL_NAME}</h1>
 					<div style="background:white" class="info_div">
 					<table class="skill_table">
 					<tr>
@@ -242,6 +298,7 @@
 					</div>
 				</div>
 			</section>
+	</c:if>	
 
 		<!-- Footer -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>

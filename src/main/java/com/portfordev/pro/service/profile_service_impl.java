@@ -15,6 +15,7 @@ public class profile_service_impl implements profile_service{
 	@Override
 	public int insertprofile(String id, Profile profile) {
 		Map<String,Object>map = new HashMap<String, Object>();
+		
 		map.put("id",id);
 		map.put("profile",profile);
 		return dao.insertprofile(map);
@@ -23,6 +24,10 @@ public class profile_service_impl implements profile_service{
 	@Override
 	public int checkid(String id) {
 		return dao.checkid(id);
+	}
+	@Override
+	public Profile profile_view(String id) {
+		return dao.profile_view(id);
 	}
 	
 

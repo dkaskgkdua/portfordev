@@ -1,5 +1,7 @@
 package com.portfordev.pro.controller;
 
+import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
+
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Calendar;
@@ -17,7 +19,9 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
+import com.google.protobuf.Method;
 import com.portfordev.pro.domain.Profile;
 import com.portfordev.pro.service.profile_service_impl;
 @Controller
@@ -25,12 +29,18 @@ public class profile_controller {
 	@Autowired
 	private profile_service_impl service;
 	
-	/* @Value("${savefoldername}") */
-//	private String saveFolder;
+	 @Value("${savefoldername}") 
+	 private String saveFolder;
 	
 	@RequestMapping(value="/profile")
-	public String profile_main() throws Exception {
-			return "profile/profile";
+	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
+		profile =  service.profile_view(idch);
+		model.setViewName("profile/profile");
+		model.addObject("profile",profile);
+		model.addObject("idch",idch);
+		
+		
+		return model;
 		
 	}
 	
@@ -57,15 +67,28 @@ public class profile_controller {
 	@ResponseBody
 	@RequestMapping(value="/profile_insert")
 	public Map<String,String> profile_insert(HttpSession session,Profile profile,HttpServletRequest request) throws Exception{
+		String s =profile.getPROFILE_REAL_NAME().replace(",","");
+		profile.setPROFILE_REAL_NAME(s);
+		String s1 =profile.getPROFILE_BLOG().replace(",","");
+		profile.setPROFILE_BLOG(s1);
+		String s2 = profile.getPROFILE_PHONE().replace(",","");
+		profile.setPROFILE_PHONE(s2);
+		String s3 = profile.getPROFILE_GIT().replace(",","");
+		profile.setPROFILE_PHONE(s3);
+		String s4 = profile.getPROFILE_INTRO().replace(",","");
+		profile.setPROFILE_PHONE(s4);
+		String s5 = profile.getPROFILE_YEAR().replace(",","");
+		profile.setPROFILE_PHONE(s);
+		
 		MultipartFile file= profile.getProfile_img();
-		System.out.println("보낸 이름 "+profile.getEng_name());
+		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());
 		String id  = (String) session.getAttribute("id");
 		//프로필에 이미 등록됐는지 체크
 		int checkid= service.checkid(id);
 		if(checkid==0) {
 		if (!file.isEmpty()) { // 파일 업로드를 했을 때 
 			String fileName=file.getOriginalFilename(); //DB에 저장될 파일이름
-			profile.setProfile_img_ori(fileName);
+			profile.setPROFILE_IMG_ORI(fileName);
 			
 			// 새로운 폴더 이름 : 오늘 년-월-일
 			Calendar c = Calendar.getInstance();
@@ -77,7 +100,7 @@ public class profile_controller {
 			//String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/";
 			
 			//2.특정폴더
-			String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
+			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
 			String homedir = saveFolder + year + "-" + month + "-" + date;
 			
 			System.out.println(homedir);
@@ -115,7 +138,7 @@ public class profile_controller {
 			file.transferTo(new File(saveFolder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
-			profile.setProfile_img_file(fileDBName);
+			profile.setPROFILE_IMG_FILE(fileDBName);
 		} // if end
 		//check if end
 		}else {

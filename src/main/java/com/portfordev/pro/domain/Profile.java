@@ -6,19 +6,20 @@ import lombok.Data;
 
 @Data
 public class Profile {
-	private String eng_name;
+	private String member_id;
+	private String PROFILE_REAL_NAME;
 	private MultipartFile profile_img;
-	private String profile_img_ori;
-	private String profile_img_file;
-	private String job;
-	private String phone;
-	private String email;
-	private String blog;
-	private String github;
-	private String year;
-	private String posi;
-	private String posi2;
-	private String frontend;
-	private String backend;
-	private String selfintro;
+	private String PROFILE_IMG_ORI;
+	private String PROFILE_IMG_FILE;
+	private String PROFILE_JOB;
+	private String PROFILE_PHONE;
+	private String PROFILE_EMAIL;
+	private String PROFILE_BLOG;
+	private String PROFILE_GIT;
+	private String PROFILE_YEAR;
+	private String PROFILE_STRENGTH1;
+	private String PROFILE_STRENGTH2;
+	private String PROFILE_TECH_FRONT;
+	private String PROFILE_TECH_BACK;
+	private String PROFILE_INTRO;
 }

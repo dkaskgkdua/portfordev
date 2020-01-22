@@ -1,5 +1,7 @@
 var cnt = 0 ;
 var out='';
+var id= $('#user_id').val();
+
 /*시작 버튼*/
 $("#start_btn").click(function(){
 	$('.slick-next').click();
@@ -90,7 +92,6 @@ console.log("클릭 횟수 "+cnt);
 $('#submit').click(function(){ 
 	var form = $('#profile_form')[0];
     var formData = new FormData(form);
-	console.log("보낸 데이터 22"+formData.get('eng_name'));
  $.ajax({
 	 type:'post',
 	 enctype: 'multipart/form-data',
@@ -106,7 +107,7 @@ $('#submit').click(function(){
       out+="<div style='margin-bottom:50px'>";	
       out+="<img src='resources/Image/icon/check.png' style='width:80px;  margin: 0 auto;'>'"
       out+="</div>";	  
-      out+="<button type='button'class='end'>프로필로 이동</button>";
+      out+="<button type='button'class='end' onclick='location.href='profile?idch="+id+"''>프로필로 이동</button>";
       $('#finish').append(out);
       
 	 },

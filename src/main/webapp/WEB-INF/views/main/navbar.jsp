@@ -31,9 +31,14 @@
 	})
 </script>
 <style>
+
 #account_modal {
-	width : 200px;
-	justify-content : flex_end;
+	text-align: center
+}
+.modal-dialog {
+        display: inline-block;
+        text-align: left;
+        vertical-align: middle;
 }
 .navbar-toggler {
 	width : 60px;
@@ -110,6 +115,7 @@
         </button>
       </div>
       <div class="modal-body">
+      	<button type="button" class=" btn btn-info" onclick="location.href='profile?idch=${id}';">프로필</button>
         ...
       </div>
       <div class="modal-footer">
