@@ -1,0 +1,109 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Boards">
+	<select id="count" parameterType="java.util.Map" resultType="int">
+		select count(*) from board inner join member using(member_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+	</select>
+	<select id="countOR" parameterType="java.util.Map" resultType="int">
+		select count(*) from board inner join member using(member_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and (${field} like '%'||#{text}||'%'
+		or ${field2} like '%'||#{text}||'%')
+	</select>
+	<select id="list" parameterType="java.util.Map" resultType="Board">
+		select * from (select rownum rnum, b.*
+                   from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
+                           (select * from 
+                              (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) 
+                             inner join 
+                              (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
+                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and ${field} like '%'||#{text}||'%'
+                             order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
+                        ) b
+                      ) where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	<select id="listOR" parameterType="java.util.Map" resultType="Board">
+		select * from (select rownum rnum, b.* 
+                   from (select * from (select * from board inner join MEMBER using(member_id)) inner join 
+                           (select * from 
+                              (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) 
+                             inner join 
+                              (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)
+                           ) using(board_id) where BOARD_CATEGORY = #{BOARD_CATEGORY} and (${field} like '%'||#{text}||'%'
+                             or ${field2} like '%'||#{text}||'%') order by BOARD_RE_REF desc, BOARD_RE_SEQ asc
+                        ) b
+                      ) where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+	<insert id="insert" parameterType="Board">
+		insert into BOARD values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, #{BOARD_ID}, 0, 0, 0, SYSDATE)
+	</insert>
+	<insert id="insert_file" parameterType="Board_file">
+		insert into BOARD_FILE values(BOARD_FILE_SEQ.NEXTVAL, #{BOARD_ID}, #{BOARD_FILE}, #{BOARD_FILE_ORIGINAL})
+	</insert>
+	<select id ="select_max_id" resultType="int">
+		select nvl(max(BOARD_ID),0)+1 from BOARD
+	</select>
+	<update id = "readcount_update" parameterType="int">
+		update BOARD
+		set BOARD_READCOUNT = BOARD_READCOUNT+1
+		where BOARD_ID = #{number}
+	</update>
+	<select id="get_board" parameterType="int" resultType="board">
+		select * from BOARD where BOARD_ID = #{number}
+	</select>
+	<select id="get_reco_list" parameterType="int" resultType="Board_recommend">
+		select * from BOARD_RECOMMEND where BOARD_ID = #{id}
+	</select>
+	<select id="get_file_list" parameterType="int" resultType="Board_file">
+		select * from BOARD_FILE where BOARD_ID = #{id}
+	</select>
+	<select id="get_file_list_name" parameterType="int" resultType="String">
+		select BOARD_FILE from BOARD_FILE where BOARD_ID = #{id}
+	</select>
+	<select id="get_reco_count" parameterType="int" resultType="int">
+		select count(*) from BOARD_RECOMMEND where BOARD_ID = #{board_id}
+	</select>
+	<insert id="insert_reco" parameterType="java.util.Map">
+		insert into BOARD_RECOMMEND values(BOARD_RECO_ID.NEXTVAL, #{member_id}, #{board_id}, SYSDATE)
+	</insert>
+	<delete id = "delete_reco" parameterType="Map">
+		delete from BOARD_RECOMMEND where MEMBER_ID = #{member_id} and BOARD_ID = #{board_id}
+	</delete>
+	<update id="reply_update" parameterType="board">
+		update board
+		set BOARD_RE_SEQ=BOARD_RE_SEQ+1
+		where BOARD_RE_REF=#{BOARD_RE_REF}
+		and BOARD_RE_SEQ <![CDATA[>]]> #{BOARD_RE_SEQ}
+	</update>
+	<insert id="insert_board_reply" parameterType="board">
+		insert into board values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, #{BOARD_RE_REF},
+		#{BOARD_RE_LEV}, #{BOARD_RE_SEQ}, 0, sysdate)
+	</insert>
+	<delete id = "delete_board_file" parameterType="int">
+		delete from BOARD_FILE where BOARD_ID = #{BOARD_ID}
+	</delete>	
+	<update id="board_edit" parameterType="board">
+		update board set BOARD_SUBJECT = #{BOARD_SUBJECT}, BOARD_CONTENT = #{BOARD_CONTENT}
+		WHERE BOARD_ID = #{BOARD_ID}
+	</update>
+	<delete id="board_delete" parameterType="board">
+		<![CDATA[
+			delete from board
+				where BOARD_RE_REF = #{BOARD_RE_REF}
+				and   BOARD_RE_LEV >=#{BOARD_RE_LEV}
+				and   BOARD_RE_SEQ >=#{BOARD_RE_SEQ}
+				and   BOARD_RE_SEQ <(
+				                     nvl((SELECT min(board_re_seq )
+				                          FROM   BOARD
+				                          WHERE  BOARD_RE_REF=#{BOARD_RE_REF}
+				                          AND    BOARD_RE_LEV=#{BOARD_RE_LEV}
+				                          AND    BOARD_RE_SEQ>#{BOARD_RE_SEQ}) ,
+				                          (SELECT max(board_re_seq)+1 
+				                           FROM BOARD
+				                           WHERE BOARD_RE_REF=#{BOARD_RE_REF} ))
+				                     )    
+		]]>
+	</delete>
+	<select id="get_board_reg" parameterType="int" resultType="int">
+		select BOARD_ID from BOARD where BOARD_RE_REF = #{BOARD_ID}
+	</select>
+</mapper>

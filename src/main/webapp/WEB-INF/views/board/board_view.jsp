@@ -8,7 +8,6 @@
 <meta charset="UTF-8">
 <title>게시판 뷰</title>
 <style>
-<<<<<<< HEAD
 hr {
 	margin : 5px;
 }
@@ -36,6 +35,12 @@ span {
 	font-size : 20pt;
 	font-weight : bold;
 }
+.padding-top {
+	padding-top : 10px;
+}
+.padding-top2 {
+	padding-top : 5px;
+}
 </style>
 <script>
 	function insert_reco(board_id, member_id) {
@@ -48,7 +53,7 @@ span {
 			},
 			success : function(rdata) {
 				$("#reco_button").empty();
-				var text = '<img id = "reco_img" src="resources/Image/icon/heart-fill.svg" width ="18px">';
+				var text = '<img id = "reco_img" src="resources/Image/icon/heart-fill.svg" width ="18px" class="padding-top">';
 				$("#reco_button").append(text+rdata);
 			},
 			error : function() {
@@ -66,7 +71,7 @@ span {
 			},
 			success : function(rdata) {
 				$("#reco_button").empty();
-				var text = '<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px">';
+				var text = '<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px" class="padding-top">';
 				$("#reco_button").append(text+rdata);
 			},
 			error : function() {
@@ -76,9 +81,9 @@ span {
 	};
 	$(function() {
 		// 제목(카테고리)
-		if($("#BOARD_CATEGORY")=="0") {
+		if($("#BOARD_CATEGORY").val()=="0") {
 			$('#h3_category').text("자유게시판");
-		} else if($("#BOARD_CATEGORY")=="1"){
+		} else if($("#BOARD_CATEGORY").val()=="1"){
 			$('#h3_category').text("스터디");
 		} else {
 			$('#h3_category').text("Q&A");
@@ -93,6 +98,10 @@ span {
 		</c:forEach>
 		
 		$("#reco_button").click(function() {
+			if($('#loginid').val() =="") {
+				alert('로그인을 먼저 해주세요');
+				return false;
+			}
 			// 추천아님 -> 추천
 			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
 				insert_reco($("#board_id").val(), "${id}");
@@ -220,9 +229,10 @@ span {
 							<span style ="font-size:10pt">
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
-							<br>
-							&#35;<span style="font-weight:bold">${board_data.BOARD_ID}</span><span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
 						</a>
+							<br>
+							&#35;<span style="font-weight:bold">${board_data.BOARD_ID}</span>&#32;<span style="font-size:9pt"> ${board_data.BOARD_DATE}에 작성됨</span>
+						
 					</td>
 				</tr>
 			</thead>
@@ -259,9 +269,10 @@ span {
 			<tr>
 				<!-- 버튼 모음 -->
 				<td class="center">
-					<button id="reco_button"style="background:transparent"><img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px"> ${board_data.BOARD_RECO}</button>
+					<button id="reco_button"style="background:transparent">
+						<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px" class="padding-top"> ${board_data.BOARD_RECO}</button>
 					<button style="background:transparent">
-						<img src="resources/Image/icon/eye.svg" width ="20px"> ${board_data.BOARD_READCOUNT}
+						<img src="resources/Image/icon/eye.svg" width ="20px" class="padding-top"> ${board_data.BOARD_READCOUNT}
 					</button>
 					<!-- 답변 -->
 					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}">
@@ -270,12 +281,12 @@ span {
 					<c:if test="${board_data.MEMBER_ID == id}">
 						<!-- 수정 -->
 						<a href="board_edit_view?num=${board_data.BOARD_ID}">
-							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px"></button>
+							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px" class="padding-top2"></button>
 						</a>
 						<!-- 삭제 -->
 						<a href="#">
 							<button style="background:transparent" data-toggle="modal"
-								data-target="#myModal"><img src="resources/Image/icon/trash.svg" width ="25px"></button>
+								data-target="#myModal"><img src="resources/Image/icon/trash.svg" width ="25px" class="padding-top2"></button>
 						</a>
 					</c:if> 
 					<a href="/pro/board_list">

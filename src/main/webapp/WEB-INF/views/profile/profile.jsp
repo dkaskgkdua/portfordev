@@ -18,7 +18,6 @@
         var top = $('#adside').offset().top - parseFloat($('#adside').css('marginTop').replace(/auto/, 0));
         $(window).scroll(function (event) {
         var y = $(this).scrollTop();
-        	
   });//scroll끝
   
         var width = $(window).width();

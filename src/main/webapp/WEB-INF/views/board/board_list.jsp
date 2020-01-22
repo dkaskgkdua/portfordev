@@ -11,7 +11,7 @@
 	$(function() {
 		if($("#BOARD_CATEGORY").val()=="0") {
 			$('#h3_category').text("자유게시판");
-		} else if($("#BOARD_CATEGORY")=="1"){
+		} else if($("#BOARD_CATEGORY").val()=="1"){
 			$('#h3_category').text("스터디");
 		} else {
 			$('#h3_category').text("Q&A");
@@ -50,7 +50,7 @@
 		<h3 id ="h3_category" class="float-left"></h3> 
 		<a href ="/pro/board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
 			class="write btn btn-success float-right">글쓰기</a>
-			
+		<a href ="/pro/portfolio_add" class="write btn btn-success float-right">포폴</a>	
 		<form id = "search_form" action="board_list">
 				<select name="search_select" size="1" id="search_select" class = "float-left">
 					<option value="0">작성자</option>
@@ -59,6 +59,7 @@
 					<option value="3">제목+내용</option>
 				</select>
 				<input type="hidden" id="BOARD_CATEGORY" name ="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
+				<input type="hidden" id="sort" name = "sort" value="${sort}">
 				<input type="text" id="search_text" name="search_text" placeholder="검색할 내용을 입력하세요." class="float-left">
 				<button type="submit" id="search_btn" class="float-left">검색</button>
 			</form>
@@ -68,13 +69,21 @@
 					<th class ="d-none d-lg-table-cell" width="7%"><div>번호</div></th>
 					<th width="45%"><div>제목_댓글</div></th>
 					<th width="15%"><div>작성자</div></th>
-					<th class ="d-none d-sm-table-cell" width="13%"><div>작성일</div></th>
-					<th class ="d-none d-sm-table-cell" width="10%">
+					<th class ="d-none d-sm-table-cell" width="13%">
 						<div>
-							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=BOARD_READCOUNT">조회</a>
+							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=DATE">작성일</a>
 						</div>
 					</th>
-					<th class ="d-none d-sm-table-cell" width="10%"><div>추천</div></th>
+					<th class ="d-none d-sm-table-cell" width="10%">
+						<div>
+							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=READCOUNT">조회</a>
+						</div>
+					</th>
+					<th class ="d-none d-sm-table-cell" width="10%">
+						<div>
+							<a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=RECO">추천</a>
+						</div>
+					</th>
 				</tr>
 			</thead>
 
@@ -154,7 +163,7 @@
 							</c:if>
 							<c:if test="${page > 1 }">
 								<li class="page-item"><a
-									href="board_list?page=${page-1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}" class="page-link">이전</a>
+									href="board_list?page=${page-1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}" class="page-link">이전</a>
 									&nbsp;</li>
 							</c:if>
 
@@ -164,7 +173,7 @@
 									</li>
 								</c:if>
 								<c:if test="${a != page }">
-									<li class="page-item"><a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}"
+									<li class="page-item"><a href="board_list?page=${a}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}"
 										class="page-link">${a }</a></li>
 								</c:if>
 							</c:forEach>
@@ -175,7 +184,7 @@
 							</c:if>
 							<c:if test="${page < max_page }">
 								<li class="page-item"><a
-									href="board_list?page=${page+1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}" class="page-link">&nbsp;다음</a>
+									href="board_list?page=${page+1}&search_select=${search_select}&search_text=${search_text}&BOARD_CATEGORY=${BOARD_CATEGORY}&sort=${sort}" class="page-link">&nbsp;다음</a>
 								</li>
 							</c:if>
 						</ul>
