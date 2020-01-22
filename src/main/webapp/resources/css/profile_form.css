@@ -34,7 +34,7 @@
 			.result_div{margin-top:20px;}
 			#submit{background:#2196F3!important;}
 			button:hover{background: #eaedf2;}
-			.end{display: inline-block; width:48%;margin-top:80px;background: #2196F3}
+			.end{display: inline-block; width:48%;margin-top:80px;background: #2196F3!}
 			#finish{text-align: center;}
 			#start_btn{border:1px solid black;background: white;text-align: center;padding: 0px}
 			
