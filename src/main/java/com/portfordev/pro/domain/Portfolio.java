@@ -1,6 +1,7 @@
 package com.portfordev.pro.domain;
 
 import java.sql.Date;
+import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
@@ -13,12 +14,10 @@ public class Portfolio
 	private String MEMBER_ID;
 	private String PORT_SUBJECT;
 	private String PORT_CONTENT;
-	private String PORT_SUM_IMAGE;
-	private String PORT_ORI_SUM_IMAGE;
-	private String PORT_FILE;
+	private String PORT_FILE_PATH;
 	private String PORT_ORI_FILE;
-	private Date PORT_START_DAY;
-	private Date PORT_END_DAY;
+	private String PORT_START_DAY;
+	private String PORT_END_DAY;
 	private int PORT_TEAM;
 	private String PORT_GITHUB;
 	private String PORT_SITE;
@@ -26,6 +25,5 @@ public class Portfolio
 	private int PORT_FEED_NEED;
 	private Date PORT_REGIDATE;
 	private int PORT_READCOUNT;
-	private MultipartFile PORT_UPLOADFILE;
-	private MultipartFile PORT_SUM_UPLOADIMAGE;
+	List<MultipartFile> PORT_UPLOADFILE;
 }

@@ -1,19 +1,15 @@
 package com.portfordev.pro.controller;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import org.apache.poi.xslf.usermodel.XMLSlideShow;
-import org.apache.poi.xslf.usermodel.XSLFPictureData;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -24,11 +20,15 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.portfordev.pro.domain.Portfolio;
+import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.portfolio_service;
 
 @Controller
 public class portfolio_controller
 {
+	@Autowired
+	private MemberService member_service;
+	
 	@Autowired
 	private portfolio_service po_service;
 	
@@ -54,47 +54,40 @@ public class portfolio_controller
 	
 	@PostMapping("/portfolio_add_action")
 	public String portfolio_add_action(Portfolio portfolio, HttpServletResponse response, HttpServletRequest request) throws Exception {
-		MultipartFile upload_image = portfolio.getPORT_SUM_UPLOADIMAGE();
-		MultipartFile upload_file = portfolio.getPORT_UPLOADFILE();
-		// 썸네일 이미지 파일 저장
-		if (!upload_image.isEmpty()) {
-			String fileName = upload_image.getOriginalFilename(); // 원래 파일명
-			portfolio.setPORT_ORI_SUM_IMAGE(fileName); // 원래 파일명 저장
-			String fileDBName = fileDBName(fileName,save_folder);
-			System.out.println("fileDBName = " + fileDBName);
-			upload_image.transferTo(new File(save_folder + fileDBName));
-			portfolio.setPORT_SUM_IMAGE(fileDBName);
-		}
-		if(!upload_file.isEmpty()) {
-			String fileName = upload_file.getOriginalFilename(); // 원래 파일명
-			portfolio.setPORT_ORI_FILE(fileName); // 원래 파일명 저장
-			String fileDBName = fileDBName(fileName,save_folder);
-			System.out.println("fileDBName = " + fileDBName);
-			upload_file.transferTo(new File(save_folder + fileDBName));
-			portfolio.setPORT_FILE(fileDBName);
-			
-			File file = new File(save_folder+fileDBName);
-			XMLSlideShow ppt = new XMLSlideShow(new FileInputStream(file));
-			
-			for(XSLFPictureData data : ppt.getPictureData()) {
-				byte[] bytes = data.getData();
-				String image_fileName = data.getFileName();
-				System.out.println("picture name : " + image_fileName);
+		List<MultipartFile> Upload_file = portfolio.getPORT_UPLOADFILE();
+		int portfolio_id = po_service.select_max_id();
+		System.out.println(portfolio.getPORT_END_DAY());
+		member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
+		portfolio.setPORT_ID(portfolio_id);
+		// 확장자 확인
+		response.setContentType("text/html;charset=utf-8");
+		PrintWriter out = response.getWriter();
+		if(!Upload_file.isEmpty()) {
+			for (MultipartFile file : Upload_file) {
+				int ext = file.getOriginalFilename().lastIndexOf(".");
+				String fileExtension = file.getOriginalFilename().substring(ext + 1);
+				if(!(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")||fileExtension.equals("gif")||file.getOriginalFilename().equals(""))) {
+					out.println("<script>");
+					out.println("alert('jpg, png, jpeg, gif 파일을 올려주세요.');");
+					out.println("location.href='/pro/portfolio_add';");
+					out.println("</script>");
+					out.close();
+					return null;
+				}
 			}
-			
-			OutputStream out = new FileOutputStream(file);
-			ppt.write(out);
-			out.close();
-			
-			
-			
-			
-			
-			 
+		}
+		int file_index = 0;
+		for (MultipartFile mf : Upload_file) {
+			if(mf.getSize() == 0) {
+				break;
+			}
+			String fileName = mf.getOriginalFilename(); // 원래 파일명
+			String fileDBName = fileDBName(fileName, save_folder, portfolio_id, file_index++);
+			mf.transferTo(new File(save_folder + fileDBName));
 			
 		}
-		
-		//boardService.insertBoard(board); // 저장 메서드 호출
+		portfolio.setPORT_FILE_PATH(portfolio_id+"/");
+		po_service.insert_portfolio(portfolio);
 		return "redirect:pro";
 	}
 	
@@ -104,30 +97,21 @@ public class portfolio_controller
 		return "portfolio/portfolio_collection";	
 	}
 	
-	private String fileDBName(String fileName, String saveFolder) {
-		Calendar c = Calendar.getInstance();
-		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
-		int date = c.get(Calendar.DATE);
-
-		String homedir = saveFolder + year + "-" + month + "-" + date;
-		System.out.println(homedir);
-		File path1 = new File(homedir);
+	private String fileDBName(String fileName, String saveFolder, int portfolio_id, int file_index) {
+		
+		File path1 = new File(saveFolder+portfolio_id);
 		if (!(path1.exists())) {
 			path1.mkdir();
 		}
-		Random r = new Random();
-		int random = r.nextInt(100000000);
-
 		int index = fileName.lastIndexOf(".");
 
 		String fileExtension = fileName.substring(index + 1);
 		System.out.println("fileExtension = " + fileExtension);
 
-		String refileName = "bbs" + year + month + date + random + "." + fileExtension;
+		String refileName = ""+ file_index + "." + fileExtension;
 		System.out.println("refileName = " + refileName);
 
-		String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
+		String fileDBName = "/" +portfolio_id + "/" + refileName;
 		System.out.println("fileDBName = " + fileDBName);
 
 		return fileDBName;

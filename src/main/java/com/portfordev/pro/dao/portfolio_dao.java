@@ -19,7 +19,7 @@ public class portfolio_dao
 		return sqlSession.selectList("Portfolios.list");
 	}
 	// 포트폴리오 insert
-	public int insertPortfolio(Portfolio portfolio) {
+	public int insert_portfolio(Portfolio portfolio) {
 		return sqlSession.insert("Portfolios.insert", portfolio);
 	}
 	// 포트폴리오 update
@@ -27,5 +27,9 @@ public class portfolio_dao
 	// 포트폴리오 조회수 + 1
 	public int readcountUpdatePortfolio(int PORT_ID) {
 		return sqlSession.update("Portfolios.readcount_update", PORT_ID);
+	}
+	
+	public int select_max_id() {
+		return sqlSession.selectOne("Portfolios.select_max_id");
 	}
 }

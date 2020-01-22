@@ -16,7 +16,8 @@ create table member_test3(
 	addr varchar2(30),
 	today date
 );
-
+delete from PORTFOLIO;
+select * from PORTFOLIO;
 select rownum rnum, b.* from(
 select * from (select BOARD_ID, BOARD_READCOUNT, MEMBER_ID, BOARD_CATEGORY, BOARD_SUBJECT, BOARD_CONTENT, BOARD_RE_REF, BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_DATE, MEMBER_NAME, MEMBER_ACT from board inner join MEMBER using(member_id)) inner join
 (select * from (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id)

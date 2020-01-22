@@ -9,14 +9,6 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <title>PFD 포트폴리오 등록</title>
 <script>
-function sum_show() {
-	// 파일 이름이 있는 경우 remove 이미지를 보이게 하고 없는 경우는 보이지 않게 한다.
-	if ($('#sum_filevalue').text() == '') {
-		$(".remove").css('display', 'none');
-	} else {
-		$(".remove").css('display', 'inline-block');
-	}
-};
 function port_show() {
 	if ($('#port_filevalue').text() == '') {
 		$(".remove2").css('display', 'none');
@@ -25,58 +17,50 @@ function port_show() {
 	}
 };
 $(function() {
-		sum_show();
 		port_show();
-		$('.file_up').change(function() {
-			var inputfile = $(this).val().split('\\');
-			$(this).next().text(inputfile[inputfile.length - 1]);
-			sum_show();
+		// 파일 수정 시
+		$('#PORT_UPLOADFILE').change(function() {
+			var array = $(this).get(0).files; 
+			var strArray ="";
+			for(var i=0; i < array.length; i++) {
+				strArray += array[i].name;
+				if(i < array.length-1) {
+					strArray += ", ";
+				}
+			}
+			$('#port_filevalue').text(strArray);
+			$('#PORT_ORI_FILE').val(strArray);
 			port_show();
 		});
-		$('.remove, .remove2').click(function() {
-			$(this).prev().text('');
+		// 파일 제거 시
+		$('.remove2').click(function() {
+			$('#port_filevalue').text('');
 			var agent = navigator.userAgent.toLowerCase();
 			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
 			    // ie 일때 input[type=file] init.
-			    $(this).prev().prev().replaceWith( $("#excelFile").clone(true) );
+			    $("#PORT_UPLOADFILE").replaceWith( $("#excelFile").clone(true) );
 			} else {
 			    //other browser 일때 input[type=file] init.
-			    $(this).prev().prev().val("");
+			    $("#PORT_UPLOADFILE").val("");
 			}
 			$(this).css('display', 'none');
 		});
 		$("#add_button").click(function() {
+			
+			
+			if ($('#PORT_SUBJECT').val() == "") {
+				alert("제목을 입력하세요");
+				$('#PORT_SUBJECT').focus();
+				return false;
+			}
+			
+			if ($('#PORT_CONTENT').val() == "") {
+				alert("내용을 입력하세요");
+				$('#PORT_CONTENT').focus();
+				return false;
+			}
 			$("#add_portfolio_form").submit();
 			/*
-			if ($('#add_member_id').val() == "") {
-				alert("ID를 입력하세요");
-				$('#add_member_id').focus();
-				return false;
-			}
-			if (idCheck == false) {
-				alert("ID 중복되었습니다.");
-				return false;
-			}
-
-			if ($('#add_member_password').val() == "") {
-				alert("비밀번호를 입력하세요");
-				$('#add_member_password').focus();
-				return false;
-			}
-
-			var password_pattern = /^\w{6,15}$/;
-			if (!password_pattern.test($('#add_member_password').val())) {
-				alert("비밀번호를 6자리~15자리로 맞춰주세요.(문자, 숫자, _ )");
-				$('#add_member_password').focus();
-				return false;
-			}
-
-			if ($('#add_member_name').val() == "") {
-				alert("이름을 입력하세요");
-				$('#add_member_name').focus();
-				return false;
-			}
-
 			$.ajax({
 	            url: '/pro/VerifyRecaptcha',
 	            type: 'post',
@@ -86,14 +70,14 @@ $(function() {
 	            success: function(data) {
 	                switch (data) {
 	                    case 0:
-	                        console.log("자동 가입 방지 봇 통과");
-	                        $('#add_member_form').submit();
+	                        console.log("자동 등록 방지 봇 통과");
+	                        $('#add_portfolio_form').submit();
 	                		break;
 	                    case 1:
-	                        alert("자동 가입 방지 봇을 확인 한뒤 진행 해 주세요.");
+	                        alert("자동 등록 방지 봇을 확인 한뒤 진행 해 주세요.");
 	                        break;
 	                    default:
-	                        alert("자동 가입 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
+	                        alert("자동 등록 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
 	                   		break;
 	                }
 	            }, error: function() {
@@ -114,7 +98,7 @@ $(function() {
 #add_button {
 	width: 100%;
 }
-#PORT_FILE, #PORT_SUM_IMAGE {
+#PORT_UPLOADFILE {
    display: none;
 }
 img {
@@ -133,6 +117,8 @@ h3 {
 		<form action="/pro/portfolio_add_action" id="add_portfolio_form" method="post" enctype="multipart/form-data">
 			<fieldset>
 				<h3>프로젝트 등록</h3>
+				<input type="hidden" value="${id}" name="MEMBER_ID">
+				<input type="hidden" id="PORT_ORI_FILE" name="PORT_ORI_FILE">
 				<div class="form-group">
 					<label for="PORT_SUBJECT">제목</label> 
 					<input type="text" class="form-control" id="PORT_SUBJECT" placeholder="Enter Subject"
@@ -143,22 +129,21 @@ h3 {
 					<textArea id ="PORT_CONTENT" cols="50" rows="6" class="form-control" placeholder="Enter Content" name="PORT_CONTENT"></textArea>
 				</div>
 				<div class="form-group">
-					<label style ="display:inline" for="PORT_SUM_IMAGE">썸네일 첨부</label> 
-					<label style ="display:inline" for="PORT_SUM_IMAGE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
+					<label style ="display:inline" for="PORT_UPLOADFILE">이미지 첨부</label> 
+					<label style ="display:inline" for="PORT_UPLOADFILE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
 						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
 					</label> 
-					<input  class="file_up" type="file" id="PORT_SUM_IMAGE" name="PORT_SUM_UPLOADIMAGE">
-					<span id="sum_filevalue"></span>
-					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove">
-				</div>
-				<div class="form-group">
-					<label style ="display:inline" for="PORT_FILE">PPT 첨부</label> 
-					<label style ="display:inline" for="PORT_FILE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
-						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
-					</label> 
-					<input  class="file_up" type="file" id="PORT_FILE" name="PORT_UPLOADFILE">
+					<input  multiple ="multiple"  class="file_up" type="file" id="PORT_UPLOADFILE" name="PORT_UPLOADFILE">
 					<span id="port_filevalue"></span>
 					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove2">
+				</div>
+				<div class="form-group">
+					<span style="color:red">확장자는 jpg, jpeg, gif, png만 가능합니다.</span>
+				</div>
+				<div class="form-group">
+					<label for="PORT_GITHUB">기간</label> 
+					<input type="date" id="PORT_START_DAY" value ="2020-01-01" name="PORT_START_DAY">-
+					<input type="date" id="PORT_END_DAY" value ="2020-02-01" name="PORT_END_DAY">
 				</div>
 				<div class="form-group">
 					<label for="individual">Team</label>

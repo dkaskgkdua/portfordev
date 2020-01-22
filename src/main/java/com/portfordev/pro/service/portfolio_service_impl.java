@@ -25,4 +25,12 @@ public class portfolio_service_impl implements portfolio_service
 		HashMap<String, Integer> map = new HashMap<String, Integer>();
 		return null;
 	}
+	@Override
+	public int select_max_id() {
+		return dao.select_max_id();
+	}
+	@Override
+	public void insert_portfolio(Portfolio portfolio) {
+		dao.insert_portfolio(portfolio);
+	}
 }
