@@ -12,6 +12,7 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 import org.springframework.stereotype.Service;
 import org.xmlpull.v1.XmlPullParser;
@@ -137,10 +138,14 @@ public class it_news_service
 	        	for(int i = 1; i <= 4; i++)
 		        {
 	        		ItNews news = new ItNews();
-		        	Elements thumbImg = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr:nth-child(1)>td:nth-child("+i+")>a>img");
-		        	Elements headLine = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr.tit>td:nth-child("+i+")> a");
-		        	news.setImage(thumbImg);
+	        		Elements thumbImg = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr:nth-child(1)>td:nth-child("+i+")>a>img");
+		        	Elements headLineE = doc.select("#main_content>div.list_body.newsflash_body>ul>li:nth-child("+j+")>table>tbody>tr.tit>td:nth-child("+i+")> a");
+		        	String imgSrc = thumbImg.attr("src");
+		        	String aHref = headLineE.attr("href");
+		        	String headLine = headLineE.text();
+		        	news.setImage(imgSrc);
 		        	news.setHeadLine(headLine);
+		        	news.setLink(aHref);
 		        	list.add(news);
 		        }
 	        }       

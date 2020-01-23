@@ -1,4 +1,7 @@
 @charset "UTF-8";
+.clickable{
+	opacity:1!important;
+}
 .clickable:hover{
 	cursor:pointer;
 	opacity:0.7;
@@ -19,6 +22,11 @@ h1{
 	font-size: 3em;
     margin-bottom: 10px;
     margin-top: 20px;
+    font-weight: 600!important;
+}
+h1+p{
+	font-weight: 500!important;
+	font-size:1.5em!important;
 }
 h2{
 	font-weight:600!important;
@@ -53,20 +61,20 @@ h3{
 	transition:0.3s;
 	opacity:0.7;
 }
-.brNewsHeader{
+.newsHeader{
     width: 90%;
     text-align: left;
     border-bottom: 1px solid slategray;
     padding: 5px;
 	margin: 0 auto;
-    margin-bottom: 1em!important;
+    margin-bottom: 2em!important;
     line-height:2em;
 }
-.brNewsHeader strong{
+.newsHeader strong{
 	font-size:2em;
 	margin-right: 20px;
 }
-.brNewsHeader b{
+.newsHeader b{
 	font-weight:500;
 	font-size:1.2em;
 	color:darkgrey;
@@ -89,17 +97,15 @@ h3{
 .brNewsItem .brNewsImg{
 	width:140px;
 	height:150px;
-	padding:10px;
 	overflow:hidden;
 	position:relative;
 }
 .brNewsItem .brNewsImg img{
 	width:120px;
 	height:auto;
-	overflow:hidden;
 	position:absolute;
 	bottom:0;
-	left:0;
+	left:10px;
 	margin-bottom:10px;
 }
 .brNewsItem .brNewsHeadline{
@@ -118,30 +124,59 @@ h3{
 }
 .newsList .newsItem{
 	background:#fff;
-	border:1px solid slategrey;
-	display:inline-block;
-	border-radius:5px;
-	width:342px;
-	margin:12px;
+	border-bottom:1px solid slategrey;
+	display:block;
+	width:90%;
+	height:auto;
+	min-height:110px;
+	margin:12px auto;
 	padding:10px;
-	
+	padding-bottom:30px;
+	position:relative;
 }
-.newsItem header{
-	margin-bottom:2em!important;
-	border-bottom:1px solid lightgrey;
+.newsItem .newsItemHeader{
+	display:block;
+	text-align:left;
 }
-.newsItem header h3{
-	height:65px;
-	overflow:hidden;
+.newsItem span.newsTitle{
+	display:inline-block;
+	color:black;
+	font-size:1.2em;
+	font-weight:600;
+}
+.newsItem span.newsDate{
+	display:inline-block;
+	float:right;
 }
 .newsItem p{
-	margin: 0 0 2em 0;
-	height: 100px;
-	overflow: hidden;
+	height:auto;
+	text-align:left;
+	display:block;
+	margin:0 auto;
+	padding-left:20px;
+	clear:both;
 }
-.newsItem footer{
-	text-align:right;
-}
-.newsItem footer a{
+.newsItem a{
 	outline:none!important;
+	position:absolute;
+	right:5px;
+	bottom:10px;
+}
+.newsController{
+	display:block;
+	width:100%;
+	height:40px;
+	position:relative;
+}
+.newsController img{
+	height:100%;
+	position:absolute;
+	opacity:0.1;
+	top:0;
+}
+.newsController .prevList{
+	left:10px;
+}
+.newsController .nextList{
+	right:10px;
 }

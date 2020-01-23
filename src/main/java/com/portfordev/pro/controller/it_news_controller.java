@@ -2,8 +2,6 @@ package com.portfordev.pro.controller;
 
 import java.util.List;
 
-import javax.servlet.http.HttpSession;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -22,7 +20,7 @@ public class it_news_controller
 	it_news_service service;
 	
 	@RequestMapping(value = "/news")
-	public ModelAndView main(ModelAndView mv, HttpSession session) {
+	public ModelAndView main(ModelAndView mv) {
 		mv.addObject("newsList", service.searchItNews(10,1));
 		mv.addObject("brNewsList", service.breakingNews("IT일반"));
 		mv.setViewName("news/news");
