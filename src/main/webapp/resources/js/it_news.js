@@ -1,8 +1,8 @@
 $(document).ready(function(){
+	// 네이버 뉴스 속보
 	$('.brNewsItem').click(function(){
 		window.open($(this).children('.hiddenlink').val(), "_blank");
 	});
-	// 네이버 뉴스 속보
 	$('.brNews-filter').click(function(){
 		$('.brNews-filter').removeClass('filter-active');
 		$(this).addClass('filter-active');
@@ -37,10 +37,13 @@ $(document).ready(function(){
 		});	
 	}
 	
+	// 네이버 뉴스 API
 	$('.newsItem').click(function(){
 		window.open($(this).children('a').attr('href'), "_blank");
-	});			
-	// 네이버 뉴스 API
+	});	
+	$('.newsItem a').click(function(e){
+		e.preventDefault();
+	});		
 	var newsPage = 1;
 	$('#searchedNews .prevList').click(function(){
 		if(newsPage != 1)
@@ -72,6 +75,7 @@ $(document).ready(function(){
 			cache: false, 
 			contentType: false, 
 			success : function(news){
+				$('.newsItem').off('click');
 				$('.newsList').empty();
 				var output = '';
 				$.each(news, function(){
@@ -84,6 +88,12 @@ $(document).ready(function(){
 				});
 				$('.newsList').append(output);
 				$('html').animate({scrollTop : $('#searchedNews .newsHeader').offset().top}, 400);
+				$('.newsItem').click(function(){
+					window.open($(this).children('a').attr('href'), "_blank");
+				});	
+				$('.newsItem a').click(function(e){
+					e.preventDefault();
+				});
 			}
 		});	
 	}
