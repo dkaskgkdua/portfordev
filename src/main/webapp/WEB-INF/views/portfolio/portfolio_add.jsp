@@ -60,7 +60,7 @@ $(function() {
 				return false;
 			}
 			$("#add_portfolio_form").submit();
-			/*
+			
 			$.ajax({
 	            url: '/pro/VerifyRecaptcha',
 	            type: 'post',
@@ -84,7 +84,7 @@ $(function() {
 	            	console.log('captcha 에러');
 	            }
 	        });
-			*/
+			
 		});
 });
 </script>

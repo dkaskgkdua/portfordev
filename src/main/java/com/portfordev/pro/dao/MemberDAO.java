@@ -39,5 +39,7 @@ public class MemberDAO {
 	public void add_receive_act(Map<String, Object> map) {
 		sqlSession.update("Members.add_receive_act", map);
 	}
-
+	public String get_salt(String id) {
+		return sqlSession.selectOne("Members.get_salt", id);
+	}
 }

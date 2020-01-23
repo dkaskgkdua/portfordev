@@ -16,25 +16,25 @@
 	$(function() {
 		$('#login_button').click(function() {
 			location.href = '/pro/login';
-		})
+		});
 		
 		$('#logout_button').click(function() {
 			location.href = '/pro/logout';
-		})
+		});
+		$('#mypage_button').click(function() {
+			location.href = '/pro/mypage';
+		});
 		
 		$('#searchform').submit(function(){
 			if($('input[type=search]').val()==''){
 				alert('검색어를 입력해주세요');
 				return false;
 			}
-		})
+		});
 	})
 </script>
 <style>
-#account_modal {
-	width : 200px;
-	justify-content : flex_end;
-}
+
 .navbar-toggler {
 	width : 60px;
 	height : 40px;
@@ -47,6 +47,7 @@
 		height : 60px !important;
 	}
 }
+
 </style>
 <div class="nav-wrap">
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
@@ -101,21 +102,21 @@
 </nav>
 </div>
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog" role="document">
+  <div class="modal-dialog modal-sm" role="document" style="float: right;">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+        <h3 class="modal-title" id="exampleModalLabel">회원 정보</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        ...
+        <span style="font-weight:bold">${nickname}</span>
       </div>
       <div class="modal-footer">
-        <button type="button" class="btn btn-primary">정보수정</button>
-        <button id = "logout_button"type="button" class="btn btn-secondary">로그아웃</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+        <button id = "mypage_button" type="button" class="btn btn-primary">마이페이지</button>
+        <button id = "logout_button" type="button" class="btn btn-secondary">로그아웃</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
       </div>
     </div>
   </div>

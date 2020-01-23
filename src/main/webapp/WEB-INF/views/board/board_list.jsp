@@ -193,5 +193,6 @@
 			</div>
 		</c:if>
 	</div>
+	<jsp:include page="../main/footer.jsp" />
 </body>
 </html>
