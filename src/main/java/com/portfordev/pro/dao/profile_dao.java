@@ -1,5 +1,6 @@
 package com.portfordev.pro.dao;
 
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -24,6 +25,10 @@ public class profile_dao {
  //프로필 조회
  public Profile profile_view(String id) {
 	 return sql.selectOne("profile.profile_view",id);
+ }
+ 
+ public List<Profile> portfolioImg(String id ) {
+	 return sql.selectList("profile.portfolioImg",id);
  }
  
 }

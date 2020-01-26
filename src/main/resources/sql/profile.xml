@@ -15,6 +15,10 @@
 	<select id ="profile_view" parameterType="String" resultType="Profile">
 		select * from PROFILE where MEMBER_ID=#{id}
 	</select>
+	
+	<select id="portfolioImg" parameterType="String" resultType="Profile">
+		select PORT_FILE_PATH from PORTFOLIO where MEMBER_ID=#{id}
+	</select>
 
 
 </mapper>

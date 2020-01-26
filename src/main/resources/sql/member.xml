@@ -20,8 +20,8 @@
 		where MEMBER_ID = #{inputid}
 	</select>
 	<insert id="insert" parameterType="Member">
-		insert into MEMBER values(#{MEMBER_ID}, #{MEMBER_PASSWORD}, #{MEMBER_NAME},
-		#{MEMBER_POWER}, #{MEMBER_POINT}, #{MEMBER_ACT})
+		insert into MEMBER values(#{MEMBER_ID}, #{MEMBER_PASSWORD}, #{MEMBER_PASSWORD_SALT}, #{MEMBER_NAME},
+		#{MEMBER_POWER}, #{MEMBER_POINT}, #{MEMBER_ACT}, sysdate)
 	</insert>
 	
 	 <select id="testidcheck" parameterType="String" resultType="MyBatisTestVO2">
@@ -54,4 +54,7 @@
 	<update id ="add_receive_act" parameterType="Map">
 		update (select * from MEMBER inner join BOARD using(MEMBER_ID) where board_id = #{BOARD_ID}) set MEMBER_ACT = MEMBER_ACT + #{POINT}
 	</update>
+	<select id ="get_salt" resultType="String" parameterType="String">
+		select MEMBER_PASSWORD_SALT from MEMBER where MEMBER_ID=#{id}
+	</select>
 </mapper>

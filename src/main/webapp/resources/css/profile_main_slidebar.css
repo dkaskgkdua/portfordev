@@ -1,5 +1,6 @@
-.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;margin-top:100px;}
-	.slide_in{height:400px;margin: 10px;background:gray;}
+.slide{color:white;max-width:100%;margin:0 auto;margin-top:10px;}
+	.slide_in{height:400px;margin: 10px;background:gray;vertical-align: center}
+	.slide_in_content{width:100%;height:400px; filter: brightness(70%); opacity: 0.6}
 	.right{display: inline-block;}
 	.left{display: inline-block;}
 	.h1{font-color:black;text-align: center;font-size: 30pt;font-weight:700;color:gray}
@@ -28,6 +29,9 @@
 	.user_name{/* background: #5385c1; color:white */}
 	/* #three{padding-top: 0px;}  */
 	body{min-width: 1000px;}
+	#add{background-color: white!important;}
+	#add img,#add span{vertical-align:middle;margin-left: 10px}
+	#add:hover{opacity: 0.4}
 	 
 #adsideWrapper { 
   position: absolute;

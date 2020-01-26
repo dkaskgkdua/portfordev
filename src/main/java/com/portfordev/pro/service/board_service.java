@@ -49,5 +49,4 @@ public interface board_service {
 		public int is_password(int id, String password);
 		// 파일 삭제
 		public void delete_board_file(int board_id, String save_folder);
-		
 }

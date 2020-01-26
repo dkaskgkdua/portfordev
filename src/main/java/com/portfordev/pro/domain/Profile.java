@@ -22,4 +22,9 @@ public class Profile {
 	private String PROFILE_TECH_FRONT;
 	private String PROFILE_TECH_BACK;
 	private String PROFILE_INTRO;
+	
+	//포트폴리오 이미지 
+	
+	private String PORT_ID;
+	private String PORT_FILE_PATH;
 }

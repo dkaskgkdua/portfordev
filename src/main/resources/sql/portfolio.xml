@@ -6,7 +6,8 @@
 		select * from PORTFOLIO
 	</select>
 	<insert id="insert" parameterType="Portfolio">
-		insert into PORTFOLIO values()
+		insert into PORTFOLIO values(#{PORT_ID}, #{MEMBER_ID}, #{PORT_SUBJECT}, #{PORT_CONTENT}, #{PORT_FILE_PATH}, #{PORT_ORI_FILE}, #{PORT_START_DAY}, #{PORT_END_DAY}, #{PORT_TEAM},
+				#{PORT_GITHUB}, #{PORT_SITE}, #{PORT_SHOW}, #{PORT_FEED_NEED}, sysdate, 0)
 	</insert>
 	<!-- 포트폴리오 수정 -->
 	<update id="update" parameterType="Portfolio">
@@ -20,4 +21,7 @@
 		set PORT_READCOUNT = PORT_READCOUNT + 1
 		where PORT_ID = #{PORT_ID}
 	</update>
+	<select id ="select_max_id" resultType="int">
+		select nvl(max(PORT_ID),0)+1 from PORTFOLIO
+	</select>
 </mapper>

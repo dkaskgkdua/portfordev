@@ -107,7 +107,7 @@ $('#submit').click(function(){
       out+="<div style='margin-bottom:50px'>";	
       out+="<img src='resources/Image/icon/check.png' style='width:80px;  margin: 0 auto;'>'"
       out+="</div>";	  
-      out+="<button type='button'class='end' onclick='location.href='profile?idch="+id+"''>프로필로 이동</button>";
+      out+="<a href='profile?idch="+id+"'><button type='button'class='end' id='goprofile'>프로필로 이동</button></a>";
       $('#finish').append(out);
       
 	 },
@@ -117,14 +117,28 @@ $('#submit').click(function(){
 	      out+="<div style='margin-bottom:50px'>";	
 	      out+="<img src='resources/Image/icon/fail.png' style='width:80px; margin: 0 auto;'>'"
 	      out+='</div>';
-	      out+="<button type='button' onclick='location.href=profile_form'>다시 등록하기</button>";
-	      out+="<button type='button' class='end'>메인 페이지</button>";
+	      out+="<button type='button' class='end' id='retry'>다시 등록하기</button>";
+	      out+="<button type='button' class='end' id='gomain'>메인 페이지</button>";
 	      $('#finish').append(out);
 	 }
 
 
  })
 
+ 
+ 	$('#gomain').click(function(){
+ 		location.href="pro";
+ 		
+ 	})
+ 	
+ 	$('#retry').click(function(){
+ 		location.href="profile_form";
+ 		
+ 	})
+ 	$('#goprofile').click(function(){
+ 		location.href="profile?idch"+id;
+ 		
+ 	})
 
 
 })

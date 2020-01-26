@@ -1,11 +1,10 @@
 package com.portfordev.pro.controller;
 
-import static org.springframework.test.web.client.match.MockRestRequestMatchers.method;
-
 import java.io.File;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -21,7 +20,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.protobuf.Method;
 import com.portfordev.pro.domain.Profile;
 import com.portfordev.pro.service.profile_service_impl;
 @Controller
@@ -35,8 +33,11 @@ public class profile_controller {
 	@RequestMapping(value="/profile")
 	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
 		profile =  service.profile_view(idch);
+		
+		List<Profile> portList = service.portfolioImg(idch);
 		model.setViewName("profile/profile");
 		model.addObject("profile",profile);
+		model.addObject("portfolio",portList);
 		model.addObject("idch",idch);
 		
 		
@@ -74,11 +75,11 @@ public class profile_controller {
 		String s2 = profile.getPROFILE_PHONE().replace(",","");
 		profile.setPROFILE_PHONE(s2);
 		String s3 = profile.getPROFILE_GIT().replace(",","");
-		profile.setPROFILE_PHONE(s3);
+		profile.setPROFILE_GIT(s3);
 		String s4 = profile.getPROFILE_INTRO().replace(",","");
-		profile.setPROFILE_PHONE(s4);
+		profile.setPROFILE_INTRO(s4);
 		String s5 = profile.getPROFILE_YEAR().replace(",","");
-		profile.setPROFILE_PHONE(s);
+		profile.setPROFILE_YEAR(s5);
 		
 		MultipartFile file= profile.getProfile_img();
 		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());

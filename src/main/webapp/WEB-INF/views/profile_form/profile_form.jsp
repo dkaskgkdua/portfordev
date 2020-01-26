@@ -85,10 +85,10 @@
   							<p>*프로필 사진 </p>
   							<input type="file" id="file"name="profile_img"><hr>
   							<p>직업</p>
-  							<input type="radio" name="job" value="회사원"><span>회사소속</span>
-  							<input type="radio" name="job "value="프리랜서"><span>프리랜서</span>
-  							<input type="radio" name="job "value="준비생"><span>구직자</span> 
-  							<input type="radio" name="job "value="사업가"><span>사업가</span> 
+  							<input type="radio" name="PROFILE_JOB" value="회사원"><span>회사소속</span>
+  							<input type="radio" name="PROFILE_JOB"value="프리랜서"><span>프리랜서</span>
+  							<input type="radio" name="PROFILE_JOB"value="준비생"><span>구직자</span> 
+  							<input type="radio" name="PROFILE_JOB"value="사업가"><span>사업가</span> 
   							<hr>
   							</div>
   							<div class="slide_in">

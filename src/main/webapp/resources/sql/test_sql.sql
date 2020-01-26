@@ -87,9 +87,11 @@ select board_id, count(*) BOARD_RECO from board inner join BOARD_RECOMMEND using
 select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) 
 natural join 
 where r < 6 order by r;
-
+select PORT_FILE_PATH , PORT_ID from PORTFOLIO where MEMBER_ID='forkkk';
 select * from MEMBER;
 select * from profile;
+select * from portfolio;
+delete from profile;
 /*회원 검색 결과+최근 피드백 활동일*/
 select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
 			(select rownum r, b.* from

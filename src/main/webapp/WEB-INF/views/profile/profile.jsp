@@ -11,8 +11,9 @@
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
 	<style>
 	 .inner {
-		margin-left: 450px;
+		margin-left: 400px;
 	}
+	.contact_div span{vertical-align: baseline; font-size: 9pt}
 	</style>
 <script>
 	$(document).ready(function () { 
@@ -94,16 +95,16 @@
     			</c:if>
     			<div>
     			<br>
-    			<button type="button" onclick="location.href='profile_form'">등록</button>
+    			
     			
     			<!-- 실명입력하면 실명 -->
     			<c:if test="${!empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.PROFILE_REAL_NAME}</h1>
+    			<h1 class="name">${profile.PROFILE_REAL_NAME}</h1><br>
     			
     			</c:if>
     			<!-- 실명 입력 안했으면 그냥 닉네임 -->
     			<c:if test="${empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.member_id}</h1>
+    			<h1 class="name">${profile.member_id}</h1><br>
     			</c:if>
     			
     			<c:if test="${!empty profile.PROFILE_JOB}">
@@ -138,12 +139,12 @@
     				<span><a href="">${profile.PROFILE_BLOG}</a></span>
     		   	</c:if>	
     				<br>
-    			<c:if test="${!empty profile.PROFILE_GIT}">	
+    			<c:if test="${!empty profile.PROFILE_GIT && profile.PROFILE_GIT!=''}">	
     				<img class="contact" src="resources/Image/github.png"/>
     				<span><a href="">${profile.PROFILE_GIT}</a></span>
     			</c:if>	
     			</div>
-    			
+    			<button type="button" onclick="location.href='profile_form'">등록</button>
     			<div class="sidebar">
     			<ul>
     			<li>PROJECT</li>
@@ -161,21 +162,26 @@
   			<!-- 모바일일때 프로필 숨겨진거 나타나게하기 -->
   				<!-- 모바일일때 프로필 숨겨진거 나타나게하기 끝-->
 				<div class="inner">
-				
+					
 				<!-- <h1 class="h1">PROJECT</h1> -->
 					<header class="align-center">
-					
+						<!-- 본인이면 추가 버튼 노출 -->
+						<c:if test="${id==profile.member_id}">
+							<div style="text-align:right">
+								<button id="add" type="button" onclick="location.href='portfolio_add'" >
+									<span>프로젝트 추가</span>
+									<img src="resources/Image/icon/add_btn.png" width=20/>
+								</button>
+							</div>
+						</c:if>
 						<div class="your-class slide">
-  						<div class="slide_in">your content</div>
-  						<div class="slide_in">your content</div>
-  						<div class="slide_in">your content</div>
-  						<div class="slide_in">your content</div>
-  						<div class="slide_in">your content</div>
-  						<div class="slide_in">your content</div>
+							<c:forEach var="p" items="${portfolio}">
+								<div class="slide_in"><img  class="slide_in_content" src="resources/upload/${p.PORT_FILE_PATH}/0.png"></div>
+							</c:forEach> 
 						</div>
 					</header>
 					<!-- <hr style="border:1px solid gray"> -->
-					
+				
 					
 					
 					<!-- 유저 정보 -->
@@ -213,8 +219,8 @@
 					</table>
 					<p id="info" style="padding-bottom: 10px; font-weight: bold;">개발자 소개</p>
 					<P id="info" style="padding-top: 10px">
-					저는 어쩌구 저쩌구 회사의 40년차 개발자 어쩌구입니다. 어쩌구저쩌구 프로젝트를 어쩌구어쩌구저쩌구 프로젝트를 어쩌구
-					  어쩌구저쩌구 프로젝트를 어쩌구 어쩌구저쩌구 프로젝트를 어쩌구 어쩌구저쩌구 프로젝트를 어쩌구어쩌구저쩌구 프로젝트를 어쩌구어쩌구저쩌구 프로젝트를 어쩌구어쩌구저쩌구 프로젝트를 어쩌구</P>
+					${profile.PROFILE_INTRO}
+					</P>
 					<!-- <h1 style="background: #5385c1;padding:10px">&nbsp</h1> -->
 					</div>
 					<hr>
