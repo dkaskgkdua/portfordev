@@ -32,9 +32,11 @@ import com.portfordev.pro.domain.Board_file;
 import com.portfordev.pro.domain.Board_recommend;
 import com.portfordev.pro.domain.Comment;
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.comment_service;
+import com.portfordev.pro.service.log_service;
 
 @Controller
 public class board_controller {
@@ -46,6 +48,9 @@ public class board_controller {
 	
 	@Autowired
 	private MemberService member_service;
+	
+	@Autowired
+	private log_service log_service;
 
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -125,7 +130,7 @@ public class board_controller {
 		List<MultipartFile> uploadfile = board.getUploadfile();
 		int board_id = board_service.select_max_id();
 		board.setBOARD_ID(board_id);
-		member_service.add_write_act(board.getMEMBER_ID(), 5);
+		
 		board_service.insert_board(board); // 저장 메서드 호출
 		for (MultipartFile mf : uploadfile) {
 			if(mf.getSize() == 0) {
@@ -140,6 +145,8 @@ public class board_controller {
 			board_file.setBOARD_ID(board_id);
 			board_service.insert_file(board_file);
 		}
+		member_service.add_write_act(board.getMEMBER_ID(), 5);
+		log_service.insert_log(new Member_log(board.getMEMBER_ID(), 0, board_id));
 		redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
 		return "redirect:/board_list";
 
@@ -221,6 +228,7 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.insert_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, 2);
+		log_service.insert_log(new Member_log(member_id, 4, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
 	}
@@ -231,6 +239,7 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.delete_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, -2);
+		log_service.insert_log(new Member_log(member_id, 5, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
 	}
@@ -244,7 +253,7 @@ public class board_controller {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('상세보기 실패');");
+			out.println("alert('삭제 또는 없는 게시물입니다.');");
 			out.println("history.go(-1);");
 			out.println("</script>");
 			out.close();
@@ -281,7 +290,6 @@ public class board_controller {
 		 List<MultipartFile> uploadfile = board.getUploadfile();
 		 int board_id = board_service.select_max_id();
 		 board.setBOARD_ID(board_id);
-		 member_service.add_write_act(board.getMEMBER_ID(), 5);
 		 board_service.insert_board_Reply(board); 
 		 
 		 for (MultipartFile mf : uploadfile) {
@@ -296,8 +304,10 @@ public class board_controller {
 				board_file.setBOARD_FILE(fileDBName);
 				board_file.setBOARD_ID(board_id);
 				board_service.insert_file(board_file);
-			}
+		 }
 		 
+		 member_service.add_write_act(board.getMEMBER_ID(), 5);
+		 log_service.insert_log(new Member_log(board.getMEMBER_ID(), 0, board_id));
 		 redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
 		 return "redirect:board_list";
 	 }

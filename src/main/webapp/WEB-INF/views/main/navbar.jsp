@@ -11,7 +11,7 @@
 <script src="/pro/resources/js/util.js"></script>
 <script src="/pro/resources/js/main.js"></script>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
-<link rel="stylesheet" href="resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="/pro/resources/css/main.css?ver=1" />
 <script>
 	$(function() {
 		$('#login_button').click(function() {
@@ -22,7 +22,7 @@
 			location.href = '/pro/logout';
 		});
 		$('#mypage_button').click(function() {
-			location.href = '/pro/mypage';
+			location.href = '/pro/mypage?MEMBER_ID=${id}';
 		});
 		
 		$('#searchform').submit(function(){

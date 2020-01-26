@@ -7,6 +7,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="Member" type="com.portfordev.pro.domain.Member"/>
+		<typeAlias alias="Member_log" type="com.portfordev.pro.domain.Member_log"/>
 		<typeAlias alias="Board" type="com.portfordev.pro.domain.Board"/>
 		<typeAlias alias="Comment" type="com.portfordev.pro.domain.Comment"/>
 		<typeAlias alias="Board_file" type="com.portfordev.pro.domain.Board_file"/>
@@ -30,5 +31,6 @@
 		<mapper resource="sql/search.xml"/>
 		<mapper resource="sql/portfolio.xml"/>
 		<mapper resource="sql/feedback.xml"/>
+		<mapper resource="sql/member_log.xml"/>
 	</mappers>
 </configuration>

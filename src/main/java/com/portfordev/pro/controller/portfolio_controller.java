@@ -19,8 +19,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.domain.Portfolio;
 import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
 
 @Controller
@@ -31,6 +33,9 @@ public class portfolio_controller
 	
 	@Autowired
 	private portfolio_service po_service;
+	
+	@Autowired
+	private log_service log_service;
 	
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -57,7 +62,6 @@ public class portfolio_controller
 		List<MultipartFile> Upload_file = portfolio.getPORT_UPLOADFILE();
 		int portfolio_id = po_service.select_max_id();
 		System.out.println(portfolio.getPORT_END_DAY());
-		member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
 		portfolio.setPORT_ID(portfolio_id);
 		// 확장자 확인
 		response.setContentType("text/html;charset=utf-8");
@@ -84,9 +88,10 @@ public class portfolio_controller
 			String fileName = mf.getOriginalFilename(); // 원래 파일명
 			String fileDBName = fileDBName(fileName, save_folder, portfolio_id, file_index++);
 			mf.transferTo(new File(save_folder + fileDBName));
-			
 		}
 		portfolio.setPORT_FILE_PATH(portfolio_id+"/");
+		member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
+		log_service.insert_log(new Member_log(portfolio.getMEMBER_ID(), 3, portfolio_id));
 		po_service.insert_portfolio(portfolio);
 		return "redirect:pro";
 	}

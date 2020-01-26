@@ -21,11 +21,27 @@ public class MemberServiceImpl implements MemberService {
 		if(rmember!= null) { //아이디 존재
 			if(rmember.getMEMBER_PASSWORD().equals(password)) {
 				result = 1; // 아이디와 비밀번호 일치
+				System.out.println("id = " + id+"db : " + rmember.getMEMBER_PASSWORD() +" cl : " + password);
 			} else {
+				System.out.println("id = " + id+"db : " + rmember.getMEMBER_PASSWORD() +" cl : " + password);
 				result = 0; //아이디는 존재하지만 비밀번호가 일치하지 않는 경우
 			}
 		}
 		return result;
+	}
+	@Override
+	public void update_member(Member member) {
+		dao.update_member(member);
+	}
+	@Override
+	public void delete_member(String member_id) {
+		dao.delete_member(member_id);
+	}
+	@Override
+	public void update_member(Member member, String check, String salt) {
+		System.out.println(member+ " check : "+ check + " salt : " + salt);
+		member.setMEMBER_PASSWORD(""+(salt+check).hashCode());
+		dao.update_member(member);
 	}
 	@Override
 	public String get_salt(String id) {

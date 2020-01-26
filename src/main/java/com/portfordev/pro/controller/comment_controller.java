@@ -14,8 +14,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfordev.pro.domain.Comment;
+import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.comment_service;
+import com.portfordev.pro.service.log_service;
 
 @Controller
 public class comment_controller {
@@ -23,11 +25,14 @@ public class comment_controller {
 	private comment_service comment_service;
 	@Autowired
 	private MemberService member_service;
+	@Autowired
+	private log_service log_service;
 	
 	@PostMapping(value = "comment_add")
 	public void comment_add(Comment co, HttpServletResponse response) throws Exception {
-		member_service.add_write_act(co.getMEMBER_ID(), 1);
 		int ok = comment_service.comment_insert(co);
+		member_service.add_write_act(co.getMEMBER_ID(), 1);
+		log_service.insert_log(new Member_log(co.getMEMBER_ID(), 1, co.getBOARD_ID()));
 		response.getWriter().print(ok);
 	}
 	

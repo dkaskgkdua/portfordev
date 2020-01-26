@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="Member_logs">
+	<insert id="insert_log" parameterType="Board">
+		insert into MEMBER_LOG values(MEMBER_LOG_SEQ.NEXTVAL, #{MEMBER_ID}, #{MEMBER_LOG_CATEGORY}, #{MEMBER_REF_ID}, SYSDATE)
+	</insert>
+	<select id="get_log_count" resultType="int" parameterType="String">
+		select count(*) from member_log where MEMBER_ID = #{MEMBER_ID}
+	</select>
+	<select id="get_log_list" parameterType="Map" resultType="Member_log">
+		select * from(
+			select rownum rnum, a.* 
+				from (select * from member_log where member_id = #{member_id}
+				) a
+			)where rnum &gt;= #{start} and rnum &lt;= #{end}
+	</select>
+</mapper>
