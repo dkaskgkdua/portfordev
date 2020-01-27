@@ -26,6 +26,7 @@ tbody{
 	position:relative;
 	color: #414042;
 	margin-top: 7px!important;
+    min-height: 770px;
 }
 .clearfix:before{
 	display:table;

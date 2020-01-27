@@ -27,7 +27,10 @@ public class MemberServiceImpl implements MemberService {
 		}
 		return result;
 	}
-	
+	@Override
+	public String get_salt(String id) {
+		return dao.get_salt(id);
+	}
 	@Override
 	public int isId(String id) {
 		return (dao.isId(id) != null) ? 1:-1;

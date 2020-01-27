@@ -2,6 +2,7 @@ package com.portfordev.pro.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.Random;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,7 +24,7 @@ import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
-public class MemberController {
+public class member_controller {
 
 	@Autowired
 	private MemberService memberservice;
@@ -42,6 +44,24 @@ public class MemberController {
 		return "member/join_form";
 	}
 	
+	@GetMapping("mypage")
+	public ModelAndView mypage(HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
+		if(session.getAttribute("id")==null) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인을 해주세요.');");
+			out.println("location.href='login';");
+			out.println("</script>");
+			out.close();
+			return null;
+		} else {
+			mv.setViewName("member/mypage_form");
+		}
+		
+		return mv;
+	}
+	
 	@RequestMapping(value="/idcheck", method = RequestMethod.GET)
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		int result = memberservice.isId(id);
@@ -55,7 +75,8 @@ public class MemberController {
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
-		int result = memberservice.isId(id, password);
+		String salt = memberservice.get_salt(id);
+		int result = memberservice.isId(id, ""+(salt+password).hashCode());
 		
 		if (result == 1) {
 			String nickname = memberservice.get_name(id);
@@ -123,6 +144,14 @@ public class MemberController {
 	@RequestMapping(value = "/joinProcess", method = RequestMethod.POST)
 	public void joinProcess(Member member, HttpServletResponse response,  HttpSession session,
 			@RequestParam(value="auth", defaultValue="") String auth) throws Exception {
+		Random r = new Random();
+		String salt = "";
+		for(int salt_index = 0; salt_index <5; salt_index++) {
+			salt += String.valueOf((char) ((int) (r.nextInt(26)) + 97));
+		}
+		member.setMEMBER_PASSWORD_SALT(salt);
+		member.setMEMBER_PASSWORD(""+(salt+member.getMEMBER_PASSWORD()).hashCode());
+		System.out.println(member);
 		int result = memberservice.insert(member);
 		
 		response.setContentType("text/html;charset=utf-8");
@@ -173,7 +202,7 @@ public class MemberController {
 			mv.addObject("result", result);
 			mv.setViewName("memberRegisterDept");
 		} catch(Exception e) {
-			mv.addObject("error", "상ㅂ입 중 오류가 발생했습니다.");
+			mv.addObject("error", "삽입 중 오류가 발생했습니다.");
 			mv.setViewName("error");
 		}
 		return mv;

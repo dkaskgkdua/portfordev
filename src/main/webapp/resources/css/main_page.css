@@ -25,12 +25,6 @@ h2+p{
 h3{
 	font-weight:500!important;
 }
-#two .box:hover{
-	cursor:pointer;
-	border-radius:2%;
-	opacity:0.7;
-	transition:0.3s;
-}
 .best-port-filter{
 	font-weight:500;
 	font-size:2em!important;
@@ -54,14 +48,100 @@ h3{
 @media screen and (max-width:436px){
 	.best-port-filter{
 		font-size:1.5em!important;
-		margin:0 13px;
+		margin:0 1%;
 	}
 }
-.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;}
-.slide_in{height:283px;margin: 10px;background:#5385c1;}
-.slide_in:hover{
+.best-portfolio-list{color:white;max-width:100%;margin:0 auto;display: inline-block;}
+.best-portfolio-item{height:283px;margin: 10px;background:#5385c1;}
+.best-portfolio-item:hover{
 	cursor:pointer;
 	border-radius:2%;
 	transition:0.3s;
 	opacity:0.7;
+}
+#two footer{
+	text-align:center;
+}
+#two footer a{
+	height:auto;
+	font-size: 16px;
+    display: inline-block;
+    line-height: normal;
+    text-decoration: none;
+    text-align: center;
+    color: #fff;
+    border: 0;
+    border-radius: 3px;
+    -webkit-font-smoothing: antialiased;
+    letter-spacing: 1.5px;
+    word-break: keep-all;
+    transition: .3s background ease-in-out;
+    padding: 18px 32px 17px;
+    margin:0 auto;
+	margin-top:60px;
+}
+@media screen and (max-width: 480px){
+	#two footer a{
+		margin:0 auto;
+	}
+}
+#three .main-features{
+	
+}
+.main-features .feature{
+	position:relative;
+	display:inline-block;
+	width:21%;
+	padding:1.5em;
+	margin:1%;
+}
+@media screen and (max-width: 980px){
+	.main-features .feature{
+	    width: 47%;
+	}
+}
+@media screen and (max-width: 480px){
+	.main-features .feature{
+	    width: 100%;
+	}
+}
+.feature .feature-summary{
+	width:100%;
+	height:100%;
+}
+.feature-summary .feature-img{
+	margin:1em;
+}
+.feature-img img{
+	width:100%;
+}
+.feature-detail{
+	display:none;
+	position:absolute;
+	top:0;
+	left:0;
+	right:0;
+	bottom:0;
+	width:100%;
+	height:100%;
+	z-index:100;
+	background:rgba(255, 255, 255, 0.8);
+	border-radius:5px;
+	padding:20px;
+}
+.feature-detail .feature-detail-menu{
+	display:block;
+	text-align:center;
+	margin:10px auto;
+	cursor:pointer;
+	color: #FFFFFF;
+	border:1px solid darkgrey;
+	font-size:1.2em;
+	margin:16px auto;
+	background-color:#5385C1;
+	border-radius:2px;
+}
+.feature-detail .feature-detail-menu:hover{
+	background-color: rgb(105, 105, 105);
+	opacity:0.8;
 }

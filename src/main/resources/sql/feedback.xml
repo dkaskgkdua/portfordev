@@ -2,16 +2,89 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Feedbacks">
-	<select id="list" parameterType="java.util.Map" resultType="Feedback">
-		select * from PORTFOLIO
+	<!-- 피드백 count -->
+	<select id="count" parameterType="int" resultType="int">
+		select count(*) from PORT_FEEDBACK where PORT_ID = #{PORT_ID}
 	</select>
+	<!-- 베스트 3 피드백 -->
+	<select id="best3" parameterType="int" resultType="Feedback">
+		select * from 
+			(select ROWNUM RNUM, FEEDBACK_ID, PORT_ID, MEMBER_ID, FEEDBACK_CONTENT, REG_DATE, NVL(FEED_LIKECOUNT, 0) FEED_LIKECOUNT 
+			from PORT_FEEDBACK 
+			left outer join (select FEEDBACK_ID, NVL(count(*), 0) FEED_LIKECOUNT from PORT_FEEDBACK_RECOMMEND group by FEEDBACK_ID) using(FEEDBACK_ID) 
+			where PORT_ID = #{PORT_ID} 
+			and FEED_LIKECOUNT > 3 
+			order by FEED_LIKECOUNT desc)
+		where RNUM &lt;= 3;
+	</select>
+	<!-- 피드백 list -->
+	<select id="list" parameterType="java.util.Map" resultType="Feedback">
+		select FEEDBACK_ID, PORT_ID, MEMBER_ID, FEEDBACK_CONTENT, REG_DATE, NVL(FEED_LIKECOUNT, 0) FEED_LIKECOUNT 
+		from PORT_FEEDBACK 
+		left outer join (select FEEDBACK_ID, NVL(count(*), 0) FEED_LIKECOUNT from PORT_FEEDBACK_RECOMMEND group by FEEDBACK_ID) using(FEEDBACK_ID) 
+		where PORT_ID = #{PORT_ID} 
+		<choose>
+			<when test='feedPick != null and feedPick.equals("bestFeedOnly")'>
+				and FEED_LIKECOUNT > 3 
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='feedOrder != null and feedOrder.equals("recommended")'>
+				order by FEED_LIKECOUNT desc
+			</when>
+			<otherwise>
+				order by REG_DATE desc
+			</otherwise>
+		</choose>
+	</select>
+	<!-- 피드백 insert -->
 	<insert id="insert" parameterType="Feedback">
-		insert into PORTFOLIO values()
+		insert into PORT_FEEDBACK values(PORT_FEEDBACK_SEQ.NEXTVAL, #{PORT_ID}, #{MEMBER_ID}, #{FEEDBACK_CONTENT}, sysdate)
 	</insert>
-	<!-- 피드백 수정 -->
+	<!-- 피드백 update -->
 	<update id="update" parameterType="Feedback">
 		update PORT_FEEDBACK
-		set PORT_
-		where PORT_ID = #{id}
+		set FEEDBACK_CONTENT = #{FEEDBACK_CONTENT}
+		where FEEDBACK_ID = #{FEEDBACK_ID}
 	</update>
+	<!-- 피드백 delete -->
+	<delete id="delete" parameterType="int">
+		delete PORT_FEEDBACK
+		where FEEDBACK_ID = #{FEEDBACK_ID}
+	</delete>
+	<!-- 피드백 추천 select -->
+	<select id="recommend_check" parameterType="java.util.Map" resultType="int">
+		select NVL(count(*), 0) from PORT_FEEDBACK_RECOMMEND 
+		where FEEDBACK_ID = #{FEEDBACK_ID} 
+		and MEMBER_ID = #{MEMBER_ID}
+	</select>
+	<!-- 피드백 추천 insert -->
+	<insert id="recommend" parameterType="Feedback_recommend">
+		insert into PORT_FEEDBACK_RECOMMEND 
+		values(PORT_FEEDBACK_RECOMMEND_SEQ.NEXTVAL, #{MEMBER_ID}, #{FEEDBACK_ID}, sysdate)
+	</insert>
+	<!-- 피드백 추천 delete -->
+	<delete id="recommend_cancel" parameterType="Feedback_recommend">
+		delete PORT_FEEDBACK_RECOMMEND
+		where FEEDBACK_ID = #{FEEDBACK_ID} 
+		and MEMBER_ID = #{MEMBER_ID}
+	</delete>
+	<!-- 피드백 추천 reset -->
+	<delete id="recommend_reset" parameterType="int">
+		delete PORT_FEEDBACK_RECOMMEND
+		where FEEDBACK_ID = #{FEEDBACK_ID}
+	</delete>
+	<!-- 피드백 추천 list -->
+	<select id="recommend_list" parameterType="String" resultType="Feedback_recommend">
+		select * from PORT_FEEDBACK_RECOMMEND
+		where MEMBER_ID = #{MEMBER_ID}
+		order by PF_RECO_ID desc
+	</select>
+	<!-- 피드백 날짜 변환 -->
+	<select id="feed_date" parameterType="int" resultType="String">
+		SELECT TO_CHAR( ( SELECT REG_DATE FROM PORT_FEEDBACK where FEEDBACK_ID = #{FEEDBACK_ID}), 'yyyy-mm-dd hh24:mi:ss') from dual 
+	</select>
 </mapper>

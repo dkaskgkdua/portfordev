@@ -60,15 +60,19 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
+			<li class="nav-item">
+				<a class="nav-link" href="/pro/profile/collection">프로필</a>
+			</li>
+			<li class="nav-item">
+			  	<a class="nav-link" href="/pro/portfolio/collection">포트폴리오</a>
+			</li>
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="/pro/profile/collection">프로필</a> 
-              		<a class="dropdown-item" href="/pro/portfolio/collection">포트폴리오</a>
-					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/pro/news">IT뉴스</a>
+					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=2">Q&amp;A</a>

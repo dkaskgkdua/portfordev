@@ -27,8 +27,8 @@ textarea:focus{
 	position:fixed!important;
 	width:0.1px!important;
 	height:0.1px!important;
-	right:-1!important;
-	bottom:-1!important;
+	right:-99px!important;
+	bottom:-99px!important;
 	display:none!important;
 }
 
@@ -54,13 +54,21 @@ textarea:focus{
     max-width:90%;
     top: calc(50% - 100px);
     left: calc(50% - 200px);
-    text-align: center;
+    text-align: left;
+}
+.alert-box img{
+    height: 22px;
+    margin-left: 17px;
+    margin-top: 17px;
+    margin-right: 0;
 }
 .alert-box b{
-	display:block;
+	display:inline-block;
 	padding:5px;
 	font-size:1.2em;
 	text-align:left;
+	margin-top:10px;
+	margin-left:0;
 }
 .alert-box hr{
 	margin: 1em 0;
@@ -74,6 +82,7 @@ textarea:focus{
 	white-space:normal;
 	word-break:break-all;
 	padding:10px;
+	text-align:center;
 }
 .site-alert .site-url{
 	display:block;
@@ -465,6 +474,7 @@ textarea:focus{
 }
 #feed-icon-tail{
 	position: relative;
+	display:none;
 }
 #info-icon-tail{
 	display:none;
@@ -623,6 +633,16 @@ textarea:focus{
 	border-right:0.5px solid darkgrey;
 	border-top:0.5px solid darkgrey;
 }
+.portfolio-no-feed-need{
+	display:none;
+	width: 100%;
+    height: 100%;
+    z-index: 200;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 10%;
+}
 .portfolio-feedback-container{
 	width:100%;
 	height:100%;
@@ -652,31 +672,6 @@ textarea:focus{
 	margin-left:10px;
 	display:inline-block;
 }
-/* 작성폼 접기 */
-.feedback-write-hide{
-	position:absolute;
-    background: rgba(255, 255, 255, 0.7);
-	border-radius:0 0 90% 90%;
-    border: 3px solid slategrey;
-	border-top:0;
-	display:inline-block;
-	width:90px;
-	height:40px;
-	top:0;
-	left:calc(50% - 45px);
-	color:slategrey;
-	font-weight:500;
-	font-size:1.2em;
-	text-align:center;
-}
-.feedback-write-hide:hover{
-	cursor:pointer;
-	opacity:0.8;
-	transition:0.3s;
-}
-.feedback-write-hide img{
-	height:100%;
-}
 .feed-writer-profile{
 	margin-top:10px;
 	display:inline-block;
@@ -693,7 +688,7 @@ textarea:focus{
 }
 .feed-writer-profile-nick{
 	height:20px;
-	display:inline-block;
+	display:block;
 	font-weight:1000;
 	font-size:16px;
 }
@@ -755,31 +750,6 @@ textarea:focus{
 .portfolio-feedback-info .portfolio-feedback-cnt{
 	
 }
-/* FEEDBACK 접기 */
-.portfolio-feedback-hide{
-	position:absolute;
-    background: rgba(255, 255, 255, 0.7);
-	border-radius:0 0 90% 90%;
-    border: 3px solid slategrey;
-	border-top:0;
-	display:inline-block;
-	width:90px;
-	height:40px;
-	top:0;
-	left:calc(50% - 45px);
-	color:slategrey;
-	font-weight:500;
-	font-size:1.2em;
-	text-align:center;
-}
-.portfolio-feedback-hide:hover{
-	cursor:pointer;
-	opacity:0.8;
-	transition:0.3s;
-}
-.portfolio-feedback-hide img{
-	height:100%;
-}
 /* FEEDBACK 필터 */
 .portfolio-feedback-filter{
 	height:100%;
@@ -823,6 +793,13 @@ textarea:focus{
 .portfolio-feedback-list::-webkit-scrollbar{
 	display:none;	/* Chrome, Safari, Opera */
 }
+.no-feedback-item{
+	display:none;
+	text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 40px;
+}
 .portfolio-feedback-item{
 	width:100%;
 	height:100%;
@@ -859,10 +836,11 @@ textarea:focus{
 }
 /* 피드백 작성자 프로필 */
 .feedback-info .feedback-writer-profile{
-	width:100%;
-	height:100%;
-	display:inline-block;
-	text-align:center;
+	width: 100%;
+    height: calc(100% - 20px);
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
 }
 .feedback-info .feedback-writer-profile:hover{
 	cursor:pointer;
@@ -896,11 +874,22 @@ textarea:focus{
 	float:right;
 	padding:10px;
 }
+.feedback-content .feedback-written-date{
+	height: 15px;
+    text-align: right;
+    padding-right: 20px;
+    font-size: 1em;
+    line-height: 1em;
+    margin-bottom: 5px;
+}
 .feedback-content .feedback-content-text{
-	width:100%;
-	height:100%;
-	overflow-y:scroll;
-	overflow-x:hidden;
+	width: 100%;
+    height: calc(100% - 20px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: aliceblue;
+    padding: 10px;
+    border-radius: 3px;
 }
 .feedback-controller{
 	height:18%;
@@ -1056,13 +1045,7 @@ textarea:focus{
 		height:250px;
 	}
 	#feed-icon-tail{
-		display:inline-block!important;
-	}
-	.portfolio-feedback-hide{
-		display:inline-block!important;
-	}
-	.feedback-write-hide{
-		display:inline-block!important;
+		display:inline-block;
 	}
 }
 @media screen and (max-height:590px){
