@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.Portfolio;
 
 @Repository
 public class SearchDAO {
@@ -32,4 +33,9 @@ public class SearchDAO {
  public List<Board> searchQnA(String search){
 	 return sqlSession.selectList("search.searchQnA",search);
  }
+ 
+ public List<Portfolio> searchPort(String search){
+	 return sqlSession.selectList("search.searchPort",search);
+ }
+ 
 }

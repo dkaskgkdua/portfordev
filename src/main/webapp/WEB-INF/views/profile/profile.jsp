@@ -206,12 +206,12 @@
 					<div style="background:white" class="info_div">
 					<table class="skill_table">
 					<tr>
-						<td><img src="resources/Image/userlevel1_2.png" class="ability"></td>
+						<td><img src="resources/Image/userlevel${profile.PROFILE_YEAR}.png" class="ability"></td>
 						<td><img src="resources/Image/ability_think.png" class="ability"></td>
 						<td><img src="resources/Image/ability_careful.png" class="ability"></td>
 					</tr>
 					<tr>
-						<td>2년차 개발자</td>
+						<td>${profile.PROFILE_YEAR}년차 개발자</td>
 						<td>창의적인</td>
 						<td>협동적인</td>
 						

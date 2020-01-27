@@ -27,4 +27,5 @@ public class Profile {
 	
 	private String PORT_ID;
 	private String PORT_FILE_PATH;
+	private String PORT_SUBJECT;
 }

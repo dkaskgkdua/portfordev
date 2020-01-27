@@ -16,6 +16,7 @@
 			#profile_icon{width:100px; margin:0 auto }
 			#btn{margin-top: 100px;}
 			.pre-next{display: none; margin-bottom:20px;height:50px;background:white; border-radius: 100%;width:50px;text-align: center;padding:0px}
+			.pre-next img{ vertical-align: middle!important;}
 			#pre{position:relative; left:0px}
 			#next{float:right}
 			.slide_in p {color: black;text-align:left;margin: 2px;}

@@ -12,6 +12,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.Portfolio;
 import com.portfordev.pro.service.search_service_impl;
 
 @Controller
@@ -27,6 +28,7 @@ public class SearchController {
 		List<Board>boardresult = new ArrayList<Board>();
 		List<Board>studyresult = new ArrayList<Board>();
 		List<Board>qnaresult = new ArrayList<Board>();
+		List<Portfolio>portresult = new ArrayList<Portfolio>();
 		
 //		for(int i=0; i<s.length; i++) {
 //			memberresult.addAll(service.searchMember(s[i]));
@@ -40,7 +42,7 @@ public class SearchController {
 		boardresult= service.searchBoard(search);
 		studyresult =service.searchStudy(search);
 		qnaresult = service.searchQnA(search);
-		
+		portresult = service.searchPort(search);
 		
 		
 		mv.addObject("searchKeyword",search);
@@ -48,6 +50,7 @@ public class SearchController {
 		mv.addObject("memberResult", memberresult);
 		mv.addObject("studyResult",studyresult);
 		mv.addObject("qnaResult",qnaresult);
+		mv.addObject("portResult",portresult);
 		mv.setViewName("search/search");
 		
 		return mv;

@@ -13,7 +13,7 @@
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_form.css"/>
 		
 		<style>
-		
+		img{vertical-align: middle;}
 		</style>
 		<script>
 		/*셀렉트 바꿀때마다 바뀌는ㄴ*/
@@ -122,11 +122,11 @@
   								<p>강점2</p>
   								<select id="select" name="PROFILE_STRENGTH2">
   									<option>선택</option>
-  									<option>협동력</option>
-  									<option>성실성</option>
-  									<option>리더쉽</option>
-  									<option>꼼꼼함</option>
-  									<option>노력파</option>
+  									<option value="ability_think">협동력</option>
+  									<option value="ability_careful">성실성</option>
+  									<option value="ability_careful">리더쉽</option>
+  									<option value="ability_careful">꼼꼼함</option>
+  									<option value="ability_careful">노력파</option>
   									<option>직접입력</option>
   								</select>
   							</div>

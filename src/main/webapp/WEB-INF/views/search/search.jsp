@@ -97,52 +97,25 @@
 					<!--@@@@@@@@@@@@@@@프로젝트 검색결과 -->
 					<!-- 한달내에 조회수 높은순 -->
 					<ul class="search_ul">
+					<c:if test="${!empty portResult}">
+					
+					<c:forEach var = "p" items="${portResult}">
 						<li>
-							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
+							<div class="contentimg divimg"><img src="resources/upload/${p.PORT_ID}/0.png"/></div>
 							<div class="context_text">
 							 <div id="div_sub">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
+								<a href="">${p.PORT_SUBJECT}</a>
 							 </div>	
-								<span id="date">2019년 12월 11일</span><br>
-								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-									정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
-								1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-								정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars</span>
+								<span id="date">${p.PORT_REGIDATE}</span><br>
+								<span>${p.PORT_CONTENT}</span>
 							</div>
 						</li>
-						<li>
-							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
-							<div class="context_text">
-							 <div id="div_sub">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
-							 </div>	
-								<span id="date">2019년 12월 11일</span><br>
-								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-									정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
-								1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-								정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars</span>
-							</div>
-						</li>
-						<li>
-							<div class="contentimg divimg"><img src="resources/Image/search_sample.png"/></div>
-							<div class="context_text">
-							 <div id="div_sub">
-								<a href="">어쩌구저쩌구 개발을위한 프로젝트</a>
-							 </div>	
-								<span id="date">2019년 12월 11일</span><br>
-								<span>1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-									정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars
-								1월 11, 2020 9:07:05 오후 org.apache.catalina.core.ApplicationContext log
-								정보: No Spring WebApplicationInitializer types detected on classpath
-								1월 11, 2020 9:07:05 오후 org.apache.jasper.servlet.TldScanner scanJars</span>
-							</div>
-						</li>
+					</c:forEach>
 						<li class="more"><a href="" >More ></a></li>
+					</c:if>
+					<c:if test="${empty portResult}">	
+						<h1 style="color:gray">포트폴리오 검색결과가 존재 하지 않습니다.</h1>
+					</c:if>	
 					</ul>
 					
 					
