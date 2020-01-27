@@ -7,6 +7,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member_log;
 
 @Repository
@@ -24,5 +25,8 @@ public class member_log_dao {
 		System.out.println("map = " + map);
 		List<Member_log> log = sqlSession.selectList("Member_logs.get_log_list", map);
 		return log;
+	}
+	public void insert_alert(Alert alert) {
+		sqlSession.insert("Member_logs.insert_alert", alert);
 	}
 }

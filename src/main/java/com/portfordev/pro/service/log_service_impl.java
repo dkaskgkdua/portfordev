@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.portfordev.pro.dao.member_log_dao;
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member_log;
 
 @Service
@@ -32,5 +33,9 @@ public class log_service_impl implements log_service{
 		map.put("end", endrow);
 		map.put("member_id", MEMBER_ID);
 		return dao.get_log_list(map);
+	}
+	@Override
+	public void insert_alert(Alert alert) {
+		dao.insert_alert(alert);
 	}
 }

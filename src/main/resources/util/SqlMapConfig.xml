@@ -7,6 +7,7 @@
 	</settings>
 	<typeAliases>
 		<typeAlias alias="Member" type="com.portfordev.pro.domain.Member"/>
+		<typeAlias alias="Alert" type="com.portfordev.pro.domain.Alert"/>
 		<typeAlias alias="Member_log" type="com.portfordev.pro.domain.Member_log"/>
 		<typeAlias alias="Board" type="com.portfordev.pro.domain.Board"/>
 		<typeAlias alias="Comment" type="com.portfordev.pro.domain.Comment"/>

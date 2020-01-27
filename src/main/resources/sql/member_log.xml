@@ -15,4 +15,7 @@
 				) a
 			)where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
+	<insert id="insert_alert" parameterType="Alert">
+		insert into ALERT values(ALERT_SEQ.NEXTVAL, #{MEMBER_ID}, #{ALERT_CATEGORY},#{ALERT_REF_ID}, #{ALERT_REQ_MEMBER}, #{ALERT_CHECK}, sysdate);
+	</insert>
 </mapper>

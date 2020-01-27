@@ -35,6 +35,18 @@ section {
 .user_info_score {
 	text-align: center;
 }
+.avatar {
+	text-align: center;
+}
+@media screen and (max-width:840px) {
+	aside, article, footer, section {
+		display: contents;
+	}
+	
+	#date_span {
+		display : inline-block;
+	}
+}
 </style>
 <script>
 	$(function() {
@@ -48,8 +60,6 @@ section {
 				$("#info_set").append(pass_check);
 				$("#password_change_btn").css("display","none");
 		})
-		
-		
 	});
 </script>
 </head>
@@ -148,7 +158,7 @@ section {
 										<h3>분류가 없음</h3>
 									</c:otherwise>
 									</c:choose>
-									<span>&nbsp;${log.MEMBER_LOG_DATE}</span>
+									<span id = "date_span">&nbsp;${log.MEMBER_LOG_DATE}</span>
 								</td>
 							</tr>
 						</c:forEach>

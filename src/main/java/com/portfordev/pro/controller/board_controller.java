@@ -27,6 +27,7 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Board_file;
 import com.portfordev.pro.domain.Board_recommend;
@@ -228,6 +229,7 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.insert_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, 2);
+		log_service.insert_alert(new Alert(member_id, 2, board_id, board_service.getDetail(board_id).getMEMBER_ID()));
 		log_service.insert_log(new Member_log(member_id, 4, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
@@ -239,6 +241,7 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.delete_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, -2);
+		log_service.insert_alert(new Alert(member_id, 3, board_id, board_service.getDetail(board_id).getMEMBER_ID()));
 		log_service.insert_log(new Member_log(member_id, 5, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
@@ -305,9 +308,10 @@ public class board_controller {
 				board_file.setBOARD_ID(board_id);
 				board_service.insert_file(board_file);
 		 }
-		 
+		 String receive_id = board_service.getDetail(board.getBOARD_RE_REF()).getMEMBER_ID();
 		 member_service.add_write_act(board.getMEMBER_ID(), 5);
 		 log_service.insert_log(new Member_log(board.getMEMBER_ID(), 0, board_id));
+		 log_service.insert_alert(new Alert(receive_id,0,board.getBOARD_RE_REF(),board.getMEMBER_ID()));
 		 redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
 		 return "redirect:board_list";
 	 }

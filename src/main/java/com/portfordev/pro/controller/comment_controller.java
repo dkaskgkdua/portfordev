@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Comment;
 import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
@@ -31,6 +32,10 @@ public class comment_controller {
 	@PostMapping(value = "comment_add")
 	public void comment_add(Comment co, HttpServletResponse response) throws Exception {
 		int ok = comment_service.comment_insert(co);
+		List<Comment> comment_list = comment_service.get_list(co.getBOARD_ID());
+		comment_list.forEach(comment -> {
+			log_service.insert_alert(new Alert(comment.getMEMBER_ID(), 1, comment.getBOARD_ID(), co.getMEMBER_ID()));
+		});
 		member_service.add_write_act(co.getMEMBER_ID(), 1);
 		log_service.insert_log(new Member_log(co.getMEMBER_ID(), 1, co.getBOARD_ID()));
 		response.getWriter().print(ok);
