@@ -42,8 +42,8 @@
 		 }
 		
 		function categoryChange(e) {
-			var good_a = ["jsp", "javaScript", "node.js", "vue.js","react.js"];
-			var good_b = ["java", "spring", "oracle", "c"];
+			var good_a = ["javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
+			var good_b = ["java", "spring", "oracle", "c","server","system","python"];
 			var target = document.getElementById("skill_detail");
 
 			if(e.value == "1") var d = good_a;
@@ -108,27 +108,31 @@
   								<p>연차</p>
   								<input type="text" name="PROFILE_YEAR">
   								<hr>
-  								<p>강점1</p>
-  								<select id="select" name="PROFILE_STRENGTH1">
-  									<option>선택</option>
-  									<option >협동력</option>
-  									<option >성실성</option>
-  									<option >리더쉽</option>
-  									<option >꼼꼼함</option>
-  									<option >노력파</option>
-  									<option >직접입력</option>
+  								<p>키워드를 골라주세요(성격)</p>
+  								<select id="select1">
+  									<option value="">선택없음</option>
+  									<option value="ability_meticulous">꼼꼼한</option>
+  									<option value="ability_social">사교적인</option>
+  									<option value="ability_kind">친절함</option>
+  									<option value="ability_active">능동적인</option>
+  									<option value="ability_planned">계획적인</option>
+  									<option value="직접입력">직접입력 </option>
   								</select>
+  								<input type="hidden" name="PROFILE_STRENGTH1" id="type1">
+  								
   								<hr>
-  								<p>강점2</p>
-  								<select id="select" name="PROFILE_STRENGTH2">
-  									<option>선택</option>
-  									<option value="ability_think">협동력</option>
-  									<option value="ability_careful">성실성</option>
-  									<option value="ability_careful">리더쉽</option>
-  									<option value="ability_careful">꼼꼼함</option>
-  									<option value="ability_careful">노력파</option>
-  									<option>직접입력</option>
+  								<p>키워드를 골라주세요(업무)</p>
+  								<select  id="select2">
+  									<option value="">선택없음</option>
+  									<option value="ability_think">창의성</option>
+  									<option value="ability_sungsil">성실성</option>
+  									<option value="ability_teach">리더쉽</option>
+  									<option value="ability_group">적응력</option>
+  									<option value="ability_understand">이해력</option>
+  									<option value="ability_careful">협동력</option>
+  									<option value="직접입력">직접입력</option>
   								</select>
+  								<input type="hidden" name="PROFILE_STRENGTH2" id="type2">
   							</div>
   							<div class="slide_in">
   								<p>다룰수 있는 툴을 선택해주세요</p>
@@ -153,6 +157,14 @@
   									<button type="button" id="select_result2_delete" ><img class="delete" src="resources/Image/icon/delete_btn.png"/></button>
   								</div>
   								</div><!-- result_div끝 -->
+  								
+  								
+  								<!-- 기술스택 소개 -->
+  								<div>
+  								<p>자세한 기술스택을 입력해주세요</p>
+  								<textarea rows="8" cols="90" maxlength="200" name="PROFILE_TECH_INTRO"></textarea>
+  								
+  								</div>
   							</div>
   							<div class="slide_in">
   								<p>자기소개</p>

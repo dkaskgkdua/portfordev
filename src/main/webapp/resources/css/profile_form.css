@@ -30,8 +30,10 @@
 			.delete{width:10px}
 			#select_result{ display: inline-block;width:90%}
 			#select_result2{ display: inline-block;width:90%}
-			#select_result_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
-			#select_result2_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
+			#select_result_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete img{display:inline-block;}
+			#select_result_delete img{display: inline-block;}
 			.result_div{margin-top:20px;}
 			#submit{background:#2196F3!important;}
 			button:hover{background: #eaedf2;}

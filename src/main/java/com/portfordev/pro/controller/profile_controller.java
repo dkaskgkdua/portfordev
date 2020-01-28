@@ -33,12 +33,16 @@ public class profile_controller {
 	@RequestMapping(value="/profile")
 	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
 		profile =  service.profile_view(idch);
-		
+		String s[]=profile.getPROFILE_TECH_FRONT().split(",");
+		String ss[]=profile.getPROFILE_TECH_BACK().split(",");
 		List<Profile> portList = service.portfolioImg(idch);
 		model.setViewName("profile/profile");
 		model.addObject("profile",profile);
 		model.addObject("portfolio",portList);
 		model.addObject("idch",idch);
+		model.addObject("front",s);
+		model.addObject("frontcnt",s.length);
+		model.addObject("back",ss);
 		
 		
 		return model;
@@ -80,6 +84,11 @@ public class profile_controller {
 		profile.setPROFILE_INTRO(s4);
 		String s5 = profile.getPROFILE_YEAR().replace(",","");
 		profile.setPROFILE_YEAR(s5);
+		String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
+		profile.setPROFILE_STRENGTH1(s6);
+		String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
+		profile.setPROFILE_STRENGTH1(s7);
+		
 		
 		MultipartFile file= profile.getProfile_img();
 		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());

@@ -2,6 +2,33 @@ var cnt = 0 ;
 var out='';
 var id= $('#user_id').val();
 
+$('#select1').on('change',function(){
+		var value=$(this).val();
+		if(value!="직접입력"){
+			$('#type1').val("");
+			$('#type1').val(value);
+		}else if(value=="직접입력"){
+			$('#type1').val("");
+			$('#type1').attr('type','text');
+			$('#type1').focus();
+		}
+		
+})
+
+$('#select2').on('change',function(){
+		var value=$(this).val();
+		if(value!="직접입력"){
+			$('#type2').val("");
+			$('#type2').val(value);
+		}else if(value=="직접입력"){
+			$('#type2').val("");
+			$('#type2').attr('type','text');
+			$('#type2').focus();
+		}
+		
+})
+
+
 /*시작 버튼*/
 $("#start_btn").click(function(){
 	$('.slick-next').click();
@@ -101,7 +128,6 @@ $('#submit').click(function(){
 	 contentType: false, // 필수
 
 	 success: function(item){
-      alert("에이젝스 성공="+item.result);
       $('#next').click();
       out+="<h1 class='insert_h1'>등록을 완료하였습니다.</h1>";
       out+="<div style='margin-bottom:50px'>";	
@@ -139,6 +165,10 @@ $('#submit').click(function(){
  		location.href="profile?idch"+id;
  		
  	})
+ 		
+ 		
+ 		
+ 	
 
 
 })

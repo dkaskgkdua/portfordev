@@ -99,12 +99,12 @@
     			
     			<!-- 실명입력하면 실명 -->
     			<c:if test="${!empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.PROFILE_REAL_NAME}</h1><br>
+    			<h1 class="name">${profile.PROFILE_REAL_NAME}</h1>
     			
     			</c:if>
     			<!-- 실명 입력 안했으면 그냥 닉네임 -->
     			<c:if test="${empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.member_id}</h1><br>
+    			<h1 class="name">${profile.member_id}</h1>
     			</c:if>
     			
     			<c:if test="${!empty profile.PROFILE_JOB}">
@@ -174,11 +174,13 @@
 								</button>
 							</div>
 						</c:if>
+						<c:if test="${!empty portfolio}">
 						<div class="your-class slide">
 							<c:forEach var="p" items="${portfolio}">
 								<div class="slide_in"><img  class="slide_in_content" src="resources/upload/${p.PORT_FILE_PATH}/0.png"></div>
-							</c:forEach> 
+							</c:forEach>
 						</div>
+						</c:if>	 
 					</header>
 					<!-- <hr style="border:1px solid gray"> -->
 				
@@ -207,13 +209,110 @@
 					<table class="skill_table">
 					<tr>
 						<td><img src="resources/Image/userlevel${profile.PROFILE_YEAR}.png" class="ability"></td>
-						<td><img src="resources/Image/ability_think.png" class="ability"></td>
-						<td><img src="resources/Image/ability_careful.png" class="ability"></td>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous' || 
+										profile.PROFILE_STRENGTH1=='ability_social' ||
+										profile.PROFILE_STRENGTH1=='ability_kind' ||
+										profile.PROFILE_STRENGTH1=='ability_active' ||
+										profile.PROFILE_STRENGTH1=='ability_planned' 
+										
+						}">
+						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH1}.png" class="ability"></td>
+						</c:if>
+						
+						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
+										profile.PROFILE_STRENGTH1!='ability_social' &&
+										profile.PROFILE_STRENGTH1!='ability_kind' &&
+										profile.PROFILE_STRENGTH1!='ability_active' &&
+										profile.PROFILE_STRENGTH1!='ability_planned' 
+										
+						}">
+						<td><img src="resources/Image/icon/ability_etc.png" class="ability"></td>
+						</c:if>
+						
+						
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_think' || 
+										profile.PROFILE_STRENGTH2=='ability_sungsil' ||
+										profile.PROFILE_STRENGTH2=='ability_teach' ||
+										profile.PROFILE_STRENGTH2=='ability_group' ||
+										profile.PROFILE_STRENGTH2=='ability_understand' ||
+										profile.PROFILE_STRENGTH2=='ability_careful' 
+										
+						}">
+						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH2}.png" class="ability"></td>
+						</c:if>
+						
+						<c:if test="${porfile.PROFILE_STRENGTH2!='ability_think' && 
+										porfile.PROFILE_STRENGTH2!='ability_sungsil' &&
+										porfile.PROFILE_STRENGTH2!='ability_teach' &&
+										porfile.PROFILE_STRENGTH2!='ability_group' &&
+										porfile.PROFILE_STRENGTH2!='ability_understand' &&
+										porfile.PROFILE_STRENGTH2!='ability_careful' 
+										
+						}">
+						<td><img src="resources/Image/icon/ability_else.png" class="ability"></td>
+						</c:if>
 					</tr>
 					<tr>
+					  
 						<td>${profile.PROFILE_YEAR}년차 개발자</td>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous'}">
+						<td>꼼꼼한</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_social'}">
+						<td>사교적인</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_kind'}">
+						<td>친절한</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_active'}">
+						<td>능동적인</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH1=='ability_planned'}">
+						<td>계획적인</td>
+						</c:if>
+						
+						
+						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
+										profile.PROFILE_STRENGTH1!='ability_social' &&
+										profile.PROFILE_STRENGTH1!='ability_kind' &&
+										profile.PROFILE_STRENGTH1!='ability_active' &&
+										profile.PROFILE_STRENGTH1!='ability_planned' 
+										
+						}">
+						<td>${profile.PROFILE_STRENGTH1}</td>
+						</c:if>
+						
+						<!-- 두번째 키워트  글-->
+						
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_think'}">
 						<td>창의적인</td>
-						<td>협동적인</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_sungsil'}">
+						<td>성실한</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_teach'}">
+						<td>리더쉽강한</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_group'}">
+						<td>적응력이 뛰어난</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_understand'}">
+						<td>이해력이 뛰어난</td>
+						</c:if>
+						<c:if test="${profile.PROFILE_STRENGTH2=='ability_careful'}">
+						<td>협동력이 뛰어난</td>
+						</c:if>
+						
+						<c:if test="${profile.PROFILE_STRENGTH2!='ability_think' && 
+										profile.PROFILE_STRENGTH2!='ability_sungsil' &&
+										profile.PROFILE_STRENGTH2!='ability_teach' &&
+										profile.PROFILE_STRENGTH2!='ability_group' &&
+										profile.PROFILE_STRENGTH2!='ability_understand' &&
+										profile.PROFILE_STRENGTH2!='ability_careful' 
+										
+						}">
+						<td>${profile.PROFILE_STRENGTH2}</td>
+						</c:if>
 						
 					</tr>
 					</table>
@@ -233,16 +332,28 @@
 							<img src="resources/Image/front.png" class="skill_img_m">
 							<p class="h1">Frontend</p>
 							</td>
-							<td><img src="resources/Image/java.png" class="skill_img" ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" class="skill_img"><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-						</tr>
-						<tr>	
-							<td><img src="resources/Image/jsp.png" class="skill_img" ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/php.png" class="skill_img" ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<c:if test="${!empty front[0]}">
+							<td><img src="resources/Image/${front[0]}.png" class="skill_img" ><span class="skill_span">${front[0]}</span></td>
+							</c:if>
+							<c:if test="${!empty front[1]}">
+							<td><img src="resources/Image/${front[1]}.png" class="skill_img"><span class="skill_span">${front[1]}</span></td>
+							</c:if>
 						</tr>
 						<tr>
-							<td><img src="resources/Image/git.png" class="skill_img" ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" class="skill_img" ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<c:if test="${!empty front[2]}">	
+							<td><img src="resources/Image/${front[2]}.png" class="skill_img" ><span class="skill_span">${front[2]}</span></td>
+							</c:if>
+							<c:if test="${!empty front[3]}">
+							<td><img src="resources/Image/${front[3]}.png" class="skill_img" ><span class="skill_span">${front[3]}</span></td>
+							</c:if>
+						</tr>
+						<tr>
+							<c:if test="${!empty front[4]}">
+							<td><img src="resources/Image/${front[4]}.png" class="skill_img" ><span class="skill_span">${front[4]}</span></td>
+							</c:if>
+							<c:if test="${!empty front[5]}">
+							<td><img src="resources/Image/${front[5]}.png" class="skill_img" ><span class="skill_span">${front[5]}</span></td>
+							</c:if>
 						</tr>
 					</table>
 					<br>
@@ -252,16 +363,28 @@
 							<img src="resources/Image/back.png" class="skill_img_m">
 							<p class="h1">Backend</p>
 							</td>
-							<td><img src="resources/Image/java.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<c:if test="${!empty back[0]}">
+							<td><img src="resources/Image/${back[0]}.png" class="skill_img" ><span class="skill_span">${back[0]}</span></td>
+							</c:if>
+							<c:if test="${!empty back[1]}">
+							<td><img src="resources/Image/${back[1]}.png" class="skill_img" ><span class="skill_span">${back[1]}</span></td>
+							</c:if>
 						</tr>
 						<tr>	
-							<td><img src="resources/Image/jsp.png"class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/php.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<c:if test="${!empty back[2]}">
+							<td><img src="resources/Image/${back[2]}.png" class="skill_img" ><span class="skill_span">${back[2]}</span></td>
+							</c:if>
+							<c:if test="${!empty back[3]}">
+							<td><img src="resources/Image/${back[3]}.png" class="skill_img" ><span class="skill_span">${back[3]}</span></td>
+							</c:if>
 						</tr>
 						<tr>
-							<td><img src="resources/Image/git.png"class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
-							<td><img src="resources/Image/jsp.png" class="skill_img"  ><span class="skill_span">어쩌구저쩌구어쩌구 저쩌구</span></td>
+							<c:if test="${!empty back[4]}">
+							<td><img src="resources/Image/${back[4]}.png" class="skill_img" ><span class="skill_span">${back[4]}</span></td>
+							</c:if>
+							<c:if test="${!empty back[5]}">
+							<td><img src="resources/Image/${back[5]}.png" class="skill_img" ><span class="skill_span">${back[5]}</span></td>
+							</c:if>
 						</tr>
 					</table>
 					
