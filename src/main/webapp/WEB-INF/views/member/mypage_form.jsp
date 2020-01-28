@@ -50,16 +50,38 @@ section {
 </style>
 <script>
 	$(function() {
+		var pass_toggle = 0;
 		$("#password_change_btn").click(function() {
 				var pass_check = "<div class='form-group'>"
 							+ "<label for='MEMBER_PASSWORD'>비밀번호</label>"
 							+ "<input type='password' class='form-control' name='MEMBER_PASSWORD' id='MEMBER_PASSWORD'></div>"
 							+ "<div class='form-group'>"
 							+ "<label for='MEMBER_PASSWORD_CHECK'>변경 비밀번호</label>"
-							+ "<input id='MEMBER_PASSWORD_CHECK'type='password' name='MEMBER_PASSWORD_CHECK'></div>";
+							+ "<input id='MEMBER_PASSWORD_CHECK' type='password' name='MEMBER_PASSWORD_CHECK'></div>";
 				$("#info_set").append(pass_check);
 				$("#password_change_btn").css("display","none");
-		})
+				pass_toggle = 1;
+		});
+		$("#edit_form").submit(function() {
+			if($.trim($("#MEMBER_NAME").val()) == "") {
+				alert("닉네임을 입력하세요.");
+				$("#MEMBER_NAME").focus();
+				return false;
+			}
+			if(pass_toggle == 1) {
+				var password_pattern = /^\w{6,15}$/;
+				if (!password_pattern.test($('#MEMBER_PASSWORD').val())) {
+					alert("비밀번호를 6자리~15자리로 맞춰주세요.(문자, 숫자, _ )");
+					$('#MEMBER_PASSWORD').focus();
+					return false;
+				}
+				if (!password_pattern.test($('#MEMBER_PASSWORD_CHECK').val())) {
+					alert("비밀번호를 6자리~15자리로 맞춰주세요.(문자, 숫자, _ )");
+					$('#MEMBER_PASSWORD_CHECK').focus();
+					return false;
+				}
+			}
+		});
 	});
 </script>
 </head>
@@ -109,7 +131,7 @@ section {
 				<c:choose>
 				<c:when test="${menu eq '정보수정'}">
 				  <div>
-					<form action="/pro/member_edit" name="edit_form" method="post">
+					<form action="/pro/member_edit" id="edit_form" name="edit_form" method="post">
 						<fieldset id="info_set">
 							<input type="hidden" name ="MEMBER_ID" value="${MEMBER.MEMBER_ID}">
 							<div class="form-group">

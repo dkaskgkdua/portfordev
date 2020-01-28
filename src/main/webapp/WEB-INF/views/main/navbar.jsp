@@ -17,7 +17,12 @@
 		$.ajax({
 			url : "/pro/alert_check",
 			success : function(data) {
-				$("#alert_count").text(data);
+				if(data > 0) {
+					$("#alert_count").text(data);	
+				} else {
+					$("#alert_count").text('');
+				}
+				
 			},
 			error : function() {
 				alert("에러입니다. 운영진에 문의해주세요.");
@@ -48,18 +53,26 @@
 					output = "";
 					if(data.alert_count > 0) {
 						$(data.alert_list).each(function() {
-								output += "<tr><td>"+this.member_NAME+"님이 #"
-									   + this.alert_REF_ID;
-								if(this.alert_CATEGORY == 0) {
-									output += " 게시물에 답변을 달았습니다.";
-								} else if(this.alert_CATEGORY == 1) {
-									output += " 게시물에 댓글을 달았습니다.";
-								} else if(this.alert_CATEGORY == 2) {
-									output += " 게시물에 추천을 했습니다.";
-								} else if(this.alert_CATEGORY == 3) {
-									output += " 게시물에 추천을 취소했습니다.";
-								}
-								output+="<span>"+this.alert_DATE+"</span></td></tr>"
+							if(this.alert_CHECK == 0) {
+								output += "<tr><td style='background : aliceblue;'>";
+							} else {
+								output += "<tr><td>";
+							}
+							if(this.alert_CATEGORY >= 0 && 4 > this.alert_CATEGORY) {
+								output += "<a class='alert_a' href='/pro/board_view_action?board_id="+this.alert_REF_ID+"'>";
+							}
+							output += this.member_NAME+"님이 #"
+								   + this.alert_REF_ID;
+							if(this.alert_CATEGORY == 0) {
+								output += " 게시물에 답변을 달았습니다.";
+							} else if(this.alert_CATEGORY == 1) {
+								output += " 게시물에 댓글을 달았습니다.";
+							} else if(this.alert_CATEGORY == 2) {
+								output += " 게시물에 추천을 했습니다.";
+							} else if(this.alert_CATEGORY == 3) {
+								output += " 게시물에 추천을 취소했습니다.";
+							}
+							output+="<span>"+this.alert_DATE+"</span></a></td></tr>"
 						});
 					} else {
 						output += "<tr><td>기록된 활동이 없습니다.</td></tr>";
@@ -80,7 +93,24 @@
 	})
 </script>
 <style>
-
+#alert_count {
+	position : relative;
+	top : -18px;
+	left : -12px;
+	color : red;
+	border-radius : 50%;
+	padding : 1px 4px;
+	font-weight : bold;
+}
+.alert_a {
+	color: black;
+}
+.modal-content {
+	height : 450px;
+}
+#account_button {
+	padding-right : 0px;
+}
 .navbar-toggler {
 	width : 60px;
 	height : 40px;
