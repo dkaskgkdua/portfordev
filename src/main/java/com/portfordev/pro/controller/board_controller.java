@@ -229,7 +229,8 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.insert_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, 2);
-		log_service.insert_alert(new Alert(member_id, 2, board_id, board_service.getDetail(board_id).getMEMBER_ID()));
+		Board board = board_service.getDetail(board_id);
+		log_service.insert_alert(new Alert(board.getMEMBER_ID(), 2, board_id, member_id));
 		log_service.insert_log(new Member_log(member_id, 4, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;
@@ -241,7 +242,8 @@ public class board_controller {
 			@RequestParam("member_id") String member_id, HttpServletResponse response) {
 		board_service.delete_reco(board_id, member_id);
 		member_service.add_receive_act(member_id, board_id, -2);
-		log_service.insert_alert(new Alert(member_id, 3, board_id, board_service.getDetail(board_id).getMEMBER_ID()));
+		Board board = board_service.getDetail(board_id);
+		log_service.insert_alert(new Alert(board.getMEMBER_ID(), 3, board_id, member_id));
 		log_service.insert_log(new Member_log(member_id, 5, board_id));
 		int reco_count = board_service.get_reco_count(board_id);
 		return reco_count;

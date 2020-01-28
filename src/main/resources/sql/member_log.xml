@@ -16,6 +16,20 @@
 			)where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	<insert id="insert_alert" parameterType="Alert">
-		insert into ALERT values(ALERT_SEQ.NEXTVAL, #{MEMBER_ID}, #{ALERT_CATEGORY},#{ALERT_REF_ID}, #{ALERT_REQ_MEMBER}, #{ALERT_CHECK}, sysdate);
+		insert into ALERT values(ALERT_SEQ.NEXTVAL, #{MEMBER_ID}, #{ALERT_CATEGORY},#{ALERT_REF_ID}, #{ALERT_REQ_MEMBER}, #{ALERT_CHECK}, sysdate)
 	</insert>
+	<select id="get_alert_list" parameterType="String" resultType="Alert">
+		select * from(
+			select rownum rnum, a.*
+				from (select ALERT_ID, alert.MEMBER_ID, MEMBER_NAME, ALERT_CATEGORY, ALERT_REF_ID, ALERT_REQ_MEMBER, ALERT_CHECK, ALERT_DATE from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID where alert.MEMBER_ID = #{MEMBER_ID} order by ALERT_DATE desc
+			) a
+     	) where  rnum &gt;= 1 and rnum &lt;= 10 
+	</select>
+	<select id= "get_unread_count" parameterType="String" resultType="int">
+		select count(*) from ALERT where MEMBER_ID = #{MEMBER_ID} and ALERT_CHECK = 0
+	</select>
+	<update id = "update_alert" parameterType="String">
+		update ALERT set ALERT_CHECK = 1
+		where MEMBER_ID = #{MEMBER_ID}
+	</update>
 </mapper>

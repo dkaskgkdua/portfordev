@@ -36,6 +36,21 @@ public class log_service_impl implements log_service{
 	}
 	@Override
 	public void insert_alert(Alert alert) {
+		if(alert.getMEMBER_ID().equals(alert.getALERT_REQ_MEMBER())) {
+			return;
+		}
 		dao.insert_alert(alert);
+	}
+	@Override
+	public List<Alert> get_alert_list(String MEMBER_ID) {
+		return dao.get_alert_list(MEMBER_ID);
+	}
+	@Override
+	public int get_unread_count(String MEMBER_ID) {
+		return dao.get_unread_count(MEMBER_ID);
+	}
+	@Override
+	public void update_alert(String MEMBER_ID) {
+		dao.update_alert(MEMBER_ID);
 	}
 }

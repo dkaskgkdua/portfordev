@@ -12,6 +12,8 @@ public class Alert {
 	private int ALERT_CHECK = 0;  // 0은 확인 안함, 1은 확인 완료
 	private String ALERT_DATE;
 	
+	private String MEMBER_NAME;
+	
 	public Alert() {
 		
 	}

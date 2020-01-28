@@ -16,6 +16,14 @@ create table member_test3(
 	addr varchar2(30),
 	today date
 );
+select * from(
+			select rownum rnum, a.*
+				from (select ALERT_ID, alert.MEMBER_ID, MEMBER_NAME, ALERT_CATEGORY, ALERT_REF_ID, ALERT_REQ_MEMBER, ALERT_CHECK, ALERT_DATE from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID where alert.MEMBER_ID = '117421623799109543474' order by ALERT_DATE desc
+			) a
+     	) where  rnum >= 1 and rnum <= 10 
+select distinct MEMBER_ID, BOARD_ID from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
+select * from board_comment;
+select * from alert;
 delete from PORTFOLIO;
 select * from PORTFOLIO;
 select rownum rnum, b.* from(
@@ -33,6 +41,10 @@ select board_re_ref, a.SORT_RECO  from board inner join (
 select board_id, count(BOARD_RECO_ID) SORT_RECO from board left outer join board_recommend using(board_id) group by board_id) a using(board_id) where board_re_lev = 0) using(board_re_ref)) using(board_id)
 inner join (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)) using(board_id) where BOARD_CATEGORY = 0 order by SORT_RECO desc, BOARD_RE_REF desc, BOARD_RE_SEQ asc
 ) b;
+select * from(
+	select rownum rnum, a.*
+		from (select MEMBER_NAME, ALERT_ID, alert.MEMBER_ID from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID ))
+select ALERT_ID, alert.MEMBER_ID, MEMBER_NAME, ALERT_CATEGORY, ALERT_REF_ID, ALERT_REQ_MEMBER, ALERT_CHECK, ALERT_DATE from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID;
 
 select * from(
 			select rownum rnum, a.* 

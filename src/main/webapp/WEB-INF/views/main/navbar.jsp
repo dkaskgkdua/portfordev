@@ -13,7 +13,21 @@
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/pro/resources/css/main.css?ver=1" />
 <script>
+	function poll() {
+		$.ajax({
+			url : "/pro/alert_check",
+			success : function(data) {
+				$("#alert_count").text(data);
+			},
+			error : function() {
+				alert("에러입니다. 운영진에 문의해주세요.");
+			},
+		});
+	}
 	$(function() {
+		if($("#hidden_id" != "")) {
+			poll();	
+		}
 		$('#login_button').click(function() {
 			location.href = '/pro/login';
 		});
@@ -24,7 +38,39 @@
 		$('#mypage_button').click(function() {
 			location.href = '/pro/mypage?MEMBER_ID=${id}';
 		});
-		
+		$('#account_button').click(function() {
+			$("#alert_count").text('');
+			$("#account_body").append("<div class='spinner-border text-info'></div>");
+			$.ajax({
+				url : "/pro/alert_list",
+				success : function(data) {
+					$("#account_body").empty();
+					output = "";
+					if(data.alert_count > 0) {
+						$(data.alert_list).each(function() {
+								output += "<tr><td>"+this.member_NAME+"님이 #"
+									   + this.alert_REF_ID;
+								if(this.alert_CATEGORY == 0) {
+									output += " 게시물에 답변을 달았습니다.";
+								} else if(this.alert_CATEGORY == 1) {
+									output += " 게시물에 댓글을 달았습니다.";
+								} else if(this.alert_CATEGORY == 2) {
+									output += " 게시물에 추천을 했습니다.";
+								} else if(this.alert_CATEGORY == 3) {
+									output += " 게시물에 추천을 취소했습니다.";
+								}
+								output+="<span>"+this.alert_DATE+"</span></td></tr>"
+						});
+					} else {
+						output += "<tr><td>기록된 활동이 없습니다.</td></tr>";
+					}
+					$("#account_body").append(output);
+				},
+				error : function() {
+					alert("에러입니다. 운영진에 문의해주세요.");
+				}
+			});
+		})
 		$('#searchform').submit(function(){
 			if($('input[type=search]').val()==''){
 				alert('검색어를 입력해주세요');
@@ -82,14 +128,14 @@
 			<c:if test="${!empty id}">
 				<c:choose>
 					<c:when test="${power=='1'}">
-						<button id="admin_button" type="button">
+						<button id="admin_button" type="button"> <!-- 관리자 -->
 							<img src="/pro/resources/Image/icon/person.svg" alt="admin" width="32" height="32">
 						</button>
 					</c:when>
 				</c:choose>
 				<button id="account_button" class = "btn" type="button" data-toggle="modal" data-target="#account_modal">
-					<img src="/pro/resources/Image/icon/person-fill.svg" alt="account" width="32" height="32">
-				</button>
+					<img src="/pro/resources/Image/icon/person-fill.svg" alt="account" width="32" height="32"><span id = "alert_count"></span>
+				</button><!-- 로그인 중 -->
 			</c:if>
 			<c:if test="${empty id}">
 				<button id = "login_button" class="btn" type="button">
@@ -102,16 +148,21 @@
 </nav>
 </div>
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-  <div class="modal-dialog modal-sm" role="document" style="float: right;">
+  <div class="modal-dialog modal-sm modal-dialog-scrollable" role="document" style="float: right;">
     <div class="modal-content">
       <div class="modal-header">
-        <h3 class="modal-title" id="exampleModalLabel">회원 정보</h3>
+     	<input type="hidden" id="hidden_id" value ="${id}">
+        <h3 class="modal-title" id="exampleModalLabel">${nickname}</h3>
         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
       <div class="modal-body">
-        <span style="font-weight:bold">${nickname}</span>
+      	<table class="table table-hover">
+      		<tbody id ="account_body">
+      		
+      		</tbody>
+      	</table>
       </div>
       <div class="modal-footer">
         <button id = "mypage_button" type="button" class="btn btn-primary">마이페이지</button>

@@ -37,7 +37,7 @@
 	</select>
 	<update id="update_member" parameterType="Member">
 		update MEMBER set MEMBER_NAME = #{MEMBER_NAME}
-		<if test='MEMBER_PASSWORD != null or MEMBER_PASSWORD.equals("")'>
+		<if test='MEMBER_PASSWORD != null'>
 			, MEMBER_PASSWORD = #{MEMBER_PASSWORD}
 		</if>
 		where MEMBER_ID = #{MEMBER_ID}

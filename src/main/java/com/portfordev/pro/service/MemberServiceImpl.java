@@ -31,6 +31,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 	@Override
 	public void update_member(Member member) {
+		System.out.println(member);
 		dao.update_member(member);
 	}
 	@Override

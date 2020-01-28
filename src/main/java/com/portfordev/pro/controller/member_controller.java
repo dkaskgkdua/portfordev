@@ -3,6 +3,7 @@ package com.portfordev.pro.controller;
 import java.io.PrintWriter;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
@@ -22,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
@@ -35,6 +37,28 @@ public class member_controller {
 	private MemberService member_service;
 	@Autowired
 	private log_service log_service;
+	
+	@ResponseBody
+	@GetMapping("alert_check")
+	public int alert_check(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		
+		int unread_count = log_service.get_unread_count(id);
+		return unread_count;
+	}
+	
+	@ResponseBody
+	@GetMapping("alert_list")
+	public Object alert_list(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		List<Alert> alert_list = log_service.get_alert_list(id);
+		System.out.println(alert_list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("alert_count", alert_list.size());
+		map.put("alert_list", alert_list);
+		log_service.update_alert(id);
+		return map;
+	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mv, 
@@ -120,7 +144,9 @@ public class member_controller {
 			@RequestParam(value="MEMBER_PASSWORD_CHECK", defaultValue="", required=false) String check, RedirectAttributes redirect) throws Exception {
 		String salt = member_service.get_salt(member.getMEMBER_ID());
 		if(check.equals("")) { // 단순 정보 변경
+			System.out.println("test1");
 			member_service.update_member(member);
+			System.out.println("test2");
 		} else { // + 비밀번호 변경
 			System.out.println(member + " ch : " + check);
 			int result = member_service.isId(member.getMEMBER_ID(), ""+(salt+member.getMEMBER_PASSWORD()).hashCode());
