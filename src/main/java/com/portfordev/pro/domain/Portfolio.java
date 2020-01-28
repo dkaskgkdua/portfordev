@@ -56,8 +56,8 @@ public class Portfolio
 	@JsonSetter("PORT_WRITER_JOB")
 	private String PORT_WRITER_JOB;
 	// 포트폴리오 작성자 프로필 이미지
-	@JsonSetter("PORT_PROFILE_IMG")
-	private String PORT_PROFILE_IMG = "/pro/resources/Image/userdefault.png";
+	@JsonSetter("PORT_WRITER_IMG")
+	private String PORT_WRITER_IMG = "/pro/resources/Image/userdefault.png";
 	// 포트폴리오 추천 수
 	@JsonSetter("PORT_LIKECOUNT")
 	private int PORT_LIKECOUNT = 0;

@@ -74,7 +74,7 @@
 							<div class="info-detail">
 								<div class="title">${port.PORT_SUBJECT}</div>
 								<div class="user-profile">
-									<img class="pic icon-round" src="${port.PORT_PROFILE_IMG}">
+									<img class="pic icon-round" src="${port.PORT_WRITER_IMG}">
 									<input type="hidden" class="user-id-hidden" value="${port.MEMBER_ID}">
 									<input type="hidden" class="user-nick-hidden" value="${port.PORT_WRITER}">
 									${port.PORT_WRITER}

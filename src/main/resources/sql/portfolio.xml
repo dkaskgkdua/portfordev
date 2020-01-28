@@ -9,7 +9,7 @@
 				from PORTFOLIO 
 				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
 				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID) 
-				where PORT_LIKECOUNT &lt; 3
+				where PORT_LIKECOUNT &lt;= 3
 				and PORT_SHOW = 0 
 		<choose>
 			<when test='from != null and from.equals("daily")'>
@@ -166,10 +166,13 @@
 		select count(*) from PORT_RECOMMEND
 		where PORT_ID = #{PORT_ID}
 	</select>
-	<!-- 포트폴리오 작성자 정보 -->
-	<select id="port_writer" parameterType="String" resultType="Portfolio">
-		select PROFILE_IMG_FILE as PORT_PROFILE_IMG, PROFILE_JOB as PORT_WRITER_JOB from PROFILE
-		where MEMBER_ID = #{MEMBER_ID}
+	<!-- 포트폴리오 writer info -->
+	<select id="port_writer" parameterType="int" resultType="Portfolio">
+		select PORT_ID, MEMBER_ID, PORT_WRITER, NVL(PORT_WRITER_IMG,'none') PORT_WRITER_IMG, NVL(PORT_WRITER_JOB, '개발자') PORT_WRITER_JOB   
+		from PORTFOLIO 
+		left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID)
+		left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') as PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		where PORT_ID = #{PORT_ID}
 	</select>
 	<!-- 포트폴리오 등록 날짜 변환 -->
 	<select id="port_date" parameterType="int" resultType="String">

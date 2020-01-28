@@ -54,7 +54,7 @@ $(document).ready(function(){
 					output +=		'<div class="info-detail">';
 					output +=			'<div class="title">'+this.PORT_SUBJECT+'</div>';
 					output +=			'<div class="user-profile">';
-					output +=				'<img class="pic icon-round" src="'+this.PORT_PROFILE_IMG+'">';
+					output +=				'<img class="pic icon-round" src="'+this.PORT_WRITER_IMG+'">';
 					output +=				'<input type="hidden" class="user-id-hidden" value="'+this.MEMBER_ID+'">';
 					output +=				'<input type="hidden" class="user-nick-hidden" value="'+this.PORT_WRITER+'">';
 					output +=				this.PORT_WRITER;

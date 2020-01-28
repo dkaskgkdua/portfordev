@@ -3,7 +3,6 @@ package com.portfordev.pro.controller;
 import java.io.File;
 import java.io.PrintWriter;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -208,7 +207,12 @@ public class portfolio_controller
 	// 포트폴리오 삭제하기
 	@ResponseBody
 	@RequestMapping("/portfolio/portfolio_delete")
-	public int portfolio_delete(int PORT_ID, String MEMBER_ID) {
+	public int portfolio_delete(int PORT_ID, String MEMBER_ID, HttpSession session) {
+		if(session.getAttribute("id") == null)
+			return 0;	// 로그인 바람
+		if(!session.getAttribute("id").equals(MEMBER_ID))
+			return 2;	// 작성자가 일치하지 않음
+		member_service.add_write_act(MEMBER_ID, -20);
 		return po_service.deletePortfolio(PORT_ID);
 	}
 	// 포트폴리오 상세보기
@@ -216,8 +220,7 @@ public class portfolio_controller
 	@RequestMapping("/portfolio/port_detail")
 	public Portfolio getPortfolioDetail(@RequestParam("PORT_ID") int PORT_ID, HttpSession session) throws ParseException {
 		// 포트폴리오 조회수 + 1
-		int readUpdate = po_service.readcountUpdatePortfolio(PORT_ID);
-		System.out.println("조회수 업데이트 성공유무--"+readUpdate);
+		po_service.readcountUpdatePortfolio(PORT_ID);
 		Portfolio portfolio = po_service.detailPortfolio(PORT_ID);
 		if(portfolio == null) {
 			return null;
@@ -231,17 +234,12 @@ public class portfolio_controller
 			PORT_SCRAP = po_service.checkScrapPortfolio(pochk);
 			PORT_RECOM = po_service.checkRecomPortfolio(pochk);
 		}
-		String PORT_WRITER = member_service.get_name(portfolio.getMEMBER_ID());
-		String PORT_WRITER_JOB = "개발자";
-		String PORT_PROFILE_IMG = "/pro/resources/Image/userdefault.png";
-		Map<String, String> writerInfo = po_service.getPortWriter(portfolio.getMEMBER_ID());
-		if(writerInfo != null)
-		{
-			if(writerInfo.get("PORT_WRITER_JOB") != null)
-				PORT_WRITER_JOB = writerInfo.get("PORT_WRITER_JOB");
-			if(writerInfo.get("PORT_PROFILE_IMG") != null)
-				PORT_PROFILE_IMG = writerInfo.get("PORT_PROFILE_IMG");
-		}
+		Portfolio PORT_WRITER_INFO = po_service.getPortWriter(PORT_ID);
+		String PORT_WRITER = PORT_WRITER_INFO.getPORT_WRITER();
+		String PORT_WRITER_JOB = PORT_WRITER_INFO.getPORT_WRITER_JOB();
+		String PORT_WRITER_IMG = PORT_WRITER_INFO.getPORT_WRITER_IMG(); 
+		if(PORT_WRITER_IMG.equals("none"))
+			PORT_WRITER_IMG = "/pro/resources/Image/userdefault.png";
 		int PORT_LIKECOUNT = po_service.getPortRecommendCount(portfolio.getPORT_ID());
 		int PORT_FEEDCOUNT = fb_service.getFeedbackCount(portfolio.getPORT_ID());
 		Map<String, String> dates = po_service.replaceDate(portfolio.getPORT_ID());
@@ -253,7 +251,7 @@ public class portfolio_controller
 		portfolio.setPORT_RECOM(PORT_RECOM);
 		portfolio.setPORT_WRITER(PORT_WRITER);
 		portfolio.setPORT_WRITER_JOB(PORT_WRITER_JOB);
-		portfolio.setPORT_PROFILE_IMG(PORT_PROFILE_IMG);
+		portfolio.setPORT_WRITER_IMG(PORT_WRITER_IMG);
 		portfolio.setPORT_LIKECOUNT(PORT_LIKECOUNT);
 		portfolio.setPORT_FEEDCOUNT(PORT_FEEDCOUNT);
 		portfolio.setPORT_WRITTEN(PORT_WRITTEN);
@@ -296,10 +294,14 @@ public class portfolio_controller
 		prchk.put("PORT_ID", ""+PORT_ID);
 		prchk.put("MEMBER_ID", MEMBER_ID);
 		int pr = po_service.checkRecomPortfolio(prchk);
-		if(pr == 0)
+		if(pr == 0) {
+			member_service.add_write_act(po_service.getPortWriter(PORT_ID).getMEMBER_ID(), 2);
 			return po_service.recommendPortfolio(port_recommend);
-		else
+		}
+		else {
+			member_service.add_write_act(po_service.getPortWriter(PORT_ID).getMEMBER_ID(), -2);
 			return po_service.cancelRecomPortfolio(port_recommend);
+		}
 	}
 	// 포트폴리오 추천 리스트 가져오기
 	@ResponseBody

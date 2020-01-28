@@ -44,11 +44,18 @@ public class feedback_controller
 				frchk.put("MEMBER_ID", (String)session.getAttribute("id"));
 				FEED_RECOM = fb_service.checkRecomFeedback(frchk);
 			}
-			String FEED_WRITER = member_service.get_name(feedback.getMEMBER_ID());
+			Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(feedback.getFEEDBACK_ID());
+			String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
+			String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
+			if(FEED_WRITER_IMG.equals("none"))
+				FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+			int FEED_WRITER_SCORE = FEED_WRITER_INFO.getFEED_WRITER_SCORE();
 			String date = fb_service.replaceDate(feedback.getFEEDBACK_ID());
 			date = replaceDate(date);
 			feedback.setFEED_RECOM(FEED_RECOM);
 			feedback.setFEED_WRITER(FEED_WRITER);
+			feedback.setFEED_WRITER_IMG(FEED_WRITER_IMG);
+			feedback.setFEED_WRITER_SCORE(FEED_WRITER_SCORE);
 			feedback.setFEED_WRITTEN(date);
 		}
 		return feedbackList;
@@ -74,11 +81,18 @@ public class feedback_controller
 				frchk.put("MEMBER_ID", (String)session.getAttribute("id"));
 				FEED_RECOM = fb_service.checkRecomFeedback(frchk);
 			}
-			String FEED_WRITER = member_service.get_name(feedback.getMEMBER_ID());
+			Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(feedback.getFEEDBACK_ID());
+			String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
+			String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
+			if(FEED_WRITER_IMG.equals("none"))
+				FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+			int FEED_WRITER_SCORE = FEED_WRITER_INFO.getFEED_WRITER_SCORE();
 			String date = fb_service.replaceDate(feedback.getFEEDBACK_ID());
 			date = replaceDate(date);
 			feedback.setFEED_RECOM(FEED_RECOM);
 			feedback.setFEED_WRITER(FEED_WRITER);
+			feedback.setFEED_WRITER_IMG(FEED_WRITER_IMG);
+			feedback.setFEED_WRITER_SCORE(FEED_WRITER_SCORE);
 			feedback.setFEED_WRITTEN(date);
 		}
 		return feedbackList;
@@ -131,10 +145,10 @@ public class feedback_controller
 	@PostMapping("/portfolio/deleteFeedback")
 	public int deleteFeedback(	@RequestParam("FEEDBACK_ID") int FEEDBACK_ID, HttpSession session, 
 								@RequestParam("MEMBER_ID") String MEMBER_ID) {
-		if(session.getAttribute("id") != null)
-			return 0;	// 로그인 페이지로 이동
-		if(!session.getAttribute("id").equals(MEMBER_ID))
-			return 2;	// 삭제 권한이 없음
+		if(session.getAttribute("id") == null)
+			return 2;	// 로그인 필요
+		if(!MEMBER_ID.equals(fb_service.getFeedWriter(FEEDBACK_ID).getMEMBER_ID()))
+			return 3;	// 삭제 권한이 없음
 		return fb_service.deleteFeedback(FEEDBACK_ID);
 	}
 	// 피드백 추천, 취소
@@ -147,7 +161,7 @@ public class feedback_controller
 		feed_recommend.setMEMBER_ID(MEMBER_ID);
 		Map<String, String> frchk = new HashMap<String, String>();
 		frchk.put("FEEDBACK_ID", ""+FEEDBACK_ID);
-		frchk.put("MEMBER_ID", "MEMBER_ID");
+		frchk.put("MEMBER_ID", MEMBER_ID);
 		int fr = fb_service.checkRecomFeedback(frchk);
 		if(fr == 0)
 			return fb_service.recommendFeedback(feed_recommend);
@@ -181,19 +195,18 @@ public class feedback_controller
 		long diffSec = (now - timeRegidate) / 1000;
 		// 60초 이하
 		if(diffSec < 60)
-		{
 			strDate = "방금 전";
-		}
 		// 60분 이하
 		else if(diffSec < 3600)
-		{
 			strDate = (diffSec / 60) + "분 전";
-		}
 		// 하루 이하
 		else if(diffSec < 86400)
-		{
 			strDate = (diffSec / 60 / 60) + "시간 전";
-		}
+		// 2일 이하
+		else if(diffSec < 172800)
+			strDate = "하루 전";
+		else if(diffSec < 604800)
+			strDate = (diffSec / 60 / 60 / 24) + "일 전";
 		return strDate;
     }
 }

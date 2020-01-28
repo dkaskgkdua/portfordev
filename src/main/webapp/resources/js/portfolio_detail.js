@@ -1,14 +1,15 @@
 $(document).ready(function(){
-	var member_id = $('#userId').val();
+	member_id = $('#userId').val();
 	var member_name = $('#userNick').val();
 	// 포트폴리오 상세 출력
 	// portfolio collection page
 	$('.portfolio-list').on('click', '.portfolio-list-item', function(){
 		var port_id = Number($(this).children('.hidden_PORT_ID').val());
 		getDetail(port_id);
-		if(getFeedbacks(port_id))
-			getBestFeedback(port_id);
+		getFeedbacks(port_id);
+		getBestFeedback(port_id);
 		showDetail();
+		generalDetailFunctionOn();
 	});
 	// main page
 	$('.best-portfolio-item').click(function(){
@@ -35,7 +36,6 @@ $(document).ready(function(){
 			url: '/pro/portfolio/port_detail', 
 			cache: false, 
 			success: function(port){
-				console.log(port);
 				if(port == null){
 					askRefresh();
 					return;
@@ -74,11 +74,11 @@ $(document).ready(function(){
 				// 포트폴리오 추천, 스크랩 버튼
 				if(port.PORT_RECOM == 0){
 					$('.recom-icon').attr('src', '/pro/resources/Image/icon/heart-off.png');
-					$('.icon-tail-fit>.recon-tail').text('추천 하기');
+					$('.icon-tail-fit>.recom-tail').text('추천 하기');
 				}
 				else if(port.PORT_RECOM == 1){
 					$('.recom-icon').attr('src', '/pro/resources/Image/icon/heart-on.png');
-					$('.icon-tail-fit>.recon-tail').text('추천 취소');
+					$('.icon-tail-fit>.recom-tail').text('추천 취소');
 				}
 				if(port.PORT_SCRAP == 0){
 					$('.scrap-icon').attr('src', '/pro/resources/Image/icon/scrap-off.png');
@@ -89,7 +89,7 @@ $(document).ready(function(){
 					$('.icon-tail-fit>.scrap-tail').text('스크랩 취소');
 				}
 				// 포트폴리오 작성자 이미지 변경
-				$('.port-writer-img-wrapper').css({'background-image' : 'url'+port.PORT_PROFILE_IMG+')'})
+				$('.port-writer-img-wrapper').css({'background-image' : 'url('+port.PORT_WRITER_IMG+')'})
 				// 포트폴리오 작성자 닉네임
 				$('.portfolio-info-writer-nick').text(port.PORT_WRITER);
 				// 포트폴리오 작성자 직업
@@ -143,8 +143,8 @@ $(document).ready(function(){
 			}
 		});
 	}
-	var feedPick = 'allFeed';
-	var feedOrder = 'latest';
+	feedPick = 'allFeed';
+	feedOrder = 'latest';
 	// 포트폴리오 id 를 통한 피드백 정보 ajax로 가져오기
 	// 피드백 리스트 가져오기
 	function getFeedbacks(PORT_ID){
@@ -159,16 +159,84 @@ $(document).ready(function(){
 				$('.portfolio-feedback-list').empty();
 				if(feedbacks.length == 0)
 				{
-					$('.portfolio-feedback-list').append('<div class="no-feedback-item">아직 등록된 피드백이 없습니다.</div>');
+					if(feedPick == 'allFeed')
+						$('.portfolio-feedback-list').append('<div class="no-feedback-item">아직 등록된 피드백이 없습니다.</div>');
+					else
+						$('.portfolio-feedback-list').append('<div class="no-feedback-item">아직 베스트 피드백이 없습니다.</div>');
 					$('.no-feedback-item').css('display', 'block');
-					return false;
+					return;
 				}
 				$('.no-feedback-item').css('display', 'none');
 				$.each(feedbacks, function(){
 					var output = '';
-					output +=	'<div class="portfolio-feedback-item" id="feedback_'+this.FEEDBACK_ID+'">';
+					output +=	'<div class="portfolio-feedback-item" id="feedback_'+this.FEEDBACK_ID+'" style="display:none;">';
 					output +=		'<input type="hidden" class="FEEDBACK_ID" name="FEEDBACK_ID" value="'+this.FEEDBACK_ID+'">';
+					output +=		'<input type="hidden" class="FEEDBACK_WRITER" name="FEEDBACK_WRITER" value="'+this.MEMBER_ID+'">';
 					output +=		'<div class="feedback-info">';
+					output +=			'<div class="feedback-writer-profile">';
+					var user_img = '/pro/resources/Image/userdefault.png';
+					if(this.FEED_WRITER_IMG != null)
+						user_img = this.FEED_WRITER_IMG;
+					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
+					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
+					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
+					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
+					output +=			'</div>';
+					output +=		'</div>';
+					output +=		'<div class="feedback-content">';
+					output +=			'<div class="feedback-written-date">'+this.FEED_WRITTEN+'</div>';
+					output +=			'<div class="feedback-content-text">'+this.FEEDBACK_CONTENT+'</div>';
+					output +=		'</div>';
+					output +=		'<div class="feedback-controller">';
+					output +=			'<div class="feedback-recommend">';
+					output +=				'<div class="icon-tail-fit">';
+					if(this.FEED_RECOM == 0){
+						output +=				'<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">';
+						output +=				'<span class="feed-recom-tail">추천하기</span>';
+					}
+					else{
+						output +=				'<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-on.png">';
+						output +=				'<span class="feed-recom-tail">추천취소</span>';
+					}
+					output +=				'</div>';
+					output +=				'<span class="feedback-recommend-cnt">'+this.FEED_LIKECOUNT+'</span>';
+					output +=			'</div>';
+					if(this.MEMBER_ID == member_id){
+						output +=		'<button type="button" class="feedback-delete">삭제</button>';
+						output +=		'<button type="button" class="feedback-update">수정</button>';
+					}
+					output +=		'</div>';
+					output +=	'</div>';
+					$('.portfolio-feedback-list').append(output);
+					$('#feedback_'+this.FEEDBACK_ID).fadeIn(400);
+				})
+			},
+			error: function(){
+				errorAlert('피드백 리스트를 가져오는 동안');
+			}
+		});
+	}
+	// 베스트 피드백 가져오기
+	function getBestFeedback(PORT_ID){
+		console.log('best 출력 중');
+		$.ajax({
+			data:{'PORT_ID': PORT_ID}, 
+			type: 'POST', 
+			dataType: 'json', 
+			async: false, 
+			url: '/pro/portfolio/getBest3Feedback', 
+			cache: false, 
+			success: function(feedbacks){
+				console.log(feedbacks);
+				if(feedbacks.length == 0)
+					return;
+				$.each(feedbacks, function(){
+					var output = '';
+					output +=	'<div class="portfolio-feedback-item best-feedback" id="best_feed_'+this.FEEDBACK_ID+'" style="display:none;">';
+					output +=		'<input type="hidden" class="FEEDBACK_ID" name="FEEDBACK_ID" value="'+this.FEEDBACK_ID+'">';
+					output +=		'<input type="hidden" class="FEEDBACK_WRITER" name="FEEDBACK_WRITER" value="'+this.MEMBER_ID+'">';
+					output +=		'<div class="feedback-info">';
+					output +=			'<span class="best-feedback-span">BEST</span>';
 					output +=			'<div class="feedback-writer-profile">';
 					var user_img = '/pro/resources/Image/userdefault.png';
 					if(this.FEED_WRITER_IMG != null)
@@ -203,68 +271,9 @@ $(document).ready(function(){
 					}
 					output +=		'</div>';
 					output +=	'</div>';
-					$('.portfolio-feedback-list').append(output);
-					$('#feedback_'+this.FEEDBACK_ID).fadeIn(400);
-				})
-			},
-			error: function(){
-				errorAlert('피드백 리스트를 가져오는 동안');
-			}
-		});
-	}
-	// 베스트 피드백 가져오기
-	function getBestFeedback(PORT_ID){
-		$.ajax({
-			data:{'PORT_ID': PORT_ID}, 
-			type: 'POST', 
-			dataType: 'json', 
-			async: false, 
-			url: '/pro/portfolio/getBest3Feedback', 
-			cache: false, 
-			success: function(feedbacks){
-				if(feedbacks.length == 0)
-					return;
-				$.each(feedbacks, function(){
-					var output = '';
-					output +=	'<div class="portfolio-feedback-item" id="best_feed_'+this.FEEDBACK_ID+'">';
-					output +=		'<input type="hidden" class="FEEDBACK_ID" name="FEEDBACK_ID" value="'+this.FEEDBACK_ID+'">';
-					output +=		'<div class="feedback-info">';
-					output +=			'<div class="feedback-writer-profile">';
-					var user_img = '/pro/resources/Image/userdefault.png';
-					if(this.FEED_WRITER_IMG != null)
-						user_img = this.FEED_WRITER_IMG;
-					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
-					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
-					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
-					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
-					output +=			'</div>';
-					output +=		'</div>';
-					output +=		'<div class="feedback-content">';
-					output +=			'<div class="feedback-written-date">'+this.FEED_WRITTEN+'</div>';
-					output +=			'<div class="feedback-content-text">'+this.FEED_CONTENT+'</div>';
-					output +=		'</div>';
-					output +=		'<div class="feedback-controller">';
-					output +=			'<div class="feedback-recommend">';
-					output +=				'<div class="icon-tail-fit">';
-					if(this.FEED_RECOM == 0){
-						output +=				'<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-off.png">';
-						output +=				'<span class="feed-recom-tail">추천하기</span>';
-					}
-					else{
-						output +=				'<img class="feed-recom-icon" src="/pro/resources/Image/icon/recom-on.png">';
-						output +=				'<span class="feed-recom-tail">추천취소</span>';
-					}
-					output +=				'</div>';
-					output +=				'<span class="feedback-recommend-cnt">'+this.FEED_LIKECOUNT+'</span>';
-					output +=			'</div>';
-					if(this.MEMBER_ID = member_id){
-						output +=		'<button type="button" class="feedback-delete">삭제</button>';
-						output +=		'<button type="button" class="feedback-update">수정</button>';
-					}
-					output +=		'</div>';
-					output +=	'</div>';
 					$('.portfolio-feedback-list').prepend(output);	
 					$('#best_feed_'+this.FEEDBACK_ID).fadeIn(400);
+					$('#feedback_'+this.FEEDBACK_ID).css('display', 'none');
 				})			
 			},
 			error: function(){
@@ -279,20 +288,42 @@ $(document).ready(function(){
 		$('#move_top_btn').fadeOut().addClass('never-show');
 		doSlick();
 		$('.port-slide-list').resize();
+	}
+	function generalDetailFunctionOn(){
 		$('.icon-tail-fit').on('click', doActivity);
 		$('.feedback-writer-profile').on('click', goProfile);
 		$('#feedPick').change(function(){
 			feedPick = $('#feedPick').val();
-			var port_id = $('.hidden_PORT_ID').val();
-			if(getFeedbacks(port_id))
-				getBestFeedback(port_id);
+			generalDetailFunctionOff();
+			var port_id = $('#detail_port_id').val();
+			getFeedbacks(port_id);
+			getBestFeedback(port_id);
+			generalDetailFunctionOn();
 		});
 		$('#feedOrder').change(function(){
 			feedOrder = $('#feedOrder').val();
-			var port_id = $('.hidden_PORT_ID').val();
-			if(getFeedbacks(port_id))
-				getBestFeedback(port_id);
+			generalDetailFunctionOff();
+			var port_id = $('#detail_port_id').val();
+			getFeedbacks(port_id);
+			getBestFeedback(port_id);
+			generalDetailFunctionOn();
 		});
+		$('.feedback-update').click(function(){
+			var feed_id = $(this).parent().parent().children('.FEEDBACK_ID').val();
+			feedUpdateConfirm(feed_id);
+		});
+		$('.feedback-delete').click(function(){
+			var feed_id = $(this).parent().parent().children('.FEEDBACK_ID').val();
+			feedDeleteConfirm(feed_id);
+		});
+	}
+	function generalDetailFunctionOff(){
+		$('.icon-tail-fit').off('click', doActivity);
+		$('.feed-writer-profile').off('click', goProfile);
+		$('#feedPick').off('change');
+		$('#feedOrder').off('change');
+		$('.feedback-update').off('click');
+		$('.feedback-delete').off('click');
 	}
 	// 포트폴리오 상세 모달 종료
 	function closeDetail(){
@@ -308,15 +339,14 @@ $(document).ready(function(){
 			{
 				$('.drag-activity-menu').trigger('click');
 			}
+			$('.exit-cover').trigger('click');
 		});
-		$('.icon-tail-fit').off('click', doActivity);
-		$('.feed-writer-profile').off('click', goProfile);
-		$('#feedPick').off('change');
-		$('#feedOrder').off('change');
 		feedPick = 'allFeed';
 		$('#feedPick option:eq(0)').prop('selected', true);
 		feedOrder = 'latest';
 		$('#feedOrder option:eq(0)').prop('selected', true);
+		$('.portfolio-feedback-list').scrllTop(0);
+		generalDetailFunctionOff();
 	}
 	// 포트폴리오 파일 이미지 변환후 slick 출력
 	function doSlick()
@@ -395,16 +425,41 @@ $(document).ready(function(){
 		// 피드백 추천 클릭 시
 		else if($(this).children('img').hasClass('feed-recom-icon'))
 		{
-			var feed_writer_id = '';
 			if(!askLogin(member_id))return;
+			var feed_writer_id = $(this).parent().parent().parent().children('.FEEDBACK_WRITER').val();
 			if(member_id == feed_writer_id){
 				notAllowed('피드백을 추천');
 				return;
 			}
 			var feed_id = $(this).parent().parent().parent().children('.FEEDBACK_ID').val();
-			feedback_recommend(member_id, feed_id);
+			if($(this).children('.feed-recom-tail').text() == '추천하기')
+			{
+				$(this).children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-on.png');
+				$(this).children('.feed-recom-tail').text('추천취소');
+				$(this).parent().children('.feedback-recommend-cnt').text((Number($(this).parent().children('.feedback-recommend-cnt').text()) + 1));
+			}
+			else
+			{
+				$(this).children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-off.png');
+				$(this).children('.feed-recom-tail').text('추천하기');
+				$(this).parent().children('.feedback-recommend-cnt').text((Number($(this).parent().children('.feedback-recommend-cnt').text()) - 1));
+			}
+			$.ajax({
+				data: {'FEEDBACK_ID' : feed_id, 'MEMBER_ID' : member_id}, 
+				type: 'POST', 
+				url: '/pro/portfolio/recommendFeedback', 
+				cache: false, 
+				success: function(rd){
+					if(rd != 1)
+						errorAlert('피드백 추천 과정에');
+				},
+				error: function(){
+					errorAlert('피드백 추천 과정에');
+				}
+			});
 		}
 	}
+	
 	// 포트폴리오 추천 / 취소
 	function recommend_portfolio()
 	{
@@ -522,6 +577,7 @@ $(document).ready(function(){
 	$('.feed-write-done').click(feedback_write_done);
 	// 작성완료 버튼 클릭 시
 	function feedback_write_done(){
+		generalDetailFunctionOff();
 		var port_id = $('#detail_port_id').val();
 		var feed_content = $('#FEED_CONTENT').val();
 		if(feed_content == null || feed_content ==''){
@@ -537,33 +593,18 @@ $(document).ready(function(){
 			success: function(rd){
 				if(rd != 1)
 					errorAlert('피드백 작성 하는 중');
-				else if(rd == 1)
+				else if(rd == 1){
 					writeDoneAlert();
+					$('.portfolio-feedback-cnt').text((Number($('.portfolio-feedback-cnt').text()) + 1));
+				}
 			},
 			error: function(){
 				errorAlert('피드백 작성 하는 중');
 			}
 		});
-		if(getFeedbacks(port_id))
-			getBestFeedback(port_id);
-	}
-	// 피드백 추천 클릭 시
-	function feedback_recommend(mid, fid)
-	{
-		var clicked = $('#FEEDBACK_' + fid).parent().children('.feedback-controller').children('.feedback-recommend').children('.icon-tail-fit');
-		if(clicked == null)console.log('null');
-		if(clicked.children('.feed-recom-tail').text() == '추천하기')
-		{
-			clicked.children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-on.png');
-			clicked.children('.feed-recom-tail').text('추천취소');
-			clicked.parent().children('.feedback-recommend-cnt').text((Number(clicked.parent().children('.feedback-recommend-cnt').text()) + 1));
-		}
-		else
-		{
-			clicked.children('.feed-recom-icon').attr('src', '/pro/resources/Image/icon/recom-off.png');
-			clicked.children('.feed-recom-tail').text('추천하기');
-			clicked.parent().children('.feedback-recommend-cnt').text((Number(clicked.parent().children('.feedback-recommend-cnt').text()) - 1));
-		}
+		getFeedbacks(port_id)
+		getBestFeedback(port_id);
+		generalDetailFunctionOn();
 	}
 	
 	// 포트폴리오 콘솔 > 클릭 시
@@ -595,17 +636,11 @@ $(document).ready(function(){
 	{
 		var writerNick = '';
 		if($(this).hasClass('portfolio-info-writer'))
-		{
 			writerNick = $('.portfolio-info-writer-nick').text();
-		}
 		else if($(this).hasClass('feedback-writer-profile'))
-		{
 			writerNick = $(this).children('.feedback-writer-nick').text();
-		}
 		else
-		{
 			return;
-		}
 		$('#alert-wrap').fadeIn(200, function(){
 			$('#alert-wrap .profile-alert').css('display', 'block');
 			$('#alert-wrap .profile-nick').text(writerNick);
@@ -836,11 +871,13 @@ function askLogin(mid)
 				$('#alert-wrap .login-alert').css('display', 'none');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
+				$(window).off('keydown');
 			});
 		})
 	})
 }
 // missing-alert
+// 포트폴리오의 공개여부가 바뀌거나 삭제되었을 시
 function askRefresh()
 {
 	$('#alert-wrap').fadeIn(200, function(){
@@ -861,15 +898,17 @@ function askRefresh()
 				$('#alert-wrap .missing-alert').css('display', 'none');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
+				$(window).off('keydown');
 			});
 		})
 	})
 }
-// not-allowed alert
+// 본인 포트폴리오, 피드백 추천, 스크랩 시 alert
 function notAllowed(msg)
 {
 	$('#alert-wrap').fadeIn(200, function(){
 		$('#alert-wrap .not-allowed-message').text(msg);
+		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
 		$('#alert-wrap .not-allowed-alert').css('display', 'block');
 		$('#alert-wrap .alert-box').fadeIn();
 		$('#alert-wrap .goBtn').on('click', function(){
@@ -886,13 +925,15 @@ function notAllowed(msg)
 				$('#alert-wrap').fadeOut();
 				$('#alert-wrap .not-allowed-alert').css('display', 'none');
 				$('#alert-wrap .not-allowed-message').text('');
+				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
+				$(window).off('keydown');
 			});
 		})
 	})
 }
-// error-alert
+// 에러발생 시 alert
 function errorAlert(msg)
 {
 	$('#alert-wrap').fadeIn(200, function(){
@@ -901,7 +942,7 @@ function errorAlert(msg)
 		$('#alert-wrap .error-alert').css('display', 'block');
 		$('#alert-wrap .alert-box').fadeIn();
 		$('#alert-wrap .goBtn').on('click', function(){
-			$('#alert-wrap .cancelBtn').trigger('click');
+			location.reload();
 		});
 		$(window).keydown(function(key) {
 			if (key.keyCode == 13) {
@@ -917,11 +958,12 @@ function errorAlert(msg)
 				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
+				$(window).off('keydown');
 			});
 		})
 	})
 }
-// write-done-alert
+// 작성 완료 alert
 function writeDoneAlert()
 {
 	$('#alert-wrap').fadeIn(200, function(){
@@ -945,6 +987,139 @@ function writeDoneAlert()
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$('.exit-cover').trigger('click');
+				$(window).off('keydown');
+			});
+		})
+	})
+}
+// 피드백 수정 확인 alert
+function feedUpdateConfirm(fid){
+	$('#alert-wrap').fadeIn(200, function(){
+		$('#alert-wrap .feed-update-confirm').css('display', 'block');
+		$('#alert-wrap .alert-box').fadeIn();
+		$('#alert-wrap .goBtn').on('click', function(){
+			alert('피드백 수정!');
+		});
+		$(window).keydown(function(key) {
+			if (key.keyCode == 13) {
+				$('.goBtn').trigger('click');
+				$(window).off('keydown');
+		    }
+		});
+		$('#alert-wrap .cancelBtn').on('click', function(){
+			$('#alert-wrap .alert-box').fadeOut(200, function(){
+				$('#alert-wrap').fadeOut();
+				$('#alert-wrap .feed-update-confirm').css('display', 'none');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+				$('.exit-cover').trigger('click');
+				$(window).off('keydown');
+			});
+		})
+	})
+}
+// 피드백 삭제 확인 alert
+function feedDeleteConfirm(fid){
+	$('#alert-wrap').fadeIn(200, function(){
+		$('#alert-wrap .feed-delete-confirm').css('display', 'block');
+		$('#alert-wrap .alert-box').fadeIn();
+		$(window).keydown(function(key) {
+			if (key.keyCode == 13) {
+				$('.goBtn').trigger('click');
+				$(window).off('keydown');
+		    }
+		});
+		$('#alert-wrap .cancelBtn').on('click', function(){
+			$('#alert-wrap .alert-box').fadeOut(200, function(){
+				$('#alert-wrap').fadeOut();
+				$('#alert-wrap .feed-delete-confirm').css('display', 'none');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+				$('.exit-cover').trigger('click');
+				$(window).off('keydown');
+			});
+		})
+		$('#alert-wrap .goBtn').on('click', function(){
+			$('#alert-wrap .alert-box').fadeOut(200, function(){
+				$('#alert-wrap .feed-delete-confirm').css('display', 'none');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+				$('.exit-cover').trigger('click');
+				$(window).off('keydown');
+				member_id = $('#userId').val();
+				$.ajax({
+					data: {'FEEDBACK_ID' : fid, 'MEMBER_ID' : member_id}, 
+					type: 'POST',
+					async: false, 
+					url: '/pro/portfolio/deleteFeedback', 
+					cache: false, 
+					success: function(dr){
+						if(dr == 1)
+						{
+							$('#feedback_'+fid).remove();
+							$('#best_feed_'+fid).remove();
+							$('.portfolio-feedback-cnt').text((Number($('.portfolio-feedback-cnt').text()) - 1));
+						}
+						feedDeleteResult(dr);
+					},
+					error: function(){
+						errorAlert('피드백 삭제 과정에');
+					}
+				});
+			});
+		});
+	})
+}
+// 피드백 삭제 결과
+function feedDeleteResult(result){
+	var resultMsg = '';
+	if(result == 0){	// 세션만료로 삭제 실패
+		resultMsg = '&nbsp;실패<br>지속적인 오류 발생시 관리자에게 문의바랍니다';
+		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+	}
+	else if(result == 1){	// 삭제 성공
+		resultMsg = '&nbsp;성공';
+		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+	}
+	else if(result == 2){	// 세션만료로 삭제 실패
+		resultMsg = '&nbsp;실패<br>세션만료로 재로그인이 필요합니다.<br>로그인 페이지로 이동하시겠습니까?';
+	}
+	else if(result == 3){	// 삭제 권한이 없음
+		resultMsg = '&nbsp;권한이 없습니다.';
+		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+	}
+	$('#alert-wrap').fadeIn(200, function(){
+		$('#alert-wrap .delete-result-message').append(resultMsg);
+		$('#alert-wrap .feed-delete-result').css('display', 'block');
+		$('#alert-wrap .alert-box').fadeIn();
+		$('#alert-wrap .goBtn').on('click', function(){
+			if(result == 0){
+				$('#alert-wrap .cancelBtn').trigger('click');
+			}
+			else if(result == 1){
+				$('#alert-wrap .cancelBtn').trigger('click');
+			}
+			else if(result == 2){
+				location.href='/pro/login';
+			}
+			else if(result == 3)$('#alert-wrap .cancelBtn').trigger('click');
+		});
+		$(window).keydown(function(key) {
+			if (key.keyCode == 13) {
+				$('.goBtn').trigger('click');
+				$(window).off('keydown');
+		    }
+		});
+		$('#alert-wrap .cancelBtn').on('click', function(){
+			$('#alert-wrap .alert-box').fadeOut(200, function(){
+				$('#alert-wrap').fadeOut();
+				$('#alert-wrap .feed-delete-result').css('display', 'none');
+				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+				$('#alert-wrap .delete-result-message').text('');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+				$('.exit-cover').trigger('click');
+				$(window).off('keydown');
 			});
 		})
 	})

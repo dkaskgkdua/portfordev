@@ -29,7 +29,7 @@ public class Feedback
 	private String FEED_WRITER_IMG;
 	// 피드백 작성자 활동 점수
 	@JsonSetter("FEED_WRITER_SCORE")
-	private String FEED_WRITER_SCORE;
+	private int FEED_WRITER_SCORE;
 	// 피드백 추천 유무
 	@JsonSetter("FEED_RECOM")
 	private int FEED_RECOM = 0;

@@ -42,7 +42,7 @@ public interface portfolio_service
 	// 포트폴리오 추천 수 가져오기
 	public int getPortRecommendCount(int PORT_ID);
 	// 포트폴리오 작성자 정보 가져오기
-	public Map<String, String> getPortWriter(String MEMBER_ID);
+	public Portfolio getPortWriter(int PORT_ID);
 	// 포트폴리오 날짜 변환
 	public Map<String, String> replaceDate(int PORT_ID);
 }

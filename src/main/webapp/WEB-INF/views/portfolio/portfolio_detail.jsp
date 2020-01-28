@@ -34,17 +34,22 @@
 		<span class="alert-message write-done-alert">
 			피드백 작성을 완료하였습니다.
 		</span>
-		<span class="alert-message delete-confirm">
-			피드백을 정말 삭제하시겠습니까?<br>
-			삭제시 복구가 불가합니다.
-		</span>
-		<span class="alert-message update-confirm">
+		<span class="alert-message feed-update-confirm">
 			피드백을 수정하시겠습니까?<br>
 			수정시 추천이 초기화됩니다.
 		</span>
+		<span class="alert-message feed-delete-confirm">
+			피드백을 정말 삭제하시겠습니까?<br>
+			삭제시 복구가 불가합니다.
+		</span>
+		<span class="alert-message feed-delete-result">
+			피드백 삭제<span class="delete-result-message"></span>
+		</span>
 		<span class="alert-message error-alert">
-			<span class="error-message"></span> 에러가 발생하였습니다.<br>
-			관리자에게 문의바랍니다.
+			<span class="error-message"></span> 오류가 발생하였습니다.<br>
+			지속적으로 문제가 발생할 경우<br>
+			관리자에게 문의바랍니다.<br>
+			페이지를 새로고침 하시겠습니까?
 		</span>
 		<hr>
 		<div class="alert-btn-area">
@@ -261,9 +266,10 @@
 				<div class="no-feedback-item">아직 등록된 피드백이 없습니다.</div>
 				<!-- 피드백 아이템 -->
 				<c:forEach var="item" begin="0" end="2" step="1">
-				<div class="portfolio-feedback-item best-feedback" id="feedback_${item}">
+				<div class="portfolio-feedback-item best-feedback" id="best_feed_${item}">
 					<!-- hidden feedback id -->
 					<input type="hidden" class="FEEDBACK_ID" name="FEEDBACK_ID" value="${item}">
+					<input type="hidden" class="FEEDBACK_WRITER" name="FEEDBACK_WRITER" value="피드백 작성자 아이디">
 					<div class="feedback-info">
 						<span class="best-feedback-span">BEST</span>
 						<div class="feedback-writer-profile">

@@ -113,16 +113,8 @@ public class portfolio_service_impl implements portfolio_service
 	}
 	@Override
 	// 포트폴리오 작성자 정보 가져오기
-	public Map<String, String> getPortWriter(String MEMBER_ID){
-		Portfolio writerProfile = dao.getPortWriter(MEMBER_ID);
-		if(writerProfile == null)
-			return null;
-		Map<String, String> writerInfo = new HashMap<String, String>();
-		if(writerProfile.getPORT_PROFILE_IMG() != null)
-			writerInfo.put("PORT_PROFILE_IMG", writerProfile.getPORT_PROFILE_IMG());
-		if(writerProfile.getPORT_WRITER_JOB() != null)
-			writerInfo.put("PORT_WRITER_JOB", writerProfile.getPORT_WRITER_JOB());
-		return writerInfo;
+	public Portfolio getPortWriter(int PORT_ID){
+		return dao.getPortWriter(PORT_ID);
 	}
 	// 포트폴리오 날짜 변환
 	@Override

@@ -82,8 +82,8 @@ public class portfolio_dao
 		return sqlSession.selectOne("Portfolios.recommend_count", PORT_ID);
 	}
 	// 포트폴리오 작성자 정보
-	public Portfolio getPortWriter(String MEMBER_ID) {
-		return sqlSession.selectOne("Portfolios.port_writer", MEMBER_ID);
+	public Portfolio getPortWriter(int PORT_ID) {
+		return sqlSession.selectOne("Portfolios.port_writer", PORT_ID);
 	}
 	// 포트폴리오 날짜 변환
 	public Map<String, String> replaceDate(int PORT_ID) {
