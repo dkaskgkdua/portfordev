@@ -28,12 +28,30 @@
 					<h2>Noteworthy Portfolios</h2>
 					<p>현재 주목받는 포트폴리오</p>
 					<div class="best-portfolio-list">
-	  					<div class="best-portfolio-item">Best1</div>
-	  					<div class="best-portfolio-item">Best2</div>
-	  					<div class="best-portfolio-item">Best3</div>
-	  					<div class="best-portfolio-item">Best4</div>
-	  					<div class="best-portfolio-item">Best5</div>
-	  					<div class="best-portfolio-item">Best6</div>
+					<c:if test="${!empty bestList}">
+						<c:forEach var="port" items="${bestList}">
+						<div class="best-portfolio-item" id="best-port${port.PORT_ID}">
+							<input type="hidden" class="hidden_PORT_ID" value="${port.PORT_ID}">
+							<div class="bp-img-wrapper" style="background-image:url(/pro/resources/${port.PORT_THUMBNAIL})"></div>
+							<div class="bp-info-wrapper">
+								<img class="bp-info-writer-img" src="/pro/resources/${port.PORT_WRITER_IMG}">
+								<div class="bp-writer-info">
+									<span class="bp-info-writer">${port.PORT_WRITER}</span>
+									<span class="bp-info-writer-job">${port.PORT_WRITER_JOB}</span>님
+								</div>
+								<span class="bp-info-subject">${port.PORT_SUBJECT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/view-gray.png">
+								<span class="bp-info-view bp-count">${port.PORT_READCOUNT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/like-gray.png">
+								<span class="bp-info-like bp-count">${port.PORT_LIKECOUNT}</span>
+								<c:if test="${port.PORT_FEED_NEED == 0}">
+								<img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
+								<span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
+								</c:if>
+							</div>
+						</div>
+						</c:forEach>
+					</c:if>
 					</div>
 					<p>
 						<span class="best-port-filter filter-active">Daily</span>

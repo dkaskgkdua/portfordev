@@ -11,7 +11,6 @@ $(document).ready(function(){
 		pageP = 1;
 		$('.portfolio-list').empty();
 		getPortList();
-		// console.log('page : ' + pageP + ' order : ' + orderP + ' from : ' + fromP + ' categry : ' + categoryP);
 	}
 	
 	// 포트폴리오 리스트 가져오기
@@ -54,7 +53,7 @@ $(document).ready(function(){
 					output +=		'<div class="info-detail">';
 					output +=			'<div class="title">'+this.PORT_SUBJECT+'</div>';
 					output +=			'<div class="user-profile">';
-					output +=				'<img class="pic icon-round" src="'+this.PORT_WRITER_IMG+'">';
+					output +=				'<img class="pic icon-round" src="/pro/resources/'+this.PORT_WRITER_IMG+'">';
 					output +=				'<input type="hidden" class="user-id-hidden" value="'+this.MEMBER_ID+'">';
 					output +=				'<input type="hidden" class="user-nick-hidden" value="'+this.PORT_WRITER+'">';
 					output +=				this.PORT_WRITER;
@@ -86,6 +85,7 @@ $(document).ready(function(){
 					output +=	'</div>';
 					output += '</div>';
 					$('.portfolio-list').append(output);
+					$('#portfolio_' + this.PORT_ID).children('.img-wrapper').css({'background-image' : 'url(/pro/resources/'+this.PORT_THUMBNAIL+')'});
 					$('#portfolio_' + this.PORT_ID).fadeIn(400);
 				})
 				generalFunctions();

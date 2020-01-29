@@ -43,6 +43,12 @@ public class Portfolio
 	private int PORT_READCOUNT;
 	@JsonSetter("PORT_UPLOADFILE")
 	List<MultipartFile> PORT_UPLOADFILE;
+	// 포트폴리오 썸네일
+	@JsonSetter("PORT_THUMBNAIL")
+	private String PORT_THUMBNAIL;
+	// 포트폴리오 이미지 파일들
+	@JsonSetter("PORT_IMG_FILES")
+	private String PORT_IMG_FILES;
 	// 포트폴리오 추천 유무 확인
 	@JsonSetter("PORT_RECOM")
 	private int PORT_RECOM = 0;
@@ -57,7 +63,7 @@ public class Portfolio
 	private String PORT_WRITER_JOB;
 	// 포트폴리오 작성자 프로필 이미지
 	@JsonSetter("PORT_WRITER_IMG")
-	private String PORT_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+	private String PORT_WRITER_IMG;
 	// 포트폴리오 추천 수
 	@JsonSetter("PORT_LIKECOUNT")
 	private int PORT_LIKECOUNT = 0;

@@ -270,6 +270,13 @@ textarea:focus{
 	background:#5385c1;
 	margin:0 auto;
 	border-bottom:1px solid lightgrey;
+	text-align:center;
+}
+.port-pdf-imgitem>img{
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	text-align:center;
 }
 /* DETAIL SECTION */
 #portfolio-detail-wrap{
@@ -382,12 +389,21 @@ textarea:focus{
 	min-height:283px!important;
 	margin: 10px;
 	background:#5385c1;
+	text-align:center;
 }
 .port-slide-item:hover{
 	cursor:pointer;
 	opacity:0.7;
 	border-radius:2%;
 	transition:0.3s;
+}
+.port-slide-item>img{
+	max-width:100%;
+	width:auto;
+	height:auto;
+	max-height:283px;
+	margin:0 auto;
+	text-align:center;
 }
 /* 콘솔 활성 비활성 버튼 */
 .drag-activity-menu{
@@ -649,8 +665,8 @@ textarea:focus{
 	background-color:lightgrey;
 	z-index:106;
 }
-/* FEEDBACK 작성 폼 */
-.feedback-write-container{
+/* FEEDBACK 작성 폼, 수정 폼 */
+.feedback-write-container, .feedback-update-container{
 	display:none;
     background-color: white;
     height:100%;
@@ -658,7 +674,7 @@ textarea:focus{
     /*border-radius: 0 0 30% 0;*/
 }
 /* 작성 폼 HEADER */
-.feed-write-header{
+.feed-write-header, .feed-update-header{
     width: 100%;
     height:50px;
     background: whitesmoke;
@@ -666,7 +682,7 @@ textarea:focus{
 	padding-top:5px;
 	display:block;
 }
-.feed-write-header h2{
+.feed-write-header h2, .feed-update-header h2{
 	font-weight:700;
 	margin:0;
 	margin-left:10px;
@@ -692,7 +708,7 @@ textarea:focus{
 	font-weight:1000;
 	font-size:16px;
 }
-#FEED_CONTENT{
+#FEED_CONTENT, #FEED_UPDATE_CONTENT{
 	float: right;
     height: calc(100% - 110px);
     max-height:180px;
@@ -700,7 +716,7 @@ textarea:focus{
     margin-top: 10px;
     margin-right: 10px;
 }
-#FEED_CONTENT:focus{
+#FEED_CONTENT:focus, #FEED_UPDATE_CONTENT:focus{
 	transition:0.4s;
 	background:white;
 	font-size:12pt;
@@ -719,7 +735,7 @@ textarea:focus{
 	transition:0.3s;
 }
 /* 작성, 취소 버튼 */
-.feed-write-cancel, .feed-write-done{
+.feed-write-cancel, .feed-write-done, .feed-update-cancel, .feed-update-done{
 	height:40px!important;
 	float:right;
 }
@@ -794,7 +810,6 @@ textarea:focus{
 	display:none;	/* Chrome, Safari, Opera */
 }
 .no-feedback-item{
-	display:none;
 	text-align: center;
     font-weight: bold;
     font-size: 22px;
@@ -1041,7 +1056,7 @@ textarea:focus{
 		top:100%;
 		z-index:200;
 	}
-	.feedback-write-container{
+	.feedback-write-container, .feedback-update-container{
 		height:250px;
 	}
 	#feed-icon-tail{
@@ -1220,7 +1235,7 @@ textarea:focus{
 	.detail-summary-regidate{
 		top:47px;
 	}
-	.feedback-write-container button{
+	.feedback-write-container button, .feedback-update-container button{
 		padding:0 13px!important;
 		margin-left:15px!important;
 		width:100px!important;

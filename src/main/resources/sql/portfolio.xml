@@ -3,22 +3,24 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Portfolios">
 	<!-- 베스트5 포트폴리오 -->
-	<select id="best_port" parameterType="java.util.Map" resultType="Portfolio">
+	<select id="best_port" parameterType="String" resultType="Portfolio">
 		select * 
-			from (select ROWNUM RNUM, PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_REGIDATE
+			from (select ROWNUM RNUM, PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none')
 				from PORTFOLIO 
 				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
-				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID) 
-				where PORT_LIKECOUNT &lt;= 3
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+				where PORT_LIKECOUNT &gt;= 3
 				and PORT_SHOW = 0 
 		<choose>
-			<when test='from != null and from.equals("daily")'>
+			<when test='condition != null and from.equals("daily")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 1 
 			</when>
-			<when test='from != null and from.equals("weekly")'>
+			<when test='condition != null and from.equals("weekly")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 7 
 			</when>
-			<when test='from != null and from.equals("monthly")'>
+			<when test='condition != null and from.equals("monthly")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 31 
 			</when>
 		</choose> 
@@ -28,16 +30,18 @@
 	<!-- 포트폴리오 list -->
 	<select id="list" parameterType="java.util.Map" resultType="Portfolio">
 		select * from (select rownum rnum, p.* 
-			from (select PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT
+			from (select PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none') PORT_WRITER_IMG 
 				from PORTFOLIO 
-				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID)
-				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID) )p 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID) 
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as PORT_WRITER_IMG from PROFILE) using(MEMBER_ID) ) p 
 		<choose>
 			<when test='category != null and category.equals("feedNeedOnly")'>
 				where PORT_FEED_NEED = 0  
 			</when>
 			<when test='category != null and category.equals("recomOnly")'>
-				where PORT_LIKECOUNT &gt;= 3 
+				where PORT_LIKECOUNT &gt;= 3  
 			</when>
 			<when test='category != null and category.equals("scrapOnly")'>
 				where PORT_ID in (select PORT_ID from PORT_SCRAP where MEMBER_ID = #{MEMBER_ID})

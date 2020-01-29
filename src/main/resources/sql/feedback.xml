@@ -40,6 +40,11 @@
 			</otherwise>
 		</choose>
 	</select>
+	<!-- 피드백 select -->
+	<select id="select" parameterType="int" resultType="Feedback">
+		select * from PORT_FEEDBACK 
+		where FEEDBACK_ID = #{FEEDBACK_ID}
+	</select>
 	<!-- 피드백 insert -->
 	<insert id="insert" parameterType="Feedback">
 		insert into PORT_FEEDBACK values(PORT_FEEDBACK_SEQ.NEXTVAL, #{PORT_ID}, #{MEMBER_ID}, #{FEEDBACK_CONTENT}, sysdate)

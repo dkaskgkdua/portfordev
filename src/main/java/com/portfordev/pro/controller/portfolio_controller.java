@@ -1,6 +1,7 @@
 package com.portfordev.pro.controller;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.text.ParseException;
 import java.util.HashMap;
@@ -63,11 +64,24 @@ public class portfolio_controller
 				PORT_SCRAP = po_service.checkScrapPortfolio(pschk);
 			}
 			String PORT_WRITER = member_service.get_name(port.getMEMBER_ID());
-			// String PORT_PROFILE_IMG = pr_service.getProfileImage(port.getMEMBER_ID());
+			int PORT_LIKECOUNT = po_service.getPortRecommendCount(port.getPORT_ID());
+			int PORT_FEEDCOUNT = fb_service.getFeedbackCount(port.getPORT_ID());
+			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
+			String[] fileList = getFiles(PORT_FILE_PATH);
+			String PORT_THUMBNAIL = "Image/no_img.png";
+			if(fileList != null) 
+				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
+			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
+			if(PORT_WRITER_IMG.equals("none"))
+				PORT_WRITER_IMG = "Image/userdefault.png";
+			else
+				PORT_WRITER_IMG = "upload/" + PORT_WRITER_IMG;
+			port.setPORT_WRITER_IMG(PORT_WRITER_IMG);
 			port.setPORT_SCRAP(PORT_SCRAP);
 			port.setPORT_WRITER(PORT_WRITER);
-			// port.setPORT_PROFILE_IMG(PORT_PROFILE_IMG);
-			
+			port.setPORT_LIKECOUNT(PORT_LIKECOUNT);
+			port.setPORT_FEEDCOUNT(PORT_FEEDCOUNT);
+			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
 		}
 		mv.addObject("portList",portList);
 		mv.setViewName("portfolio/portfolio_collection");
@@ -87,9 +101,7 @@ public class portfolio_controller
 		if(category.equals("scrapOnly"))
 		{
 			if(session.getAttribute("id") != null)
-			{
 				map.put("MEMBER_ID", ""+session.getAttribute("id"));
-			}
 			else
 				return null;
 		}
@@ -106,17 +118,36 @@ public class portfolio_controller
 				pschk.put("MEMBER_ID", (String)session.getAttribute("id"));
 				PORT_SCRAP = po_service.checkScrapPortfolio(pschk);
 			}
-			String PORT_WRITER = member_service.get_name(port.getMEMBER_ID());
-			// String PORT_PROFILE_IMG = pr_service.getProfileImage(port.getMEMBER_ID());
-			int PORT_LIKECOUNT = po_service.getPortRecommendCount(port.getPORT_ID());
-			int PORT_FEEDCOUNT = fb_service.getFeedbackCount(port.getPORT_ID());
+			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
+			String[] fileList = getFiles(PORT_FILE_PATH);
+			String PORT_THUMBNAIL = "Image/no_img.png";
+			if(fileList != null) 
+				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
+			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
+			if(PORT_WRITER_IMG.equals("none"))
+				PORT_WRITER_IMG = "Image/userdefault.png";
+			else
+				PORT_WRITER_IMG = "upload/" + PORT_WRITER_IMG;
+			port.setPORT_WRITER_IMG(PORT_WRITER_IMG);
 			port.setPORT_SCRAP(PORT_SCRAP);
-			port.setPORT_WRITER(PORT_WRITER);
-			// port.setPORT_PROFILE_IMG(PORT_PROFILE_IMG);
-			port.setPORT_LIKECOUNT(PORT_LIKECOUNT);
-			port.setPORT_FEEDCOUNT(PORT_FEEDCOUNT);
+			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
 		}
 		return portList;
+	}
+	
+	// 경로를 통해 파일들 가져오기
+	public String[] getFiles(String PORT_FILE_PATH) {
+		File path = new File(save_folder+PORT_FILE_PATH);
+		String fileList[] = path.list(new FilenameFilter() {
+			@Override
+			public boolean accept(File dir, String name) {
+				return (name.endsWith("jpg") || 
+						name.endsWith("jpeg") || 
+						name.endsWith("gif") || 
+						name.endsWith("png"));
+			}
+		});
+		return fileList;
 	}
 	
 	// 포트폴리오 작성
@@ -222,9 +253,8 @@ public class portfolio_controller
 		// 포트폴리오 조회수 + 1
 		po_service.readcountUpdatePortfolio(PORT_ID);
 		Portfolio portfolio = po_service.detailPortfolio(PORT_ID);
-		if(portfolio == null) {
+		if(portfolio == null)
 			return null;
-		}
 		int PORT_SCRAP = 0;
 		int PORT_RECOM = 0;
 		if(session.getAttribute("id") != null) {
@@ -246,7 +276,21 @@ public class portfolio_controller
 		String PORT_WRITTEN = dates.get("PORT_WRITTEN");
 		String PORT_START = dates.get("PORT_START");
 		String PORT_END = dates.get("PORT_END");
-		
+		String PORT_FILE_PATH = portfolio.getPORT_FILE_PATH();
+		String[] fileList = getFiles(PORT_FILE_PATH);
+		String PORT_THUMBNAIL = "Image/no_img.png";
+		String PORT_IMG_FILES = "";
+		if(fileList != null){
+			PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
+			int num = 0;
+			for(String file : fileList) {
+				if(num == 0)
+					PORT_IMG_FILES += file;
+				else
+					PORT_IMG_FILES += "/" + file;
+				num++;
+			}
+		}
 		portfolio.setPORT_SCRAP(PORT_SCRAP);
 		portfolio.setPORT_RECOM(PORT_RECOM);
 		portfolio.setPORT_WRITER(PORT_WRITER);
@@ -257,6 +301,8 @@ public class portfolio_controller
 		portfolio.setPORT_WRITTEN(PORT_WRITTEN);
 		portfolio.setPORT_START(PORT_START);
 		portfolio.setPORT_END(PORT_END);
+		portfolio.setPORT_THUMBNAIL(PORT_THUMBNAIL);
+		portfolio.setPORT_IMG_FILES(PORT_IMG_FILES);
 		return portfolio;
 	}
 	// 포트폴리오 스크랩 / 취소

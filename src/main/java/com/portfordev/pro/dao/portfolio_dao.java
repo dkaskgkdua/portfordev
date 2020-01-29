@@ -17,6 +17,10 @@ public class portfolio_dao
 {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
+	// 포트폴리오 Best5 for main
+	public List<Portfolio> getBestPort5List(String condition){
+		return sqlSession.selectList("Portfolios.best_port", condition);
+	}
 	// 포트폴리오 list
 	public List<Portfolio> getPortfolioList(Map<String, String> map){
 		return sqlSession.selectList("Portfolios.list", map);

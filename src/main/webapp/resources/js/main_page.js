@@ -24,7 +24,10 @@ $(window).load(function(){
 				  settings:{slidesToShow:1}
 			  }
 		  ]
-		});
+	},function(){
+		$('.bp-info-wrapper').css('width', $('.best-portfolio-item').width());
+	});
+	// 
 	// 베스트 포트폴리오 필터 변경시
 	$('.best-port-filter').click(function(){
 		$('.best-port-filter').removeClass('filter-active');
@@ -41,6 +44,15 @@ $(window).load(function(){
 		{
 			// alert('MM');
 		}
+	});
+	// slide-item hover 시
+	$('.best-portfolio-item').hover(function(){
+		$(this).children('.bp-info-wrapper').stop().fadeIn();
+	}, function(){
+		$(this).children('.bp-info-wrapper').stop().fadeOut();
+	});
+	$(window).resize(function(){
+		$('.bp-info-wrapper').css('width', $('.best-portfolio-item').width());
 	});
 	
 	// feature 기능 구현

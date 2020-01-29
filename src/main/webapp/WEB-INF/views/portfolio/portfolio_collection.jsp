@@ -54,7 +54,7 @@
 					<div class="portfolio-list-item clickable">
 						<input type="hidden" class="hidden_PORT_ID" value="${port.PORT_ID}">
 						<input type="hidden" class="hidden_PORT_WRITER_ID" value="${port.MEMBER_ID}">
-						<div class="img-wrapper">
+						<div class="img-wrapper" style="background-image:url(/pro/resources/${port.PORT_THUMBNAIL});">
 							<input type="hidden" class="port-img-hidden" value="${port.PORT_FILE_PATH}">
 							<div class="port-scrap-area">
 								<c:if test="${port.PORT_SCRAP == 0}">
@@ -74,7 +74,7 @@
 							<div class="info-detail">
 								<div class="title">${port.PORT_SUBJECT}</div>
 								<div class="user-profile">
-									<img class="pic icon-round" src="${port.PORT_WRITER_IMG}">
+									<img class="pic icon-round" src="/pro/resources/${port.PORT_WRITER_IMG}">
 									<input type="hidden" class="user-id-hidden" value="${port.MEMBER_ID}">
 									<input type="hidden" class="user-nick-hidden" value="${port.PORT_WRITER}">
 									${port.PORT_WRITER}

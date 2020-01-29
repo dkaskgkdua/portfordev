@@ -1,6 +1,5 @@
 package com.portfordev.pro.service;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -20,6 +19,11 @@ public class portfolio_service_impl implements portfolio_service
 	@Autowired
 	private portfolio_dao dao;
 	
+	// 메인 베스트 포트폴리오 탑5 가져오기
+	@Override
+	public List<Portfolio> getBestPort5List(String condition){
+		return dao.getBestPort5List(condition);
+	}
 	// 포트폴리오 리스트 가져오기
 	@Override
 	public List<Portfolio> getPortfolioList(Map<String, String> map){
@@ -40,12 +44,15 @@ public class portfolio_service_impl implements portfolio_service
 		dao.insert_portfolio(portfolio);
 	}
 	private String xss_clean_check(String value) {
-		String safe_value = Jsoup.clean(value, Whitelist.basic());
-		if(safe_value.equals("")) {
-			safe_value = "XSS 공격이 감지되었습니다.";
-		}
-		return safe_value;
-	}
+	      if(!value.equals("")) {
+	         String safe_value = Jsoup.clean(value, Whitelist.basic());
+	         if(safe_value.equals("")) {
+	            safe_value = "XSS 공격이 감지되었습니다.";
+	         }
+	         return safe_value;
+	      }
+	      return value;
+	   }
 	@Override
 	// 포트폴리오 수정
 	public int update_portfolio(Portfolio portfolio) {

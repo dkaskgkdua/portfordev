@@ -77,16 +77,17 @@ $(document).ready(function(){
 			success : function(news){
 				$('.newsItem').off('click');
 				$('.newsList').empty();
-				var output = '';
-				$.each(news, function(){
-					output += '<div class="newsItem clickable"> '
+				$.each(news, function(i){
+					var output = '';
+					output += '<div class="newsItem clickable" id="news_'+i+'"> '
 					output += 	'<div class="newsItemHeader"> ';
 					output += 		'<span class="newsTitle">'+this.title+'</span> ';
 					output +=		'<span class="newsDate">'+this.pubDate+'</span></div> ';
 					output +=	'<p>'+this.description+'</p> ';
 					output +=	'<a href="'+this.originallink+'" class="button special small">보러가기</a></div> ';
+					$('.newsList').append(output);
+					$('#news_'+i).css('opacity', 0).animate({'opacity':1}, 1000);
 				});
-				$('.newsList').append(output);
 				$('html').animate({scrollTop : $('#searchedNews .newsHeader').offset().top}, 400);
 				$('.newsItem').click(function(){
 					window.open($(this).children('a').attr('href'), "_blank");

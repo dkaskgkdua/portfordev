@@ -117,11 +117,18 @@ public class feedback_controller
 	@ResponseBody
 	@PostMapping("/portfolio/updateFeedback")
 	public Feedback updateFeedback(@RequestParam("FEEDBACK_ID") int FEEDBACK_ID, HttpSession session) {
-		if(session.getAttribute("id") != null)
-			return null;
+		if(session.getAttribute("id") == null)
+			return new Feedback();
 		Feedback feedback = fb_service.selectFeedback(FEEDBACK_ID);
 		if(!session.getAttribute("id").equals(feedback.getMEMBER_ID()))
-			return null;
+			return new Feedback();
+		Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(FEEDBACK_ID);
+		String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
+		String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
+		if(FEED_WRITER_IMG.equals("none"))
+			FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+		feedback.setFEED_WRITER(FEED_WRITER);
+		feedback.setFEED_WRITER_IMG(FEED_WRITER_IMG);
 		return feedback;
 	}
 	// 피드백 수정 시도

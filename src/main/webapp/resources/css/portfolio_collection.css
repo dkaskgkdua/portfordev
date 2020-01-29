@@ -310,7 +310,7 @@ tbody{
 	background-position:top;
 	background-repeat:no-repeat;
 	background-attachment:scroll;
-	background-image:url(../Image/banner.jpg);
+	background-image:url(/pro/resources/Image/no_img.png);
 	text-align:center;
 	border-top:0.5em solid #5385c1;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);

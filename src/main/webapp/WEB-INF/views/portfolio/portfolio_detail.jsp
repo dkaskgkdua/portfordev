@@ -31,12 +31,18 @@
 		<span class="alert-message not-allowed-alert">
 			본인의 <span class="not-allowed-message"></span> 할 수 없습니다.
 		</span>
+		<span class="alert-message content-need-alert">
+			피드백 내용은 필수적으로 입력해야합니다.
+		</span>
 		<span class="alert-message write-done-alert">
 			피드백 작성을 완료하였습니다.
 		</span>
 		<span class="alert-message feed-update-confirm">
 			피드백을 수정하시겠습니까?<br>
 			수정시 추천이 초기화됩니다.
+		</span>
+		<span class="alert-message update-done-alert">
+			피드백 수정을 완료하였습니다.
 		</span>
 		<span class="alert-message feed-delete-confirm">
 			피드백을 정말 삭제하시겠습니까?<br>
@@ -46,7 +52,8 @@
 			피드백 삭제<span class="delete-result-message"></span>
 		</span>
 		<span class="alert-message error-alert">
-			<span class="error-message"></span> 오류가 발생하였습니다.<br>
+			<span class="error-message"></span><br>
+			오류가 발생하였습니다.<br>
 			지속적으로 문제가 발생할 경우<br>
 			관리자에게 문의바랍니다.<br>
 			페이지를 새로고침 하시겠습니까?
@@ -237,9 +244,24 @@
 					<img class="feed-writer-profile-img" src="/pro/resources/Image/userdefault.png">
 					<span class="feed-writer-profile-nick"></span>
 				</div>
-				<textarea id="FEED_CONTENT" name="FEEDBACK_CONTENT"></textarea>
+				<textarea id="FEED_CONTENT"></textarea>
 				<button type="button" class="feed-write-cancel">작성취소</button>
 				<button type="button" class="feed-write-done">작성완료</button>
+			</div>
+			<!-- 피드백 수정 -->
+			<div class="feedback-update-container" style="display:none;">
+				<!-- 수정 폼 헤더 -->
+				<input type="hidden" id="update-feedback-id" value="수정할 피드백 아이디">
+				<div class="feed-update-header">
+					<h2>Feedback Update</h2>
+				</div>
+				<div class="feed-writer-profile">
+					<img class="feed-writer-profile-img" src="/pro/resources/Image/userdefault.png">
+					<span class="feed-writer-profile-nick"></span>
+				</div>
+				<textarea id="FEED_UPDATE_CONTENT"></textarea>
+				<button type="button" class="feed-update-cancel">수정취소</button>
+				<button type="button" class="feed-update-done">수정완료</button>
 			</div>
 			<!-- 피드백 헤더 -->
 			<div class="portfolio-feedback-header">
@@ -263,7 +285,7 @@
 			<!-- 피드백 리스트 -->
 			<div class="portfolio-feedback-list">
 				<!-- 피드백 없을 경우 -->
-				<div class="no-feedback-item">아직 등록된 피드백이 없습니다.</div>
+				<div class="no-feedback-item" style="display:none;">아직 등록된 피드백이 없습니다.</div>
 				<!-- 피드백 아이템 -->
 				<c:forEach var="item" begin="0" end="2" step="1">
 				<div class="portfolio-feedback-item best-feedback" id="best_feed_${item}">
