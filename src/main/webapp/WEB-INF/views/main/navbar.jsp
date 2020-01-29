@@ -72,7 +72,7 @@
 							} else if(this.alert_CATEGORY == 3) {
 								output += " 게시물에 추천을 취소했습니다.";
 							}
-							output+="<span>"+this.alert_DATE+"</span></a></td></tr>"
+							output+="</a><span class='alert_date'>"+this.alert_DATE+"</span></td></tr>"
 						});
 					} else {
 						output += "<tr><td>기록된 활동이 없습니다.</td></tr>";
@@ -104,6 +104,10 @@
 }
 .alert_a {
 	color: black;
+}
+.alert_date {
+	float : right;
+	width : 60px;
 }
 .modal-content {
 	height : 450px;
@@ -154,7 +158,7 @@
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get" id="searchform">
 			<input class="form-control mr-sm-2" type="search" name="search"
 				placeholder="Search" aria-label="Search">
-			<button class="btn btn-info my-2 my-sm-0" type="submit">Search</button>
+			<button class="btn btn-info my-2 my-sm-0" style ="height:38px"type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>
 					<c:when test="${power=='1'}">
@@ -195,9 +199,9 @@
       	</table>
       </div>
       <div class="modal-footer">
-        <button id = "mypage_button" type="button" class="btn btn-primary">마이페이지</button>
-        <button id = "logout_button" type="button" class="btn btn-secondary">로그아웃</button>
-        <button type="button" class="btn btn-danger" data-dismiss="modal">닫기</button>
+        <button id = "mypage_button" type="button" class="btn btn-info">Mypage</button>
+        <button id = "logout_button" type="button" class="btn btn-secondary">Logout</button>
+        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
       </div>
     </div>
   </div>

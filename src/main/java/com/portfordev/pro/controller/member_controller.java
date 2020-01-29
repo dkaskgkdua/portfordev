@@ -79,9 +79,6 @@ public class member_controller {
 	public ModelAndView mypage(@RequestParam("MEMBER_ID") String MEMBER_ID,
 			@RequestParam(value="page", defaultValue="1", required = false) int page,
 			HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
-		if(session.getAttribute("id") != null) {
-			
-		}
 		Member member = member_service.get_member(MEMBER_ID);
 		int limit = 15;
 		int list_count = log_service.get_log_count(MEMBER_ID);

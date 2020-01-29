@@ -91,7 +91,7 @@ public class portfolio_controller
 		}
 		portfolio.setPORT_FILE_PATH(portfolio_id+"/");
 		member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
-		log_service.insert_log(new Member_log(portfolio.getMEMBER_ID(), 3, portfolio_id));
+		log_service.insert_log(new Member_log(portfolio.getMEMBER_ID(), 2, portfolio_id));
 		po_service.insert_portfolio(portfolio);
 		return "redirect:pro";
 	}
