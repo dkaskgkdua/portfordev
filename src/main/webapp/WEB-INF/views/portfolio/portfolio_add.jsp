@@ -131,11 +131,11 @@ h3 {
 				<div class="form-group">
 					<label style ="display:inline" for="PORT_UPLOADFILE">이미지 첨부</label> 
 					<label style ="display:inline" for="PORT_UPLOADFILE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
-						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
+						<img id=ig src="/pro/resources/Image/icon/images.svg" width ="10px" alt="파일첨부">
 					</label> 
 					<input  multiple ="multiple"  class="file_up" type="file" id="PORT_UPLOADFILE" name="PORT_UPLOADFILE">
 					<span id="port_filevalue"></span>
-					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove2">
+					<img src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove2">
 				</div>
 				<div class="form-group">
 					<span style="color:red">확장자는 jpg, jpeg, gif, png만 가능합니다.</span>

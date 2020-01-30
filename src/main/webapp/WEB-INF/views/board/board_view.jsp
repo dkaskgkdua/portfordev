@@ -53,7 +53,7 @@ span {
 			},
 			success : function(rdata) {
 				$("#reco_button").empty();
-				var text = '<img id = "reco_img" src="resources/Image/icon/heart-fill.svg" width ="18px" class="padding-top">';
+				var text = '<img id = "reco_img" src="/pro/resources/Image/icon/heart-fill.svg" width ="18px" class="padding-top">';
 				$("#reco_button").append(text+rdata);
 			},
 			error : function() {
@@ -71,7 +71,7 @@ span {
 			},
 			success : function(rdata) {
 				$("#reco_button").empty();
-				var text = '<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px" class="padding-top">';
+				var text = '<img id = "reco_img" src="/pro/resources/Image/icon/heart.svg" width ="18px" class="padding-top">';
 				$("#reco_button").append(text+rdata);
 			},
 			error : function() {
@@ -93,7 +93,7 @@ span {
 		
 		<c:forEach var="recos" items="${board_reco_list}">
 			if("${recos.MEMBER_ID}" =="${id}") {
-				$("#reco_img").attr("src","resources/Image/icon/heart-fill.svg");
+				$("#reco_img").attr("src","/pro/resources/Image/icon/heart-fill.svg");
 			}
 		</c:forEach>
 		
@@ -103,7 +103,7 @@ span {
 				return false;
 			}
 			// 추천아님 -> 추천
-			if($("#reco_img").attr("src") =="resources/Image/icon/heart.svg") {
+			if($("#reco_img").attr("src") =="/pro/resources/Image/icon/heart.svg") {
 				insert_reco($("#board_id").val(), "${id}");
 			} else { // 추천 -> 추천아님
 				delete_reco($("#board_id").val(), "${id}");
@@ -227,7 +227,7 @@ span {
 					<td>
 						<a href="/pro/mypage?MEMBER_ID=${board_data.MEMBER_ID}">${board_data.MEMBER_NAME}
 							<span style ="font-size:10pt">
-								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
+								<img src="/pro/resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
 						</a>
 							<br>
@@ -257,7 +257,7 @@ span {
 						<div>첨부파일</div>
 						<div>
 						<c:forEach var="files" items="${board_file_list}">
-							<img src="resources/Image/down.png" width ="12px">
+							<img src="/pro/resources/Image/down.png" width ="12px">
 							<a href="board_file_down?filename=${files.BOARD_FILE}&original=${files.BOARD_FILE_ORIGINAL}">
 								${files.BOARD_FILE_ORIGINAL}</a>
 							&#32;/&#32;
