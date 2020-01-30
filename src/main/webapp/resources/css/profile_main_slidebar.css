@@ -1,5 +1,6 @@
-.slide{color:white;max-width:100%;margin:0 auto;display: inline-block;margin-top:100px;}
-	.slide_in{height:400px;margin: 10px;background:gray;}
+.slide{color:white;max-width:100%;margin:0 auto;margin-top:10px;}
+	.slide_in{height:400px;margin: 10px;background:gray;vertical-align: center}
+	.slide_in_content{width:100%;height:400px; filter: brightness(70%); opacity: 0.6}
 	.right{display: inline-block;}
 	.left{display: inline-block;}
 	.h1{font-color:black;text-align: center;font-size: 30pt;font-weight:700;color:gray}
@@ -21,6 +22,7 @@
 				filter : grayscale(100%) brightness(150%) ;
 				float:left;
 					}
+	.skill_span{font-size:20pt; font-weight: bold; float:left;margin-left:10px}				
 	/* 개발능력 이미지 */
 	.ability{border-radius:100%; width:100px; }
 	.background_in{width:50%; height:300px; background: white ; opacity: 0.7;display: inline-block;margin-top:180px;}
@@ -28,6 +30,9 @@
 	.user_name{/* background: #5385c1; color:white */}
 	/* #three{padding-top: 0px;}  */
 	body{min-width: 1000px;}
+	#add{background-color: white!important;}
+	#add img,#add span{vertical-align:middle;margin-left: 10px}
+	#add:hover{opacity: 0.4}
 	 
 #adsideWrapper { 
   position: absolute;
@@ -58,7 +63,7 @@
 					font-size: 5pt;}
 .contact_div a{text-decoration: none;}	
 #three{padding:30px}	
-.skill_img{width:50px}	
+.skill_img{width:50px;float:left}	
 .p_btn{display:none;}
 .profile_btn{display:none;}	
 
@@ -79,7 +84,7 @@
 	}
 	.skill_stack tr td:nth-child(1){width:100%;}
 	.skill_stack .h1{font-size: 12pt}
-	.skill_img{width:30px}
+	.skill_img{width:30px;float:none}
 	.skill_stack{margin-top: 20px!important;margin-bottom: 0px}
 	.skill_stack td{height:70px}
 	.skill_stack tr:nth-child(1) td:nth-child(1){height:100px}
@@ -91,5 +96,6 @@
 	.profile{width:200px;}
 	.contact_div span,.contact_div img{font-size:12pt;float:left}
 	.contact_div a{font-size:10pt;float:left}
+	.skill_span{float:none;font-size:11pt}
 	
 }

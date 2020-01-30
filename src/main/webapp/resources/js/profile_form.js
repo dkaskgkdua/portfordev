@@ -1,5 +1,34 @@
 var cnt = 0 ;
 var out='';
+var id= $('#user_id').val();
+
+$('#select1').on('change',function(){
+		var value=$(this).val();
+		if(value!="직접입력"){
+			$('#type1').val("");
+			$('#type1').val(value);
+		}else if(value=="직접입력"){
+			$('#type1').val("");
+			$('#type1').attr('type','text');
+			$('#type1').focus();
+		}
+		
+})
+
+$('#select2').on('change',function(){
+		var value=$(this).val();
+		if(value!="직접입력"){
+			$('#type2').val("");
+			$('#type2').val(value);
+		}else if(value=="직접입력"){
+			$('#type2').val("");
+			$('#type2').attr('type','text');
+			$('#type2').focus();
+		}
+		
+})
+
+
 /*시작 버튼*/
 $("#start_btn").click(function(){
 	$('.slick-next').click();
@@ -90,7 +119,6 @@ console.log("클릭 횟수 "+cnt);
 $('#submit').click(function(){ 
 	var form = $('#profile_form')[0];
     var formData = new FormData(form);
-	console.log("보낸 데이터 22"+formData.get('eng_name'));
  $.ajax({
 	 type:'post',
 	 enctype: 'multipart/form-data',
@@ -100,13 +128,12 @@ $('#submit').click(function(){
 	 contentType: false, // 필수
 
 	 success: function(item){
-      alert("에이젝스 성공="+item.result);
       $('#next').click();
       out+="<h1 class='insert_h1'>등록을 완료하였습니다.</h1>";
       out+="<div style='margin-bottom:50px'>";	
       out+="<img src='resources/Image/icon/check.png' style='width:80px;  margin: 0 auto;'>'"
       out+="</div>";	  
-      out+="<button type='button'class='end'>프로필로 이동</button>";
+      out+="<a href='profile?idch="+id+"'><button type='button'class='end' id='goprofile'>프로필로 이동</button></a>";
       $('#finish').append(out);
       
 	 },
@@ -116,15 +143,32 @@ $('#submit').click(function(){
 	      out+="<div style='margin-bottom:50px'>";	
 	      out+="<img src='resources/Image/icon/fail.png' style='width:80px; margin: 0 auto;'>'"
 	      out+='</div>';
-	      out+="<button type='button' onclick='location.href=profile_form'>다시 등록하기</button>";
-	      out+="<button type='button' class='end'>메인 페이지</button>";
+	      out+="<button type='button' class='end' id='retry'>다시 등록하기</button>";
+	      out+="<button type='button' class='end' id='gomain'>메인 페이지</button>";
 	      $('#finish').append(out);
 	 }
 
 
  })
 
+ 
+ 	$('#gomain').click(function(){
+ 		location.href="pro";
+ 		
+ 	})
+ 	
+ 	$('#retry').click(function(){
+ 		location.href="profile_form";
+ 		
+ 	})
+ 	$('#goprofile').click(function(){
+ 		location.href="profile?idch"+id;
+ 		
+ 	})
+ 		
+ 		
+ 		
+ 	
 
 
 })
-

@@ -23,8 +23,28 @@
 		insert into MEMBER values(#{MEMBER_ID}, #{MEMBER_PASSWORD}, #{MEMBER_PASSWORD_SALT}, #{MEMBER_NAME},
 		#{MEMBER_POWER}, #{MEMBER_POINT}, #{MEMBER_ACT}, sysdate)
 	</insert>
+	<select id ="get_name" resultType="String" parameterType="String">
+		select MEMBER_NAME from MEMBER where MEMBER_ID=#{id}
+	</select>
+	<update id ="add_write_act" parameterType="Map">
+		update MEMBER set MEMBER_ACT = MEMBER_ACT + #{POINT} where MEMBER_ID = #{MEMBER_ID}
+	</update>
+	<update id ="add_receive_act" parameterType="Map">
+		update (select * from MEMBER inner join BOARD using(MEMBER_ID) where board_id = #{BOARD_ID}) set MEMBER_ACT = MEMBER_ACT + #{POINT}
+	</update>
+	<select id ="get_salt" resultType="String" parameterType="String">
+		select MEMBER_PASSWORD_SALT from MEMBER where MEMBER_ID=#{id}
+	</select>
+	<update id="update_member" parameterType="Member">
+		update MEMBER set MEMBER_NAME = #{MEMBER_NAME}
+		<if test='MEMBER_PASSWORD != null'>
+			, MEMBER_PASSWORD = #{MEMBER_PASSWORD}
+		</if>
+		where MEMBER_ID = #{MEMBER_ID}
+	</update>
 	
-	 <select id="testidcheck" parameterType="String" resultType="MyBatisTestVO2">
+	
+	<select id="testidcheck" parameterType="String" resultType="MyBatisTestVO2">
 		select *
 		from member_test3
 		where num = #{inputid}
@@ -44,17 +64,7 @@
 		INSERT INTO DEPT
 		VALUES(#{deptno}, #{dname}, #{loc})
 	</insert>
-	
-	<select id ="get_name" resultType="String" parameterType="String">
-		select MEMBER_NAME from MEMBER where MEMBER_ID=#{id}
-	</select>
-	<update id ="add_write_act" parameterType="Map">
-		update MEMBER set MEMBER_ACT = MEMBER_ACT + #{POINT} where MEMBER_ID = #{MEMBER_ID}
-	</update>
-	<update id ="add_receive_act" parameterType="Map">
-		update (select * from MEMBER inner join BOARD using(MEMBER_ID) where board_id = #{BOARD_ID}) set MEMBER_ACT = MEMBER_ACT + #{POINT}
-	</update>
-	<select id ="get_salt" resultType="String" parameterType="String">
-		select MEMBER_PASSWORD_SALT from MEMBER where MEMBER_ID=#{id}
-	</select>
+	<delete id="delete_member" parameterType="String">
+		delete from member where MEMBER_ID = #{MEMBER_ID}
+	</delete>
 </mapper>

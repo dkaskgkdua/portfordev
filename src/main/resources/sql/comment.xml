@@ -8,6 +8,9 @@
 	<select id="get_list" parameterType="int" resultType="Comment">
 		select * from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = #{BOARD_ID}
 	</select>
+	<select id="get_distinct_list" parameterType="int" resultType="String">
+		select distinct MEMBER_ID from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = #{BOARD_ID}
+	</select>
 	<insert id="insert" parameterType="Comment">
 		insert into BOARD_COMMENT values(BOARD_COMMENT_SEQ.NEXTVAL, #{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CO_CONTENT}, sysdate)
 	</insert>

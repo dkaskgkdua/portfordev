@@ -23,6 +23,7 @@
 			<p>개발자들을 위한 포트폴리오</p>
 		</section>
 		<!-- One -->
+		<c:if test="${!empty recentList}">
 		<section id="one" class="wrapper special">
 			<div class="inner">
 				<header class="align-center">
@@ -113,6 +114,7 @@
 				</header>
 			</div>
 		</section>
+		</c:if>
 		<!-- Two -->
 		<section id="two" class="wrapper">
 			<div class="inner">

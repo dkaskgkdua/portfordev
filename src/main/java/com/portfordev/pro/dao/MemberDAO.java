@@ -29,7 +29,9 @@ public class MemberDAO {
 	public String get_name(String id) {
 		return sqlSession.selectOne("Members.get_name", id);
 	}
-	
+	public void update_member(Member member) {
+		sqlSession.update("Members.update_member", member);
+	}
 	public Member get_member(String id) {
 		return sqlSession.selectOne("Members.get_member", id);
 	}
@@ -41,5 +43,8 @@ public class MemberDAO {
 	}
 	public String get_salt(String id) {
 		return sqlSession.selectOne("Members.get_salt", id);
+	}
+	public void delete_member(String member_id) {
+		sqlSession.delete("Members.delete_member", member_id);
 	}
 }

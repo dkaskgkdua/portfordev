@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import com.portfordev.pro.dao.SearchDAO;
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.Portfolio;
 
 @Service
 public class search_service_impl implements search_service{
@@ -34,6 +35,11 @@ public class search_service_impl implements search_service{
 	@Override
 	public List<Board> searchQnA(String search) {
 		return dao.searchQnA(search);
+	}
+
+	@Override
+	public List<Portfolio> searchPort(String search) {
+		return dao.searchPort(search);
 	}
 
 }

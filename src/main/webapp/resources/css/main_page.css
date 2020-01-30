@@ -35,7 +35,7 @@ h3{
 .filter-disable{
 	font-weight:400;
 	color:lightgrey;
-	
+	cursor:default;
 }
 .filter-active{
 	font-weight:650;

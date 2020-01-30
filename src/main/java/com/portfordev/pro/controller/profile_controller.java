@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
@@ -17,6 +18,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
 
 import com.portfordev.pro.domain.Profile;
 import com.portfordev.pro.service.profile_service_impl;
@@ -29,8 +31,21 @@ public class profile_controller {
 	 private String saveFolder;
 	
 	@RequestMapping(value="/profile")
-	public String profile_main() throws Exception {
-			return "profile/profile";
+	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
+		profile =  service.profile_view(idch);
+		String s[]=profile.getPROFILE_TECH_FRONT().split(",");
+		String ss[]=profile.getPROFILE_TECH_BACK().split(",");
+		List<Profile> portList = service.portfolioImg(idch);
+		model.setViewName("profile/profile");
+		model.addObject("profile",profile);
+		model.addObject("portfolio",portList);
+		model.addObject("idch",idch);
+		model.addObject("front",s);
+		model.addObject("frontcnt",s.length);
+		model.addObject("back",ss);
+		
+		
+		return model;
 		
 	}
 	
@@ -57,15 +72,33 @@ public class profile_controller {
 	@ResponseBody
 	@RequestMapping(value="/profile_insert")
 	public Map<String,String> profile_insert(HttpSession session,Profile profile,HttpServletRequest request) throws Exception{
+		String s =profile.getPROFILE_REAL_NAME().replace(",","");
+		profile.setPROFILE_REAL_NAME(s);
+		String s1 =profile.getPROFILE_BLOG().replace(",","");
+		profile.setPROFILE_BLOG(s1);
+		String s2 = profile.getPROFILE_PHONE().replace(",","");
+		profile.setPROFILE_PHONE(s2);
+		String s3 = profile.getPROFILE_GIT().replace(",","");
+		profile.setPROFILE_GIT(s3);
+		String s4 = profile.getPROFILE_INTRO().replace(",","");
+		profile.setPROFILE_INTRO(s4);
+		String s5 = profile.getPROFILE_YEAR().replace(",","");
+		profile.setPROFILE_YEAR(s5);
+		String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
+		profile.setPROFILE_STRENGTH1(s6);
+		String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
+		profile.setPROFILE_STRENGTH1(s7);
+		
+		
 		MultipartFile file= profile.getProfile_img();
-		System.out.println("보낸 이름 "+profile.getEng_name());
+		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());
 		String id  = (String) session.getAttribute("id");
 		//프로필에 이미 등록됐는지 체크
 		int checkid= service.checkid(id);
 		if(checkid==0) {
 		if (!file.isEmpty()) { // 파일 업로드를 했을 때 
 			String fileName=file.getOriginalFilename(); //DB에 저장될 파일이름
-			profile.setProfile_img_ori(fileName);
+			profile.setPROFILE_IMG_ORI(fileName);
 			
 			// 새로운 폴더 이름 : 오늘 년-월-일
 			Calendar c = Calendar.getInstance();
@@ -115,7 +148,7 @@ public class profile_controller {
 			file.transferTo(new File(saveFolder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
-			profile.setProfile_img_file(fileDBName);
+			profile.setPROFILE_IMG_FILE(fileDBName);
 		} // if end
 		//check if end
 		}else {
