@@ -125,11 +125,11 @@ $(window).load(function(){
 	$('.my_profile').click(my_profile);
 	function my_profile(){
 		if(!askLogin(member_id))return;
-		location.href="/pro/profile";
+		location.href='/pro/profile?idch='+member_id;
 	}
 	$('.my_port').click(my_portfolio);
 	function my_portfolio(){
 		if(!askLogin(member_id))return;
-		location.href="/pro/profile";
+		location.href='/pro/profile?idch='+member_id;
 	}
 });

@@ -215,12 +215,13 @@ $(document).ready(function(){
 		$('.user-profile').click(function(e){
 			e.stopPropagation();
 			var writerNick = $(this).children('.user-nick-hidden').val();
+			var writerId = $(this).children('.user-id-hidden').val();
 			$('#alert-wrap').fadeIn(200, function(){
 				$('#alert-wrap .profile-alert').css('display', 'block');
 				$('#alert-wrap .profile-nick').text(writerNick);
 				$('#alert-wrap .alert-box').fadeIn();
 				$('#alert-wrap .goBtn').on('click', function(){
-					location.href = '/pro/profile';
+					location.href = '/pro/profile?idch='+writerId;
 				});
 				$('#alert-wrap .cancelBtn').on('click', function(){
 					$('#alert-wrap .alert-box').fadeOut(200, function(){

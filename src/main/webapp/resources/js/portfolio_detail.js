@@ -119,7 +119,7 @@ $(document).ready(function(){
 					$('.icon-tail-fit>.scrap-tail').text('스크랩 취소');
 				}
 				// 포트폴리오 작성자 이미지 변경
-				$('.port-writer-img-wrapper').css({'background-image' : 'url('+port.PORT_WRITER_IMG+')'})
+				$('.port-writer-img-wrapper').css({'background-image' : 'url(/pro/resources/upload'+port.PORT_WRITER_IMG+')'})
 				// 포트폴리오 작성자 닉네임
 				$('.portfolio-info-writer-nick').text(port.PORT_WRITER);
 				// 포트폴리오 작성자 직업
@@ -213,7 +213,7 @@ $(document).ready(function(){
 					var user_img = '/pro/resources/Image/userdefault.png';
 					if(this.FEED_WRITER_IMG != null)
 						user_img = this.FEED_WRITER_IMG;
-					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
+					output +=				'<img class="feedback-writer-img" src="/pro/resources/upload'+user_img+'">';
 					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
 					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
 					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
@@ -275,7 +275,7 @@ $(document).ready(function(){
 					var user_img = '/pro/resources/Image/userdefault.png';
 					if(this.FEED_WRITER_IMG != null)
 						user_img = this.FEED_WRITER_IMG;
-					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
+					output +=				'<img class="feedback-writer-img" src="/pro/resources/upload'+user_img+'">';
 					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
 					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
 					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
@@ -719,10 +719,15 @@ $(document).ready(function(){
 	function goProfile()
 	{
 		var writerNick = '';
-		if($(this).hasClass('portfolio-info-writer'))
+		var writerId = '';
+		if($(this).hasClass('portfolio-info-writer')){
 			writerNick = $('.portfolio-info-writer-nick').text();
-		else if($(this).hasClass('feedback-writer-profile'))
+			writerId = $('#writer_port_id').val();
+		}
+		else if($(this).hasClass('feedback-writer-profile')){
 			writerNick = $(this).children('.feedback-writer-nick').text();
+			writerId = $(this).parent().parent().children('.FEEDBACK_WRITER').val();
+		}
 		else
 			return;
 		$('#alert-wrap').stop().fadeIn(200, function(){
@@ -731,7 +736,7 @@ $(document).ready(function(){
 			$('#alert-wrap .profile-nick').text(writerNick);
 			$('#alert-wrap .alert-box').stop().fadeIn();
 			$('#alert-wrap .goBtn').on('click', function(){
-				location.href = '/pro/profile';
+				location.href = '/pro/profile?idch='+writerId;
 			});
 			$(window).keydown(function(key) {
 				if (key.keyCode == 13) {

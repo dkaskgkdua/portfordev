@@ -10,10 +10,14 @@
 }
 #banner h1{
 	font-weight:600!important;
+    background: rgba(0, 0, 0, 0.2);
+    color: #FFF;
 }
 #banner p{
-	font-weight:600!important;
+	font-weight:540!important;
 	font-size:1.5em;
+    background: rgba(0, 0, 0, 0.1);
+    color: rgb(205, 205, 205);
 }
 h2{
 	font-weight:600!important;
@@ -60,6 +64,7 @@ h3{
 }
 .best-portfolio-item{
 	height:283px;
+	display:inline-block;
 	width:400px;
 	max-width:100%;
 	margin: 10px;

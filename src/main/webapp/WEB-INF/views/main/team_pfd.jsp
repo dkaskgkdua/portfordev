@@ -22,21 +22,21 @@
 				<div class="flex flex-4">
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/Image/pic03.jpg" alt="Person 1" />
+							<img src="resources/Image/pic03.jpg" alt="SongMinJun" />
 						</div>
 						<h3>송민준</h3>
 						<p>팀장</p>
 					</div>
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/Image/pic04.jpg" alt="Person 2" />
+							<img src="resources/Image/pic04.jpg" alt="LeeDaEun" />
 						</div>
 						<h3>이다은</h3>
 						<p>팀원</p>
 					</div>
 					<div class="box person">
 						<div class="image round">
-							<img src="resources/Image/pic05.jpg" alt="Person 3" />
+							<img src="resources/Image/PFD_Developers/hyunho_profile.jpg" alt="AnHyunHo" />
 						</div>
 						<h3>안현호</h3>
 						<p>팀원</p>

@@ -264,7 +264,7 @@ textarea:focus{
 	z-index:302;
 	width:100%;
 	height:auto;
-	min-height:600px;
+	/*min-height:600px;*/
 	display:block;
 	color:white;
 	background:#5385c1;
@@ -879,12 +879,14 @@ textarea:focus{
 .feedback-writer-profile .activity-score{
 	max-height:25px;
 	max-width:25px;
+    vertical-align: top;
 }
 .feedback-writer-profile .feedback-writer-score{
 	max-height:25px;
 	display:inline-block;
 	max-width:calc(100% - 25px);
 	overflow:hidden;
+	line-height:14px;
 }
 .feedback-content{
 	width:80%;
