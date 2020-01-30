@@ -118,6 +118,9 @@ public class portfolio_controller
 				pschk.put("MEMBER_ID", (String)session.getAttribute("id"));
 				PORT_SCRAP = po_service.checkScrapPortfolio(pschk);
 			}
+			String PORT_WRITER = member_service.get_name(port.getMEMBER_ID());
+			int PORT_LIKECOUNT = po_service.getPortRecommendCount(port.getPORT_ID());
+			int PORT_FEEDCOUNT = fb_service.getFeedbackCount(port.getPORT_ID());
 			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
 			String[] fileList = getFiles(PORT_FILE_PATH);
 			String PORT_THUMBNAIL = "Image/no_img.png";
@@ -130,6 +133,9 @@ public class portfolio_controller
 				PORT_WRITER_IMG = "upload/" + PORT_WRITER_IMG;
 			port.setPORT_WRITER_IMG(PORT_WRITER_IMG);
 			port.setPORT_SCRAP(PORT_SCRAP);
+			port.setPORT_WRITER(PORT_WRITER);
+			port.setPORT_LIKECOUNT(PORT_LIKECOUNT);
+			port.setPORT_FEEDCOUNT(PORT_FEEDCOUNT);
 			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
 		}
 		return portList;

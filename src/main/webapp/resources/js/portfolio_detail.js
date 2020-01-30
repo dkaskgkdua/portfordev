@@ -161,6 +161,7 @@ $(document).ready(function(){
 				{
 					$('#feed-icon-tail').removeClass('never-show');
 					$('#write-icon-tail').removeClass('never-show');
+					$('#portfolio-feedback-wrap').removeClass('no-feed-need');
 					$('.portfolio-no-feed-need').css('display', 'none');
 					$('.portfolio-feedback-container').css('display', 'block');
 				}
@@ -168,6 +169,7 @@ $(document).ready(function(){
 				{
 					$('#feed-icon-tail').addClass('never-show');
 					$('#write-icon-tail').addClass('never-show');
+					$('#portfolio-feedback-wrap').addClass('no-feed-need');
 					$('.portfolio-no-feed-need').css('display', 'block');
 					$('.portfolio-feedback-container').css('display', 'none');
 				}
@@ -411,7 +413,7 @@ $(document).ready(function(){
 			  ]
 		});
 		$('.port-slide-list').on('swipe', function(event, slick, direction){
-			console.log('swiped');
+			// console.log('swiped');
 		});
 		// 이미지 클릭 시 포트폴리오  확대
 		$('.port-slide-item').on('click', function(){

@@ -649,6 +649,9 @@ textarea:focus{
 	border-right:0.5px solid darkgrey;
 	border-top:0.5px solid darkgrey;
 }
+.no-feed-need{
+	height:10%!important;
+}
 .portfolio-no-feed-need{
 	display:none;
 	width: 100%;
@@ -657,7 +660,7 @@ textarea:focus{
     text-align: center;
     font-weight: bold;
     font-size: 25px;
-    margin-top: 10%;
+    margin-top: 1%;
 }
 .portfolio-feedback-container{
 	width:100%;

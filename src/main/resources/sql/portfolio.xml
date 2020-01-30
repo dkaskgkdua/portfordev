@@ -11,21 +11,46 @@
 				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
 				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
 				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		<choose>	
+			<when test='condition != null and condition.equals("recent")'>
+				where PORT_LIKECOUNT &gt;= 1
+			</when>
+			<otherwise>
 				where PORT_LIKECOUNT &gt;= 3
+			</otherwise>
+		</choose>
 				and PORT_SHOW = 0 
 		<choose>
 			<when test='condition != null and from.equals("daily")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 1 
+				order by PORT_LIKECOUNT desc )
 			</when>
 			<when test='condition != null and from.equals("weekly")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 7 
+				order by PORT_LIKECOUNT desc )
 			</when>
 			<when test='condition != null and from.equals("monthly")'>
 				and (sysdate - PORT_REGIDATE) &lt;= 31 
-			</when>
-		</choose> 
 				order by PORT_LIKECOUNT desc )
+			</when>
+			<when test='condition != null and from.equals("recent")'>
+				order by PORT_REGIDATE desc )
+			</when>
+			<otherwise>
+				order by PORT_LIKECOUNT desc )
+			</otherwise>
+		</choose> 
 			where RNUM &lt;= 5
+	</select>
+	<!-- my 포트폴리오 list -->
+	<select id="my_port" parameterType="String" resultType="Portfolio">
+		select PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none')
+				from PORTFOLIO 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		where MEMBER_ID = #{MEMBER_ID}
 	</select>
 	<!-- 포트폴리오 list -->
 	<select id="list" parameterType="java.util.Map" resultType="Portfolio">

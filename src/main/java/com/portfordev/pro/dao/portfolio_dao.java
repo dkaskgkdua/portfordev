@@ -21,6 +21,10 @@ public class portfolio_dao
 	public List<Portfolio> getBestPort5List(String condition){
 		return sqlSession.selectList("Portfolios.best_port", condition);
 	}
+	// my 포트폴리오 list
+	public List<Portfolio> getMyPortfolioList(String MEMBER_ID){
+		return sqlSession.selectList("Portfolios.my_port", MEMBER_ID);
+	} 
 	// 포트폴리오 list
 	public List<Portfolio> getPortfolioList(Map<String, String> map){
 		return sqlSession.selectList("Portfolios.list", map);

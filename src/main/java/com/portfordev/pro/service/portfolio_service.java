@@ -11,6 +11,8 @@ public interface portfolio_service
 {
 	// 메인 베스트 포트폴리오 탑5 가져오기
 	public List<Portfolio> getBestPort5List(String condition);
+	// my 포트폴리오 list
+	public List<Portfolio> getMyPortfolioList(String MEMBER_ID);
 	// 포트폴리오 리스트 가져오기
 	public List<Portfolio> getPortfolioList(Map<String, String> map);
 	// 포트폴리오 마지막 번호

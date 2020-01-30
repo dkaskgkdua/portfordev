@@ -24,6 +24,11 @@ public class portfolio_service_impl implements portfolio_service
 	public List<Portfolio> getBestPort5List(String condition){
 		return dao.getBestPort5List(condition);
 	}
+	// my 포트폴리오 list
+	@Override
+	public List<Portfolio> getMyPortfolioList(String MEMBER_ID){
+		return dao.getMyPortfolioList(MEMBER_ID);
+	}
 	// 포트폴리오 리스트 가져오기
 	@Override
 	public List<Portfolio> getPortfolioList(Map<String, String> map){
