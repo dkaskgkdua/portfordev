@@ -79,6 +79,10 @@ public class feedback_service_impl implements feedback_service
 	public Feedback getFeedWriter(int FEEDBACK_ID) {
 		return dao.getFeedWriter(FEEDBACK_ID);
 	}
+	@Override
+	public Feedback getFeedWriter(String MEMBER_ID) {
+		return dao.getFeedWriter(MEMBER_ID);
+	}
 	// 피드백 date 변환
 	@Override
 	public String replaceDate(int FEEDBACK_ID) {

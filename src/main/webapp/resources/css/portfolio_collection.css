@@ -254,13 +254,11 @@ tbody{
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
     transition: all 0.3s;
     border-bottom-right-radius: 1px;
-    height:360px;
 }
 @media screen and (max-width: 450px){
 	.portfolio-list .portfolio-list-item {
     	width: 100%;
     	margin: 9px auto;
-    	height:360px;
     	float:none;
 	}
 }
@@ -279,7 +277,6 @@ tbody{
     	margin-right:1%;
     	margin-left:1%;
     	margin-bottom: 15px;
-    	height:360px;
 	}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){

@@ -67,6 +67,9 @@ public class feedback_dao
 	public Feedback getFeedWriter(int FEEDBACK_ID) {
 		return sqlSession.selectOne("Feedbacks.feed_writer", FEEDBACK_ID);
 	}
+	public Feedback getFeedWriter(String MEMBER_ID) {
+		return sqlSession.selectOne("Feedbacks.feed_writer_byID", MEMBER_ID);
+	}
 	// 피드백 date 변환
 	public String replaceDate(int FEEDBACK_ID) {
 		return sqlSession.selectOne("Feedbacks.feed_date", FEEDBACK_ID);

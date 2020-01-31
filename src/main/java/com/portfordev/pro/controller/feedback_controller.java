@@ -47,8 +47,10 @@ public class feedback_controller
 			Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(feedback.getFEEDBACK_ID());
 			String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
 			String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
-			if(FEED_WRITER_IMG.equals("none"))
+			if(FEED_WRITER_IMG == null || FEED_WRITER_IMG.equals("none"))
 				FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+			else
+				FEED_WRITER_IMG = "/pro/resources/upload/"+FEED_WRITER_IMG;
 			int FEED_WRITER_SCORE = FEED_WRITER_INFO.getFEED_WRITER_SCORE();
 			String date = fb_service.replaceDate(feedback.getFEEDBACK_ID());
 			date = replaceDate(date);
@@ -84,8 +86,10 @@ public class feedback_controller
 			Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(feedback.getFEEDBACK_ID());
 			String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
 			String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
-			if(FEED_WRITER_IMG.equals("none"))
+			if(FEED_WRITER_IMG == null || FEED_WRITER_IMG.equals("none"))
 				FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+			else
+				FEED_WRITER_IMG = "/pro/resources/upload/"+FEED_WRITER_IMG;
 			int FEED_WRITER_SCORE = FEED_WRITER_INFO.getFEED_WRITER_SCORE();
 			String date = fb_service.replaceDate(feedback.getFEEDBACK_ID());
 			date = replaceDate(date);
@@ -96,6 +100,19 @@ public class feedback_controller
 			feedback.setFEED_WRITTEN(date);
 		}
 		return feedbackList;
+	}
+	// 작성 버튼 클릭시 사용자 이미지 불러오기
+	@ResponseBody
+	@PostMapping("/portfolio/getProfileImg")
+	public String getProfileImg(@RequestParam("MEMBER_ID") String MEMBER_ID, HttpSession session) {
+		if(session.getAttribute("id") == null)
+			return "/pro/resources/Image/userdefault.png";
+		String FEED_WRITER_IMG = fb_service.getFeedWriter(MEMBER_ID).getFEED_WRITER_IMG();
+		if(FEED_WRITER_IMG == null || FEED_WRITER_IMG.equals("none"))
+			FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+		else
+			FEED_WRITER_IMG = "/pro/resources/upload/"+FEED_WRITER_IMG;
+		return FEED_WRITER_IMG;
 	}
 	// 피드백 작성하기
 	@ResponseBody
@@ -125,8 +142,11 @@ public class feedback_controller
 		Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(FEEDBACK_ID);
 		String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
 		String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
-		if(FEED_WRITER_IMG.equals("none"))
+		System.out.println(FEED_WRITER_INFO);
+		if(FEED_WRITER_IMG == null || FEED_WRITER_IMG.equals("none"))
 			FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
+		else
+			FEED_WRITER_IMG = "/pro/resources/upload/"+FEED_WRITER_IMG;
 		feedback.setFEED_WRITER(FEED_WRITER);
 		feedback.setFEED_WRITER_IMG(FEED_WRITER_IMG);
 		return feedback;
