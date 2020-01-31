@@ -119,7 +119,7 @@ $(document).ready(function(){
 					$('.icon-tail-fit>.scrap-tail').text('스크랩 취소');
 				}
 				// 포트폴리오 작성자 이미지 변경
-				$('.port-writer-img-wrapper').css({'background-image' : 'url(/pro/resources/upload'+port.PORT_WRITER_IMG+')'})
+				$('.port-writer-img-wrapper').css({'background-image' : 'url(/pro/resources/upload/'+port.PORT_WRITER_IMG+')'})
 				// 포트폴리오 작성자 닉네임
 				$('.portfolio-info-writer-nick').text(port.PORT_WRITER);
 				// 포트폴리오 작성자 직업

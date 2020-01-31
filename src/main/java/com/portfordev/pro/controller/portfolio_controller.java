@@ -279,7 +279,7 @@ public class portfolio_controller
 		String PORT_WRITER_JOB = PORT_WRITER_INFO.getPORT_WRITER_JOB();
 		String PORT_WRITER_IMG = PORT_WRITER_INFO.getPORT_WRITER_IMG(); 
 		if(PORT_WRITER_IMG.equals("none"))
-			PORT_WRITER_IMG = "/../Image/userdefault.png";
+			PORT_WRITER_IMG = "../Image/userdefault.png";
 		int PORT_LIKECOUNT = po_service.getPortRecommendCount(portfolio.getPORT_ID());
 		int PORT_FEEDCOUNT = fb_service.getFeedbackCount(portfolio.getPORT_ID());
 		Map<String, String> dates = po_service.replaceDate(portfolio.getPORT_ID());
