@@ -7,10 +7,6 @@ import java.text.ParseException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Calendar;
-import java.util.List;
-import java.util.Random;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
@@ -42,15 +38,9 @@ public class portfolio_controller
 	@Autowired
 	private MemberService member_service;
 	@Autowired
-	private MemberService member_service;
-	
-	@Autowired
 	private portfolio_service po_service;
 	@Autowired
 	private feedback_service fb_service;
-	@Autowired
-	private log_service log_service;
-	
 	@Autowired
 	private log_service log_service;
 	
