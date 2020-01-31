@@ -40,10 +40,13 @@ public class portfolio_service_impl implements portfolio_service
 		dao.insert_portfolio(portfolio);
 	}
 	private String xss_clean_check(String value) {
-		String safe_value = Jsoup.clean(value, Whitelist.basic());
-		if(safe_value.equals("") || safe_value == null) {
-			safe_value = "XSS 공격이 감지되었습니다.";
+		if(!value.equals("")) {
+			String safe_value = Jsoup.clean(value, Whitelist.basic());
+			if(safe_value.equals("")) {
+				safe_value = "XSS 공격이 감지되었습니다.";
+			}
+			return safe_value;
 		}
-		return safe_value;
+		return value;
 	}
 }

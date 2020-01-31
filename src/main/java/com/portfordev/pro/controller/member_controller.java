@@ -2,6 +2,8 @@ package com.portfordev.pro.controller;
 
 import java.io.PrintWriter;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.Random;
 
 import javax.servlet.http.Cookie;
@@ -13,21 +15,50 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member;
+import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
 public class member_controller {
 
 	@Autowired
-	private MemberService memberservice;
+	private MemberService member_service;
+	@Autowired
+	private log_service log_service;
+	
+	@ResponseBody
+	@GetMapping("alert_check")
+	public int alert_check(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		
+		int unread_count = log_service.get_unread_count(id);
+		return unread_count;
+	}
+	
+	@ResponseBody
+	@GetMapping("alert_list")
+	public Object alert_list(HttpSession session) {
+		String id = (String) session.getAttribute("id");
+		List<Alert> alert_list = log_service.get_alert_list(id);
+		System.out.println(alert_list);
+		Map<String, Object> map = new HashMap<String, Object>();
+		map.put("alert_count", alert_list.size());
+		map.put("alert_list", alert_list);
+		log_service.update_alert(id);
+		return map;
+	}
 	
 	@RequestMapping(value = "/login", method = RequestMethod.GET)
 	public ModelAndView login(ModelAndView mv, 
@@ -45,7 +76,37 @@ public class member_controller {
 	}
 	
 	@GetMapping("mypage")
-	public ModelAndView mypage(HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
+	public ModelAndView mypage(@RequestParam("MEMBER_ID") String MEMBER_ID,
+			@RequestParam(value="page", defaultValue="1", required = false) int page,
+			HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
+		Member member = member_service.get_member(MEMBER_ID);
+		int limit = 15;
+		int list_count = log_service.get_log_count(MEMBER_ID);
+		
+		int max_page = (list_count + limit - 1) /limit;
+		
+		int start_page = ((page-1)/10)*10 +1;
+		int end_page = start_page + 10 -1;
+		
+		if(end_page>max_page) end_page = max_page;
+		System.out.println("11");
+		List<Member_log> member_log_list = log_service.get_log_list(page, limit, MEMBER_ID);
+		System.out.println("22");
+		mv.setViewName("member/mypage_form");
+		mv.addObject("MEMBER", member);
+		mv.addObject("max_page", max_page);
+		mv.addObject("start_page", start_page);
+		mv.addObject("end_page", end_page);
+		mv.addObject("page", page);
+		mv.addObject("list_count", list_count);
+		mv.addObject("member_log_list", member_log_list);
+		mv.addObject("limit", limit);
+		mv.addObject("menu", "최근활동");
+		return mv;
+	}
+	@GetMapping("mypage/info")
+	public ModelAndView info(@RequestParam("MEMBER_ID") String MEMBER_ID,
+			HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
 		if(session.getAttribute("id")==null) {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
@@ -56,15 +117,84 @@ public class member_controller {
 			out.close();
 			return null;
 		} else {
-			mv.setViewName("member/mypage_form");
+			if(session.getAttribute("id").equals(MEMBER_ID)) { // id 일치 시
+				Member member = member_service.get_member(MEMBER_ID);
+				mv.setViewName("member/mypage_form");
+				mv.addObject("menu", "정보수정");
+				mv.addObject("MEMBER", member);
+			} else { // id 불일치
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('올바르지 않은 접근입니다.');");
+				out.println("location.href='pro';");
+				out.println("</script>");
+				out.close();
+				return null;
+			}
 		}
 		
 		return mv;
 	}
+	@PostMapping("member_edit")
+	public String member_edit(Member member, HttpServletResponse response, HttpSession session,
+			@RequestParam(value="MEMBER_PASSWORD_CHECK", defaultValue="", required=false) String check, RedirectAttributes redirect) throws Exception {
+		String salt = member_service.get_salt(member.getMEMBER_ID());
+		if(check.equals("")) { // 단순 정보 변경
+			System.out.println("test1");
+			member_service.update_member(member);
+			System.out.println("test2");
+		} else { // + 비밀번호 변경
+			System.out.println(member + " ch : " + check);
+			int result = member_service.isId(member.getMEMBER_ID(), ""+(salt+member.getMEMBER_PASSWORD()).hashCode());
+			if(result == 1) { // 아이디 비밀번호 일치
+				member_service.update_member(member, check, salt);
+			} else {
+				String message = "비밀번호가 일치하지 않습니다.";
+				if (result == -1) {
+					message = "아이디가 존재하지 않습니다.";
+				}
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				out.println("<script>");
+				out.println("alert('" + message + "');");
+				out.println("history.go(-1);");
+				out.println("</script>");
+				out.close();
+				return null;
+			}	
+		}
+		session.setAttribute("nickname", member.getMEMBER_NAME());
+		redirect.addAttribute("MEMBER_ID", member.getMEMBER_ID());
+		return "redirect:mypage/info";
+	}
+	@PostMapping("member_withdraw")
+	public String member_withdraw(Member member, HttpServletResponse response, HttpSession session) throws Exception {
+		String salt = member_service.get_salt(member.getMEMBER_ID());
+		int result = member_service.isId(member.getMEMBER_ID(), ""+(salt+member.getMEMBER_PASSWORD()).hashCode());
+		if(result == 1) {
+			member_service.delete_member(member.getMEMBER_ID());
+			session.invalidate();
+		} else {
+			String message = "비밀번호가 일치하지 않습니다.";
+			if (result == -1) {
+				message = "아이디가 존재하지 않습니다.";
+			}
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('" + message + "');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		}	
+		return "redirect:pro";
+	}
 	
 	@RequestMapping(value="/idcheck", method = RequestMethod.GET)
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
-		int result = memberservice.isId(id);
+		int result = member_service.isId(id);
 		System.out.println(result);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
@@ -75,11 +205,11 @@ public class member_controller {
 	public String loginProcess(@RequestParam("id") String id, @RequestParam("password") String password,
 			@RequestParam(value="remember", defaultValue="") String remember, 
 			HttpServletResponse response, HttpSession session) throws Exception {
-		String salt = memberservice.get_salt(id);
-		int result = memberservice.isId(id, ""+(salt+password).hashCode());
+		String salt = member_service.get_salt(id);
+		int result = member_service.isId(id, ""+(salt+password).hashCode());
 		
 		if (result == 1) {
-			String nickname = memberservice.get_name(id);
+			String nickname = member_service.get_name(id);
 			session.setAttribute("id", id);
 			session.setAttribute("nickname", nickname);
 			Cookie savecookie = new Cookie("saveid", id);
@@ -152,7 +282,7 @@ public class member_controller {
 		member.setMEMBER_PASSWORD_SALT(salt);
 		member.setMEMBER_PASSWORD(""+(salt+member.getMEMBER_PASSWORD()).hashCode());
 		System.out.println(member);
-		int result = memberservice.insert(member);
+		int result = member_service.insert(member);
 		
 		response.setContentType("text/html;charset=utf-8");
 		
@@ -160,7 +290,7 @@ public class member_controller {
 		out.println("<script>");
 		if (result == 1) {
 			if(auth.equals("auth")) {
-				String nickname = memberservice.get_name(member.getMEMBER_ID());
+				String nickname = member_service.get_name(member.getMEMBER_ID());
 				session.setAttribute("id", member.getMEMBER_ID());
 				session.setAttribute("nickname", nickname);
 				out.println("alert('"+member.getMEMBER_NAME()+"님 환영합니다.');");
@@ -192,7 +322,7 @@ public class member_controller {
 			paraMap.put("loc", loc);
 			paraMap.put("dname", dname);
 			
-			int n = memberservice.memberRegisterDept(paraMap);
+			int n = member_service.memberRegisterDept(paraMap);
 			
 			String result = "";
 			if(n == 1)

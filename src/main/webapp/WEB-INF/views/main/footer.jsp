@@ -17,4 +17,4 @@
 					</div>
 				</div>
 			</footer>
-			<script type="text/javascript" src="resources/slick/slick.min.js"></script>
+			<script type="text/javascript" src="/pro/resources/slick/slick.min.js"></script>

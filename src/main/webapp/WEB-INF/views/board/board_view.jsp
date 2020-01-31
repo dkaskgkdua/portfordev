@@ -225,7 +225,7 @@ span {
 			<thead>
 				<tr>
 					<td>
-						<a href="/pro/profile?id=${board_data.MEMBER_ID}">${board_data.MEMBER_NAME}
+						<a href="/pro/mypage?MEMBER_ID=${board_data.MEMBER_ID}">${board_data.MEMBER_NAME}
 							<span style ="font-size:10pt">
 								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${board_data.MEMBER_ACT}
 							</span>
@@ -270,27 +270,27 @@ span {
 				<!-- 버튼 모음 -->
 				<td class="center">
 					<button id="reco_button"style="background:transparent">
-						<img id = "reco_img" src="resources/Image/icon/heart.svg" width ="18px" class="padding-top"> ${board_data.BOARD_RECO}</button>
+						<img id = "reco_img" src="/pro/resources/Image/icon/heart.svg" width ="18px" class="padding-top"> ${board_data.BOARD_RECO}</button>
 					<button style="background:transparent">
-						<img src="resources/Image/icon/eye.svg" width ="20px" class="padding-top"> ${board_data.BOARD_READCOUNT}
+						<img src="/pro/resources/Image/icon/eye.svg" width ="20px" class="padding-top"> ${board_data.BOARD_READCOUNT}
 					</button>
 					<!-- 답변 -->
 					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}">
-						<button class="btn btn-primary">답변</button>
+						<button style="background:transparent;vertical-align: middle" data-toggle="tooltip" data-placement="top" title="답변"><img src="/pro/resources/Image/icon/reply.svg" width ="25px" class="padding-top2"></button>
 					</a>
 					<c:if test="${board_data.MEMBER_ID == id}">
 						<!-- 수정 -->
-						<a href="board_edit_view?num=${board_data.BOARD_ID}">
-							<button style="background:transparent"><img src="resources/Image/icon/pencil.svg" width ="25px" class="padding-top2"></button>
+						<a href="/pro/board_edit_view?num=${board_data.BOARD_ID}">
+							<button style="background:transparent;vertical-align: middle;" data-toggle="tooltip" data-placement="top" title="수정"><img src="/pro/resources/Image/icon/pencil.svg" width ="25px" class="padding-top2"></button>
 						</a>
 						<!-- 삭제 -->
 						<a href="#">
-							<button style="background:transparent" data-toggle="modal"
-								data-target="#myModal"><img src="resources/Image/icon/trash.svg" width ="25px" class="padding-top2"></button>
+							<button style="background:transparent;vertical-align: middle;" data-toggle="modal"
+								data-target="#myModal"><img src="/pro/resources/Image/icon/trash.svg" width ="25px" class="padding-top2"></button>
 						</a>
 					</c:if> 
 					<a href="/pro/board_list">
-						<button class="btn btn-primary">목록</button>
+						<button style="background:transparent;vertical-align: middle;" data-toggle="tooltip" data-placement="top" title="목록"><img src="/pro/resources/Image/icon/list-ul.svg" width ="25px" class="padding-top2"></button>
 					</a>
 				</td>
 			</tr>
@@ -308,19 +308,19 @@ span {
 					<c:forEach var="comments" items="${comment_list}">
 					<tr>
 						<td>
-							${comments.MEMBER_NAME}
+							<a href="/pro/mypage?MEMBER_ID=${comments.MEMBER_ID}">${comments.MEMBER_NAME}
 							<span style ="font-size:10pt">
-								<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${comments.MEMBER_ACT}
-							</span>
+								<img src="/pro/resources/Image/icon/award.svg" alt="act" width="14" height="14">${comments.MEMBER_ACT}
+							</span></a>
 							<br>
 							<span style="display:none">${comments.BOARD_CO_ID}</span> ${comments.BOARD_CO_DATE}
 							<!-- 수정, 삭제 -->
 							<c:if test="${comments.MEMBER_ID == id}">
 								<span class="comment_update" style ="font-size:10pt">
-									<img src="resources/Image/icon/pencil.svg" alt="update" width="14" height="14">
+									<img src="/pro/resources/Image/icon/pencil.svg" alt="update" width="14" height="14">
 								</span>
 								<span class="comment_remove" style ="font-size:10pt">
-									<img src="resources/Image/icon/trash.svg" alt="remove" width="14" height="14">
+									<img src="/pro/resources/Image/icon/trash.svg" alt="remove" width="14" height="14">
 								</span>
 							</c:if>
 							<hr>

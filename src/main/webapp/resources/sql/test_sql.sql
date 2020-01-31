@@ -90,6 +90,7 @@ where r < 6 order by r;
 select PORT_FILE_PATH , PORT_ID from PORTFOLIO where MEMBER_ID='forkkk';
 select * from MEMBER;
 select * from profile;
+select * from PROFILE where MEMBER_ID='105466895381003716884';
 select * from portfolio;
 delete from profile;
 /*회원 검색 결과+최근 피드백 활동일*/

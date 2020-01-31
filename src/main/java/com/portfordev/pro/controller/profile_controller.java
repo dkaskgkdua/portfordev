@@ -15,6 +15,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -33,17 +34,22 @@ public class profile_controller {
 	@RequestMapping(value="/profile")
 	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
 		profile =  service.profile_view(idch);
-		String s[]=profile.getPROFILE_TECH_FRONT().split(",");
-		String ss[]=profile.getPROFILE_TECH_BACK().split(",");
+		
+		
+		if(profile!=null) {
+			String s[]=profile.getPROFILE_TECH_FRONT().split(",");
+			String ss[]=profile.getPROFILE_TECH_BACK().split(",");
+			model.addObject("front",s);
+			model.addObject("frontcnt",s.length);
+			model.addObject("back",ss);
+			
+			
+		}
 		List<Profile> portList = service.portfolioImg(idch);
 		model.setViewName("profile/profile");
 		model.addObject("profile",profile);
 		model.addObject("portfolio",portList);
 		model.addObject("idch",idch);
-		model.addObject("front",s);
-		model.addObject("frontcnt",s.length);
-		model.addObject("back",ss);
-		
 		
 		return model;
 		
@@ -80,14 +86,7 @@ public class profile_controller {
 		profile.setPROFILE_PHONE(s2);
 		String s3 = profile.getPROFILE_GIT().replace(",","");
 		profile.setPROFILE_GIT(s3);
-		String s4 = profile.getPROFILE_INTRO().replace(",","");
-		profile.setPROFILE_INTRO(s4);
-		String s5 = profile.getPROFILE_YEAR().replace(",","");
-		profile.setPROFILE_YEAR(s5);
-		String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
-		profile.setPROFILE_STRENGTH1(s6);
-		String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
-		profile.setPROFILE_STRENGTH1(s7);
+		
 		
 		
 		MultipartFile file= profile.getProfile_img();
@@ -96,6 +95,19 @@ public class profile_controller {
 		//프로필에 이미 등록됐는지 체크
 		int checkid= service.checkid(id);
 		if(checkid==0) {
+			
+			String s4 = profile.getPROFILE_INTRO().replace(",","");
+			profile.setPROFILE_INTRO(s4);
+			String s5 = profile.getPROFILE_YEAR().replace(",","");
+			profile.setPROFILE_YEAR(s5);
+			String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
+			profile.setPROFILE_STRENGTH1(s6);
+			String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
+			profile.setPROFILE_STRENGTH1(s7);
+			String s8 = profile.getPROFILE_EMAIL().replace(",", "");
+			profile.setPROFILE_EMAIL(s8);
+			
+			
 		if (!file.isEmpty()) { // 파일 업로드를 했을 때 
 			String fileName=file.getOriginalFilename(); //DB에 저장될 파일이름
 			profile.setPROFILE_IMG_ORI(fileName);
@@ -130,7 +142,6 @@ public class profile_controller {
 			// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
 			// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환한다.
 			// (파일명에 점이 여러 개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴한다.)
-			System.out.println("index = " + index);
 			
 			String fileExtension = fileName.substring(index + 1);
 			System.out.println("fileExtension = " + fileExtension);
@@ -141,7 +152,7 @@ public class profile_controller {
 			System.out.println("refileName = " + refileName);
 			
 			// 오라클 디비에 저장될 파일명
-			String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
+			String fileDBName = year + "-" + month + "-" + date + "/" + refileName;
 			System.out.println("fileDBName = " + fileDBName);
 			
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
@@ -151,17 +162,96 @@ public class profile_controller {
 			profile.setPROFILE_IMG_FILE(fileDBName);
 		} // if end
 		//check if end
-		}else {
-			//이미 있으면 수정 ㄱ ㄱ 
-		}
-		
-		
 		service.insertprofile(id, profile);
+		
+		//수정일때
+		}
 		
 		Map<String, String> map = new HashMap<String, String>();
 		map.put("result","success");
 		return map;
 		
+		
+	}
+	
+	@PostMapping("profile_modify")
+	public String profile_modify(Profile profile,HttpSession session, String chkimg)throws Exception {
+		
+		MultipartFile file= profile.getProfile_img();
+		String id  = (String) session.getAttribute("id");
+		
+		
+		if (!file.isEmpty()&& !chkimg.equals(profile.getPROFILE_IMG_ORI())) { // 파일 업로드를 했을 때 
+			String fileName=file.getOriginalFilename(); //DB에 저장될 파일이름
+			profile.setPROFILE_IMG_ORI(fileName);
+			
+			// 새로운 폴더 이름 : 오늘 년-월-일
+			Calendar c = Calendar.getInstance();
+			int year = c.get(Calendar.YEAR); // 오늘 년도 구한다.
+			int month = c.get(Calendar.MONTH) + 1; // 오늘 월 구한다.
+			int date = c.get(Calendar.DATE); // 오늘 일 구한다.
+			
+			// webapp/resources 밑에 upload 파일 만들어놨어야 한다.
+			//String saveFolder = request.getSession().getServletContext().getRealPath("resources") + "/upload/";
+			
+			//2.특정폴더
+			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
+			String homedir = saveFolder + year + "-" + month + "-" + date;
+			
+			System.out.println(homedir);
+			File path1 = new File(homedir);
+			if (!(path1.exists())) {
+				path1.mkdir();	// 새로운 폴더를 생성
+			}
+			
+			// 난수를 구한다.
+			Random r = new Random();
+			int random = r.nextInt(100000000);
+			
+			/**** 확장자 구하기 시작****/
+			// 확장자 빼고 파일명 다 바꾸려고 구하는 것임 
+			int index = fileName.lastIndexOf(".");
+			// 문자열에서 특정 문자열의 위치 값(index)를 반환한다.
+			// indexOf가 처음 발견되는 문자열에 대한 index를 반환하는 반면,
+			// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환한다.
+			// (파일명에 점이 여러 개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴한다.)
+			
+			String fileExtension = fileName.substring(index + 1);
+			System.out.println("fileExtension = " + fileExtension);
+			/**** 확장자 구하기 끝 ****/
+			
+			// 새로운 파일명
+			String refileName = "bbs" + year + month + date + random + "." + fileExtension;
+			System.out.println("refileName = " + refileName);
+			
+			// 오라클 디비에 저장될 파일명
+			String fileDBName = year + "-" + month + "-" + date + "/" + refileName;
+			System.out.println("fileDBName = " + fileDBName);
+			
+			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
+			file.transferTo(new File(saveFolder + fileDBName));
+			
+			// 바뀐 파일명으로 저장
+			profile.setPROFILE_IMG_FILE(fileDBName);
+		} // if end
+		else if(chkimg.equals(profile.getPROFILE_IMG_ORI())){
+			System.out.println("11111111프로필 사진 일치 ");
+			profile.setPROFILE_IMG_ORI(chkimg);
+		}else {
+			profile.setPROFILE_IMG_ORI("");
+			profile.setPROFILE_IMG_FILE("");
+		}
+
+		System.out.println("$$$$$$$$$$$$$$원래 이미지"+profile.getPROFILE_IMG_ORI());
+		System.out.println("##############인풋 값"+chkimg);
+		System.out.println("프로필 블로그 수정 : "+profile.getPROFILE_BLOG());
+		service.updateprofile(id, profile);
+		System.out.println("프로필 페이지로 넘어가는 아이디:"+profile.getMEMBER_ID());
+		
+	
+		
+		
+		return "redirect:profile?idch="+profile.getMEMBER_ID();
 		
 	}
 

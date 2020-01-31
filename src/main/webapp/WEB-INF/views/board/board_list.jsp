@@ -42,6 +42,10 @@
 		justify-content:center;
 		width : 100%;
 	}
+	#add_board_button {
+		background : #53acf1 !important;
+		color : white !important;
+	}
 	
 </style>
 </head>
@@ -49,7 +53,7 @@
 	<div class="container">
 		<h3 id ="h3_category" class="float-left"></h3> 
 		<a href ="/pro/board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
-			class="write btn btn-success float-right">글쓰기</a>
+			class="write btn float-right">글쓰기</a>
 		<a href ="/pro/portfolio_add" class="write btn btn-success float-right">포폴</a>	
 		<form id = "search_form" action="board_list">
 				<select name="search_select" size="1" id="search_select" class = "float-left">
@@ -61,13 +65,13 @@
 				<input type="hidden" id="BOARD_CATEGORY" name ="BOARD_CATEGORY" value="${BOARD_CATEGORY}">
 				<input type="hidden" id="sort" name = "sort" value="${sort}">
 				<input type="text" id="search_text" name="search_text" placeholder="검색할 내용을 입력하세요." class="float-left">
-				<button type="submit" id="search_btn" class="float-left">검색</button>
+				<button type="submit" id="search_btn" class="float-left" style="color:white">검색</button>
 			</form>
 		<table class="table table-hover">
 			<thead>
 				<tr>
 					<th class ="d-none d-lg-table-cell" width="7%"><div>번호</div></th>
-					<th width="45%"><div>제목_댓글</div></th>
+					<th width="45%"><div>제목</div></th>
 					<th width="15%"><div>작성자</div></th>
 					<th class ="d-none d-sm-table-cell" width="13%">
 						<div>
@@ -125,7 +129,7 @@
 							</td>
 							<td>
 								<div>
-									<a href="/pro/profile?id=${b.MEMBER_ID}">${b.MEMBER_NAME}
+									<a href="/pro/mypage?MEMBER_ID=${b.MEMBER_ID}">${b.MEMBER_NAME}
 										<span style ="font-size:10pt">
 											<img src="resources/Image/icon/award.svg" alt="act" width="14" height="14">${b.MEMBER_ACT}
 										</span>

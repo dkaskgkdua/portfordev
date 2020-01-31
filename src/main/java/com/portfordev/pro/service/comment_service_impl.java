@@ -24,6 +24,10 @@ public class comment_service_impl implements comment_service{
 		return dao.get_list(BOARD_ID);
 	}
 	@Override
+	public List<String> get_distinct_list(int BOARD_ID) {
+		return dao.get_distinct_list(BOARD_ID);
+	}
+	@Override
 	public int comment_insert(Comment co) {
 		co.setBOARD_CO_CONTENT(xss_clean_check(co.getBOARD_CO_CONTENT()));
 		return dao.comment_insert(co);
