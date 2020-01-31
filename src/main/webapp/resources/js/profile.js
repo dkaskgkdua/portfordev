@@ -1,5 +1,4 @@
 $(function(){
-	alert('지금 들어간이미지 이름 :'+$('#chkimg').val());
 	$(".modal-content").css("height","");
 	$('#profile_modify').on('click',function(event){
 		event.preventDefault();

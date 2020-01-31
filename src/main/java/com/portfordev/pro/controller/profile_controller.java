@@ -86,8 +86,17 @@ public class profile_controller {
 		profile.setPROFILE_PHONE(s2);
 		String s3 = profile.getPROFILE_GIT().replace(",","");
 		profile.setPROFILE_GIT(s3);
-		
-		
+		String s4 = profile.getPROFILE_INTRO().replace(",","");
+		profile.setPROFILE_INTRO(s4);
+		String s5 = profile.getPROFILE_YEAR().replace(",","");
+		profile.setPROFILE_YEAR(s5);
+		String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
+		profile.setPROFILE_STRENGTH1(s6);
+		String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
+		profile.setPROFILE_STRENGTH2(s7);
+		String s8 = profile.getPROFILE_EMAIL().replace(",", "");
+		profile.setPROFILE_EMAIL(s8);
+		System.out.println("강점왜 널들어감 "+profile.getPROFILE_STRENGTH1());
 		
 		MultipartFile file= profile.getProfile_img();
 		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());
@@ -96,16 +105,7 @@ public class profile_controller {
 		int checkid= service.checkid(id);
 		if(checkid==0) {
 			
-			String s4 = profile.getPROFILE_INTRO().replace(",","");
-			profile.setPROFILE_INTRO(s4);
-			String s5 = profile.getPROFILE_YEAR().replace(",","");
-			profile.setPROFILE_YEAR(s5);
-			String s6 = profile.getPROFILE_STRENGTH1().replace(",","");
-			profile.setPROFILE_STRENGTH1(s6);
-			String s7 = profile.getPROFILE_STRENGTH2().replace(",","");
-			profile.setPROFILE_STRENGTH1(s7);
-			String s8 = profile.getPROFILE_EMAIL().replace(",", "");
-			profile.setPROFILE_EMAIL(s8);
+			
 			
 			
 		if (!file.isEmpty()) { // 파일 업로드를 했을 때 
@@ -164,7 +164,6 @@ public class profile_controller {
 		//check if end
 		service.insertprofile(id, profile);
 		
-		//수정일때
 		}
 		
 		Map<String, String> map = new HashMap<String, String>();

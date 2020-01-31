@@ -4,10 +4,11 @@ var id= $('#user_id').val();
 
 $('#select1').on('change',function(){
 		var value1=$('#select1').val();
-		if(value!="직접입력"){
+		if(value1!="직접입력"){
 			$('#type1').val("");
 			$('#type1').val(value1);
-		}else if(value=="직접입력"){
+			$('#type1').attr('type','hidden');
+		}else if(value1=="직접입력"){
 			$('#type1').val("");
 			$('#type1').attr('type','text');
 			$('#type1').focus();
@@ -17,10 +18,11 @@ $('#select1').on('change',function(){
 
 $('#select2').on('change',function(){
 		var value2=$('#select2').val();
-		if(value!="직접입력"){
+		if(value2!="직접입력"){
 			$('#type2').val("");
 			$('#type2').val(value2);
-		}else if(value=="직접입력"){
+			$('#type2').attr('type','hidden');
+		}else if(value2=="직접입력"){
 			$('#type2').val("");
 			$('#type2').attr('type','text');
 			$('#type2').focus();

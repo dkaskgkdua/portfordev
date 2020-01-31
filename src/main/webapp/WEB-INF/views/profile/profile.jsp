@@ -114,7 +114,7 @@
     			</c:if>
     			<!-- 실명 입력 안했으면 그냥 닉네임 -->
     			<c:if test="${empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.member_id}</h1>
+    			<h1 class="name">${profile.MEMBER_ID}</h1>
     			</c:if>
     			
     			<c:if test="${!empty profile.PROFILE_JOB}">
@@ -223,7 +223,13 @@
 					<div style="background:white" class="info_div">
 					<table class="skill_table">
 					<tr>
+					
+					<!-- 연차 입력되었을 경우 -->
+						<c:if test="${!empty profile.PROFILE_YEAR}">
 						<td><img src="resources/Image/userlevel${profile.PROFILE_YEAR}.png" class="ability"></td>
+						</c:if>
+					<!-- 강점1 입력되었을 경운 -->	
+						<c:if test="${!empty profile.PROFILE_STRENGTH1}">
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous' || 
 										profile.PROFILE_STRENGTH1=='ability_social' ||
 										profile.PROFILE_STRENGTH1=='ability_kind' ||
@@ -241,10 +247,13 @@
 										profile.PROFILE_STRENGTH1!='ability_planned' 
 										
 						}">
+					<!-- 기타 강점 입력시  -->
 						<td><img src="resources/Image/icon/ability_etc.png" class="ability"></td>
+						</c:if>
 						</c:if>
 						
 						
+						<c:if test="${!empty profile.PROFILE_STRENGTH2}">
 						<c:if test="${profile.PROFILE_STRENGTH2=='ability_think' || 
 										profile.PROFILE_STRENGTH2=='ability_sungsil' ||
 										profile.PROFILE_STRENGTH2=='ability_teach' ||
@@ -256,6 +265,8 @@
 						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH2}.png" class="ability"></td>
 						</c:if>
 						
+						
+						<!-- 기타 강점 입력시  -->
 						<c:if test="${porfile.PROFILE_STRENGTH2!='ability_think' && 
 										porfile.PROFILE_STRENGTH2!='ability_sungsil' &&
 										porfile.PROFILE_STRENGTH2!='ability_teach' &&
@@ -266,10 +277,15 @@
 						}">
 						<td><img src="resources/Image/icon/ability_else.png" class="ability"></td>
 						</c:if>
+						</c:if>
 					</tr>
 					<tr>
-					  
+					  	<c:if test="${!empty profile.PROFILE_YEAR}">
 						<td>${profile.PROFILE_YEAR}년차 개발자</td>
+						</c:if>
+						
+						<c:if test="${!empty profile.PROFILE_STRENGTH1}">
+						
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous'}">
 						<td>꼼꼼한</td>
 						</c:if>
@@ -285,6 +301,8 @@
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_planned'}">
 						<td>계획적인</td>
 						</c:if>
+						</c:if>
+						
 						
 						
 						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
@@ -495,7 +513,7 @@ s							<footer>
 		<input type="text" name="PROFILE_REAL_NAME" value="${profile.PROFILE_REAL_NAME}">
 		</c:if>
 		<c:if test="${empty profile.PROFILE_REAL_NAME}">
-		<input type="text" name="PROFILE_REAL_NAME" value="${profile.member_id}">
+		<input type="text" name="PROFILE_REAL_NAME" value="${profile.MEMBER_ID}">
 		</c:if>
 		<span>프로필 사진</span><br>
 		<input type="file" style="display:none" name="profile_img" id="profileimg">
