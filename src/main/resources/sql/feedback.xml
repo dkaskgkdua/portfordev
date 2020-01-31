@@ -92,13 +92,13 @@
 	<select id="feed_writer" parameterType="int" resultType="Feedback">
 		select FEEDBACK_ID, MEMBER_ID, FEED_WRITER, NVL(FEED_WRITER_IMG,'none')FEED_WRITER_IMG, FEED_WRITER_SCORE 
 		from PORT_FEEDBACK 
-		left outer join (select MEMBER_ID, MEMBER_NAME as FEED_WRITER, MEMBER_POINT as FEED_WRITER_SCORE from MEMBER) using(MEMBER_ID)
+		left outer join (select MEMBER_ID, MEMBER_NAME as FEED_WRITER, MEMBER_ACT as FEED_WRITER_SCORE from MEMBER) using(MEMBER_ID)
 		left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as FEED_WRITER_IMG from PROFILE) using(MEMBER_ID)
 		where FEEDBACK_ID = #{FEEDBACK_ID}
 	</select>
 	<!-- 피드백 writer info by MEMBER_ID -->
 	<select id="feed_writer_byID" parameterType="String" resultType="Feedback">
-		select MEMBER_ID, MEMBER_NAME as FEED_WRITER, NVL(FEED_WRITER_IMG,'none') as FEED_WRITER_IMG, NVL(MEMBER_POINT, 0) as FEED_WRITER_SCORE 
+		select MEMBER_ID, MEMBER_NAME as FEED_WRITER, NVL(FEED_WRITER_IMG,'none') as FEED_WRITER_IMG, NVL(MEMBER_ACT, 0) as FEED_WRITER_SCORE 
 		from MEMBER 
 		left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as FEED_WRITER_IMG from PROFILE) using(MEMBER_ID)
 		where MEMBER_ID = #{MEMBER_ID}

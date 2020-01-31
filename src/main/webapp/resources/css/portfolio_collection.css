@@ -291,7 +291,6 @@ tbody{
    	 	width: 31%;
     	margin-right: 2%;
     	margin-bottom: 47px;
-    	height:360px;
 	}
 }
 @media screen and (min-width: 1300px){
@@ -299,7 +298,6 @@ tbody{
 		width: 23.25%;
     	margin-right: 2%;
     	margin-bottom: 47px;
-    	height:365px;
 	}
 }
 .portfolio-list a{
@@ -421,6 +419,7 @@ img.icon-round{
 	width: 100%;
     text-align: center;
     border-top: 1px solid #dbdbdb;
+    margin-bottom: 2px;
 }
 .social-info td {
     width: 33.33%;
@@ -449,7 +448,7 @@ img.icon-round{
 }
 @media screen and (max-width: 568px){
 	.view-icon, .like-icon, .comment-icon {
-    	vertical-align: baseline;
+    	vertical-align: middle;
     	margin-right: 3px;
 		box-shadow:none;
 	}

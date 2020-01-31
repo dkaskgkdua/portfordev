@@ -182,7 +182,7 @@ public class portfolio_controller
 	public String portfolio_add_action(Portfolio portfolio, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		List<MultipartFile> Upload_file = portfolio.getPORT_UPLOADFILE();
 		int portfolio_id = po_service.select_max_id();
-		System.out.println(portfolio.getPORT_END_DAY());
+		//System.out.println(portfolio.getPORT_END_DAY());
 		portfolio.setPORT_ID(portfolio_id);
 		// 확장자 확인
 		response.setContentType("text/html;charset=utf-8");
