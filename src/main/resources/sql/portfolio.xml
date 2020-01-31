@@ -2,26 +2,217 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="Portfolios">
-	<select id="list" parameterType="java.util.Map" resultType="Portfolio">
-		select * from PORTFOLIO
+	<!-- 베스트5 포트폴리오 -->
+	<select id="best_port" parameterType="String" resultType="Portfolio">
+		select * 
+			from (select ROWNUM RNUM, PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none')
+				from PORTFOLIO 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		<choose>	
+			<when test='condition != null and condition.equals("recent")'>
+				where PORT_LIKECOUNT &gt;= 1
+			</when>
+			<otherwise>
+				where PORT_LIKECOUNT &gt;= 3
+			</otherwise>
+		</choose>
+				and PORT_SHOW = 0 
+		<choose>
+			<when test='condition != null and from.equals("daily")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 1 
+				order by PORT_LIKECOUNT desc )
+			</when>
+			<when test='condition != null and from.equals("weekly")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 7 
+				order by PORT_LIKECOUNT desc )
+			</when>
+			<when test='condition != null and from.equals("monthly")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 31 
+				order by PORT_LIKECOUNT desc )
+			</when>
+			<when test='condition != null and from.equals("recent")'>
+				order by PORT_REGIDATE desc )
+			</when>
+			<otherwise>
+				order by PORT_LIKECOUNT desc )
+			</otherwise>
+		</choose> 
+			where RNUM &lt;= 5
 	</select>
+	<!-- my 포트폴리오 list -->
+	<select id="my_port" parameterType="String" resultType="Portfolio">
+		select PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none')
+				from PORTFOLIO 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		where MEMBER_ID = #{MEMBER_ID}
+	</select>
+	<!-- 포트폴리오 list -->
+	<select id="list" parameterType="java.util.Map" resultType="Portfolio">
+		select * from (select rownum rnum, p.* 
+			from (select PORT_ID, MEMBER_ID, PORT_SUBJECT, PORT_FILE_PATH, PORT_SHOW, PORT_FEED_NEED, PORT_REGIDATE, PORT_READCOUNT, NVL(PORT_FEEDCOUNT, 0) PORT_FEEDCOUNT, NVL(PORT_LIKECOUNT, 0) PORT_LIKECOUNT, PORT_WRITER, NVL(PORT_WRITER_IMG, 'none') PORT_WRITER_IMG 
+				from PORTFOLIO 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_FEEDCOUNT from PORT_FEEDBACK group by PORT_ID) using(PORT_ID) 
+				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID) 
+				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
+				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as PORT_WRITER_IMG from PROFILE) using(MEMBER_ID) ) p 
+		<choose>
+			<when test='category != null and category.equals("feedNeedOnly")'>
+				where PORT_FEED_NEED = 0  
+			</when>
+			<when test='category != null and category.equals("recomOnly")'>
+				where PORT_LIKECOUNT &gt;= 3  
+			</when>
+			<when test='category != null and category.equals("scrapOnly")'>
+				where PORT_ID in (select PORT_ID from PORT_SCRAP where MEMBER_ID = #{MEMBER_ID})
+			</when>
+			<otherwise>
+				where 1 = 1 
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='from != null and from.equals("day")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 1 
+			</when>
+			<when test='from != null and from.equals("week")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 7 
+			</when>
+			<when test='from != null and from.equals("month")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 31 
+			</when>
+			<when test='from != null and from.equals("month3")'>
+				and (sysdate - PORT_REGIDATE) &lt;= 93 
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='order != null and order.equals("noted")'>
+				order by PORT_LIKECOUNT desc
+			</when>
+			<when test='order != null and order.equals("viewed")'>
+				order by PORT_READCOUNT desc
+			</when>
+			<when test='order != null and order.equals("comment")'>
+				order by PORT_FEEDCOUNT desc
+			</when>
+			<otherwise>
+				order by PORT_REGIDATE desc
+			</otherwise>
+		</choose>
+		) where rnum &gt;= ((#{page} - 1) * 20 + 1) and rnum &lt;= (#{page} * 20)
+	</select>
+	<!-- 포트폴리오 마지막 번호 -->
+	<select id="select_max_id" resultType="int">
+		select nvl(max(PORT_ID), 0)+1 from PORTFOLIO
+	</select>
+	<!-- 포트폴리오 insert -->
 	<insert id="insert" parameterType="Portfolio">
 		insert into PORTFOLIO values(#{PORT_ID}, #{MEMBER_ID}, #{PORT_SUBJECT}, #{PORT_CONTENT}, #{PORT_FILE_PATH}, #{PORT_ORI_FILE}, #{PORT_START_DAY}, #{PORT_END_DAY}, #{PORT_TEAM},
 				#{PORT_GITHUB}, #{PORT_SITE}, #{PORT_SHOW}, #{PORT_FEED_NEED}, sysdate, 0)
 	</insert>
-	<!-- 포트폴리오 수정 -->
+	<!-- 포트폴리오 update -->
 	<update id="update" parameterType="Portfolio">
 		update PORTFOLIO
-		set PORT_
-		where PORT_ID = #{id}
+		set PORT_SUBJECT = #{PORT_SUBJECT}, 
+		PORT_CONTENT = #{PORT_CONTENT}, 
+		PORT_FILE = #{PORT_FILE}, 
+		PORT_START_DAY = #{PORT_START_DAY}, 
+		PORT_END_DAY = #{PORT_END_DAY}, 
+		PORT_TEAM = #{PORT_TEAM}, 
+		PORT_GITHUB = #{PORT_GITHUB}, 
+		PORT_SITE = #{PORT_SITE}, 
+		PORT_SHOW = #{PORT_SHOW}, 
+		PORT_FEED_NEED = #{PORT_FEED_NEED}
+		where PORT_ID = #{PORT_ID}
 	</update>
+	<!-- 포트폴리오 delete -->
+	<delete id="delete" parameterType="int">
+		delete PORTFOLIO where PORT_ID = #{PORT_ID}
+	</delete>
+	<!-- 포트폴리오 detail -->
+	<select id="detail" parameterType="int" resultType="Portfolio">
+		select * 
+		from PORTFOLIO  
+		where PORT_ID = #{PORT_ID} 
+	</select>
 	<!-- 포트폴리오 조회수 + 1 -->
 	<update id="readcount_update" parameterType="int">
 		update PORTFOLIO
 		set PORT_READCOUNT = PORT_READCOUNT + 1
 		where PORT_ID = #{PORT_ID}
 	</update>
-	<select id ="select_max_id" resultType="int">
-		select nvl(max(PORT_ID),0)+1 from PORTFOLIO
+	<!-- 포트폴리오 스크랩 check -->
+	<select id="scrap_check" parameterType="java.util.Map" resultType="int">
+		select count(*) from PORT_SCRAP
+		where PORT_ID = #{PORT_ID} and MEMBER_ID = #{MEMBER_ID}
+	</select>
+	<!-- 포트폴리오 스크랩 insert -->
+	<insert id="scrap" parameterType="Port_scrap">
+		insert into PORT_SCRAP
+		values(PORT_SCRAP_SEQ.NEXTVAL, #{PORT_ID}, #{MEMBER_ID}, sysdate)
+	</insert>
+	<!-- 포트폴리오 스크랩 delete -->
+	<delete id="scrap_cancel" parameterType="Port_scrap">
+		delete PORT_SCRAP
+		where PORT_ID = #{PORT_ID} and MEMBER_ID = #{MEMBER_ID}
+	</delete>
+	<!-- 포트폴리오 스크랩 list -->
+	<select id="scrap_list" parameterType="String" resultType="Port_scrap">
+		select * from PORT_SCRAP
+		where MEMBER_ID = #{MEMBER_ID}
+		order by PORT_SCRAP_DATE desc
+	</select>
+	<!-- 포트폴리오 추천 check -->
+	<select id="recommend_check" parameterType="java.util.Map" resultType="int">
+		select count(*) from PORT_RECOMMEND
+		where PORT_ID = #{PORT_ID} and MEMBER_ID = #{MEMBER_ID}
+	</select>
+	<!-- 포트폴리오 추천 insert -->
+	<insert id="recommend" parameterType="Port_recommend">
+		insert into PORT_RECOMMEND
+		values(PORT_RECOMMEND_SEQ.NEXTVAL, #{MEMBER_ID}, #{PORT_ID}, sysdate)
+	</insert>
+	<!-- 포트폴리오 추천 delete -->
+	<delete id="recommend_cancel" parameterType="Port_recommend">
+		delete PORT_RECOMMEND
+		where PORT_ID = #{PORT_ID} and MEMBER_ID = #{MEMBER_ID}
+	</delete>
+	<!-- 포트폴리오 추천 list -->
+	<select id="recommend_list" parameterType="String" resultType="Port_recommend">
+		select * from PORT_RECOMMEND
+		where MEMBER_ID = #{MEMBER_ID}
+		order by PORT_RECO_DATE desc
+	</select>
+	<!-- 포트폴리오 추천 count -->
+	<select id="recommend_count" parameterType="int" resultType="int">
+		select count(*) from PORT_RECOMMEND
+		where PORT_ID = #{PORT_ID}
+	</select>
+	<!-- 포트폴리오 writer info -->
+	<select id="port_writer" parameterType="int" resultType="Portfolio">
+		select PORT_ID, MEMBER_ID, PORT_WRITER, NVL(PORT_WRITER_IMG,'none') PORT_WRITER_IMG, NVL(PORT_WRITER_JOB, '개발자') PORT_WRITER_JOB   
+		from PORTFOLIO 
+		left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID)
+		left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') as PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') as PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
+		where PORT_ID = #{PORT_ID}
+	</select>
+	<!-- 포트폴리오 등록 날짜 변환 -->
+	<select id="port_date" parameterType="int" resultType="String">
+		SELECT TO_CHAR( ( SELECT PORT_REGIDATE FROM PORTFOLIO where PORT_ID = #{PORT_ID}), 'yyyy-mm-dd') from dual 
+	</select>
+	<!-- 프로젝트 시작 날짜 변환 -->
+	<select id="port_start" parameterType="int" resultType="String">
+		SELECT TO_CHAR( ( SELECT PORT_START_DAY FROM PORTFOLIO where PORT_ID = #{PORT_ID}), 'yyyy-mm-dd') from dual 
+	</select>
+	<!-- 프로젝트 종료 날짜 변환 -->
+	<select id="port_end" parameterType="int" resultType="String">
+		SELECT TO_CHAR( ( SELECT PORT_END_DAY FROM PORTFOLIO where PORT_ID = #{PORT_ID}), 'yyyy-mm-dd') from dual 
 	</select>
 </mapper>

@@ -10,6 +10,9 @@
 <script src="/pro/resources/js/skel.min.js"></script>
 <script src="/pro/resources/js/util.js"></script>
 <script src="/pro/resources/js/main.js"></script>
+<script type="text/javascript" src="/pro/resources/slick/slick.min.js"></script>
+<link rel="stylesheet" type="text/css" href="/pro/resources/slick/slick.css"/>
+<link rel="stylesheet" type="text/css" href="/pro/resources/slick/slick-theme.css"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/pro/resources/css/main.css?ver=1" />
 <script>
@@ -112,6 +115,18 @@
 .modal-content {
 	height : 450px;
 }
+.searchBtn{
+	height: 36px;
+    background: rgb(83, 133, 193);
+    border-color:#FFF;
+}
+.searchBtn:hover{
+	background: rgb(93, 143, 203);
+	border-radius:5%;
+	opacity:0.8;
+	transition:0.3s;
+	border-color:lightgrey;
+}
 #account_button {
 	padding-right : 0px;
 }
@@ -119,15 +134,63 @@
 	width : 60px;
 	height : 40px;
 }
-	.nav-wrap {
-		height : 60px !important;
+.nav-wrap {
+	height : 60px !important;
+}
+@media screen and (max-width: 575px){
+	.searchBar{
+		width: calc(99% - 136px)!important;
+		margin-right: 1%!important;
 	}
+	.navbar-nav {
+    	flex-direction: inherit;
+	}
+	.navbar-nav li{
+		margin-left:1%;
+	}
+	.navbar-nav .dropdown-menu {
+	    position: absolute;
+	    float: none;
+   		width: 317px;
+	}
+	.dropdown-item{
+		width: auto;
+		display:inline-block;
+	}
+	.profile-nav1{
+		display:inline-block;
+	}
+	.profile-nav2{
+		display:none;
+	}
+}
 @media screen and (min-width: 576px){
 	.navbar {
 		height : 60px !important;
 	}
 }
-
+@media screen and (min-width: 577px) and (max-width: 744px){
+	.navbar-expand-sm .navbar-nav .nav-link {
+     	padding-right: 0;
+     }
+     .profile-nav1{
+     	display:none;
+     }
+     .profile-nav2{
+     	display:block;
+     }
+}
+@media screen and (max-width: 480px){
+	.searchBar{
+		width: 100%!important;
+		margin: 0!important;
+	}
+}
+@media screen and (min-width: 745px){
+	.navbar {
+		height : 60px !important;
+	}
+}
 </style>
 <div class="nav-wrap">
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
@@ -141,13 +204,20 @@
 
 	<div class="collapse navbar-collapse" id="navbarSupportedContent">
 		<ul class="navbar-nav mr-auto">
+			<li class="nav-item profile-nav1">
+				<a class="nav-link" href="/pro/profile/collection">프로필</a>
+			</li>
+			<li class="nav-item port-nav">
+			  	<a class="nav-link" href="/pro/portfolio/collection">포트폴리오</a>
+			</li>
+			
 			<li class="nav-item dropdown">
 				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
-					<a class="dropdown-item" href="/pro/profile/collection">프로필</a> 
-              		<a class="dropdown-item" href="/pro/portfolio/collection">포트폴리오</a>
+					<a class="dropdown-item profile-nav2" href="/pro/profile/collection">프로필</a>
+					<a class="dropdown-item" href="/pro/news">IT뉴스</a>
 					<div class="dropdown-divider"></div>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
 					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
@@ -156,9 +226,9 @@
 			</li>
 		</ul>
 		<form class="form-inline my-2 my-lg-0" action ="search" method ="get" id="searchform">
-			<input class="form-control mr-sm-2" type="search" name="search"
+			<input class="form-control mr-sm-2 searchBar" type="search" name="search"
 				placeholder="Search" aria-label="Search">
-			<button class="btn btn-info my-2 my-sm-0" style ="height:38px"type="submit">Search</button>
+			<button class="btn btn-info my-2 my-sm-0 searchBtn" style ="height:36px"type="submit">Search</button>
 			<c:if test="${!empty id}">
 				<c:choose>
 					<c:when test="${power=='1'}">

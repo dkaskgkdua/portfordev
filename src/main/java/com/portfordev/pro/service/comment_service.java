@@ -13,3 +13,4 @@ public interface comment_service {
 		public int comment_delete(int id);
 		public List<String> get_distinct_list(int BOARD_ID);
 }
+

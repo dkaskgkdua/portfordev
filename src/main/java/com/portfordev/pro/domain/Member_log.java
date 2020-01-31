@@ -18,4 +18,3 @@ public class Member_log {
 	public Member_log() {
 		
 	}
-}

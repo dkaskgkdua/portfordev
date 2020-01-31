@@ -14,7 +14,6 @@ article {
 	float: right; 
 	padding: 25px;
 }
-
 aside {
 	width: 30%;
 	height: 80%;

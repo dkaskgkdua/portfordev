@@ -47,6 +47,18 @@
 		]]>		 
 	</select>
 	
+	<select id="searchPort" resultType="Portfolio" parameterType="String">
+	   <![CDATA[
+		select * from 
+			(select rownum r, b.* from
+				( select PORT_ID,PORT_SUBJECT,PORT_CONTENT,PORT_REGIDATE from PORTFOLIO where  PORT_SUBJECT  like '%' ||  #{keyword} || '%' 
+					or PORT_CONTENT like '%' ||  #{keyword} || '%'  order by PORT_REGIDATE desc)b
+			 )
+			 where r < 4 order by r asc 
+		]]>		 
+	
+	</select>
+	
 	
 
 </mapper>

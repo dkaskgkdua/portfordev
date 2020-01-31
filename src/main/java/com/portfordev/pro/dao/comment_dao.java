@@ -21,7 +21,6 @@ public class comment_dao {
 	}
 	public List<String> get_distinct_list(int BOARD_ID) {
 		return sqlSession.selectList("Comments.get_distinct_list", BOARD_ID);
-	}
 	public int comment_insert(Comment co) {
 		return sqlSession.insert("Comments.insert", co);
 	}

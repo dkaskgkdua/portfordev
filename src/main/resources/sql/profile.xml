@@ -4,12 +4,20 @@
 
 <mapper namespace="profile">
 	<insert id="insert" parameterType="map">
-		insert into PROFILE values(#{id} , #{profile.eng_name} , #{profile.profile_img_file} , #{profile.profile_img_ori} , #{profile.frontend} ,
-							#{profile.backend}, #{profile.blog} , #{profile.job} , '0', #{profile.email} , #{profile.phone} , #{profile.github} , #{profile.selfintro} , #{profile.year},
-							#{profile.posi} , #{profile.posi2})
+		insert into PROFILE values(#{id} , #{profile.PROFILE_REAL_NAME} , #{profile.PROFILE_IMG_FILE} , #{profile.PROFILE_IMG_ORI} , #{profile.PROFILE_TECH_FRONT} ,
+							#{profile.PROFILE_TECH_BACK}, #{profile.PROFILE_BLOG} , #{profile.PROFILE_JOB} , '0', #{profile.PROFILE_EMAIL} , #{profile.PROFILE_PHONE} , #{profile.PROFILE_GIT} , #{profile.PROFILE_INTRO} , #{profile.PROFILE_YEAR},
+							#{profile.PROFILE_STRENGTH1} , #{profile.PROFILE_STRENGTH2})
 	</insert>
 	<select id="checkid" parameterType="String" resultType="int">
 		select count(*) from PROFILE
+	</select>
+	
+	<select id ="profile_view" parameterType="String" resultType="Profile">
+		select * from PROFILE where MEMBER_ID=#{id}
+	</select>
+	
+	<select id="portfolioImg" parameterType="String" resultType="Profile">
+		select PORT_FILE_PATH , PORT_SUBJECT from PORTFOLIO where MEMBER_ID=#{id}
 	</select>
 
 

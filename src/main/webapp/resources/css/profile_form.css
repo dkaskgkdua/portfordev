@@ -15,7 +15,8 @@
 			#progress{display: none}
 			#profile_icon{width:100px; margin:0 auto }
 			#btn{margin-top: 100px;}
-			.pre-next{display: none; margin-bottom:20px;height:50px;background:#2096f3; border-radius: 100%}
+			.pre-next{display: none; margin-bottom:20px;height:50px;background:white; border-radius: 100%;width:50px;text-align: center;padding:0px}
+			.pre-next img{ vertical-align: middle!important;}
 			#pre{position:relative; left:0px}
 			#next{float:right}
 			.slide_in p {color: black;text-align:left;margin: 2px;}
@@ -29,13 +30,16 @@
 			.delete{width:10px}
 			#select_result{ display: inline-block;width:90%}
 			#select_result2{ display: inline-block;width:90%}
-			#select_result_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
-			#select_result2_delete{background: white;position:absolute;padding-left:10px;padding-right:10px}
+			#select_result_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete img{display:inline-block;}
+			#select_result_delete img{display: inline-block;}
 			.result_div{margin-top:20px;}
 			#submit{background:#2196F3!important;}
-			button:hover{background: #2096f3;}
-			.end{display: inline-block; width:48%;margin-top:100px;}
+			button:hover{background: #eaedf2;}
+			.end{display: inline-block; width:48%;margin-top:80px;background: #2196F3!}
 			#finish{text-align: center;}
+			#start_btn{border:1px solid black;background: white;text-align: center;padding: 0px}
 			
 /*반응형 css*/
 @media (max-width: 480px ) {
@@ -57,3 +61,4 @@
 	#pre,#next{  width: 50px;}
 	#select_result_delete{width:30px}
 	#select_result2_delete{width:30px}
+}

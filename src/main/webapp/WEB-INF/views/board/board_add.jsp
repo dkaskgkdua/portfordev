@@ -83,7 +83,6 @@ img:hover {
 				}
 				var pattern = /^\d{4}$/;
 				var password = $("#board_pass").val();
-
 				if (!pattern.test(password)) {
 					alert("비밀번호 4자리를 맞춰주세요.");
 					return false;

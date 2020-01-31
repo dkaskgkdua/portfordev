@@ -163,16 +163,16 @@ h3 {
 				<div class="form-group">
 					<label for="individual">공개여부</label>
 					<input type="radio" id = "open" name="PORT_SHOW" value="0" checked>
-					<label for="individual">공개</label>
+					<label for="open">공개</label>
 					<input type="radio" id = "close" name="PORT_SHOW" value="1">
-					<label for="team">비공개</label>
+					<label for="close">비공개</label>
 				</div>
 				<div class="form-group">
 					<label for="individual">피드백</label>
 					<input type="radio" id = "agree" name="PORT_FEED_NEED" value="0" checked>
-					<label for="individual">허용</label>
+					<label for="agree">허용</label>
 					<input type="radio" id = "reject" name="PORT_FEED_NEED" value="1">
-					<label for="team">거부</label>
+					<label for="reject">거부</label>
 				</div>
 				<div class="form-group">
 					<div class="g-recaptcha"
