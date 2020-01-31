@@ -41,19 +41,14 @@ public class portfolio_controller
 
 	@Autowired
 	private MemberService member_service;
-	@Autowired
-	private MemberService member_service;
-	
+
 	@Autowired
 	private portfolio_service po_service;
 	@Autowired
 	private feedback_service fb_service;
 	@Autowired
 	private log_service log_service;
-	
-	@Autowired
-	private log_service log_service;
-	
+
 	@Value("${savefoldername}")
 	private String save_folder;
 	

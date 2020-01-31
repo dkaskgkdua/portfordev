@@ -189,11 +189,11 @@ img:hover {
 			<div class="form-group">
 				<label style ="display:inline" for="board_file">파일 첨부</label> 
 				<label style ="display:inline" for="upfile" data-toggle="tooltip" data-placement="top" title="최대 용량 : 10MB"> 
-					<img id=ig src="/pro/resources/Image/attach.png" width ="10px" alt="파일첨부">
+					<img style="vertical-align: bottom" id=ig src="/pro/resources/Image/attach.png" width ="10px" alt="파일첨부">
 				</label> 
 				<input  multiple ="multiple" type="file" id="upfile" name="uploadfile">
 				<span id="filevalue"></span>
-				<img src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove">
+				<img style="vertical-align: bottom" src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove">
 			</div>
 			<div class="form-group">
 				<div class="g-recaptcha" data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld>
