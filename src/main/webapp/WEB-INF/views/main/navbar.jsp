@@ -203,6 +203,9 @@
 	.navbar {
 		height : 60px !important;
 	}
+	.port-nav2, .profile-nav2{
+		display:none!important;
+	}
 }
 </style>
 <div class="nav-wrap">

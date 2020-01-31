@@ -10,11 +10,8 @@
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="navbar.jsp" />
 		<jsp:include page="../portfolio/portfolio_detail.jsp" />
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/main_page.css"/>
 		<script type="text/javascript" src="resources/js/main_page.js"></script>
-		<script type="text/javascript" src="resources/slick/slick.min.js"></script>
 	</head>
 	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
 		<!-- Banner -->

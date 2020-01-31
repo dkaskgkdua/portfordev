@@ -8,8 +8,6 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="navbar.jsp" />
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/main_page.css"/>
 	</head>
 	<body oncontextmenu="return false" onselectstart="return false" ondragstart="return false">
