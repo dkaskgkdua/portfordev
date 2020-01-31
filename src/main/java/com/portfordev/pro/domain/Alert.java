@@ -23,4 +23,3 @@ public class Alert {
 		this.ALERT_REF_ID = ALERT_REF_ID;
 		this.ALERT_REQ_MEMBER = ALERT_REQ_MEMBER;
 	}
-}

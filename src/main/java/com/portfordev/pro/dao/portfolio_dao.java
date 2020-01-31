@@ -53,6 +53,7 @@ public class portfolio_dao
 	public int readcountUpdatePortfolio(int PORT_ID) {
 		return sqlSession.update("Portfolios.readcount_update", PORT_ID);
 	}
+
 	// 포트폴리오 스크랩 check
 	public int checkScrapPortfolio(Map<String, String> map) {
 		return sqlSession.selectOne("Portfolios.scrap_check", map);
