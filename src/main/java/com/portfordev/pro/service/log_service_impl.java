@@ -102,3 +102,4 @@ public class log_service_impl implements log_service{
 		dao.update_alert(MEMBER_ID);
 	}
 }
+
