@@ -35,6 +35,10 @@ section {
 	text-align: center;
 }
 .avatar {
+	width : 100px;
+	border-radius : 30px;
+}
+.avatar_wrapper {
 	text-align: center;
 }
 @media screen and (max-width:840px) {
@@ -97,8 +101,13 @@ section {
 		</aside>
 	<article>
 		<div>
-			<div class="avatar">
-				<img src="${PROFILE_IMG_FILE}" alt="avatar" class="avatar">
+			<div class="avatar_wrapper">
+				<c:if test="${!empty profile_img}">
+					<img src="/pro/resources/upload/${profile_img}" alt="avatar" class="avatar">
+				</c:if>
+				<c:if test="${empty profile_img}">
+					<img src="/pro/resources/Image/icon/default_user.png" alt="avatar" class="avatar">
+				</c:if>
 			</div>
 			<div class="container">
 				<div class="user_nick">
@@ -138,7 +147,7 @@ section {
 								<input type="text" name = "MEMBER_NAME" class="form-control" id="MEMBER_NAME" value="${MEMBER.MEMBER_NAME}">
 							</div>
 						</fieldset>
-						<button type="submit" class="btn btn-info">수정</button>
+						<button type="submit" class="btn" style="background : rgb(83, 133, 193); color:white;">수정</button>
 							<button id="password_change_btn" class="btn btn-secondary" type="button">비밀번호 변경</button>
 							<button type="button" class="btn btn-danger" data-toggle="modal" data-target="#withdraw">회원탈퇴</button>
 					</form>
