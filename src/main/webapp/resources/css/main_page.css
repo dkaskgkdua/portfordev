@@ -8,16 +8,30 @@
 .inner{
 	margin: 0 auto!important;
 }
+#banner{
+	position:relative;
+	z-index:1;
+}
+#banner::after {
+  content: "";
+  background-color: rgba(0, 0, 0, 0.2);
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  position: absolute;
+  z-index: -1;   
+}
 #banner h1{
 	font-weight:600!important;
-    background: rgba(0, 0, 0, 0.2);
     color: #FFF;
+    z-index:3;
 }
 #banner p{
 	font-weight:540!important;
 	font-size:1.5em;
-    background: rgba(0, 0, 0, 0.1);
     color: rgb(205, 205, 205);
+    z-index:3;
 }
 h2{
 	font-weight:600!important;
@@ -185,6 +199,11 @@ h3{
 	    width: 47%;
 	}
 }
+@media screen and (max-width:580px){
+	.main-features .feature:hover{
+	    cursor:pointer;
+	}
+}
 @media screen and (max-width: 480px){
 	.main-features .feature{
 	    width: 100%;
@@ -213,6 +232,7 @@ h3{
 	background:rgba(255, 255, 255, 0.8);
 	border-radius:5px;
 	padding:20px;
+	padding-top:calc(50% - 60px);
 }
 .feature-detail .feature-detail-menu{
 	display:block;
@@ -227,6 +247,6 @@ h3{
 	border-radius:2px;
 }
 .feature-detail .feature-detail-menu:hover{
-	background-color: rgb(105, 105, 105);
+	background-color: rgb(50, 50, 50);
 	opacity:0.8;
 }

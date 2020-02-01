@@ -110,10 +110,31 @@ $(window).load(function(){
 		if($('.best-portfolio-list').hasClass('slick-initialized'))
 			$('.best-portfolio-list').slick('unslick');
 	}
-	
-	
 	// feature 기능 구현
-	$('.feature').hover(feature_detail_show, feature_detail_hide);
+	$(window).resize(function(){
+		$('.feature').off('click');
+		$('.feature').off('mouseenter');
+		$('.feature').off('mouseleave');
+		// 모바일
+		if($(window).width() > 580){
+			$('.feature').on('mouseenter', feature_detail_show);
+			$('.feature').on('mouseleave', feature_detail_hide);
+		}else
+			$('.feature').click(feature_click);
+	});
+	// 모바일
+	if($(window).width() > 580){
+		$('.feature').on('mouseenter', feature_detail_show);
+		$('.feature').on('mouseleave', feature_detail_hide);
+	}
+	else
+		$('.feature').click(feature_click);
+	function feature_click(){
+		$('.feature-summary').css('opacity', 1);
+		$('.feature-detail').stop().fadeOut(300);
+		$(this).children('.feature-summary').css('opacity', 0.7);
+		$(this).children('.feature-detail').stop().fadeIn();
+	}
 	function feature_detail_show(){
 		$(this).children('.feature-summary').css('opacity', 0.7);
 		$(this).children('.feature-detail').stop().fadeIn();
