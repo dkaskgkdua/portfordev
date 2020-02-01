@@ -53,6 +53,26 @@ select * from(
 			)where rnum >= 1 and rnum <= 10
 
 select * from dept;
+<<<<<<< HEAD
+
+select * from MEMBER;
+select * from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
+select * from board;
+update (select * from MEMBER inner join BOARD using(MEMBER_ID) where board_id = 1) set MEMBER_ACT = MEMBER_ACT + 5;
+insert into board values(3, '117421623799109543474', '0','1234', '제목','내용',1, 0, 0, 0, sysdate);
+insert into board_comment values(board_comment_seq.nextval, 1, '117421623799109543474', '내용2', sysdate);
+insert into BOARD_RECOMMEND values(BOARD_RECO_ID.nextval, '117421623799109543474', 1, sysdate);
+select * from board;
+select * from board_recommend;
+select * from board_file;
+select * from (select rownum rnum, b.* from 
+					(select * from board inner join BOARD_COMMENT using(board_id) 
+					 group by board_id where category = '0' order by BOARD_RE_REF desc,BOARD_RE_SEQ asc) 
+					 b 
+				) where rnum >= 0 and rnum <= 10; 
+
+select *, count(select * from board_comment where board_id = 1) from board;
+=======
 select * from board left outer join (select BOARD_ID, BOARD_RE_LEV LEV2 from board where BOARD_RE_LEV = 0) using(BOARD_ID) order by BOARD_RE_LEV asc, BOARD_RE_SEQ desc, BOARD_READCOUNT desc;
 select * from MEMBER;
 select * from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
@@ -71,6 +91,7 @@ select * from (select rownum rnum, b.* from
 				) where rnum >= 0 and rnum <= 1
 
 select *, count(select * from board_comment where boar0; d_id = 1) from board;
+>>>>>>> branch 'master' of https://github.com/dkaskgkdua/portfordev.git
 select * from board inner join (select board_id, count(*) BOARD_COMMENT from board inner join BOARD_COMMENT using(board_id) group by board_id) using(board_id);
 
 
@@ -85,9 +106,12 @@ select board_id, count(*) BOARD_RECO from board inner join BOARD_RECOMMEND using
 select * from (select rownum r, b.* from( select * from MEMBER where MEMBER_ID  like '%' ||  'user' || '%' order by MEMBER_ACT desc)b ) 
 natural join 
 where r < 6 order by r;
-
+select PORT_FILE_PATH , PORT_ID from PORTFOLIO where MEMBER_ID='forkkk';
 select * from MEMBER;
 select * from profile;
+select * from PROFILE where MEMBER_ID='105466895381003716884';
+select * from portfolio;
+delete from profile;
 /*회원 검색 결과+최근 피드백 활동일*/
 select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
 			(select rownum r, b.* from

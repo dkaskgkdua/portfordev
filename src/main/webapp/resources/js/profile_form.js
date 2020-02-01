@@ -3,11 +3,12 @@ var out='';
 var id= $('#user_id').val();
 
 $('#select1').on('change',function(){
-		var value=$(this).val();
-		if(value!="직접입력"){
+		var value1=$('#select1').val();
+		if(value1!="직접입력"){
 			$('#type1').val("");
-			$('#type1').val(value);
-		}else if(value=="직접입력"){
+			$('#type1').val(value1);
+			$('#type1').attr('type','hidden');
+		}else if(value1=="직접입력"){
 			$('#type1').val("");
 			$('#type1').attr('type','text');
 			$('#type1').focus();
@@ -16,16 +17,27 @@ $('#select1').on('change',function(){
 })
 
 $('#select2').on('change',function(){
-		var value=$(this).val();
-		if(value!="직접입력"){
+		var value2=$('#select2').val();
+		if(value2!="직접입력"){
 			$('#type2').val("");
-			$('#type2').val(value);
-		}else if(value=="직접입력"){
+			$('#type2').val(value2);
+			$('#type2').attr('type','hidden');
+		}else if(value2=="직접입력"){
 			$('#type2').val("");
 			$('#type2').attr('type','text');
 			$('#type2').focus();
 		}
 		
+})
+
+$('#select_result_delete').on('click',function(){
+	$('#select_result').val("");
+	
+})
+
+$('#select_result2_delete').click(function(){
+	$('#select_result2').val("");
+	
 })
 
 

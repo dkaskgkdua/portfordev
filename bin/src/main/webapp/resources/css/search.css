@@ -1,0 +1,16 @@
+#div_sub{display: inline-block;}
+.nav-wrap{height:0px!important;}		
+@media (max-width: 480px ) {
+	 body{min-width:100%!important}
+	 .search_board_span{width:414px}
+	 #search_result{text-align:left;}	
+	 .divimg{display: inline!important;margin-right: 0px!important;}
+	 .divimg img{width:80px!important;display: inline!important; float: left;margin-right: 10px}
+	 .search_ul a{font-size:10pt!important}
+	 span{word-break:break-all;font-size: 8pt!important}
+	 .context_text{display:inline!important}
+	 p{font-size: 8pt!important}
+	 .search_h1{margin-top: 0px!important;margin-bottom: 10px!important}
+	 .nav-wrap{height:0px!important;}
+	 #div_sub{text-overflow: ellipsis;width:120px;white-space: nowrap;overflow: hidden;}
+}

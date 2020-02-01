@@ -30,5 +30,9 @@ public class profile_dao {
  public List<Profile> portfolioImg(String id ) {
 	 return sql.selectList("profile.portfolioImg",id);
  }
+ //프로필 수정
+ public int updateprofile(Map<String,Object> map) {
+	 return sql.update("profile.update_profile",map);
+ }
  
 }

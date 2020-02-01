@@ -6,7 +6,7 @@ import lombok.Data;
 
 @Data
 public class Profile {
-	private String member_id;
+	private String MEMBER_ID;
 	private String PROFILE_REAL_NAME;
 	private MultipartFile profile_img;
 	private String PROFILE_IMG_ORI;
@@ -22,6 +22,7 @@ public class Profile {
 	private String PROFILE_TECH_FRONT;
 	private String PROFILE_TECH_BACK;
 	private String PROFILE_INTRO;
+	private String PROFILE_TECH_INTRO;
 	
 	//포트폴리오 이미지 
 	
