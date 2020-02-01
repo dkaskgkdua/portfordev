@@ -15,6 +15,7 @@
 <link rel="stylesheet" type="text/css" href="/pro/resources/slick/slick-theme.css"/>
 <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"/>
 <link rel="stylesheet" href="/pro/resources/css/main.css?ver=1" />
+<link rel="stylesheet" href="/pro/resources/css/navbar.css?ver=1" />
 <script>
 	function poll() {
 		$.ajax({
@@ -242,7 +243,7 @@
 			</li>
 			
 			<li class="nav-item dropdown">
-				<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown"
+				<a class="nav-link dropdown-toggle community-btn" href="#" id="navbarDropdown"
 					role="button" data-toggle="dropdown" aria-haspopup="true"
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
@@ -256,7 +257,7 @@
 				</div>
 			</li>
 		</ul>
-		<form class="form-inline my-2 my-lg-0" action ="search" method ="get" id="searchform">
+		<form class="form-inline my-2 my-lg-0" action ="/pro/search" method ="get" id="searchform">
 			<input class="form-control mr-sm-2 searchBar" type="search" name="search"
 				placeholder="Search" aria-label="Search">
 			<button class="btn btn-info my-2 my-sm-0 searchBtn" style ="height:36px"type="submit">Search</button>
