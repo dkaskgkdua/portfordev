@@ -92,7 +92,7 @@ section {
 				<c:if test="${MEMBER.MEMBER_ID == id}">
 					<a href="/pro/mypage/info?MEMBER_ID=${MEMBER.MEMBER_ID}" class="list-group-item list-group-item-action">정보 수정</a>
 				</c:if> 
-				<a href="#" class="list-group-item list-group-item-action">프로필</a>
+				<a href="/pro/profile?idch=${MEMBER.MEMBER_ID}" class="list-group-item list-group-item-action">프로필</a>
 			</div>
 		</aside>
 	<article>

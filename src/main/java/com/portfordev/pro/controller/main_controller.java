@@ -117,15 +117,24 @@ public class main_controller
 	// 경로를 통해 파일들 가져오기
 	public String[] getFiles(String PORT_FILE_PATH) {
 		File path = new File(save_folder+PORT_FILE_PATH);
-		String fileList[] = path.list(new FilenameFilter() {
-			@Override
-			public boolean accept(File dir, String name) {
-				return (name.endsWith("jpg") || 
-						name.endsWith("jpeg") || 
-						name.endsWith("gif") || 
-						name.endsWith("png"));
+		String[] fileList = null;
+		if(path.exists()) {
+			if(path.isDirectory()) {
+				fileList = path.list(new FilenameFilter() {
+					@Override
+					public boolean accept(File dir, String name) {
+						return (name.endsWith("jpg") || 
+								name.endsWith("jpeg") || 
+								name.endsWith("gif") || 
+								name.endsWith("png"));
+					}
+				});
+			}else {
+				System.out.println("경로가 잘못되었습니다.");
 			}
-		});
+		}else {
+			System.out.println("경로가 존재하지 않습니다.");
+		}
 		return fileList;
 	}
 }

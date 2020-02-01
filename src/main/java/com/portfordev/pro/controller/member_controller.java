@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CookieValue;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -27,16 +28,21 @@ import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
 public class member_controller {
-
+	@Autowired
+	private board_service board_service;
 	@Autowired
 	private MemberService member_service;
 	@Autowired
 	private log_service log_service;
+	
+	@Value("${savefoldername}")
+	private String save_folder;
 	
 	@ResponseBody
 	@GetMapping("alert_check")
@@ -173,6 +179,10 @@ public class member_controller {
 		String salt = member_service.get_salt(member.getMEMBER_ID());
 		int result = member_service.isId(member.getMEMBER_ID(), ""+(salt+member.getMEMBER_PASSWORD()).hashCode());
 		if(result == 1) {
+			List<Integer> board_list = board_service.get_all_board_list(member.getMEMBER_ID());
+			board_list.forEach(board -> {
+				board_service.delete_board_file(board, save_folder);
+			});
 			member_service.delete_member(member.getMEMBER_ID());
 			session.invalidate();
 		} else {

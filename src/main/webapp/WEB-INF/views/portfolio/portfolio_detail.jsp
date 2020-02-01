@@ -71,6 +71,9 @@
 		<div class="exit-cover">
 			<img src="/pro/resources/Image/icon/down-arrow.png">
 		</div>
+		<div class="exit-cover2">
+			<img src="/pro/resources/Image/icon/down-arrow.png">
+		</div>
 	</section>
 	<!-- PORTFOLIO IMG ENLARGEMENT -->
 	<section id="portfolio-pdf-enlargement-wrap">
@@ -226,10 +229,6 @@
 	</section>
 	<!-- FEEDBACK SECTION -->
 	<section id="portfolio-feedback-wrap">
-		<!-- 피드백 거부 -->
-		<div class="portfolio-no-feed-need">
-			피드백이 불필요한 포트폴리오 입니다.
-		</div>
 		<div class="portfolio-feedback-container">
 			<!-- 피드백 작성 -->
 			<div class="feedback-write-container" style="display:none;">
@@ -264,8 +263,8 @@
 			<div class="portfolio-feedback-header">
 				<!-- 피드백 정보 -->
 				<div class="portfolio-feedback-info">
-					<h2>Feedback</h2>
-					<h2>(&nbsp;<span class="portfolio-feedback-cnt">10</span>&nbsp;)</h2>
+					<h2 class="port-feed-head">Feedback</h2>
+					<h2 class="port-feed-head2">(&nbsp;<span class="portfolio-feedback-cnt">10</span>&nbsp;)</h2>
 				</div>
 				<!-- 피드백 필터 -->
 				<div class="portfolio-feedback-filter">
@@ -278,6 +277,10 @@
 						<option value="recommended">추천순</option>
 					</select>
 				</div>
+			</div>
+			<!-- 피드백이 필요없는 포트폴리오일 경우 -->
+			<div class="portfolio-no-feed-need">
+				피드백이 필요없는 포트폴리오 입니다.
 			</div>
 			<!-- 피드백 리스트 -->
 			<div class="portfolio-feedback-list">

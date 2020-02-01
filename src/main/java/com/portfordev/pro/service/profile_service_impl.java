@@ -34,6 +34,12 @@ public class profile_service_impl implements profile_service{
 	public List<Profile> portfolioImg(String id) {
 		return dao.portfolioImg(id);
 	}
-	
-
+	@Override
+	public int updateprofile(String id, Profile profile) {
+		Map<String,Object>map = new HashMap<String, Object>();
+		
+		map.put("id",id);
+		map.put("profile",profile);
+		return dao.updateprofile(map);
+	}
 }

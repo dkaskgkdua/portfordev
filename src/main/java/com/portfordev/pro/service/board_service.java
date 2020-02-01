@@ -47,6 +47,6 @@ public interface board_service {
 		public int is_password(int id, String password);
 		// 파일 삭제
 		public void delete_board_file(int board_id, String save_folder);
-
+		// 파일 리스트 검색(회원)
+		public List<Integer> get_all_board_list(String member_id);
 }
-

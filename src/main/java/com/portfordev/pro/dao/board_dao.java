@@ -31,8 +31,9 @@ public class board_dao {
 		} else { // "RECO" 추천 순
 			return sqlSession.selectList("Boards.sort_reco_list", map);
 		}
-		
-		
+	}
+	public List<Integer> get_all_board_list(String member_id) {
+		return sqlSession.selectList("Boards.get_all_board_list", member_id);
 	}
 	public int set_readcount_update(int num) {
 		return sqlSession.update("Boards.readcount_update", num);

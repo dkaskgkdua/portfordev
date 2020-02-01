@@ -1,5 +1,5 @@
 .slide{color:white;max-width:100%;margin:0 auto;margin-top:10px;}
-	.slide_in{height:400px;margin: 10px;background:gray;vertical-align: center}
+	.slide_in{height:400px;margin: 10px;background:white;vertical-align: center}
 	.slide_in_content{width:100%;height:400px; filter: brightness(70%); opacity: 0.6}
 	.right{display: inline-block;}
 	.left{display: inline-block;}
@@ -7,7 +7,7 @@
 	.skill{display: block; margin-right: auto;margin-left: auto}
 	.skill_detail{display:inline-block; float: left;}
 	.skill_table{text-align: center; margin-top: 50px}
-	.skill_table td{height:100px;padding:0px; vertical-align: middle;background: white;}
+	.skill_table td{height:100px;padding:0px; vertical-align: middle;}
 	.skill_table tr{border:0px}
 	legend{margin-left:70px;width:inherit;text-align: center}
 	#userimage{opacity: 0.7}
@@ -22,6 +22,7 @@
 				filter : grayscale(100%) brightness(150%) ;
 				float:left;
 					}
+	#profileImgLabel{display:inline-block;}				
 	.skill_span{font-size:20pt; font-weight: bold; float:left;margin-left:10px}				
 	/* 개발능력 이미지 */
 	.ability{border-radius:100%; width:100px; }
@@ -58,17 +59,113 @@
 .sidebar li{margin-top: 10px;font-weight: 600;padding:0px}
 .name{font-weight:800;margin:0px;color:black;font-size:15pt}		
 .contact{width:20px}
-.contact_div span{position:relative;
-					top:-6px;
+.contact_div span{
 					font-size: 5pt;}
 .contact_div a{text-decoration: none;}	
-#three{padding:30px}	
-.skill_img{width:50px;float:left}	
+#three{padding:50px}	
+.skill_img{width:35px;float:left}	
 .p_btn{display:none;}
 .profile_btn{display:none;}	
+#modalform span{font-size:12pt;font-weight:bold; }
+/*프로젝트*/
+
+
+.best-portfolio-list{
+   color:white;
+   max-width:100%;
+   margin:0 auto;
+   display: inline-block;
+}
+.best-portfolio-item{
+   height:400px;
+   display:inline-block;
+   width:400px;
+   max-width:100%;
+   margin: 10px;
+   background:#5385c1;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+    position:relative;
+    color:rgb(0, 0, 0);
+}
+.best-portfolio-item:hover{
+   cursor:pointer;
+   border-radius:2%;
+   transition:0.3s;
+   opacity:0.7;
+}
+.bp-img-wrapper{
+   width: 100%;
+   height:400px;
+    max-height: 400px;
+    background-size: cover;
+    background-position: top;
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    text-align: center;
+    border-top: 0.5em solid #5385c1;
+    box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
+}
+.bp-info-wrapper{
+   position:absolute;
+   display:none;
+   width:100%!important;
+   height:100%!important;
+   background:rgba(255, 255, 255, 0.7);
+   left:0;
+   right:0;
+   bottom:0;
+   top:100;
+   padding-top:15%;
+}
+.bp-info-wrapper img{
+   display:inline-block!important;
+}
+.bp-writer-info{
+   display:inline-block;
+   height:40px;
+   font-size:1em;
+   line-height:40px;
+   vertical-align:top;
+}
+.bp-info-writer-img{
+   height:40px;
+}
+.bp-info-writer{
+   font-weight:bold;
+   margin-right:10px;
+}
+.bp-info-writer-job{
+   font-weight:bold;
+}
+.bp-info-subject{
+   font-weight:bold;
+   font-size:1.5em;
+   display:block;
+   text-align:center;
+    margin: 1em auto;
+    vertical-align:top;
+}
+.bp-icon{
+   height:30px;
+   width:auto;
+    margin: 0 5px;
+}
+.bp-count{
+   height:40px;
+   font-size:1em;
+    margin-right: 5px;
+    font-size: 18pt;
+    line-height: 18pt;
+    vertical-align:top;
+}
 
 /*모바일*/
 @media (max-width: 480px ) {
+.skill_table {width:300px;}
+.skill_table td{width:30%}
+.skill_table img{width:60px}
+.skill_stack img{width:30px}
+.contact_div>div{height:20px;}	
   #adside{display: none;left:-400px;margin-top:20px!important;} 
   .inner{margin-left:auto!important}
   body{min-width:100%!important}
@@ -82,11 +179,13 @@
   .skill_stack, .skill_stack thead,.skill_stack  tbody,.skill_stack td,.skill_stack tr { 
 		display: block; 
 	}
+	.skill_stack td{width:100%}
 	.skill_stack tr td:nth-child(1){width:100%;}
 	.skill_stack .h1{font-size: 12pt}
 	.skill_img{width:30px;float:none}
 	.skill_stack{margin-top: 20px!important;margin-bottom: 0px}
-	.skill_stack td{height:70px}
+	.skill_stack td{height:70px;}
+	
 	.skill_stack tr:nth-child(1) td:nth-child(1){height:100px}
 	#adad{font-size:10pt!important; color:gray;font-weight: 600}
 	.adad_content{font-size:9pt}
@@ -97,5 +196,5 @@
 	.contact_div span,.contact_div img{font-size:12pt;float:left}
 	.contact_div a{font-size:10pt;float:left}
 	.skill_span{float:none;font-size:11pt}
-	
+	.close{width: 52px;margin-left: 0px;}
 }

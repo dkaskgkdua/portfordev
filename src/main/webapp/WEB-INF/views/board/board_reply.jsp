@@ -24,6 +24,9 @@ img {
 img:hover {
    cursor: pointer
 }
+p {
+	margin : 0 0 0 0 !important;
+}
 </style>
 <script>
 	function show() {

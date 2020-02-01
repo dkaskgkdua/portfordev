@@ -6,20 +6,28 @@
 	<head>
 		<title>PFD_portfolio_main</title><!-- 나중에 _main 빼고 개발자 아이디 -->
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
+		<jsp:include page="../portfolio/portfolio_detail.jsp" />
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
+		
+		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
+ 
+		<script src="resources/js/profile.js"></script>
 	<style>
+	.contact_div>div{vertical-align: baseline;}
 	 .inner {
 		margin-left: 400px;
 	}
 	.contact_div span{vertical-align: baseline; font-size: 9pt}
+	.modal a.close-modal{top: 1.5px;right: -1.5px;}
+	#modal1{height:700px}
 	</style>
 <script>
 	$(document).ready(function () { 
 		
 		if($('#profileid').val()==""){
     		alert('프로필 등록을 하지 않은 유저입니다.');
+    		
     		if("${id}"=="${idch}"){
     			 var move=confirm("프로필 등록을 하시겠습니까?");
     			 if(move==true){
@@ -72,13 +80,13 @@
 	
 	<body>
 
-	<input type="hidden" id="profileid" value="${profile.member_id}">
+	<input type="hidden" id="profileid" value="${profile.MEMBER_ID}">
 	<img src = "resources/Image/userdefault.png" class="profile_btn"/>
 
 
 	 
 		<!-- Three -->
-		<c:if test="${!empty profile.member_id}">
+		<c:if test="${!empty profile.MEMBER_ID}">
 			<section id="three" class="wrapper">
 			<div id="adsideWrapper">
     		<div id="adside" class="fixed"  >
@@ -104,7 +112,7 @@
     			</c:if>
     			<!-- 실명 입력 안했으면 그냥 닉네임 -->
     			<c:if test="${empty profile.PROFILE_REAL_NAME}">
-    			<h1 class="name">${profile.member_id}</h1>
+    			<h1 class="name">${profile.MEMBER_ID}</h1>
     			</c:if>
     			
     			<c:if test="${!empty profile.PROFILE_JOB}">
@@ -125,26 +133,33 @@
     			
     			<div class="contact_div">
     			  <c:if test="${!empty profile.PROFILE_PHONE}">
+    			   <div>
     				<img class="contact" src="resources/Image/phone.png"/>
     				<span>${profile.PROFILE_PHONE}</span>
+    			   </div>
     			  </c:if>
-    				<br>
     			  <c:if test="${!empty profile.PROFILE_EMAIL}">	
-    				<img class="contact" src="resources/Image/email.png"/>
-    				<span>${profile.PROFILE_EMAIL}</span>
+    			  	<div>
+    					<img class="contact" src="resources/Image/email.png"/>
+    					<span>${profile.PROFILE_EMAIL}</span>
+    			  	</div>
     			  </c:if>	
-    				<br>
     			 <c:if test="${!empty profile.PROFILE_BLOG}">	
-    				<img class="contact" src="resources/Image/blog.png"/>
-    				<span><a href="">${profile.PROFILE_BLOG}</a></span>
+    			 	<div>
+    					<img class="contact" src="resources/Image/blog.png"/>
+    					<span><a href="">${profile.PROFILE_BLOG}</a></span>
+    		   		</div>
     		   	</c:if>	
-    				<br>
     			<c:if test="${!empty profile.PROFILE_GIT && profile.PROFILE_GIT!=''}">	
+    			  <div>
     				<img class="contact" src="resources/Image/github.png"/>
     				<span><a href="">${profile.PROFILE_GIT}</a></span>
+    			  </div>	
     			</c:if>	
     			</div>
-    			<button type="button" onclick="location.href='profile_form'">등록</button>
+    			<c:if test="${id==profile.MEMBER_ID}">
+    			<a href="#modal1"><button type="button" id="profile_modify">프로필 수정</button></a>
+    			</c:if>
     			<div class="sidebar">
     			<ul>
     			<li>PROJECT</li>
@@ -166,7 +181,7 @@
 				<!-- <h1 class="h1">PROJECT</h1> -->
 					<header class="align-center">
 						<!-- 본인이면 추가 버튼 노출 -->
-						<c:if test="${id==profile.member_id}">
+						<c:if test="${id==profile.MEMBER_ID}">
 							<div style="text-align:right">
 								<button id="add" type="button" onclick="location.href='portfolio_add'" >
 									<span>프로젝트 추가</span>
@@ -174,10 +189,34 @@
 								</button>
 							</div>
 						</c:if>
-						<c:if test="${!empty portfolio}">
-						<div class="your-class slide">
-							<c:forEach var="p" items="${portfolio}">
-								<div class="slide_in"><img  class="slide_in_content" src="resources/upload/${p.PORT_FILE_PATH}/0.png"></div>
+						<c:if test="${!empty myList}">
+						<div class="your-class slide best-portfolio-list">
+							<c:forEach var="port" items="${myList}">
+								<div class="slide_in">
+									<!-- 프로젝트  -->
+									<div class="best-portfolio-item" id="best-port${port.PORT_ID}">
+								<input type="hidden" class="hidden_PORT_ID" value="${port.PORT_ID}">
+								<div class="bp-img-wrapper" style="background-image:url(/pro/resources/${port.PORT_THUMBNAIL})">
+								</div>
+								<div class="bp-info-wrapper">
+								<img class="bp-info-writer-img" src="/pro/resources/${port.PORT_WRITER_IMG}">
+								<div class="bp-writer-info">
+									<span class="bp-info-writer">${port.PORT_WRITER}</span>
+									<span class="bp-info-writer-job">${port.PORT_WRITER_JOB}</span>님
+								</div>
+								<span class="bp-info-subject">${port.PORT_SUBJECT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/view-gray.png">
+								<span class="bp-info-view bp-count">${port.PORT_READCOUNT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/like-gray.png">
+								<span class="bp-info-like bp-count">${port.PORT_LIKECOUNT}</span>
+								<c:if test="${port.PORT_FEED_NEED == 0}">
+								<img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
+								<span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
+								</c:if>
+							</div>
+						</div>
+									<!-- 프로젝트  -->
+								</div>
 							</c:forEach>
 						</div>
 						</c:if>	 
@@ -205,10 +244,17 @@
 					<!-- 스킬 table 나중에 ajax로 구현-->
 					<!-- 임시 아이콘임 -->
 					<h1 class="h1 user-name" >DEVELOPER ${profile.PROFILE_REAL_NAME}</h1>
+					
 					<div style="background:white" class="info_div">
 					<table class="skill_table">
 					<tr>
+					
+					<!-- 연차 입력되었을 경우 -->
+						<c:if test="${!empty profile.PROFILE_YEAR}">
 						<td><img src="resources/Image/userlevel${profile.PROFILE_YEAR}.png" class="ability"></td>
+						</c:if>
+					<!-- 강점1 입력되었을 경운 -->	
+						<c:if test="${!empty profile.PROFILE_STRENGTH1}">
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous' || 
 										profile.PROFILE_STRENGTH1=='ability_social' ||
 										profile.PROFILE_STRENGTH1=='ability_kind' ||
@@ -216,7 +262,7 @@
 										profile.PROFILE_STRENGTH1=='ability_planned' 
 										
 						}">
-						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH1}.png" class="ability"></td>
+						<td><img src="resources/Image/icon/${profile.PROFILE_STRENGTH1}.png" class="ability"></td>
 						</c:if>
 						
 						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
@@ -226,10 +272,13 @@
 										profile.PROFILE_STRENGTH1!='ability_planned' 
 										
 						}">
+					<!-- 기타 강점 입력시  -->
 						<td><img src="resources/Image/icon/ability_etc.png" class="ability"></td>
+						</c:if>
 						</c:if>
 						
 						
+						<c:if test="${!empty profile.PROFILE_STRENGTH2}">
 						<c:if test="${profile.PROFILE_STRENGTH2=='ability_think' || 
 										profile.PROFILE_STRENGTH2=='ability_sungsil' ||
 										profile.PROFILE_STRENGTH2=='ability_teach' ||
@@ -238,23 +287,30 @@
 										profile.PROFILE_STRENGTH2=='ability_careful' 
 										
 						}">
-						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH2}.png" class="ability"></td>
+						<td><img src="resources/Image/icon/${profile.PROFILE_STRENGTH2}.png" class="ability"></td>
 						</c:if>
 						
-						<c:if test="${porfile.PROFILE_STRENGTH2!='ability_think' && 
-										porfile.PROFILE_STRENGTH2!='ability_sungsil' &&
-										porfile.PROFILE_STRENGTH2!='ability_teach' &&
-										porfile.PROFILE_STRENGTH2!='ability_group' &&
-										porfile.PROFILE_STRENGTH2!='ability_understand' &&
-										porfile.PROFILE_STRENGTH2!='ability_careful' 
+						
+						<!-- 기타 강점 입력시  -->
+						<c:if test="${profile.PROFILE_STRENGTH2!='ability_think' && 
+										profile.PROFILE_STRENGTH2!='ability_sungsil' &&
+										profile.PROFILE_STRENGTH2!='ability_teach' &&
+										profile.PROFILE_STRENGTH2!='ability_group' &&
+										profile.PROFILE_STRENGTH2!='ability_understand' &&
+										profile.PROFILE_STRENGTH2!='ability_careful' 
 										
 						}">
 						<td><img src="resources/Image/icon/ability_else.png" class="ability"></td>
 						</c:if>
+						</c:if>
 					</tr>
 					<tr>
-					  
+					  	<c:if test="${!empty profile.PROFILE_YEAR}">
 						<td>${profile.PROFILE_YEAR}년차 개발자</td>
+						</c:if>
+						
+						<c:if test="${!empty profile.PROFILE_STRENGTH1}">
+						
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_meticulous'}">
 						<td>꼼꼼한</td>
 						</c:if>
@@ -270,6 +326,8 @@
 						<c:if test="${profile.PROFILE_STRENGTH1=='ability_planned'}">
 						<td>계획적인</td>
 						</c:if>
+						</c:if>
+						
 						
 						
 						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
@@ -328,69 +386,68 @@
 					<!-- <img src="resources/Image/skill1.png" width=50 class="skill"> -->
 					<table class="skill_table skill_stack">
 						<tr>
-							<td rowspan="3" width="30%">
+							<td rowspan="3" width="40%">
 							<img src="resources/Image/front.png" class="skill_img_m">
 							<p class="h1">Frontend</p>
 							</td>
 							<c:if test="${!empty front[0]}">
-							<td><img src="resources/Image/${front[0]}.png" class="skill_img" ><span class="skill_span">${front[0]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[0]}.png" class="skill_img" ><span class="skill_span">${front[0]}</span></td>
 							</c:if>
 							<c:if test="${!empty front[1]}">
-							<td><img src="resources/Image/${front[1]}.png" class="skill_img"><span class="skill_span">${front[1]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[1]}.png" class="skill_img"><span class="skill_span">${front[1]}</span></td>
 							</c:if>
 						</tr>
 						<tr>
 							<c:if test="${!empty front[2]}">	
-							<td><img src="resources/Image/${front[2]}.png" class="skill_img" ><span class="skill_span">${front[2]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[2]}.png" class="skill_img" ><span class="skill_span">${front[2]}</span></td>
 							</c:if>
 							<c:if test="${!empty front[3]}">
-							<td><img src="resources/Image/${front[3]}.png" class="skill_img" ><span class="skill_span">${front[3]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[3]}.png" class="skill_img" ><span class="skill_span">${front[3]}</span></td>
 							</c:if>
 						</tr>
 						<tr>
 							<c:if test="${!empty front[4]}">
-							<td><img src="resources/Image/${front[4]}.png" class="skill_img" ><span class="skill_span">${front[4]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[4]}.png" class="skill_img" ><span class="skill_span">${front[4]}</span></td>
 							</c:if>
 							<c:if test="${!empty front[5]}">
-							<td><img src="resources/Image/${front[5]}.png" class="skill_img" ><span class="skill_span">${front[5]}</span></td>
+							<td width="20%"><img src="resources/Image/${front[5]}.png" class="skill_img" ><span class="skill_span">${front[5]}</span></td>
 							</c:if>
 						</tr>
 					</table>
 					<br>
 					<table class="skill_table skill_stack">
 					<tr>
-							<td rowspan="3" width="30%">
+							<td rowspan="3" width="40%">
 							<img src="resources/Image/back.png" class="skill_img_m">
 							<p class="h1">Backend</p>
 							</td>
 							<c:if test="${!empty back[0]}">
-							<td><img src="resources/Image/${back[0]}.png" class="skill_img" ><span class="skill_span">${back[0]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[0]}.png" class="skill_img" ><span class="skill_span">${back[0]}</span></td>
 							</c:if>
 							<c:if test="${!empty back[1]}">
-							<td><img src="resources/Image/${back[1]}.png" class="skill_img" ><span class="skill_span">${back[1]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[1]}.png" class="skill_img" ><span class="skill_span">${back[1]}</span></td>
 							</c:if>
 						</tr>
 						<tr>	
 							<c:if test="${!empty back[2]}">
-							<td><img src="resources/Image/${back[2]}.png" class="skill_img" ><span class="skill_span">${back[2]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[2]}.png" class="skill_img" ><span class="skill_span">${back[2]}</span></td>
 							</c:if>
 							<c:if test="${!empty back[3]}">
-							<td><img src="resources/Image/${back[3]}.png" class="skill_img" ><span class="skill_span">${back[3]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[3]}.png" class="skill_img" ><span class="skill_span">${back[3]}</span></td>
 							</c:if>
 						</tr>
 						<tr>
 							<c:if test="${!empty back[4]}">
-							<td><img src="resources/Image/${back[4]}.png" class="skill_img" ><span class="skill_span">${back[4]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[4]}.png" class="skill_img" ><span class="skill_span">${back[4]}</span></td>
 							</c:if>
 							<c:if test="${!empty back[5]}">
-							<td><img src="resources/Image/${back[5]}.png" class="skill_img" ><span class="skill_span">${back[5]}</span></td>
+							<td width="20%"><img src="resources/Image/${back[5]}.png" class="skill_img" ><span class="skill_span">${back[5]}</span></td>
 							</c:if>
 						</tr>
 					</table>
 					
 					<h1 style="font-size: 15pt" id="adad">기술 스택소개</h1>
-					<p class="adad_content">Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?</p>
-					<p class="adad_content">At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga. Et harum quidem rerum facilis est et expedita distinctio. Nam libero tempore, cum soluta nobis est eligendi optio cumque nihil impedit quo minus id quod maxime placeat facere possimus, omnis voluptas assumenda est, omnis dolor repellendus. Temporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Itaque earum rerum hic tenetur a sapiente delectus, ut aut reiciendis voluptatibus maiores alias consequatur aut perferendis doloribus asperiores repellat.</p>
+					<p class="adad_content">${profile.PROFILE_TECH_INTRO}</p>
 					<br>
 					<br>
 					<hr>
@@ -399,31 +456,34 @@
 					<br>
 					<br>
 					<div class="flex flex-2">
+					<c:if test="${!empty profile.PROFILE_GIT}">
 						<article>
 							<div class="image fit">
 								<img src="resources/Image/pic01.jpg" alt="Pic 01" />
 							</div>
 							<header>
 								<h3>Github</h3>
+								<p>${profile.PROFILE_GIT}</p>
 							</header>
-							<p>Praesent dapibus, neque id cursus faucibus, tortor neque egestas augue, eu vulputate magna eros eu erat. Aliquam erat volutpat. Nam dui mi, tincidunt quis, accumsan porttitor lorem ipsum.</p>
 							<footer>
-								<a href="#" class="button special">More</a>
+								<a href="https://${profile.PROFILE_GIT}" target="_blank" class="button special">More</a>
 							</footer>
 						</article>
-						
+					</c:if>
+					<c:if test="${!empty profile.PROFILE_BLOG}">	
 						<article>
 							<div class="image fit">
 								<img src="resources/Image/pic02.jpg" alt="Pic 02" />
 							</div>
 							<header>
 								<h3>blog</h3>
+								<p>${profile.PROFILE_BLOG}</p>
 							</header>
-							<p>Sed adipiscing ornare risus. Morbi est est, blandit sit amet, sagittis vel, euismod vel, velit. Pellentesque egestas sem. Suspendisse commodo ullamcorper magna non comodo sodales tempus.</p>
 							<footer>
-								<a href="#" class="button special">More</a>
+								<a href="https://${profile.PROFILE_BLOG}" target="_blank" class="button special">More</a>
 							</footer>
 						</article>
+					</c:if>	
 					</div>
 				</div>
 			</section>
@@ -432,7 +492,7 @@
 		<!-- Footer -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
 			<script>
-			$(document).ready(function(){
+			$(window).load(function(){
 					
 				$('.slide').slick({
 					  infinite: true,
@@ -455,10 +515,84 @@
 					  
 					});
 				
-				
+
+			// slide-item hover 시
+			$('.best-portfolio-item').hover(function(){
+				$(this).children('.bp-info-wrapper').stop().fadeIn();
+			}, function(){
+				$(this).children('.bp-info-wrapper').stop().fadeOut();
+			});
 				
 		});
 			
 	</script>
+	
+	<!-- 모달창 -->
+	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+  	  <div class="modal-content">
+	<!-- <div id="modal1" class="modal"> -->
+		<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel">사이드바 수정</h4>
+ 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ 				 <span aria-hidden="true">×</span>
+ 			</button>
+		</div>
+
+		<div class="modal-body">
+		<form method="post" action="profile_modify" id="profile_mody_form" enctype='multipart/form-data'>
+		<span>이름</span>
+		<input type="hidden" value="${profile.MEMBER_ID}" name="MEMBER_ID">
+		<c:if test="${!empty profile.PROFILE_REAL_NAME}">
+		<input type="text" name="PROFILE_REAL_NAME" value="${profile.PROFILE_REAL_NAME}">
+		</c:if>
+		<c:if test="${empty profile.PROFILE_REAL_NAME}">
+		<input type="text" name="PROFILE_REAL_NAME" value="${profile.MEMBER_ID}">
+		</c:if>
+		<span>프로필 사진</span><br>
+		<input type="file" style="display:none" name="profile_img" id="profileimg">
+		<c:if test="${!empty profile.PROFILE_IMG_ORI}">
+		<label for="profileimg" id="profileImgLabel">
+			<img src="resources/Image/attach.png" id="addprofile" width=30 style="display:none;"/>
+		</label>
+			<span id="profileimg_span">${profile.PROFILE_IMG_ORI}</span>
+			<input type = "hidden" name="chkimg" id="chkimg" value="${profile.PROFILE_IMG_ORI}">
+			<input type = "hidden" name="PROFILE_IMG_ORI" value="${profile.PROFILE_IMG_ORI}"> 
+			<input type = "hidden" name="PROFILE_IMG_FILE" value="${profile.PROFILE_IMG_FILE}">  
+			<img src="resources/Image/remove.png" width=20 id="profile_remove"/>
+			<br>
+			<img src="resources/upload/${profile.PROFILE_IMG_FILE}" id="img" width="100">
+			
+		</c:if>
+		<c:if test="${empty profile.PROFILE_IMG_ORI}">
+		<label for="profileimg" id="profileImgLabel">
+			<img src="resources/Image/attach.png" id="addprofile" width=30 style="display:inline-block;"/>
+			<span id="profileimg_span">${profile.PROFILE_IMG_ORI}</span>
+			<input type = "hidden" name="chkimg" id="chkimg" value="${profile.PROFILE_IMG_ORI}">
+			<input type = "hidden" name="PROFILE_IMG_ORI" value="${profile.PROFILE_IMG_ORI}"> 
+			<input type = "hidden" name="PROFILE_IMG_FILE" value="${profile.PROFILE_IMG_FILE}"> 
+			<img src="resources/Image/remove.png" width=20 id="profile_remove" style="display:none;"/>
+			<br>
+			<img src="" id="img" width="100">
+		</label>
+		</c:if>
+		<br>
+		<span>전화번호</span>
+		<input type="text" name="PROFILE_PHONE" value="${profile.PROFILE_PHONE}">
+		<span>이메일</span>
+		<input type="text" name="PROFILE_EMAIL" value="${profile.PROFILE_EMAIL}">
+		<span>블로그</span>
+		<input type="text" name="PROFILE_BLOG" value="${profile.PROFILE_BLOG}">
+		<span>깃헙</span>
+		<input type="text" name="PROFILE_GIT" value="${profile.PROFILE_GIT}">
+		<div>
+			<button type="submit" class="btn btn-info" id="profile_mody" style="width:100%">수정</button>
+		</div>
+		</form>
+		</div>
+	</div>
+	</div>
+	</div>
+	
 	</body>
 </html>

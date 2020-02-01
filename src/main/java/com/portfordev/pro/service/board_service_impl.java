@@ -190,8 +190,7 @@ public class board_service_impl implements board_service{
 	
 	@Override
 	public void insert_board(Board board) {
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("[\"]", "&#34;")
-				 .replaceAll("[\']", "&#39;"));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("\'", "&#39;"));
 		System.out.println("저장되는 값 : " + board.getBOARD_CONTENT());
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
@@ -201,8 +200,7 @@ public class board_service_impl implements board_service{
 	@Transactional
 	public int insert_board_Reply(Board board) {
 		boardReplyUpdate(board);
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("[\"]", "&#34;")
-				 .replaceAll("[\']", "&#39;"));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("\'", "&#39;"));
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
 		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
@@ -238,6 +236,12 @@ public class board_service_impl implements board_service{
 		map.put("board_id", board_id);
 		map.put("member_id",member_id);
 		dao.delete_reco(map);
+	}
+	
+	@Override
+	public List<Integer> get_all_board_list(String member_id) {
+		List<Integer> list = dao.get_all_board_list(member_id);
+		return list;
 	}
 	
 	private String xss_clean_check(String value) {

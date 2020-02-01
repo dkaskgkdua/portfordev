@@ -163,7 +163,11 @@ $(document).ready(function(){
 					$('#write-icon-tail').removeClass('never-show');
 					$('#portfolio-feedback-wrap').removeClass('no-feed-need');
 					$('.portfolio-no-feed-need').css('display', 'none');
-					$('.portfolio-feedback-container').css('display', 'block');
+					$('.portfolio-feedback-list').css('display', 'block');
+					$('#feedPick').css('display', 'inline-block');
+					$('#feedOrder').css('display', 'inline-block');
+					$('.port-feed-head').text('Feedback');
+					$('.port-feed-head2').css('visibility', 'visible');
 				}
 				else if(port.PORT_FEED_NEED == 1)
 				{
@@ -171,7 +175,11 @@ $(document).ready(function(){
 					$('#write-icon-tail').addClass('never-show');
 					$('#portfolio-feedback-wrap').addClass('no-feed-need');
 					$('.portfolio-no-feed-need').css('display', 'block');
-					$('.portfolio-feedback-container').css('display', 'none');
+					$('.portfolio-feedback-list').css('display', 'none');
+					$('#feedPick').css('display', 'none');
+					$('#feedOrder').css('display', 'none');
+					$('.port-feed-head').text('Feedback not Needed');
+					$('.port-feed-head2').css('visibility', 'hidden');
 				}
 			}, 
 			error: function(){
@@ -417,11 +425,12 @@ $(document).ready(function(){
 		});
 		// 이미지 클릭 시 포트폴리오  확대
 		$('.port-slide-item').on('click', function(){
-			$('#portfolio-pdf-enlargement-wrap').fadeIn();
+			$('#portfolio-pdf-enlargement-wrap').stop().fadeIn();
 			$('.exit-modal').fadeOut();
 			$('#portfolio-pdf-enlargement-wrap').click(function(e){
 				e.stopPropagation();
-				$('#portfolio-pdf-enlargement-wrap').fadeOut();
+				$('#portfolio-pdf-enlargement-wrap').off('click');
+				$('#portfolio-pdf-enlargement-wrap').stop().fadeOut();
 				$('.exit-modal').fadeIn();
 			});
 		});
@@ -430,6 +439,7 @@ $(document).ready(function(){
 	function doActivity()
 	{
 		var port_writer_id = $('#writer_port_id').val();
+		member_id = $('#userId').val();
 		// 추천하기 클릭 시
 		if($(this).children('img').hasClass('recom-icon'))
 		{
@@ -827,17 +837,32 @@ $(document).ready(function(){
 		{
 			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-on.png');
 			$('#info-icon-tail').children('span').text('그만 보기');
-			if($(window).width() > 640)
-				$('#portfolio-info-wrap').stop().animate({left: '60%'}, {duration:500,queue:false});
-			else
-				$('#portfolio-info-wrap').stop().animate({left: '50%'}, {duration:500,queue:false});
+			if($(window).width() > 640){
+				$('.drag-activity-menu').trigger('click');
+				$('#cover-wrap').stop().fadeIn();
+				$('.exit-cover2').css('left','25%');
+				$('#portfolio-info-wrap').stop().animate({left: '40%'}, 500, function(){
+					$('.exit-cover2').fadeIn();
+				});
+			}
+			else{
+				$('.drag-activity-menu').trigger('click');
+				$('#cover-wrap').stop().fadeIn();
+				$('.exit-cover2').css('left','12%');
+				$('#portfolio-info-wrap').stop().animate({left: '25%'}, 500, function(){
+					$('.exit-cover2').fadeIn();
+				});
+			}
 		}
 		else
 		{
+			
+			$('.exit-cover2').stop().fadeOut(250);
 			$('#info-icon-tail').children('img').attr('src', '/pro/resources/Image/icon/info-show-off.png');
 			$('#info-icon-tail').children('span').text('정보 보기');
 			$('#portfolio-info-wrap').stop().animate({left: '100%'}, 500, function(){
 				$('#portfolio-info-wrap').scrollTop(0);
+				$('#cover-wrap').stop().fadeOut();
 			});
 		}
 	}
@@ -871,7 +896,7 @@ $(document).ready(function(){
 			$('#feed-icon-tail').children('span').text('피드백 보기');
 			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
 				$('.portfolio-feedback-list').scrollTop(0);
-				$('#cover-wrap').fadeOut();
+				$('#cover-wrap').stop().fadeOut();
 			});
 		}
 	}
@@ -882,6 +907,10 @@ $(document).ready(function(){
 			feed_show_hide();
 		if($('.feedback-update-container').hasClass('updating'))
 			$('.feed-update-cancel').trigger('click');
+	});
+	$('.exit-cover2').click(function(){
+		if($('#info-icon-tail').hasClass('showInfo'))
+			info_show_hide();
 	});
 	
 	// 창 크기 조절 할 경우

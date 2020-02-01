@@ -58,7 +58,6 @@
 		<h3 id ="h3_category" class="float-left"></h3> 
 		<a href ="/pro/board_write?BOARD_CATEGORY=${BOARD_CATEGORY}" id="add_board_button" 
 			class="write btn float-right">글쓰기</a>
-		<a href ="/pro/portfolio_add" class="write btn btn-success float-right">포폴</a>	
 		<form id = "search_form" action="board_list">
 				<select name="search_select" size="1" id="search_select" class = "float-left">
 					<option value="0">작성자</option>

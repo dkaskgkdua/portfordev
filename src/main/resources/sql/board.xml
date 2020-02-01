@@ -127,4 +127,7 @@
 	<select id="get_board_reg" parameterType="int" resultType="int">
 		select BOARD_ID from BOARD where BOARD_RE_REF = #{BOARD_ID}
 	</select>
+	<select id="get_all_board_list" parameterType="String" resultType="int">
+		select BOARD_ID from board where member_id = #{MEMBER_ID}
+	</select>
 </mapper>
