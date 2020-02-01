@@ -503,7 +503,6 @@ s							<footer>
  			</button>
 		</div>
 
-
 		<div class="modal-body">
 		<form method="post" action="profile_modify" id="profile_mody_form" enctype='multipart/form-data'>
 		<span>이름</span>
