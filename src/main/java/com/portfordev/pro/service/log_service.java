@@ -21,3 +21,4 @@ public interface log_service {
 	// 읽음 처리
 	public void update_alert(String MEMBER_ID);
 }
+

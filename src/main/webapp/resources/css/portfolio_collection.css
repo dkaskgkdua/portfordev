@@ -31,6 +31,7 @@ tbody{
 	position:relative;
 	color: #414042;
 	margin-top: 7px!important;
+    min-height: 770px;
 }
 .clearfix:before{
 	display:table;
@@ -234,6 +235,13 @@ tbody{
     	padding: 0 30px;
 	}
 }
+.portfolio-list .no-portfolio{
+	display: block;
+    text-align: center;
+    font-size: 20pt;
+    font-weight: lighter;
+    color: darkgrey;
+}
 .portfolio-list .portfolio-list-item {
     overflow: hidden;
     background: #f6f6f6;
@@ -246,44 +254,50 @@ tbody{
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
     transition: all 0.3s;
     border-bottom-right-radius: 1px;
-    height:360px;
 }
 @media screen and (max-width: 450px){
 	.portfolio-list .portfolio-list-item {
     	width: 100%;
     	margin: 9px auto;
-    	height:360px;
+    	float:none;
 	}
 }
-@media screen and (max-width: 768px) and (min-width: 450px){
+@media screen and (max-width: 620px) and (min-width:451px){
 	.portfolio-list .portfolio-list-item {
-    	width: 48%;
-    	margin-right: 2%;
+    	width: 75%;
+    	float:none;
+    	margin-right:auto;
+    	margin-left:auto;
+    	margin-bottom: 12px;
+	}
+}
+@media screen and (max-width: 768px) and (min-width: 621px){
+	.portfolio-list .portfolio-list-item {
+    	width: 45%;
+    	margin-right:1%;
+    	margin-left:1%;
     	margin-bottom: 15px;
-    	height:360px;
 	}
 }
 @media screen and (max-width: 991px) and (min-width: 768px){
 	.portfolio-list .portfolio-list-item {
-    	width: 31%;
+    	width: 48%;
     	margin-right: 2%;
     	margin-bottom: 30px;
 	}
 }
 @media screen and (max-width: 1300px) and (min-width: 991px){
 	.portfolio-list .portfolio-list-item {
-   	 	width: 23.25%;
-    	margin-right: 1%;
+   	 	width: 31%;
+    	margin-right: 2%;
     	margin-bottom: 47px;
-    	height:360px;
 	}
 }
 @media screen and (min-width: 1300px){
 	.portfolio-list .portfolio-list-item{
-		width: 18%;
+		width: 23.25%;
     	margin-right: 2%;
     	margin-bottom: 47px;
-    	height:365px;
 	}
 }
 .portfolio-list a{
@@ -302,7 +316,7 @@ tbody{
 	background-position:top;
 	background-repeat:no-repeat;
 	background-attachment:scroll;
-	background-image:url(../Image/banner.jpg);
+	background-image:url(/pro/resources/Image/no_img.png);
 	text-align:center;
 	border-top:0.5em solid #5385c1;
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
@@ -376,7 +390,7 @@ tbody{
     word-wrap: normal !important;
     display: block;
     z-index:99;
-    font-size:13px;
+    font-size:15px;
 }
 .user-profile:hover{
 	font-weight:bold;
@@ -392,6 +406,7 @@ tbody{
 	width:22px;
 	height:22px;
 	box-shadow:none;
+	vertical-align: sub;
 }
 img.icon-round{
 	border-radius:50%;
@@ -404,6 +419,7 @@ img.icon-round{
 	width: 100%;
     text-align: center;
     border-top: 1px solid #dbdbdb;
+    margin-bottom: 2px;
 }
 .social-info td {
     width: 33.33%;
@@ -432,7 +448,7 @@ img.icon-round{
 }
 @media screen and (max-width: 568px){
 	.view-icon, .like-icon, .comment-icon {
-    	vertical-align: baseline;
+    	vertical-align: middle;
     	margin-right: 3px;
 		box-shadow:none;
 	}

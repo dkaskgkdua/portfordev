@@ -46,6 +46,10 @@
 		background : #53acf1 !important;
 		color : white !important;
 	}
+	.container {
+		min-height : 1000px;
+		height : 80%;
+	}
 	
 </style>
 </head>

@@ -253,5 +253,4 @@ public class profile_controller {
 		return "redirect:profile?idch="+profile.getMEMBER_ID();
 		
 	}
-
 }

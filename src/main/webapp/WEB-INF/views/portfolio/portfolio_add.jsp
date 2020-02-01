@@ -131,11 +131,19 @@ h3 {
 				<div class="form-group">
 					<label style ="display:inline" for="PORT_UPLOADFILE">이미지 첨부</label> 
 					<label style ="display:inline" for="PORT_UPLOADFILE" data-toggle="tooltip" data-placement="top" title="최대 용량 : 20MB"> 
-						<img id=ig src="resources/Image/attach.png" width ="10px" alt="파일첨부">
+						<img id=ig src="/pro/resources/Image/icon/images.svg" width ="10px" alt="파일첨부">
 					</label> 
 					<input  multiple ="multiple"  class="file_up" type="file" id="PORT_UPLOADFILE" name="PORT_UPLOADFILE">
 					<span id="port_filevalue"></span>
-					<img src="resources/Image/remove.png" alt="파일삭제" width="10px" class="remove2">
+					<img src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove2">
+				</div>
+				<div class="form-group">
+					<span style="color:red">확장자는 jpg, jpeg, gif, png만 가능합니다.</span>
+				</div>
+				<div class="form-group">
+					<label for="PORT_GITHUB">기간</label> 
+					<input type="date" id="PORT_START_DAY" value ="2020-01-01" name="PORT_START_DAY">-
+					<input type="date" id="PORT_END_DAY" value ="2020-02-01" name="PORT_END_DAY">
 				</div>
 				<div class="form-group">
 					<span style="color:red">확장자는 jpg, jpeg, gif, png만 가능합니다.</span>
@@ -163,16 +171,16 @@ h3 {
 				<div class="form-group">
 					<label for="individual">공개여부</label>
 					<input type="radio" id = "open" name="PORT_SHOW" value="0" checked>
-					<label for="individual">공개</label>
+					<label for="open">공개</label>
 					<input type="radio" id = "close" name="PORT_SHOW" value="1">
-					<label for="team">비공개</label>
+					<label for="close">비공개</label>
 				</div>
 				<div class="form-group">
 					<label for="individual">피드백</label>
 					<input type="radio" id = "agree" name="PORT_FEED_NEED" value="0" checked>
-					<label for="individual">허용</label>
+					<label for="agree">허용</label>
 					<input type="radio" id = "reject" name="PORT_FEED_NEED" value="1">
-					<label for="team">거부</label>
+					<label for="reject">거부</label>
 				</div>
 				<div class="form-group">
 					<div class="g-recaptcha"

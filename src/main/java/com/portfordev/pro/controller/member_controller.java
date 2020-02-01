@@ -80,7 +80,7 @@ public class member_controller {
 			@RequestParam(value="page", defaultValue="1", required = false) int page,
 			HttpServletResponse response, HttpSession session, ModelAndView mv) throws Exception { 
 		Member member = member_service.get_member(MEMBER_ID);
-		int limit = 15;
+		int limit = 10;
 		int list_count = log_service.get_log_count(MEMBER_ID);
 		
 		int max_page = (list_count + limit - 1) /limit;

@@ -38,19 +38,15 @@
 				}
 			}
 			
-
 		 }
 		
 		function categoryChange(e) {
 			var good_a = ["javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
 			var good_b = ["java", "spring", "oracle", "c","server","system","python"];
 			var target = document.getElementById("skill_detail");
-
 			if(e.value == "1") var d = good_a;
 			else if(e.value == "2") var d = good_b;
-
 			target.options.length = 0;
-
 			for (x in d) {
 				var opt = document.createElement("option");
 				opt.value = d[x];

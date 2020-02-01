@@ -42,6 +42,4 @@ public class profile_service_impl implements profile_service{
 		map.put("profile",profile);
 		return dao.updateprofile(map);
 	}
-	
-
 }

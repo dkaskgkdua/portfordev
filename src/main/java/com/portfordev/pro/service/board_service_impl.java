@@ -190,7 +190,8 @@ public class board_service_impl implements board_service{
 	
 	@Override
 	public void insert_board(Board board) {
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("[\"]", "&#34;")
+				 .replaceAll("[\']", "&#39;"));
 		System.out.println("저장되는 값 : " + board.getBOARD_CONTENT());
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
@@ -200,7 +201,8 @@ public class board_service_impl implements board_service{
 	@Transactional
 	public int insert_board_Reply(Board board) {
 		boardReplyUpdate(board);
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("[\"]", "&#34;")
+				 .replaceAll("[\']", "&#39;"));
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
 		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);
@@ -240,7 +242,8 @@ public class board_service_impl implements board_service{
 	
 	private String xss_clean_check(String value) {
 		if(!value.equals("")) {
-			String safe_value = Jsoup.clean(value, Whitelist.basic());
+			String safe_value = Jsoup.clean(value, Whitelist.basic()).replaceAll("[\"]", "&#34;")
+					 .replaceAll("[\']", "&#39;");
 			if(safe_value.equals("")) {
 				safe_value = "XSS 공격이 감지되었습니다.";
 			}

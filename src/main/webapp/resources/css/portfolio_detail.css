@@ -6,6 +6,9 @@
 	vh, vw : fixed 조건에서 각 높,너비를 1/100로 표현
 	vmin, vmax : 화면의 높,너비 값 중 min과 max
 */
+/*
+	main theme color : #5385c1
+*/
 body, input, select{
 	color:slategrey;
 }
@@ -24,9 +27,88 @@ textarea:focus{
 	position:fixed!important;
 	width:0.1px!important;
 	height:0.1px!important;
-	right:-1!important;
-	bottom:-1!important;
+	right:-99px!important;
+	bottom:-99px!important;
 	display:none!important;
+}
+
+
+/* 안내문구를 보여줄 section */
+#alert-wrap{
+	position: fixed;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    height:100%;
+    z-index: 999;
+}
+#alert-wrap .alert-box{
+	position: absolute;
+    background: #fff;
+    border-radius: 6px;
+    width: 400px;
+    max-width:90%;
+    top: calc(50% - 100px);
+    left: calc(50% - 200px);
+    text-align: left;
+}
+.alert-box img{
+    height: 22px;
+    margin-left: 17px;
+    margin-top: 17px;
+    margin-right: 0;
+    vertical-align: top;
+}
+.alert-box b{
+	display:inline-block;
+	padding:5px;
+	font-size:1.2em;
+	text-align:left;
+	margin-top:10px;
+	margin-left:0;
+}
+.alert-box hr{
+	margin: 1em 0;
+}
+.alert-box strong{
+	font-weight:bold;
+	color:black;
+}
+.alert-box .alert-message{
+	display:none;
+	white-space:normal;
+	word-break:break-all;
+	padding:10px;
+	text-align:center;
+}
+.site-alert .site-url{
+	display:block;
+	white-space:normal;
+	word-break:break-all;
+	min-height: 30px;
+}
+#alert-wrap .alert-box .alert-btn-area{
+	position:relative;
+	bottom:0;
+	text-align: right;
+}
+.alert-btn-area button{
+	margin-right:10px;
+	margin-bottom:10px;
+	background:#5385c1;
+	outline:none!important;
+	cursor:pointer;
+	border-radius:4px;
+}
+.alert-btn-area .goBtn{
+	color:#fff;
+}
+.alert-btn-area .cancelBtn{
+	background:transparent;
 }
 /* 모달 종료 */
 .exit-modal{
@@ -37,12 +119,46 @@ textarea:focus{
 	font-size:40px;
 	font-weight:bold;
 	color:white;
-	z-index:999;
+	z-index:199;
 }
 .exit-modal:hover{
 	cursor:pointer;
 	opacity:0.8;
 	transition:0.3s;
+}
+/* FEEDBACK 작성, 펼치기 시 보여주는 가림막 */
+#cover-wrap{
+	position: fixed;
+    display: none;
+    background: rgba(0,0,0,0.5);
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    width: 100%;
+    z-index: 200;
+}
+.exit-cover{
+	display:none;
+	position: absolute;
+    bottom: 0px;
+    right: calc(50% - 20px);
+    color: rgba(255, 255, 255, 0.7);
+    background: rgba(255,255,255,0.7);
+    border-radius: 50%;
+    width: 40px;
+    height: 40px;
+    padding-top:5px;
+    text-align: center;
+}
+.exit-cover:hover{
+	cursor:pointer;
+	opacity:0.7;
+	transition:0.3s;
+}
+.exit-cover img{
+	margin:0 auto;
+	height:80%;
 }
 /* 전체 모달 관여 */
 .portfolio-modal-container {
@@ -149,12 +265,19 @@ textarea:focus{
 	z-index:302;
 	width:100%;
 	height:auto;
-	min-height:600px;
+	/*min-height:600px;*/
 	display:block;
 	color:white;
 	background:#5385c1;
 	margin:0 auto;
 	border-bottom:1px solid lightgrey;
+	text-align:center;
+}
+.port-pdf-imgitem>img{
+	width:100%;
+	height:auto;
+	margin:0 auto;
+	text-align:center;
 }
 /* DETAIL SECTION */
 #portfolio-detail-wrap{
@@ -186,7 +309,7 @@ textarea:focus{
 	height:80px;
 	background:white;
 	z-index:103;
-	/*border-radius:43% 0 0 0;*/
+	border-radius:5px;
 }
 .detail-summary-floater{
 	height:50%;
@@ -225,7 +348,7 @@ textarea:focus{
 	display:inline-block;
 	margin:0;
 	font-size:20px;
-	line-height:20px;
+	line-height:17px;
 }
 .detail-summary-regidate{
 	float:right;
@@ -259,7 +382,6 @@ textarea:focus{
 	max-width:90%;
 	max-height:calc(100% - 60px);
 	margin:0 auto;
-	display: inline-block;
 }
 .port-slide-item{
 	z-index:106;
@@ -267,6 +389,7 @@ textarea:focus{
 	min-height:283px!important;
 	margin: 10px;
 	background:#5385c1;
+	text-align:center;
 }
 .port-slide-item:hover{
 	cursor:pointer;
@@ -274,13 +397,22 @@ textarea:focus{
 	border-radius:2%;
 	transition:0.3s;
 }
+.port-slide-item>img{
+	max-width:100%;
+	width:auto;
+	height:auto;
+	max-height:283px;
+	margin:0 auto;
+	text-align:center;
+}
 /* 콘솔 활성 비활성 버튼 */
 .drag-activity-menu{
 	position: fixed;
-    background: #5385c1;
+    background: rgba(83, 133, 193, 0.6);
     bottom: 45px;
-    left: -119px;
-    width: calc(119px + 40px);
+    left: 0px;
+    /*width: calc(119px + 40px);*/
+    width:40px;
     height: 60px;
     padding:0;
     display:none;
@@ -303,7 +435,7 @@ textarea:focus{
 .portfolio-detail-activity{
 	z-index:105;
 	position:absolute;
-	bottom:30px;
+	bottom:10px;
 	width:100%;
 	max-height:100px;
 	text-align:center;
@@ -358,6 +490,7 @@ textarea:focus{
 }
 #feed-icon-tail{
 	position: relative;
+	display:none;
 }
 #info-icon-tail{
 	display:none;
@@ -378,12 +511,9 @@ textarea:focus{
     min-width:150px;
     border:0;
     overflow-y:scroll;
-	/*background:#5385c1;*/
 	background:lightgrey;
 	border-left:0.5px solid darkgrey;
-    /*bottom:45px;*/
-
-	/* scroll bar 감주기 */
+    /* scroll bar 감주기 */
 	-ms-overflow-style:none;	/* IE and Edge */
 	scrollbar-width:none;	/* Firefox */
 }
@@ -403,6 +533,7 @@ textarea:focus{
 	background:lightslategrey;
 	text-align:center;
 	padding:15px 0;
+	border-radius:5px 5px 0 0;
 }
 .portfolio-info-writer:hover{
 	cursor:pointer;
@@ -479,6 +610,7 @@ textarea:focus{
 	border-bottom:1px solid lightgrey;
 	background:white;
 	padding:10px;
+	border-radius:0 0 5px 5px;
 }
 .port-info-site-span{
 	text-align:left;
@@ -517,14 +649,27 @@ textarea:focus{
 	border-right:0.5px solid darkgrey;
 	border-top:0.5px solid darkgrey;
 }
+.no-feed-need{
+	height:10%!important;
+}
+.portfolio-no-feed-need{
+	display:none;
+	width: 100%;
+    height: 100%;
+    z-index: 200;
+    text-align: center;
+    font-weight: bold;
+    font-size: 25px;
+    margin-top: 1%;
+}
 .portfolio-feedback-container{
 	width:100%;
 	height:100%;
 	background-color:lightgrey;
 	z-index:106;
 }
-/* FEEDBACK 작성 폼 */
-.feedback-write-container{
+/* FEEDBACK 작성 폼, 수정 폼 */
+.feedback-write-container, .feedback-update-container{
 	display:none;
     background-color: white;
     height:100%;
@@ -532,7 +677,7 @@ textarea:focus{
     /*border-radius: 0 0 30% 0;*/
 }
 /* 작성 폼 HEADER */
-.feed-write-header{
+.feed-write-header, .feed-update-header{
     width: 100%;
     height:50px;
     background: whitesmoke;
@@ -540,36 +685,11 @@ textarea:focus{
 	padding-top:5px;
 	display:block;
 }
-.feed-write-header h2{
+.feed-write-header h2, .feed-update-header h2{
 	font-weight:700;
 	margin:0;
 	margin-left:10px;
 	display:inline-block;
-}
-/* 작성폼 접기 */
-.feedback-write-hide{
-	position:absolute;
-    background: rgba(255, 255, 255, 0.7);
-	border-radius:0 0 90% 90%;
-    border: 3px solid slategrey;
-	border-top:0;
-	display:inline-block;
-	width:90px;
-	height:40px;
-	top:0;
-	left:calc(50% - 45px);
-	color:slategrey;
-	font-weight:500;
-	font-size:1.2em;
-	text-align:center;
-}
-.feedback-write-hide:hover{
-	cursor:pointer;
-	opacity:0.8;
-	transition:0.3s;
-}
-.feedback-write-hide img{
-	height:100%;
 }
 .feed-writer-profile{
 	margin-top:10px;
@@ -587,11 +707,11 @@ textarea:focus{
 }
 .feed-writer-profile-nick{
 	height:20px;
-	display:inline-block;
+	display:block;
 	font-weight:1000;
 	font-size:16px;
 }
-#FEED_CONTENT{
+#FEED_CONTENT, #FEED_UPDATE_CONTENT{
 	float: right;
     height: calc(100% - 110px);
     max-height:180px;
@@ -599,7 +719,7 @@ textarea:focus{
     margin-top: 10px;
     margin-right: 10px;
 }
-#FEED_CONTENT:focus{
+#FEED_CONTENT:focus, #FEED_UPDATE_CONTENT:focus{
 	transition:0.4s;
 	background:white;
 	font-size:12pt;
@@ -618,7 +738,7 @@ textarea:focus{
 	transition:0.3s;
 }
 /* 작성, 취소 버튼 */
-.feed-write-cancel, .feed-write-done{
+.feed-write-cancel, .feed-write-done, .feed-update-cancel, .feed-update-done{
 	height:40px!important;
 	float:right;
 }
@@ -630,6 +750,7 @@ textarea:focus{
     padding: 0;
 	padding-top:5px;
 	display:block;
+	border-radius: 5px 5px 0 0;
 }
 /* FEEDBACK 정보 */
 .portfolio-feedback-info{
@@ -647,31 +768,6 @@ textarea:focus{
 }
 .portfolio-feedback-info .portfolio-feedback-cnt{
 	
-}
-/* FEEDBACK 접기 */
-.portfolio-feedback-hide{
-	position:absolute;
-    background: rgba(255, 255, 255, 0.7);
-	border-radius:0 0 90% 90%;
-    border: 3px solid slategrey;
-	border-top:0;
-	display:inline-block;
-	width:90px;
-	height:40px;
-	top:0;
-	left:calc(50% - 45px);
-	color:slategrey;
-	font-weight:500;
-	font-size:1.2em;
-	text-align:center;
-}
-.portfolio-feedback-hide:hover{
-	cursor:pointer;
-	opacity:0.8;
-	transition:0.3s;
-}
-.portfolio-feedback-hide img{
-	height:100%;
 }
 /* FEEDBACK 필터 */
 .portfolio-feedback-filter{
@@ -716,6 +812,12 @@ textarea:focus{
 .portfolio-feedback-list::-webkit-scrollbar{
 	display:none;	/* Chrome, Safari, Opera */
 }
+.no-feedback-item{
+	text-align: center;
+    font-weight: bold;
+    font-size: 22px;
+    margin-top: 40px;
+}
 .portfolio-feedback-item{
 	width:100%;
 	height:100%;
@@ -752,10 +854,11 @@ textarea:focus{
 }
 /* 피드백 작성자 프로필 */
 .feedback-info .feedback-writer-profile{
-	width:100%;
-	height:100%;
-	display:inline-block;
-	text-align:center;
+	width: 100%;
+    height: calc(100% - 20px);
+    display: inline-block;
+    text-align: center;
+    margin-top: 20px;
 }
 .feedback-info .feedback-writer-profile:hover{
 	cursor:pointer;
@@ -776,12 +879,14 @@ textarea:focus{
 .feedback-writer-profile .activity-score{
 	max-height:25px;
 	max-width:25px;
+    vertical-align: top;
 }
 .feedback-writer-profile .feedback-writer-score{
 	max-height:25px;
 	display:inline-block;
 	max-width:calc(100% - 25px);
 	overflow:hidden;
+	line-height:14px;
 }
 .feedback-content{
 	width:80%;
@@ -789,11 +894,22 @@ textarea:focus{
 	float:right;
 	padding:10px;
 }
+.feedback-content .feedback-written-date{
+	height: 15px;
+    text-align: right;
+    padding-right: 20px;
+    font-size: 1em;
+    line-height: 1em;
+    margin-bottom: 5px;
+}
 .feedback-content .feedback-content-text{
-	width:100%;
-	height:100%;
-	overflow-y:scroll;
-	overflow-x:hidden;
+	width: 100%;
+    height: calc(100% - 20px);
+    overflow-y: scroll;
+    overflow-x: hidden;
+    background: aliceblue;
+    padding: 10px;
+    border-radius: 3px;
 }
 .feedback-controller{
 	height:18%;
@@ -859,7 +975,7 @@ textarea:focus{
 /* 반응형 */
 /* 세로 */
 /* 세로가 작을 경우 메뉴바 사이드로 이동 */
-@media screen and (min-height:1240px){
+@media screen and (min-height:1300px){
 	#portfolio-feedback-wrap{
 		top:845px;
 		height: calc(100% - 845px)!important;
@@ -867,7 +983,7 @@ textarea:focus{
 }
 @media screen and (min-height:900px){
 	.portfolio-detail-activity{
-		bottom:45px;
+		bottom:10px;
 		left:0!important;
 		right:0;
 	}
@@ -882,16 +998,22 @@ textarea:focus{
 	    max-height: calc(100% - 60px);
 	    overflow:hidden;
 	    overflow-y:scroll;
-	    background-color: #5385c1;
+	    background-color: rgba(83, 133, 193, 0.9);
 	    position: fixed;
-	    left: -119px;
+	    border:0;
+	    left: -120px;
 	    width: 120px;
 	    bottom:45px!important;
 	    text-align: center;
 	    border-radius: 0 5px 0 0;
-	    border:1px solid darkgrey;
 	    z-index:108;
-	    color:lightgray;
+	    color:lightgray;	
+	    /* scroll bar 감주기 */
+		-ms-overflow-style:none;	/* IE and Edge */
+		scrollbar-width:none;	/* Firefox */
+	}
+	.portfolio-detail-activity::-webkit-scrollbar{
+		display:none;	/* Chrome, Safari, Opera */
 	}
 	.drag-activity-menu{
 		display:block!important;
@@ -933,23 +1055,17 @@ textarea:focus{
 	#portfolio-feedback-wrap{
 		position:fixed;
 		width:90%;
-		height:calc(100% - 100px)!important;
+		height:80%!important;
 		left:5%;
 		right:5%;
 		top:100%;
 		z-index:200;
 	}
-	.feedback-write-container{
+	.feedback-write-container, .feedback-update-container{
 		height:250px;
 	}
 	#feed-icon-tail{
-		display:inline-block!important;
-	}
-	.portfolio-feedback-hide{
-		display:inline-block!important;
-	}
-	.feedback-write-hide{
-		display:inline-block!important;
+		display:inline-block;
 	}
 }
 @media screen and (max-height:590px){
@@ -1062,7 +1178,7 @@ textarea:focus{
 	}
 	.drag-activity-menu{
 	    bottom: 45px;
-	    left: -119px;	
+	    left: 0px;	
 	}
 }
 @media screen and (max-width: 640px){
@@ -1116,6 +1232,7 @@ textarea:focus{
 	}
 	.summary-info>*{
 		float:none!important;
+		line-height:22px!important;
 	}
 	.portfolio-detail-summary{
 		text-align:center;
@@ -1123,7 +1240,7 @@ textarea:focus{
 	.detail-summary-regidate{
 		top:47px;
 	}
-	.feedback-write-container button{
+	.feedback-write-container button, .feedback-update-container button{
 		padding:0 13px!important;
 		margin-left:15px!important;
 		width:100px!important;

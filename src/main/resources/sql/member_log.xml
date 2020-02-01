@@ -11,7 +11,7 @@
 	<select id="get_log_list" parameterType="Map" resultType="Member_log">
 		select * from(
 			select rownum rnum, a.* 
-				from (select * from member_log where member_id = #{member_id}
+				from (select * from member_log where member_id = #{member_id} order by MEMBER_LOG_DATE desc
 				) a
 			)where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>

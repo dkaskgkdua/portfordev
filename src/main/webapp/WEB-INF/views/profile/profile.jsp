@@ -482,7 +482,6 @@ s							<footer>
 								  slidesToScroll: 1,
 				         }
 				         } ]
-
 					  
 					});
 				

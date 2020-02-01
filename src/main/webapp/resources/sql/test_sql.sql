@@ -16,14 +16,23 @@ create table member_test3(
 	addr varchar2(30),
 	today date
 );
-
+select * from(
+			select rownum rnum, a.*
+				from (select ALERT_ID, alert.MEMBER_ID, MEMBER_NAME, ALERT_CATEGORY, ALERT_REF_ID, ALERT_REQ_MEMBER, ALERT_CHECK, ALERT_DATE from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID where alert.MEMBER_ID = '117421623799109543474' order by ALERT_DATE desc
+			) a
+     	) where  rnum >= 1 and rnum <= 10 
+select distinct MEMBER_ID, BOARD_ID from BOARD_COMMENT inner join MEMBER using(MEMBER_ID) where BOARD_ID = 1;
+select * from board_comment;
+select * from alert;
+delete from PORTFOLIO;
+select * from PORTFOLIO;
 select rownum rnum, b.* from(
 select * from (select BOARD_ID, BOARD_READCOUNT, MEMBER_ID, BOARD_CATEGORY, BOARD_SUBJECT, BOARD_CONTENT, BOARD_RE_REF, BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_DATE, MEMBER_NAME, MEMBER_ACT from board inner join MEMBER using(member_id)) inner join
 (select * from (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id)
 inner join (select BOARD_ID, a.SORT_READ from board join (select BOARD_RE_REF, BOARD_READCOUNT SORT_READ from board where BOARD_RE_LEV = 0) a using(BOARD_RE_REF)) using(board_id) 
 inner join (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)) using(board_id) where BOARD_CATEGORY = 0 order by SORT_READ desc, BOARD_RE_REF desc, BOARD_RE_SEQ asc
 ) b;
-
+select * from member_log;
 select rownum rnum, b.* from(
 select * from (select BOARD_ID, BOARD_READCOUNT, MEMBER_ID, BOARD_CATEGORY, BOARD_SUBJECT, BOARD_CONTENT, BOARD_RE_REF, BOARD_RE_LEV, BOARD_RE_SEQ, BOARD_DATE, MEMBER_NAME, MEMBER_ACT from board inner join MEMBER using(member_id)) inner join
 (select * from (select board_id, count(BOARD_RECO_ID) BOARD_RECO from board left outer join board_recommend using(board_id) group by board_id) inner join(
@@ -32,6 +41,16 @@ select board_re_ref, a.SORT_RECO  from board inner join (
 select board_id, count(BOARD_RECO_ID) SORT_RECO from board left outer join board_recommend using(board_id) group by board_id) a using(board_id) where board_re_lev = 0) using(board_re_ref)) using(board_id)
 inner join (select board_id, count(BOARD_CO_ID) BOARD_COMMENT from board left outer join BOARD_COMMENT using(board_id) group by board_id) using(board_id)) using(board_id) where BOARD_CATEGORY = 0 order by SORT_RECO desc, BOARD_RE_REF desc, BOARD_RE_SEQ asc
 ) b;
+select * from(
+	select rownum rnum, a.*
+		from (select MEMBER_NAME, ALERT_ID, alert.MEMBER_ID from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID ))
+select ALERT_ID, alert.MEMBER_ID, MEMBER_NAME, ALERT_CATEGORY, ALERT_REF_ID, ALERT_REQ_MEMBER, ALERT_CHECK, ALERT_DATE from alert inner join member on alert.ALERT_REQ_MEMBER = member.MEMBER_ID;
+
+select * from(
+			select rownum rnum, a.* 
+				from (select * from member_log where MEMBER_ID = '117421623799109543474'
+				) a
+			)where rnum >= 1 and rnum <= 10
 
 select * from dept;
 <<<<<<< HEAD
