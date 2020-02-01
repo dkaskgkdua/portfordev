@@ -158,8 +158,6 @@ p {
 </script>
 </head>
 <body>
-
-
 	<div class="container">
 		<form id="board_form"action="/pro/board_add_action" method="post"
 			enctype="multipart/form-data" name="boardform">
@@ -203,7 +201,7 @@ p {
 				</div>
 			</div>
 			<div class="form-group">
-				<button id="add_board_button"type="button" class="btn btn-primary">등록</button>
+				<button id="add_board_button"type="button" class="btn" style="background : rgb(83, 133, 193); color:white;">등록</button>
 				<button type="button" class="btn btn-secondary" onClick='history.back(); return false;'>취소</button>
 			</div>
 

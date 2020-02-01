@@ -31,7 +31,7 @@ public class profile_controller {
 	@Autowired
 	private profile_service_impl service;
 	
-	@Autowired
+  @Autowired
 	private portfolio_service po_service;
 	
 	 @Value("${savefoldername}") 

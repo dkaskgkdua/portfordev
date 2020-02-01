@@ -9,6 +9,9 @@
 			<param name="ConversionPattern" value="%-5p: %c - %m%n" />
 		</layout>
 	</appender>
+	<logger name="profile">
+		<level value="trace"/>
+	</logger>
 	<logger name="Members">
 		<level value="trace"/>
 	</logger>

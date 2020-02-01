@@ -30,6 +30,7 @@ import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.log_service;
+import com.portfordev.pro.service.profile_service;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
@@ -40,6 +41,12 @@ public class member_controller {
 	private MemberService member_service;
 	@Autowired
 	private log_service log_service;
+	@Autowired
+	private profile_service profile_service;
+	
+	
+	@Value("${savefoldername}")
+	private String save_folder;
 	
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -95,15 +102,21 @@ public class member_controller {
 		int end_page = start_page + 10 -1;
 		
 		if(end_page>max_page) end_page = max_page;
-		System.out.println("11");
 		List<Member_log> member_log_list = log_service.get_log_list(page, limit, MEMBER_ID);
-		System.out.println("22");
+		String profile_img = "";
+		if(profile_service.profile_view(MEMBER_ID) != null) {
+			if(profile_service.profile_view(MEMBER_ID).getPROFILE_IMG_FILE() != null ) {
+				profile_img = profile_service.profile_view(MEMBER_ID).getPROFILE_IMG_FILE();
+			}
+		}
+		 
 		mv.setViewName("member/mypage_form");
 		mv.addObject("MEMBER", member);
 		mv.addObject("max_page", max_page);
 		mv.addObject("start_page", start_page);
 		mv.addObject("end_page", end_page);
 		mv.addObject("page", page);
+		mv.addObject("profile_img", profile_img);
 		mv.addObject("list_count", list_count);
 		mv.addObject("member_log_list", member_log_list);
 		mv.addObject("limit", limit);

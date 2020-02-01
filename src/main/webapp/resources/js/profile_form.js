@@ -78,6 +78,16 @@ $('#select_result2_delete').click(function(){
 	
 })
 
+$('#select_result_delete').on('click',function(){
+	$('#select_result').val("");
+	
+})
+
+$('#select_result2_delete').click(function(){
+	$('#select_result2').val("");
+	
+})
+
 
 /*시작 버튼*/
 $("#start_btn").click(function(){

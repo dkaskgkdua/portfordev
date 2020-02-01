@@ -43,7 +43,7 @@
 		width : 100%;
 	}
 	#add_board_button {
-		background : #53acf1 !important;
+		background : rgb(83, 133, 193) !important;
 		color : white !important;
 	}
 	.container {

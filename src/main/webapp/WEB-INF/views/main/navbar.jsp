@@ -96,6 +96,120 @@
 		});
 	})
 </script>
+<style>
+#alert_count {
+	position : relative;
+	top : -18px;
+	left : -12px;
+	color : red;
+	border-radius : 50%;
+	padding : 1px 4px;
+	font-weight : bold;
+}
+.alert_a {
+	color: black;
+}
+.alert_date {
+	float : right;
+	width : 60px;
+}
+.modal-nav {
+	 height : 450px; 
+	 }
+.searchBtn{
+	height: 36px;
+    background: rgb(83, 133, 193);
+    border-color:#FFF;
+}
+.searchBtn:hover{
+	background: rgb(93, 143, 203);
+	border-radius:5%;
+	opacity:0.8;
+	transition:0.3s;
+	border-color:lightgrey;
+}
+#account_button {
+	padding-right : 0px;
+}
+.navbar-toggler {
+	width : 60px;
+	height : 40px;
+}
+.nav-wrap {
+	height : 60px !important;
+}
+@media screen and (max-width: 575px){
+	.searchBar{
+		width: calc(99% - 136px)!important;
+		margin-right: 1%!important;
+	}
+	.navbar-nav {
+    	flex-direction: inherit;
+    	display:block;
+	}
+	.nav-link{
+	    color: rgba(100,100,100)!important;
+	    font-weight: 500;
+	}
+	.navbar-nav li{
+		margin-left:1%;
+	}
+	.nav-divider{
+		height: 0;
+	    margin: .5rem 0;
+	    overflow: hidden;
+	    border-top: 1px solid #e9ecef;
+	}
+	.profile-nav1, .port-nav1, .news-nav1, .free-nav1, .study-nav1, .qna-nav1{
+		display:inline-block;
+	}
+	.dropdown-toggle{
+		display:none;
+	}
+}
+@media screen and (min-width: 576px){
+	.navbar {
+		height : 60px !important;
+	}
+	.news-nav1, .free-nav1, .study-nav1, .qna-nav1, .nav-divider{
+		display:none;
+	}
+}
+@media screen and (min-width: 577px) and (max-width: 744px){
+	.navbar-expand-sm .navbar-nav .nav-link {
+     	padding-right: 0;
+     }
+     .profile-nav1{
+     	display:none;
+     }
+     .profile-nav2{
+     	display:block;
+     }
+}
+@media screen and (min-width: 577px) and (max-width: 640px){
+	.port-nav1{
+		display:none;
+	}
+	.port-nav2{
+		display:block;
+	}
+}
+@media screen and (max-width: 480px){
+	.searchBar{
+		width: 100%!important;
+		margin: 0!important;
+	}
+}
+@media screen and (min-width: 745px){
+	.navbar {
+		height : 60px !important;
+	}
+	.port-nav2, .profile-nav2{
+		display:none!important;
+	}
+}
+
+</style>
 <div class="nav-wrap">
 <nav class="navbar navbar-expand-sm navbar-light bg-light fixed-top">
 	<a class="navbar-brand" href="/pro">PFD</a>
@@ -171,7 +285,7 @@
 </div>
 <div class="modal fade" id="account_modal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   <div class="modal-dialog modal-sm modal-dialog-scrollable" role="document" style="float: right;">
-    <div class="modal-content personal-content">
+    <div class="modal-content modal-nav">
       <div class="modal-header">
      	<input type="hidden" id="hidden_id" value ="${id}">
         <h3 class="modal-title" id="exampleModalLabel">${nickname}</h3>
