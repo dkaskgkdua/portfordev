@@ -41,6 +41,9 @@ span {
 .padding-top2 {
 	padding-top : 5px;
 }
+p {
+	margin : 0 0 0 0 !important;
+}
 </style>
 <script>
 	function insert_reco(board_id, member_id) {

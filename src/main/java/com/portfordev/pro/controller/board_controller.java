@@ -150,7 +150,6 @@ public class board_controller {
 		log_service.insert_log(new Member_log(board.getMEMBER_ID(), 0, board_id));
 		redirect.addAttribute("BOARD_CATEGORY", board.getBOARD_CATEGORY());
 		return "redirect:/board_list";
-
 	}
 	  
 	@PostMapping("board_password_check")
@@ -277,7 +276,7 @@ public class board_controller {
 			board.setBOARD_RECO(board_reco_list == null ? 0:board_reco_list.size());
 			
 			System.out.println("상세보기 성공"); 
-			
+			System.out.println("board : " + board);
 			mv.setViewName("board/board_view");
 			mv.addObject("board_file_list", board_file_list);
 			mv.addObject("board_reco_list",board_reco_list);
@@ -411,7 +410,7 @@ public class board_controller {
 	private String fileDBName(String fileName, String saveFolder) {
 		Calendar c = Calendar.getInstance();
 		int year = c.get(Calendar.YEAR);
-		int month = c.get(Calendar.MONTH);
+		int month = c.get(Calendar.MONTH)+1;
 		int date = c.get(Calendar.DATE);
 
 		String homedir = saveFolder + year + "-" + month + "-" + date;

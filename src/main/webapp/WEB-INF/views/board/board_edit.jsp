@@ -51,6 +51,7 @@ $(function() {
 	        	}
 	        }
 	 });
+	
 	 $('#board_content').summernote('code', '${board_data.BOARD_CONTENT}');
 	
 	 // 카테고리
@@ -149,6 +150,9 @@ img {
 }
 img:hover {
    cursor: pointer
+}
+p {
+	margin : 0 0 0 0 !important;
 }
 </style>
 
