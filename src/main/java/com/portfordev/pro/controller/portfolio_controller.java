@@ -247,17 +247,65 @@ public class portfolio_controller
 	public String portfolio_update_action() {
 		return "";
 	}
-	// 포트폴리오 삭제하기
-	@ResponseBody
-	@RequestMapping("/portfolio/portfolio_delete")
-	public int portfolio_delete(int PORT_ID, String MEMBER_ID, HttpSession session) {
-		if(session.getAttribute("id") == null)
-			return 0;	// 로그인 바람
-		if(!session.getAttribute("id").equals(MEMBER_ID))
-			return 2;	// 작성자가 일치하지 않음
-		member_service.add_write_act(MEMBER_ID, -20);
-		return po_service.deletePortfolio(PORT_ID);
-	}
+	   // 포트폴리오 삭제하기
+	   @RequestMapping("/portfolio/delete")
+	   public String portfolio_delete(   @RequestParam("PORT_ID") int PORT_ID, 
+	                           @RequestParam("MEMBER_ID") String MEMBER_ID, 
+	                           HttpSession session, HttpServletResponse response) throws Exception {
+	      if(session.getAttribute("id") == null) {
+	         // 로그인 바람
+	         response.setContentType("text/html;charset=utf-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>");
+	         out.println("alert('로그인을 해주세요.');");
+	         out.println("location.href='/pro/login';");
+	         out.println("</script>");
+	         out.close();
+	         return null;
+	      }
+	      if(!session.getAttribute("id").equals(MEMBER_ID)) {
+	         // 작성자가 일치하지 않음
+	         response.setContentType("text/html;charset=utf-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>");
+	         out.println("alert('삭제 권한이 없습니다.');");
+	         out.println("history.go(-1);");
+	         out.println("</script>");
+	         out.close();
+	         return null;
+	      }
+
+	      // 경로를 불러와 파일삭제
+	      Portfolio targetPort = po_service.detailPortfolio(PORT_ID);
+	      if(targetPort.getPORT_FILE_PATH() != null) {
+	         String filePath = save_folder + targetPort.getPORT_FILE_PATH();
+	         File fileDir = new File(filePath);
+	         if(fileDir.exists()) { // 파일 존재 여부 확인
+	            if(fileDir.isDirectory()) { // 디렉토리인지 확인
+	               File[] files = fileDir.listFiles();
+	               for(File file : files) {
+	                  file.delete();
+	               }
+	            }
+	            fileDir.delete();
+	         }
+	      }
+	      int result = po_service.deletePortfolio(PORT_ID);
+	      if(result == 1){
+	         member_service.add_write_act(MEMBER_ID, -20);
+	         return "redirect:/pro/profile?idch="+session.getAttribute("id");
+	      }
+	      else {
+	         response.setContentType("text/html;charset=utf-8");
+	         PrintWriter out = response.getWriter();
+	         out.println("<script>");
+	         out.println("alert('삭제 실패하였습니다.');");
+	         out.println("history.go(-1);");
+	         out.println("</script>");
+	         out.close();
+	         return null;
+	      }
+	   }
 	// 포트폴리오 상세보기
 	@ResponseBody
 	@RequestMapping("/portfolio/port_detail")

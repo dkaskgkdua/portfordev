@@ -116,7 +116,9 @@ public class main_controller
 
 	// 경로를 통해 파일들 가져오기
 	public String[] getFiles(String PORT_FILE_PATH) {
+		System.out.println("파일 패스 "+PORT_FILE_PATH);
 		File path = new File(save_folder+PORT_FILE_PATH);
+		System.out.println("경로"+save_folder+PORT_FILE_PATH);
 		String fileList[] = path.list(new FilenameFilter() {
 			@Override
 			public boolean accept(File dir, String name) {
