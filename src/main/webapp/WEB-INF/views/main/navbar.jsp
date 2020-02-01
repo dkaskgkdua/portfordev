@@ -144,29 +144,34 @@
 	}
 	.navbar-nav {
     	flex-direction: inherit;
+    	display:block;
+	}
+	.nav-link{
+	    color: rgba(100,100,100)!important;
+	    font-weight: 500;
 	}
 	.navbar-nav li{
 		margin-left:1%;
 	}
-	.navbar-nav .dropdown-menu {
-	    position: absolute;
-	    float: none;
-   		width: 317px;
+	.nav-divider{
+		height: 0;
+	    margin: .5rem 0;
+	    overflow: hidden;
+	    border-top: 1px solid #e9ecef;
 	}
-	.dropdown-item{
-		width: auto;
+	.profile-nav1, .port-nav1, .news-nav1, .free-nav1, .study-nav1, .qna-nav1{
 		display:inline-block;
 	}
-	.profile-nav1{
-		display:inline-block;
-	}
-	.profile-nav2{
+	.dropdown-toggle{
 		display:none;
 	}
 }
 @media screen and (min-width: 576px){
 	.navbar {
 		height : 60px !important;
+	}
+	.news-nav1, .free-nav1, .study-nav1, .qna-nav1, .nav-divider{
+		display:none;
 	}
 }
 @media screen and (min-width: 577px) and (max-width: 744px){
@@ -180,6 +185,14 @@
      	display:block;
      }
 }
+@media screen and (min-width: 577px) and (max-width: 640px){
+	.port-nav1{
+		display:none;
+	}
+	.port-nav2{
+		display:block;
+	}
+}
 @media screen and (max-width: 480px){
 	.searchBar{
 		width: 100%!important;
@@ -189,6 +202,9 @@
 @media screen and (min-width: 745px){
 	.navbar {
 		height : 60px !important;
+	}
+	.port-nav2, .profile-nav2{
+		display:none!important;
 	}
 }
 </style>
@@ -207,8 +223,21 @@
 			<li class="nav-item profile-nav1">
 				<a class="nav-link" href="/pro/profile/collection">프로필</a>
 			</li>
-			<li class="nav-item port-nav">
+			<li class="nav-item port-nav1">
 			  	<a class="nav-link" href="/pro/portfolio/collection">포트폴리오</a>
+			</li>
+			<li class="nav-divider"/>
+			<li class="nav-item news-nav1">
+			  	<a class="nav-link" href="/pro/news">IT뉴스</a>
+			</li>
+			<li class="nav-item free-nav1">
+			  	<a class="nav-link" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
+			</li>
+			<li class="nav-item study-nav1">
+			  	<a class="nav-link" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
+			</li>
+			<li class="nav-item qna-nav1">
+			  	<a class="nav-link" href="/pro/board_list?BOARD_CATEGORY=2">Q&amp;A</a>
 			</li>
 			
 			<li class="nav-item dropdown">
@@ -217,11 +246,12 @@
 					aria-expanded="false"> 커뮤니티 </a>
 				<div class="dropdown-menu" aria-labelledby="navbarDropdown">
 					<a class="dropdown-item profile-nav2" href="/pro/profile/collection">프로필</a>
-					<a class="dropdown-item" href="/pro/news">IT뉴스</a>
+			  		<a class="dropdown-item port-nav2" href="/pro/portfolio/collection">포트폴리오</a>
+					<a class="dropdown-item news-nav2" href="/pro/news">IT뉴스</a>
 					<div class="dropdown-divider"></div>
-					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
-					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
-					<a class="dropdown-item" href="/pro/board_list?BOARD_CATEGORY=2">Q&amp;A</a>
+					<a class="dropdown-item free-nav2" href="/pro/board_list?BOARD_CATEGORY=0">자유게시판</a>
+					<a class="dropdown-item study-nav2" href="/pro/board_list?BOARD_CATEGORY=1">스터디</a>
+					<a class="dropdown-item qna-nav2" href="/pro/board_list?BOARD_CATEGORY=2">Q&amp;A</a>
 				</div>
 			</li>
 		</ul>

@@ -119,7 +119,7 @@ $(document).ready(function(){
 					$('.icon-tail-fit>.scrap-tail').text('스크랩 취소');
 				}
 				// 포트폴리오 작성자 이미지 변경
-				$('.port-writer-img-wrapper').css({'background-image' : 'url(/pro/resources/upload'+port.PORT_WRITER_IMG+')'})
+				$('.port-writer-img-wrapper').css({'background-image' : 'url(/pro/resources/upload/'+port.PORT_WRITER_IMG+')'})
 				// 포트폴리오 작성자 닉네임
 				$('.portfolio-info-writer-nick').text(port.PORT_WRITER);
 				// 포트폴리오 작성자 직업
@@ -213,7 +213,7 @@ $(document).ready(function(){
 					var user_img = '/pro/resources/Image/userdefault.png';
 					if(this.FEED_WRITER_IMG != null)
 						user_img = this.FEED_WRITER_IMG;
-					output +=				'<img class="feedback-writer-img" src="/pro/resources/upload'+user_img+'">';
+					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
 					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
 					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
 					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
@@ -275,7 +275,7 @@ $(document).ready(function(){
 					var user_img = '/pro/resources/Image/userdefault.png';
 					if(this.FEED_WRITER_IMG != null)
 						user_img = this.FEED_WRITER_IMG;
-					output +=				'<img class="feedback-writer-img" src="/pro/resources/upload'+user_img+'">';
+					output +=				'<img class="feedback-writer-img" src="'+user_img+'">';
 					output +=				'<span class="feedback-writer-nick">'+this.FEED_WRITER+'</span>';
 					output +=				'<img class="activity-score" src="/pro/resources/Image/icon/award.svg">';
 					output +=				'<span class="feedback-writer-score">'+this.FEED_WRITER_SCORE+'</span>';
@@ -559,6 +559,22 @@ $(document).ready(function(){
 		}
 	}
 	$('.feed-write-cancel').click(feedback_write);
+	var feedWriterImg = function getFeedWriterImg(mid){
+		var fwimg = '/pro/resources/Image/userdefault.png';
+		$.ajax({
+			type: 'POST', 
+			url: '/pro/portfolio/getProfileImg', 
+			data: {'MEMBER_ID': mid}, 
+			async: false, 
+			success: function(fimg){
+				fwimg = fimg;
+			},
+			error:function(){
+				errorAlert('작성자 이미지를 불러오는 과정에');
+		    }
+		});
+		return fwimg;
+	}
 	// 피드백 작성 클릭 시
 	function feedback_write(mid, mname)
 	{
@@ -570,6 +586,7 @@ $(document).ready(function(){
 		$('#write-icon-tail').toggleClass('doFeedWrite');
 		if($('#write-icon-tail').hasClass('doFeedWrite'))
 		{
+			$('.feed-writer-profile-img').attr('src', feedWriterImg(mid));
 			$('.icon-tail-fit>.write-icon').attr('src', '/pro/resources/Image/icon/feed-write-on.png');
 			$('.icon-tail-fit>.write-tail').text('작성 취소');
 			$('.portfolio-feedback-list').css('display', 'none');

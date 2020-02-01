@@ -34,6 +34,7 @@ public interface feedback_service
 	public List<Feedback_recommend> getFeedRecommendList(String MEMBER_ID);
 	// 피드백 writer info
 	public Feedback getFeedWriter(int FEEDBACK_ID);
+	public Feedback getFeedWriter(String MEMBER_ID);
 	// 피드백 date 변환
 	public String replaceDate(int FEEDBACK_ID);
 }

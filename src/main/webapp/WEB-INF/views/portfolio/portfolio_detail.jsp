@@ -3,9 +3,6 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 <link rel="stylesheet" type="text/css" href="/pro/resources/css/portfolio_detail.css" />
-<link rel="stylesheet" type="text/css" href="/pro/resources/slick/slick.css"/>
-<link rel="stylesheet" type="text/css" href="/pro/resources/slick/slick-theme.css"/>
-<script type="text/javascript" src="/pro/resources/slick/slick.min.js"></script>
 
 <!-- 안내문구를 보여줄 SECTION -->
 <section id="alert-wrap">
