@@ -1,6 +1,7 @@
 package com.portfordev.pro;
 
 import java.util.List;
+import java.util.Random;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -11,39 +12,45 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
+import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.MyBatisTestVO2;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations = "file:src/main/webapp/WEB-INF/spring/root-context.xml")
-public class _1DataSourceTest {
+public class MemberTest {
 	private static final Logger logger
-				= LoggerFactory.getLogger(_1DataSourceTest.class);
+				= LoggerFactory.getLogger(MemberTest.class);
 	
 	@Autowired
 	private SqlSessionTemplate sqlsession;
 	
 	
 	
-	//@Test
+	@Test
 	public void testCreate() throws Exception {
-		MyBatisTestVO2 vo = new MyBatisTestVO2();
-		vo.setName("D반");
-		vo.setEmail("D@gmailc.om");
-		vo.setTel("010010");
-		vo.setAddr("서울시 종로구");
+		Member member = new Member();
+		member.setMEMBER_ID("junit");
+		member.setMEMBER_NAME("junit");
+		Random r = new Random();
+		String salt = "";
+		for(int salt_index = 0; salt_index <5; salt_index++) {
+			salt += String.valueOf((char) ((int) (r.nextInt(26)) + 97));
+		}
+		member.setMEMBER_PASSWORD_SALT(salt);
+		member.setMEMBER_PASSWORD(""+(salt+"junit").hashCode());
 		
-		int n = sqlsession.insert("Members.insert", vo);
+		int n = sqlsession.insert("Members.insert", member);
 		logger.info("~~~~~~~~~~~~~~n : " + n + "~~~~~~~~~~~~~~~~~~");
 	}
 	
 	@Test
 	public void testSelect() throws Exception {
-		MyBatisTestVO2 vo = sqlsession.selectOne("Members.testidcheck", "1");
-		System.out.println(vo.toString());
+		Member member = sqlsession.selectOne("Members.get_member", "junit");
+		System.out.println(member);
 	}
 	@Test
 	public void testAllSelect() throws Exception {
-		List<MyBatisTestVO2> list = sqlsession.selectList("Members.selectAll");
+		List<Member> list = sqlsession.selectList("Members.get_member_list");
 		list.forEach(item ->{
 			System.out.println(item);
 		});

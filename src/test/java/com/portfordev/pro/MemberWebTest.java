@@ -6,6 +6,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.Random;
+
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
@@ -19,14 +21,16 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
+import com.portfordev.pro.domain.Member;
+
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @WebAppConfiguration
 @ContextConfiguration(locations = {"file:src/main/webapp/WEB-INF/spring/root-context.xml",
 "file:src/main/webapp/WEB-INF/spring/appServlet/servlet-context.xml"})
-public class _4MyBatisTestControllerTestDEPT {
+public class MemberWebTest {
 	private static final Logger logger
- 	    = LoggerFactory.getLogger(_4MyBatisTestControllerTestDEPT.class);
+ 	    = LoggerFactory.getLogger(MemberWebTest.class);
 	
 	@Autowired
 	private WebApplicationContext wac;
@@ -49,15 +53,12 @@ public class _4MyBatisTestControllerTestDEPT {
 			// .perform()을 이용하면 매핑 url로 request(요청)합니다.
 			// .andExpect를 이용해서 다양하게 검증할 수 있다.
 			// status().isOk()는 응답을 받아 HttpStatus 코드가 "200"인지 체크할 수 있다.
-			mockMvc.perform(post("/mybatistest/mybatisDeptinsert")
-					.param("deptno","55")
-					.param("dname","Dclass")
-					.param("loc", "Seoul2"))
+			mockMvc.perform(post("/joinProcess")
+					.param("MEMBER_ID","junit2")
+					.param("MEMBER_NAME","junit2")
+					.param("MEMBER_PASSWORD", "junit"))
 			.andDo(print())
-			.andExpect(status().isOk()) // 응답을 받아 HttpStatus 코드가 200인지
-			//.andExpect(status().isForbidden()) // 403
-			.andExpect(model().attributeExists("result")) //result attribute가
-			.andExpect(view().name("memberRegisterDept")); //view의 이름이 memberRegisterDept인지
+			.andExpect(status().isOk()); // 응답을 받아 HttpStatus 코드가 200인지
 			logger.info("~~~ 수행 성공 ~~~");
 		} catch(Exception e) {
 			logger.error(">> 수행 실패 : " + e.getMessage());
