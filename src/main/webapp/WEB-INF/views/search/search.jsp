@@ -144,9 +144,9 @@
 						</c:if>	
 							<a href="">${memberList.MEMBER_ID}</a>
 							<br>
-							<div class="context_text">
-							<span class="search_board_span">자기소개 어쩌구 저는 어디서 뭐뭐뭐ㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇㅇ</span>
-							</div>
+							<!-- <div class="context_text">
+							<span class="search_board_span"></span>
+							</div> -->
 							<br>
 							<c:if test="${memberList.REG_DATE!=null}">
 								<span>&nbsp; 최근 피드백 등록일 : ${memberList.REG_DATE}</span> 

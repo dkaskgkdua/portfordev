@@ -11,4 +11,6 @@ public interface profile_service {
 	public Profile profile_view(String id);
 	public List<Profile> portfolioImg(String id);
 	public int updateprofile(String id, Profile profile);
+	public int updateprofile_intro(String id,Profile profile);
+	public int updateprofile_skill(String id , Profile profile);
 }

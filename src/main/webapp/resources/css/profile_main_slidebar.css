@@ -1,5 +1,6 @@
 .slide{color:white;max-width:100%;margin:0 auto;margin-top:10px;}
-	.slide_in{height:400px;margin: 10px;background:white;vertical-align: center}
+.slick-track{min-width:700px;}
+	.slide_in{height:400px;margin: 10px;background:white;vertical-align: center;min-width:330px}
 	.slide_in_content{width:100%;height:400px; filter: brightness(70%); opacity: 0.6}
 	.right{display: inline-block;}
 	.left{display: inline-block;}
@@ -69,7 +70,7 @@
 #modalform span{font-size:12pt;font-weight:bold; }
 /*프로젝트*/
 
-
+.port_delete{margin-top:60px; border-radius: 5px; background: white}
 .best-portfolio-list{
    color:white;
    max-width:100%;
@@ -159,8 +160,27 @@
     vertical-align:top;
 }
 
+/*모달 3*/
+.delete{width:10px}
+			#select_result{ display: inline-block;width:90%}
+			#select_result2{ display: inline-block;width:90%}
+			#select_result_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete{background: white;padding-left:10px;padding-right:10px;}
+			#select_result2_delete img{display:inline-block;}
+			#select_result_delete img{display: inline-block;}
+			.result_div{margin-top:20px;}
+#profile_modify_skill{float:right; width:20px}			
+#profile_modify_info{float:right; width:20px}
+#skill{width:45%;display:inline-block;
+					background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
+#skill_detail{width:45%;display:inline-block;
+							background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
+img{vertical-align: middle;}							
+
 /*모바일*/
 @media (max-width: 480px ) {
+	.slick-track{min-width:0px;}
+	.slide_in{min-width:0px}
 .skill_table {width:300px;}
 .skill_table td{width:30%}
 .skill_table img{width:60px}
@@ -171,7 +191,7 @@
   body{min-width:100%!important}
   #info{padding-left: 0px; padding-right: 0px;padding-top:30px;font-size:11pt;font-weight: 300;padding-bottom:30px!important}
   .info_div{margin-bottom:0px}
-  .slide{margin-top: 0px}
+  .slide{margin-top: 20px}
   .ability{width:60%}
   .skill_table tr{font-size:10pt}
   .h1{font-weight: 300;font-size:20pt}

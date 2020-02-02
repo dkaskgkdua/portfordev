@@ -7,14 +7,11 @@
 		<title>PFD_portfolio_main</title><!-- 나중에 _main 빼고 개발자 아이디 -->
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
 		<jsp:include page="../portfolio/portfolio_detail.jsp" />
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
 		
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
  
-		<script type="text/javascript" src="resources/js/main_page.js"></script>
 		<script src="resources/js/profile.js"></script>
 	<style>
 	.contact_div>div{vertical-align: baseline;}
@@ -28,16 +25,17 @@
 <script>
 	$(document).ready(function () { 
 		
-		if($('#profileid').val()==""){
+		if($('#profileid').val()=="" && "${id}"=="${idch}"){
+			 var move=confirm("프로필 등록하러가기");
+			 if(move==true){
+				location.href="profile_form";
+			 }else{
+				 history.back();
+			 }
+		
+		if($('#profileid').val()=="" && "${id}"!="${idch}"){
     		alert('프로필 등록을 하지 않은 유저입니다.');
     		
-    		if("${id}"=="${idch}"){
-    			 var move=confirm("프로필 등록을 하시겠습니까?");
-    			 if(move==true){
-    				location.href="profile_form";
-    			 }else{
-    				 history.back();
-    			 }
     		}else{
     		history.back();
     		}
@@ -161,7 +159,7 @@
     			</c:if>	
     			</div>
     			<c:if test="${id==profile.MEMBER_ID}">
-    			<a href="#modal1"><button type="button" id="profile_modify">프로필 수정</button></a>
+    			<button type="button" id="profile_modify">프로필 수정</button>
     			</c:if>
     			<div class="sidebar">
     			<ul>
@@ -216,6 +214,13 @@
 								<img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
 								<span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
 								</c:if>
+								<c:if test="${id==profile.MEMBER_ID}">
+								<form action = "portfolio/delete" method="post">
+								<input type="hidden" name="MEMBER_ID" value="${profile.MEMBER_ID}">
+								<input type="hidden" name="PORT_ID" value="${port.PORT_ID}">
+								<button type="submit" class="port_delete">삭제하기</button>
+								</form>
+								</c:if>
 							</div>
 						</div>
 									<!-- 프로젝트  -->
@@ -246,6 +251,9 @@
 					
 					<!-- 스킬 table 나중에 ajax로 구현-->
 					<!-- 임시 아이콘임 -->
+					<c:if test="${id==profile.MEMBER_ID}">
+					<img src="resources/Image/icon/modify.png" id="profile_modify_info">
+					</c:if>
 					<h1 class="h1 user-name" >DEVELOPER ${profile.PROFILE_REAL_NAME}</h1>
 					
 					<div style="background:white" class="info_div">
@@ -385,6 +393,9 @@
 					</div>
 					<hr>
 					<br>
+					<c:if test="${id==profile.MEMBER_ID}">
+						<img src="resources/Image/icon/modify.png" id="profile_modify_skill">
+					</c:if>
 					<h1 class="h1">SKILL</h1>
 					<!-- <img src="resources/Image/skill1.png" width=50 class="skill"> -->
 					<table class="skill_table skill_stack">
@@ -524,7 +535,7 @@
 			
 	</script>
 	
-	<!-- 모달창 -->
+	<!-- 모달창1 -->
 	<div class="modal fade" id="modal1" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
   	<div class="modal-dialog" role="document">
   	  <div class="modal-content">
@@ -586,6 +597,114 @@
 			<button type="submit" class="btn btn-info" id="profile_mody" style="width:100%">수정</button>
 		</div>
 		</form>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+	
+	
+	<!-- 모달창2 -->
+	<div class="modal fade" id="modal2" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+  	  <div class="modal-content">
+	<!-- <div id="modal1" class="modal"> -->
+		<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel">사이드바 수정</h4>
+ 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ 				 <span aria-hidden="true">×</span>
+ 			</button>
+		</div>
+
+		<div class="modal-body">
+		<form id="profile_intro">
+		<input type="hidden" value="${profile.MEMBER_ID}" name="MEMBER_ID">
+		<span>연차</span><br>
+		<input type="text" value="${profile.PROFILE_YEAR}" name="PROFILE_YEAR">
+				<span>키워드를 골라주세요(성격)</span><br>
+  								<select id="select1">
+  									<option value="">선택없음</option>
+  									<option value="ability_meticulous">꼼꼼한</option>
+  									<option value="ability_social">사교적인</option>
+  									<option value="ability_kind">친절함</option>
+  									<option value="ability_active">능동적인</option>
+  									<option value="ability_planned">계획적인</option>
+  									<option value="직접입력">직접입력 </option>
+  								</select>
+  								<input type="hidden" name="PROFILE_STRENGTH1" id="type1">
+  								
+  								<span>키워드를 골라주세요(업무)</span><br>
+  								<select  id="select2">
+  									<option value="">선택없음</option>
+  									<option value="ability_think">창의성</option>
+  									<option value="ability_sungsil">성실성</option>
+  									<option value="ability_teach">리더쉽</option>
+  									<option value="ability_group">적응력</option>
+  									<option value="ability_understand">이해력</option>
+  									<option value="ability_careful">협동력</option>
+  									<option value="직접입력">직접입력</option>
+  								</select>
+  								<input type="hidden" name="PROFILE_STRENGTH2" id="type2">
+		<span>개발자 소개</span>
+		<textarea rows="10" cols="75" name="PROFILE_INTRO">${profile.PROFILE_INTRO}</textarea>
+		<div>
+			<button type="button" class="btn btn-info" id="profile_mody_2" style="width:100%">수정</button>
+		</div>
+		</form>
+		</div>
+	</div>
+	</div>
+	</div>
+	
+	
+	<!-- 모달창3 -->
+	<div class="modal fade" id="modal3" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  	<div class="modal-dialog" role="document">
+  	  <div class="modal-content">
+	<!-- <div id="modal1" class="modal"> -->
+		<div class="modal-header">
+		<h4 class="modal-title" id="myModalLabel">SKILL 수정</h4>
+ 			<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+ 				 <span aria-hidden="true">×</span>
+ 			</button>
+		</div>
+
+		<div class="modal-body">
+		<form id="profile_skill">
+		<input type="hidden" value="${profile.MEMBER_ID}" name="MEMBER_ID">
+		<p>다룰수 있는 툴을 선택해주세요</p>
+  								<select id="skill" name="skill"onchange="categoryChange(this)">
+  										<option>선택</option>
+  										<option value="1">frontend</option>
+  										<option value="2">backend</option>
+  								</select>
+  								
+  								<select class="select2" name="skill_detail" id="skill_detail" onchange="select11()">
+  								</select>
+  								<div class="result_div">
+  								<span>Frontend</span>
+  								<div>
+  									<input type="text" id="select_result" name="PROFILE_TECH_FRONT" style="background: white" readonly="readonly"  value="${profile.PROFILE_TECH_FRONT}">
+  									<button type="button" id="select_result_delete"><img class="delete" src="resources/Image/icon/delete_btn.png"/></button>
+  								</div>
+  								<span>Backend</span>
+  								<div>
+  									<input type="text" id="select_result2" name="PROFILE_TECH_BACK" style="background: white" readonly="readonly" value="${profile.PROFILE_TECH_BACK}">
+  									<button type="button" id="select_result2_delete" ><img class="delete" src="resources/Image/icon/delete_btn.png"/></button>
+  								</div>
+  								</div><!-- result_div끝 -->
+  								
+  								
+  								<!-- 기술스택 소개 -->
+  								<div>
+  								<p>자세한 기술스택을 입력해주세요</p>
+  								<textarea rows="8" cols="90" maxlength="200" name="PROFILE_TECH_INTRO">${profile.PROFILE_TECH_INTRO}</textarea>
+  								</div>
+  								
+  								<div>
+									<button type="button" class="btn btn-info" id="profile_mody3" style="width:100%">수정</button>
+						</div>
+				</form>
 		</div>
 	</div>
 	</div>
