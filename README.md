@@ -11,7 +11,7 @@
 
 * 목적 : 신입 개발자들이 취직활동 간에 포트폴리오 제출 방식을 특정 프로그램에 종속되어 제출하는 등
            어려움을 겪는 경우가 종종 있다. 이러한 신입 개발자들을 대상으로 포트폴리오 관리를 해주는
-           서비스를 제공하여 취업 활동을 보다 쉽게 하고자 한다. 또한 선배 개발자들로부터 피듭개을 받을
+           서비스를 제공하여 취업 활동을 보다 쉽게 하고자 한다. 또한 선배 개발자들로부터 피드백을 받을
            수 있는 기능을 제공하여 만족도를 높이고자 한다.
            
 * 사용 기술 및 개발환경
@@ -21,7 +21,7 @@
    - Framework/flatform : Spring, bootstrap, jQuery, mabatis
    - Programming Language : JAVA, HTML, JavaScript
    - Tool : STS, Github, AQuerytool, StarUML, SQL Developer, Photoshop CS6
-   - API : Google Developer, Kakao Developer, recaptcha, summernote
+   - API : Google Developer, Kakao Developer, Naver Developer, recaptcha, summernote
    
 # 내용
 * PPT(Slideshare)
