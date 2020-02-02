@@ -48,6 +48,9 @@ public class member_controller {
 	@Value("${savefoldername}")
 	private String save_folder;
 	
+	@Value("${savefoldername}")
+	private String save_folder;
+	
 	@ResponseBody
 	@GetMapping("alert_check")
 	public int alert_check(HttpSession session) {

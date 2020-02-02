@@ -184,7 +184,7 @@
 							<h3>포트폴리오</h3>
 						</div>
 						<div class="feature-detail">
-							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/portfolio_add'">새로 등록하기</span>
+							<span class="feature-detail-menu new_port">새로 등록하기</span>
 							<span class="feature-detail-menu my_port">관리하기</span>
 							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/portfolio/collection'">모아보기</span>
 						</div>

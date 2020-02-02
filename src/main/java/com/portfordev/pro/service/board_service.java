@@ -50,4 +50,3 @@ public interface board_service {
 		// 파일 리스트 검색(회원)
 		public List<Integer> get_all_board_list(String member_id);
 }
-

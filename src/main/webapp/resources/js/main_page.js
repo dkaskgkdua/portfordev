@@ -148,6 +148,10 @@ $(window).load(function(){
 		if(!askLogin(member_id))return;
 		location.href='/pro/profile?idch='+member_id;
 	}
+	$('.new_port').click(function(){
+		if(!askLogin(member_id))return;
+		location.href='/pro/portfolio_add';
+	});
 	$('.my_port').click(my_portfolio);
 	function my_portfolio(){
 		if(!askLogin(member_id))return;

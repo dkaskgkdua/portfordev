@@ -2,61 +2,10 @@ var cnt = 0 ;
 var out='';
 var id= $('#user_id').val();
 
-$('#select1').on('change',function(){
-		var value1=$('#select1').val();
-		if(value1!="직접입력"){
-			$('#type1').val("");
-			$('#type1').val(value1);
-			$('#type1').attr('type','hidden');
-		}else if(value1=="직접입력"){
-			$('#type1').val("");
-			$('#type1').attr('type','text');
-			$('#type1').focus();
-		}
-		
-})
-
-$('#select2').on('change',function(){
-		var value2=$('#select2').val();
-		if(value2!="직접입력"){
-			$('#type2').val("");
-			$('#type2').val(value2);
-			$('#type2').attr('type','hidden');
-		}else if(value2=="직접입력"){
-			$('#type2').val("");
-			$('#type2').attr('type','text');
-			$('#type2').focus();
-		}
-		
-})
-
-$('#select_result_delete').on('click',function(){
-	$('#select_result').val("");
-	
-})
-
-$('#select_result2_delete').click(function(){
-	$('#select_result2').val("");
-	
-})
 
 
-/*시작 버튼*/
-$("#start_btn").click(function(){
-	$('.slick-next').click();
-	$(this).css('display','none');
-	$('#progress').css('display','block');
-	$('#per').text('');
-	$('#per').text(0*cnt+'%');
-	$('#per').animate({
-		width:(10*cnt)+'%'
-	},1000)
-	$('.pre-next').css('display','inline-block');
-
-})
-/*이전버튼 */ 
-var precnt=0;
-$('#pre').click(function(){
+/*이전버튼 이벤트*/
+	function pre(){
 	/*밑에 진행 퍼센트가 실행되는동안 버튼 막기 */
 	$('#pre').prop('disabled',true);
 	setTimeout(function(){
@@ -85,7 +34,78 @@ $('#pre').click(function(){
 		width:(20*cnt)+'%'
 	},500)
 
+}	
+	
+	
+	
+	
+/*직접입력 이벤트*/
+$('#select1').on('change',function(){
+		var value1=$('#select1').val();
+		if(value1!="직접입력"){
+			$('#type1').val("");
+			$('#type1').val(value1);
+			$('#type1').attr('type','hidden');
+		}else if(value1=="직접입력"){
+			$('#type1').val("");
+			$('#type1').attr('type','text');
+			$('#type1').focus();
+		}
+		
 })
+
+$('#select2').on('change',function(){
+		var value2=$('#select2').val();
+		if(value2!="직접입력"){
+			$('#type2').val("");
+			$('#type2').val(value2);
+			$('#type2').attr('type','hidden');
+		}else if(value2=="직접입력"){
+			$('#type2').val("");
+			$('#type2').attr('type','text');
+			$('#type2').focus();
+		}
+		
+})
+/*선택 비우기 이벤트*/
+$('#select_result_delete').on('click',function(){
+	$('#select_result').val("");
+	
+})
+
+$('#select_result2_delete').click(function(){
+	$('#select_result2').val("");
+	
+})
+
+$('#select_result_delete').on('click',function(){
+	$('#select_result').val("");
+	
+})
+
+$('#select_result2_delete').click(function(){
+	$('#select_result2').val("");
+	
+})
+
+
+/*시작 버튼*/
+$("#start_btn").click(function(){
+	$('.slick-next').click();
+	$(this).css('display','none');
+	$('#progress').css('display','block');
+	$('#per').text('');
+	$('#per').text(0*cnt+'%');
+	$('#per').animate({
+		width:(10*cnt)+'%'
+	},1000)
+	$('.pre-next').css('display','inline-block');
+
+})
+/*이전버튼 */ 
+var precnt=0;
+ $('#pre').click(pre);
+ 
 /*다음 버튼*/ 
 $('#next').click(function(){
 	
@@ -129,6 +149,24 @@ console.log("클릭 횟수 "+cnt);
 
 /*ajax등록*/
 $('#submit').click(function(){ 
+	
+	
+	
+	/*유효성 검사*/
+	
+	if($("input[name=PROFILE_JOB]:checked").length<1){
+			alert("직업을 선택해주세요");
+			
+			return false;
+		}
+	
+	if($('input[name=PROFILE_EMAIL]').val()==''){
+			alert("이메일을 입력해주세요");
+		
+		return false;
+	}
+	
+	
 	var form = $('#profile_form')[0];
     var formData = new FormData(form);
  $.ajax({
@@ -178,8 +216,7 @@ $('#submit').click(function(){
  		
  	})
  		
- 		
- 		
+ 	
  	
 
 

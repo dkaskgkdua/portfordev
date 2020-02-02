@@ -23,17 +23,30 @@
 			var select_parent = $('#skill').val();
 			if(select_parent==1){
 			ori = $('#select_result').val();
+			
+			
 				if(ori==""||ori==null){
 					 $('#select_result').val(newselect);
 				}else{
+					
+					if(ori.indexOf(newselect)!=-1){
+						alert("이미 포함된 항목입니다.");
+						return;
+					}
 			 		$('#select_result').val(ori+','+newselect);
 			 		
 				}
 			}else{
+				
+			
 			ori = $('#select_result2').val();
 				if(ori==""||ori==null){
 					 $('#select_result2').val(newselect);
 				}else{
+					if(ori.indexOf(newselect)!=-1){
+						alert("이미 포함된 항목입니다.");
+						return;
+					}
 		 			$('#select_result2').val(ori+','+newselect);
 				}
 			}
@@ -41,8 +54,8 @@
 		 }
 		
 		function categoryChange(e) {
-			var good_a = ["javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
-			var good_b = ["java", "spring", "oracle", "c","server","system","python"];
+			var good_a = ["선택","javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
+			var good_b = ["선택","java", "spring", "oracle", "c","server","system","python"];
 			var target = document.getElementById("skill_detail");
 			if(e.value == "1") var d = good_a;
 			else if(e.value == "2") var d = good_b;
@@ -78,9 +91,9 @@
   							<div class="slide_in">
   							<p>이름(미입력시 닉네임이 노출됩니다.) </p>
   							<input type="text" name="PROFILE_REAL_NAME"><hr>
-  							<p>*프로필 사진 </p>
+  							<p>프로필 사진 </p>
   							<input type="file" id="file"name="profile_img"><hr>
-  							<p>직업</p>
+  							<p>*직업(필수)</p>
   							<input type="radio" name="PROFILE_JOB" value="회사원"><span>회사소속</span>
   							<input type="radio" name="PROFILE_JOB"value="프리랜서"><span>프리랜서</span>
   							<input type="radio" name="PROFILE_JOB"value="준비생"><span>구직자</span> 
@@ -88,11 +101,11 @@
   							<hr>
   							</div>
   							<div class="slide_in">
-  								<p>*전화번호</p>
-  								<input type="text" name="PROFILE_PHONE">
-  								<hr>
-  								<p>*이메일</p>
+  								<p>*이메일(필수)</p>
   								<input type="email" name="PROFILE_EMAIL">
+  								<hr>
+  								<p>전화번호</p>
+  								<input type="text" name="PROFILE_PHONE">
   								<hr>
   								<p>블로그주소</p>
   								<input type="text" name="PROFILE_BLOG">
@@ -139,7 +152,6 @@
   								</select>
   								
   								<select class="select2" name="skill_detail" id="skill_detail" onchange="select11()">
-  									<option>선택</option>
   								</select>
   								<div class="result_div">
   								<span>Frontend</span>

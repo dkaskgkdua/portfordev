@@ -6,17 +6,15 @@
 	<head>
 		<title>PFD_portfolio_main</title><!-- 나중에 _main 빼고 개발자 아이디 -->
 		<jsp:include page="../main/navbar.jsp"></jsp:include>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
+		<jsp:include page="../portfolio/portfolio_detail.jsp" />
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
 		
 		<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.css" /> -->
  
-		
 		<script src="resources/js/profile.js"></script>
 	<style>
-	div *{vertical-align: baseline;}
+	.contact_div>div{vertical-align: baseline;}
 	 .inner {
 		margin-left: 400px;
 	}
@@ -159,7 +157,9 @@
     			  </div>	
     			</c:if>	
     			</div>
+    			<c:if test="${id==profile.MEMBER_ID}">
     			<a href="#modal1"><button type="button" id="profile_modify">프로필 수정</button></a>
+    			</c:if>
     			<div class="sidebar">
     			<ul>
     			<li>PROJECT</li>
@@ -189,10 +189,34 @@
 								</button>
 							</div>
 						</c:if>
-						<c:if test="${!empty portfolio}">
-						<div class="your-class slide">
-							<c:forEach var="p" items="${portfolio}">
-								<div class="slide_in"><img  class="slide_in_content" src="resources/upload/${p.PORT_FILE_PATH}/0.png"></div>
+						<c:if test="${!empty myList}">
+						<div class="your-class slide best-portfolio-list">
+							<c:forEach var="port" items="${myList}">
+								<div class="slide_in">
+									<!-- 프로젝트  -->
+									<div class="best-portfolio-item" id="best-port${port.PORT_ID}">
+								<input type="hidden" class="hidden_PORT_ID" value="${port.PORT_ID}">
+								<div class="bp-img-wrapper" style="background-image:url(/pro/resources/${port.PORT_THUMBNAIL})">
+								</div>
+								<div class="bp-info-wrapper">
+								<img class="bp-info-writer-img" src="/pro/resources/${port.PORT_WRITER_IMG}">
+								<div class="bp-writer-info">
+									<span class="bp-info-writer">${port.PORT_WRITER}</span>
+									<span class="bp-info-writer-job">${port.PORT_WRITER_JOB}</span>님
+								</div>
+								<span class="bp-info-subject">${port.PORT_SUBJECT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/view-gray.png">
+								<span class="bp-info-view bp-count">${port.PORT_READCOUNT}</span>
+								<img class="bp-icon" src="/pro/resources/Image/icon/like-gray.png">
+								<span class="bp-info-like bp-count">${port.PORT_LIKECOUNT}</span>
+								<c:if test="${port.PORT_FEED_NEED == 0}">
+								<img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
+								<span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
+								</c:if>
+							</div>
+						</div>
+									<!-- 프로젝트  -->
+								</div>
 							</c:forEach>
 						</div>
 						</c:if>	 
@@ -220,6 +244,7 @@
 					<!-- 스킬 table 나중에 ajax로 구현-->
 					<!-- 임시 아이콘임 -->
 					<h1 class="h1 user-name" >DEVELOPER ${profile.PROFILE_REAL_NAME}</h1>
+					
 					<div style="background:white" class="info_div">
 					<table class="skill_table">
 					<tr>
@@ -237,7 +262,7 @@
 										profile.PROFILE_STRENGTH1=='ability_planned' 
 										
 						}">
-						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH1}.png" class="ability"></td>
+						<td><img src="resources/Image/icon/${profile.PROFILE_STRENGTH1}.png" class="ability"></td>
 						</c:if>
 						
 						<c:if test="${profile.PROFILE_STRENGTH1!='ability_meticulous' && 
@@ -262,17 +287,17 @@
 										profile.PROFILE_STRENGTH2=='ability_careful' 
 										
 						}">
-						<td><img src="resources/Image/icon/${porfile.PROFILE_STRENGTH2}.png" class="ability"></td>
+						<td><img src="resources/Image/icon/${profile.PROFILE_STRENGTH2}.png" class="ability"></td>
 						</c:if>
 						
 						
 						<!-- 기타 강점 입력시  -->
-						<c:if test="${porfile.PROFILE_STRENGTH2!='ability_think' && 
-										porfile.PROFILE_STRENGTH2!='ability_sungsil' &&
-										porfile.PROFILE_STRENGTH2!='ability_teach' &&
-										porfile.PROFILE_STRENGTH2!='ability_group' &&
-										porfile.PROFILE_STRENGTH2!='ability_understand' &&
-										porfile.PROFILE_STRENGTH2!='ability_careful' 
+						<c:if test="${profile.PROFILE_STRENGTH2!='ability_think' && 
+										profile.PROFILE_STRENGTH2!='ability_sungsil' &&
+										profile.PROFILE_STRENGTH2!='ability_teach' &&
+										profile.PROFILE_STRENGTH2!='ability_group' &&
+										profile.PROFILE_STRENGTH2!='ability_understand' &&
+										profile.PROFILE_STRENGTH2!='ability_careful' 
 										
 						}">
 						<td><img src="resources/Image/icon/ability_else.png" class="ability"></td>
@@ -431,29 +456,34 @@
 					<br>
 					<br>
 					<div class="flex flex-2">
+					<c:if test="${!empty profile.PROFILE_GIT}">
 						<article>
 							<div class="image fit">
 								<img src="resources/Image/pic01.jpg" alt="Pic 01" />
 							</div>
 							<header>
 								<h3>Github</h3>
+								<p>${profile.PROFILE_GIT}</p>
 							</header>
 							<footer>
-								<a href="#" class="button special">More</a>
+								<a href="https://${profile.PROFILE_GIT}" target="_blank" class="button special">More</a>
 							</footer>
 						</article>
-						
+					</c:if>
+					<c:if test="${!empty profile.PROFILE_BLOG}">	
 						<article>
 							<div class="image fit">
 								<img src="resources/Image/pic02.jpg" alt="Pic 02" />
 							</div>
 							<header>
 								<h3>blog</h3>
+								<p>${profile.PROFILE_BLOG}</p>
 							</header>
-s							<footer>
-								<a href="#" class="button special">More</a>
+							<footer>
+								<a href="https://${profile.PROFILE_BLOG}" target="_blank" class="button special">More</a>
 							</footer>
 						</article>
+					</c:if>	
 					</div>
 				</div>
 			</section>
@@ -462,7 +492,7 @@ s							<footer>
 		<!-- Footer -->
 	<jsp:include page="../main/footer.jsp"></jsp:include>
 			<script>
-			$(document).ready(function(){
+			$(window).load(function(){
 					
 				$('.slide').slick({
 					  infinite: true,
@@ -485,7 +515,13 @@ s							<footer>
 					  
 					});
 				
-				
+
+			// slide-item hover 시
+			$('.best-portfolio-item').hover(function(){
+				$(this).children('.bp-info-wrapper').stop().fadeIn();
+			}, function(){
+				$(this).children('.bp-info-wrapper').stop().fadeOut();
+			});
 				
 		});
 			

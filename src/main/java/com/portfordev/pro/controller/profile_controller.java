@@ -1,6 +1,7 @@
 package com.portfordev.pro.controller;
 
 import java.io.File;
+import java.io.FilenameFilter;
 import java.io.PrintWriter;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -21,15 +22,20 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.portfordev.pro.domain.Portfolio;
 import com.portfordev.pro.domain.Profile;
+import com.portfordev.pro.service.portfolio_service;
 import com.portfordev.pro.service.profile_service_impl;
 @Controller
 public class profile_controller {
 	@Autowired
 	private profile_service_impl service;
 	
+  @Autowired
+	private portfolio_service po_service;
+	
 	 @Value("${savefoldername}") 
-	 private String saveFolder;
+	public String save_folder;
 	
 	@RequestMapping(value="/profile")
 	public ModelAndView profile_main(ModelAndView model,Profile profile,HttpSession session,String idch) throws Exception {
@@ -45,10 +51,35 @@ public class profile_controller {
 			
 			
 		}
-		List<Profile> portList = service.portfolioImg(idch);
+		
+		/*프로젝트 가져오기*/
+		List<Portfolio> myList = po_service.getMyPortfolioList(idch);
+		for(Portfolio port : myList)
+		{
+			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
+			
+			
+			String[] fileList =getFiles(PORT_FILE_PATH);
+			String PORT_THUMBNAIL = "Image/no_img.png";
+			if(fileList!= null) 
+				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
+			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
+			if(PORT_WRITER_IMG == null || PORT_WRITER_IMG.equals("none")) {
+				PORT_WRITER_IMG = "Image/userdefault.png";
+			}else{
+				PORT_WRITER_IMG = "upload/" + PORT_WRITER_IMG;
+			}
+			if(port.getPORT_WRITER_JOB() == null)
+				port.setPORT_WRITER_JOB("개발자");
+			port.setPORT_WRITER_IMG(PORT_WRITER_IMG);
+			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
+		}
+		
+//		List<Profile> portList = service.portfolioImg(idch);
 		model.setViewName("profile/profile");
 		model.addObject("profile",profile);
-		model.addObject("portfolio",portList);
+//		model.addObject("portfolio",portList);
+		model.addObject("myList", myList);
 		model.addObject("idch",idch);
 		
 		return model;
@@ -123,7 +154,7 @@ public class profile_controller {
 			
 			//2.특정폴더
 			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
-			String homedir = saveFolder + year + "-" + month + "-" + date;
+			String homedir = save_folder + year + "-" + month + "-" + date;
 			
 			System.out.println(homedir);
 			File path1 = new File(homedir);
@@ -156,7 +187,7 @@ public class profile_controller {
 			System.out.println("fileDBName = " + fileDBName);
 			
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
-			file.transferTo(new File(saveFolder + fileDBName));
+			file.transferTo(new File(save_folder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
 			profile.setPROFILE_IMG_FILE(fileDBName);
@@ -195,7 +226,7 @@ public class profile_controller {
 			
 			//2.특정폴더
 			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
-			String homedir = saveFolder + year + "-" + month + "-" + date;
+			String homedir = save_folder + year + "-" + month + "-" + date;
 			
 			System.out.println(homedir);
 			File path1 = new File(homedir);
@@ -228,7 +259,7 @@ public class profile_controller {
 			System.out.println("fileDBName = " + fileDBName);
 			
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
-			file.transferTo(new File(saveFolder + fileDBName));
+			file.transferTo(new File(save_folder + fileDBName));
 			
 			// 바뀐 파일명으로 저장
 			profile.setPROFILE_IMG_FILE(fileDBName);
@@ -253,4 +284,21 @@ public class profile_controller {
 		return "redirect:profile?idch="+profile.getMEMBER_ID();
 		
 	}
+	
+	// 경로를 통해 파일들 가져오기
+		public String[] getFiles(String PORT_FILE_PATH) {
+			System.out.println("파일 패스 "+PORT_FILE_PATH);
+			File path = new File(save_folder+PORT_FILE_PATH);
+			System.out.println("경로"+save_folder+PORT_FILE_PATH);
+			String fileList[] = path.list(new FilenameFilter() {
+				@Override
+				public boolean accept(File dir, String name) {
+					return (name.endsWith("jpg") || 
+							name.endsWith("jpeg") || 
+							name.endsWith("gif") || 
+							name.endsWith("png"));
+				}
+			});
+			return fileList;
+		}
 }
