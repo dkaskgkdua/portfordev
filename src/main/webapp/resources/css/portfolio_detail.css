@@ -194,8 +194,7 @@ textarea:focus{
 #portfolio-pdf-enlargement-wrap{
 	width:100%;
 	min-height:100%;
-	position:fixed;
-	display:block;
+	position:absolute;
 	left:0;
 	right:0;
 	top:0;
@@ -293,6 +292,7 @@ textarea:focus{
 	text-align:center;
 }
 .port-pdf-imgitem>img{
+	position:relative;
 	width:100%;
 	height:auto;
 	margin:0 auto;
@@ -1251,7 +1251,8 @@ textarea:focus{
 	}
 	.summary-info>*{
 		float:none!important;
-		line-height:22px!important;
+	    line-height: 15px!important;
+	    vertical-align: top;
 	}
 	.portfolio-detail-summary{
 		text-align:center;

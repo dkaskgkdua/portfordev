@@ -9,7 +9,7 @@
 							#{profile.PROFILE_STRENGTH1} , #{profile.PROFILE_STRENGTH2},#{profile.PROFILE_TECH_INTRO})
 	</insert>
 	<select id="checkid" parameterType="String" resultType="int">
-		select count(*) from PROFILE
+		select count(*) from PROFILE where MEMBER_ID=#{id}
 	</select>
 	
 	<select id ="profile_view" parameterType="String" resultType="Profile">
@@ -36,6 +36,56 @@
 	  					where MEMBER_ID = #{id}
 	  					
 	</update>
-
+	
+	<!-- 프로필 컬렉션 -->
+	<select id="collection" parameterType="java.util.Map" resultType="Profile">
+		select * from (select rownum RNUM, p.* 
+			from (select MEMBER_ID, NVL(PROFILE_REAL_NAME, 'none') PROFILE_REAL_NAME, NVL(PROFILE_IMG_FILE, 'none') PROFILE_IMG_FILE, NVL(PROFILE_JOB, '개발자') PROFILE_JOB, NVL(PROFILE_YEAR, 0) PROFILE_YEAR, NVL(MEMBER_ACT, 0) MEMBER_ACT, NVL(BOARD_CNT, 0) BOARD_CNT, NVL(PORT_CNT, 0) PORT_CNT, NVL(FEED_CNT, 0) FEED_CNT, GREATEST(NVL(REG_DATE, '2000-01-01'), NVL(PORT_REGIDATE, '2000-01-01')) ACT_DATE, MEMBER_NAME, MEMBER_DATE 
+				from PROFILE 
+				left outer join (select MEMBER_ID, MEMBER_NAME, MEMBER_DATE, NVL(MEMBER_ACT, 0) MEMBER_ACT from MEMBER) using(MEMBER_ID)
+				left outer join (select MEMBER_ID, NVL(count(*), 0) BOARD_CNT from BOARD group by MEMBER_ID) using(MEMBER_ID)
+				left outer join (select MEMBER_ID, NVL(count(*), 0) PORT_CNT, NVL(MAX(PORT_REGIDATE), null) PORT_REGIDATE from PORTFOLIO group by MEMBER_ID) using(MEMBER_ID)
+				left outer join (select MEMBER_ID, NVL(count(*), 0) FEED_CNT, NVL(MAX(REG_DATE), null) REG_DATE from PORT_FEEDBACK group by MEMBER_ID) using(MEMBER_ID) ) p
+		<choose>
+			<when test='recentAct != null and recentAct.equals("day")'>
+				where (sysdate - ACT_DATE) &lt;= 1
+			</when>
+			<when test='recentAct != null and recentAct.equals("week")'>
+				where (sysdate - ACT_DATE) &lt;= 7
+			</when>
+			<when test='recentAct != null and recentAct.equals("month")'>
+				where (sysdate - ACT_DATE) &lt;= 31
+			</when>
+			<when test='recentAct != null and recentAct.equals("month3")'>
+				where (sysdate - ACT_DATE) &lt;= 93
+			</when>
+			<otherwise>
+				where 1 = 1 
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='category != null and category.equals("portWriterOnly")'>
+				and PORT_CNT &gt;= 1 
+			</when>
+			<when test='category != null and category.equals("bestActorOnly")'>
+				and MEMBER_ACT &gt;= 100 
+			</when>
+			<otherwise>
+			
+			</otherwise>
+		</choose>
+		<choose>
+			<when test='order != null and order.equals("latest_act")'>
+				order by ACT_DATE desc
+			</when>
+			<when test='order != null and order.equals("most_act")'>
+				order by MEMBER_ACT desc 
+			</when>
+			<otherwise>
+				order by MEMBER_DATE desc 
+			</otherwise>
+		</choose>
+		) where rnum &gt;= ((#{page} - 1) * 20 + 1) and rnum &lt;= (#{page} * 20)
+	</select>
 
 </mapper>

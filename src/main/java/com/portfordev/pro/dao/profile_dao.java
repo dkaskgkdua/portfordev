@@ -35,4 +35,9 @@ public class profile_dao {
 	 return sql.update("profile.update_profile",map);
  }
  
+ // profile collection
+ // 프로필 리스트
+ public List<Profile> getProfileList(Map<String, String> map){
+	 return sql.selectList("profile.collection", map);
+ }
 }

@@ -26,9 +26,11 @@
 				<header class="brNewsHeader newsHeader">
 					<strong>Breaking News</strong>
 					<b>속보</b>
-					<span class="brNews-filter clickable">인터넷</span>
-					<span class="brNews-filter clickable">컴퓨터</span>
-					<span class="brNews-filter filter-active clickable">IT일반</span>
+					<div class="brNewsFilters">
+						<span class="brNews-filter clickable">인터넷</span>
+						<span class="brNews-filter clickable">컴퓨터</span>
+						<span class="brNews-filter filter-active clickable">IT일반</span>
+					</div>
 				</header>
 				<div class="brNewsList">
 					<c:forEach var="news" items="${brNewsList}">

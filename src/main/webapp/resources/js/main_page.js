@@ -37,10 +37,10 @@ $(window).load(function(){
 					errorAlert('베스트 포트폴리오를 가져오는 과정에');
 					return;
 				}
-				$('.best-portfolio-list').empty();
+				$('.best-portfolio-list').empty().stop().fadeOut();
 				$.each(best_ports, function(){
 					var output = '';
-					output +=	'<div class="best-portfolio-item" id="best-port'+this.PORT_ID+'" style="display:none;">';
+					output +=	'<div class="best-portfolio-item" id="best-port'+this.PORT_ID+'">';
 					output +=		'<input type="hidden" class="hidden_PORT_ID" value="'+this.PORT_ID+'">';
 					output +=		'<div class="bp-img-wrapper" style="background-image:url(/pro/resources/'+this.PORT_THUMBNAIL+'"></div>';
 					output +=		'<div class="bp-info-wrapper">';
@@ -61,7 +61,6 @@ $(window).load(function(){
 					output +=		'</div>';
 					output +=	'</div>';
 					$('.best-portfolio-list').append(output);
-					$('#best-port'+this.PORT_ID).stop().fadeIn();
 				});
 			},
 			error: function(){
@@ -76,16 +75,22 @@ $(window).load(function(){
 		}, function(){
 			$(this).children('.bp-info-wrapper').stop().fadeOut();
 		});
-		$('.best-portfolio-list').resize();
+		$('.best-portfolio-list').css('display', 'none').on('init', function(event, slick){
+			$('.loading-list').css('display', 'none');
+			$('.best-portfolio-list').resize();
+			$('.best-portfolio-list').stop().fadeIn();
+		});
 		// 베스트 포트폴리오 슬라이드
 		$('.best-portfolio-list').slick({
-			  infinite: false,	// 맨끝이미지에서 끝내지 않고 맨앞으로 이동
+			  infinite: true,	// 맨끝이미지에서 끝내지 않고 맨앞으로 이동
 			  slidesToShow: 1,	// 화면에 보여질 이미지 갯수
 			  slidesToScroll: 1, // 스크롤시 이동할 이미지 갯수
 			  arrows: true,	// 화살표
 			  dots:true,	// 아래 점
 			  variableWidth:true, 
 			  centerMode:true, 
+			  centerPadding:'60px',
+			  swipeToSlide:true, 
 			  autoplay: true,	// 자동으로 다음 이미지 보여주기
 			  autoplaySpeed:5000,	// 다음 이미지로 넘어갈 시간
 			  pauseOnHover:true,	// 마우스 호버시 슬라이드 이동멈춤
@@ -105,7 +110,7 @@ $(window).load(function(){
 	}
 	function generalMainFunctionOff(){
 		// slide-item hover 종료
-		$('.best-portfolio-item').off('hover');
+		$('.best-portfolio-item').off('mouseenter').off('mouseleave');
 		// 슬라이드 슬릭 종료
 		if($('.best-portfolio-list').hasClass('slick-initialized'))
 			$('.best-portfolio-list').slick('unslick');

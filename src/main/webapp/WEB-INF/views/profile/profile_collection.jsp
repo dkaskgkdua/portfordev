@@ -16,85 +16,75 @@
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
 					<div class="category-list-item active-category" id="cateAll">전체</div>
-					<div class="category-list-item" id="feedNeedOnly">피드백</div>
-					<div class="category-list-item" id="recomOnly">추천</div>
+					<div class="category-list-item" id="portWriterOnly">포트폴리오</div>
+					<div class="category-list-item" id="bestActorOnly">활동갑</div>
 				</div>
 				<div class="sort-condition">
 					<div class="dropdown" style="display:inline-block;">
-						<select name="order" class="select" id="order" style="display: none;">
-							<option value="newest" selected>최신순</option>
-							<option value="noted">추천순</option>
-							<option value="viewed">조회순</option>
-							<option value="comment_desc">댓글순</option>
-						</select>
-						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="orderDropDown">최신순</button>
+						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="orderDropDown">가입순</button>
 						<div class="dropdown-menu" style="min-width:100px; text-align:center;" aria-labelledby="orderDropDown">
-							<button class="dropdown-item" type="button">최신순</button>
-							<button class="dropdown-item" type="button">추천순</button>
-							<button class="dropdown-item" type="button">조회순</button>
-							<button class="dropdown-item" type="button">댓글순</button>
+							<button class="dropdown-item orderBtn" type="button">가입순</button>
+							<button class="dropdown-item orderBtn" type="button">최근 활동순</button>
+							<button class="dropdown-item orderBtn" type="button">총 활동순</button>
 						</div>
 					</div>
 					<div class="dropdown" style="display:inline-block;">
-						<select name="from" class="select" id="from" style="display: none;">
-							<option value="all" selected>전체기간</option>
-							<option value="day">최근 24시간</option>
-							<option value="week">최근 1주일</option>
-							<option value="month">최근 1달</option>
-							<option value="month3">최근 3달</option>
-						</select>
-						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="fromDropDown">전체기간</button>
+						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="fromDropDown">활동일</button>
 						<div class="dropdown-menu" style="min-width:115px; text-align:center;" aria-labelledby="fromDropDown">
-							<button class="dropdown-item" type="button">전체기간</button>
-							<button class="dropdown-item" type="button">최근 24시간</button>
-							<button class="dropdown-item" type="button">최근 1주일</button>
-							<button class="dropdown-item" type="button">최근 1달</button>
-							<button class="dropdown-item" type="button">최근 3달</button>
+							<button class="dropdown-item recentBtn" type="button">활동 기간</button>
+							<button class="dropdown-item recentBtn" type="button">최근 24시간</button>
+							<button class="dropdown-item recentBtn" type="button">최근 1주일</button>
+							<button class="dropdown-item recentBtn" type="button">최근 1달</button>
+							<button class="dropdown-item recentBtn" type="button">최근 3달</button>
 						</div>
 					</div>
 				</div>
 			</div>
 			<div class="profile-container">
 				<div class="profile-list">
-					<c:forEach var="item" begin="0" end="20" step="1">
-					<div class="profile-list-item">
-						<div class="img-wrapper">
-							<!-- <img src="resources/Image/sample.jpg"> -->
-						</div>
+				<c:if test="${empty profileList}">
+					<div class="no-profile">아직 등록된 프로필이 없습니다.</div>
+				</c:if>
+				<c:if test="${!empty profileList}">
+				<c:forEach var="profile" items="${profileList}">
+					<div class="profile-list-item clickable">
+						<input type="hidden" class="PROFILE_MEMBER_ID" value="${profile.MEMBER_ID}">
+						<div class="img-wrapper" style="background-image:url(/pro/resources/upload/${profile.PROFILE_IMG_FILE})"></div>
 						<div class="info">
 							<div class="info-detail">
-								<div class="title">제목 들어갈 자리</div>
-								<div class="user-profile">
-									<img class="pic icon-round" src="/pro/resources/Image/sample2.jpg">
-									이름 들어갈 자리
-								</div>
+								<span class="profile-name">${profile.PROFILE_REAL_NAME}</span>
+							</div>
+							<div class="activity">
+								<img class="activity-icon" src="/pro/resources/Image/icon/award.svg">
+								<span class="activity-score">${profile.MEMBER_ACT}</span>
 							</div>
 						</div>
 						<div class="bottom">
 							<table class="social-info">
 								<tbody>
 									<tr>
-										<td class="view-cnt">
-											<img class="view-icon" src="/pro/resources/Image/icon/view-gray.png">
-											1234
+										<td class="port-cnt">
+											<img class="port-cnt-icon" src="/pro/resources/Image/icon/board-cnt.png">
+											<span class="port-cnt-span">${profile.PORT_CNT}</span>
 										</td>
-										<td class="like-cnt">
-											<img class="like-icon" src="/pro/resources/Image/icon/like-gray.png">
-											55
+										<td class="feed-cnt">
+											<img class="feed-cnt-icon" src="/pro/resources/Image/icon/comment-gray.png">
+											<span class="feed-cnt-span">${profile.FEED_CNT}</span>
 										</td>
-										<td class="comment-cnt">
-											<img class="comment-icon" src="/pro/resources/Image/icon/comment-gray.png">
-											22
+										<td class="user-page clickable">
+											<img class="user-page-icon" src="/pro/resources/Image/userdefault.png">
 										</td>
 									</tr>
 								</tbody>
 							</table>
 						</div>
 					</div>
-					</c:forEach>
+				</c:forEach>
+				</c:if>
 				</div>
 			</div>
 		</div>
 		<button id="move_top_btn" type="button">TOP</button>
+		<jsp:include page="../main/footer.jsp"/>
 	</body>
 </html>

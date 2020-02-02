@@ -176,7 +176,10 @@ public class feedback_controller
 			return 2;	// 로그인 필요
 		if(!MEMBER_ID.equals(fb_service.getFeedWriter(FEEDBACK_ID).getMEMBER_ID()))
 			return 3;	// 삭제 권한이 없음
-		return fb_service.deleteFeedback(FEEDBACK_ID);
+		int result = fb_service.deleteFeedback(FEEDBACK_ID);
+		if(result == 1)
+			member_service.add_write_act(MEMBER_ID, -20);
+		return result;
 	}
 	// 피드백 추천, 취소
 	@ResponseBody
@@ -190,10 +193,15 @@ public class feedback_controller
 		frchk.put("FEEDBACK_ID", ""+FEEDBACK_ID);
 		frchk.put("MEMBER_ID", MEMBER_ID);
 		int fr = fb_service.checkRecomFeedback(frchk);
-		if(fr == 0)
+		String WriterId = fb_service.getFeedWriter(FEEDBACK_ID).getMEMBER_ID();
+		if(fr == 0) {
+			member_service.add_write_act(WriterId, 2);
 			return fb_service.recommendFeedback(feed_recommend);
-		else
+		}
+		else {
+			member_service.add_write_act(WriterId, -2);
 			return fb_service.cancelRecomFeedback(feed_recommend);
+		}
 	}
 	// 스크립트 공격 방지 해로운 문자열을 변환시켜주는 메서드
     private String replaceParameter(String param)

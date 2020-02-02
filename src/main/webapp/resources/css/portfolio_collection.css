@@ -296,7 +296,7 @@ tbody{
 }
 @media screen and (min-width: 1300px){
 	.portfolio-list .portfolio-list-item{
-		width: 23.25%;
+		width: 23%;
     	margin-right: 2%;
     	margin-bottom: 47px;
 	}

@@ -42,4 +42,10 @@ public class profile_service_impl implements profile_service{
 		map.put("profile",profile);
 		return dao.updateprofile(map);
 	}
+	
+	// profile collection
+	@Override
+	public List<Profile> getProfileList(Map<String, String> map){
+		return dao.getProfileList(map);
+	}
 }

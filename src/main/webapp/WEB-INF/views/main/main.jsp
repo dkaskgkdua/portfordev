@@ -35,7 +35,11 @@
 					<h2>Recently Noted Portfolios</h2>
 					<p>최근 추천 받은 포트폴리오</p>
 					</c:if>
-					<div class="best-portfolio-list">
+					<!-- slick 이 완료 되기전까지 보여주는 로딩 -->
+					<div class="loading-list">
+						<img src="/pro/resources/Image/loading.gif">
+					</div>
+					<div class="best-portfolio-list" style="display:none">
 					<c:if test="${!empty bestList}">
 						<c:forEach var="port" items="${bestList}">
 						<div class="best-portfolio-item" id="best-port${port.PORT_ID}">
