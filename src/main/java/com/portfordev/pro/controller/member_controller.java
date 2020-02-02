@@ -48,9 +48,6 @@ public class member_controller {
 	@Value("${savefoldername}")
 	private String save_folder;
 	
-	@Value("${savefoldername}")
-	private String save_folder;
-	
 	@ResponseBody
 	@GetMapping("alert_check")
 	public int alert_check(HttpSession session) {
@@ -138,7 +135,14 @@ public class member_controller {
 		} else {
 			if(session.getAttribute("id").equals(MEMBER_ID)) { // id 일치 시
 				Member member = member_service.get_member(MEMBER_ID);
+				String profile_img = "";
+				if(profile_service.profile_view(MEMBER_ID) != null) {
+					if(profile_service.profile_view(MEMBER_ID).getPROFILE_IMG_FILE() != null ) {
+						profile_img = profile_service.profile_view(MEMBER_ID).getPROFILE_IMG_FILE();
+					}
+				}
 				mv.setViewName("member/mypage_form");
+				mv.addObject("profile_img", profile_img);
 				mv.addObject("menu", "정보수정");
 				mv.addObject("MEMBER", member);
 			} else { // id 불일치
