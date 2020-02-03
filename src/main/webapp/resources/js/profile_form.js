@@ -37,7 +37,45 @@ var id= $('#user_id').val();
 }	
 	
 	
-	
+	$("input[name=profile_img]").on('change',function (e)
+    {
+        // 선택한 그림의 File 객체를 취득
+        var file = e.target.files[0];   // File 객체 리스트에서 첫번째 File 객체를 가져옵니다.
+        
+        // file.type : 파일의 형식 ( MIME 타입 - ex. text/html )
+        if(!file.type.match('image.*'))   // 파일 타입이 image 인지 확인합니다.
+        {
+           alert('확장자는 이미지 확장자만 가능합니다.');
+           /*input file  초기화 */
+           var agent = navigator.userAgent.toLowerCase();
+
+           if (agent.indexOf("msie") != -1) {
+        		// ie 일때 input[type=file] init.
+        		$("#file").replaceWith( $("#file").clone(true) );
+        	} else {
+        		// other browser 일때 input[type=file] init.
+        		$("#file").val("");
+        	}
+           	
+           return;
+        }
+        // 파일을 읽기 위한 객체 생성
+        var reader = new FileReader();
+        
+        // DataURL 형식으로 파일을 읽어옵니다.
+        // 읽어온 결과는 reader 객체의 result 속성에 저장됩니다.
+        reader.readAsDataURL(file);
+        
+        // 읽기에 성공했을 때 실행되는 이벤트 핸들러
+        reader.onload = function(e)
+        {
+           // result : 읽기 결과가 저장됩니다.
+           // reader.result 또는 e.target.result
+           $('#img').attr('src', e.target.result);
+        }   // reader.onload end
+     }   // preview end
+
+	)	
 	
 /*직접입력 이벤트*/
 $('#select1').on('change',function(){
@@ -91,15 +129,35 @@ $('#select_result2_delete').click(function(){
 
 /*시작 버튼*/
 $("#start_btn").click(function(){
-	$('.slick-next').click();
-	$(this).css('display','none');
-	$('#progress').css('display','block');
-	$('#per').text('');
-	$('#per').text(0*cnt+'%');
-	$('#per').animate({
-		width:(10*cnt)+'%'
-	},1000)
-	$('.pre-next').css('display','inline-block');
+	$.ajax({
+		type:"post",
+		url:"profile_check",
+		data:{"id":id},
+		success:function(item){
+			if(item!=0){
+				var q = confirm("이미 등록된 프로필이 존재합니다 . 프로필 화면으로 이동하시겠습니까?");
+				if(q=="true"){
+					location.href="profile?idch="+id;
+				}else{
+					history.back();
+				}
+			}else{
+				$('.slick-next').click();
+				$(this).css('display','none');
+				$('#progress').css('display','block');
+				$('#per').text('');
+				$('#per').text(0*cnt+'%');
+				$('#per').animate({
+					width:(10*cnt)+'%'
+				},1000)
+				$('.pre-next').css('display','inline-block');
+			}
+		}//success 문 끝
+		
+		
+	})
+	
+	
 
 })
 /*이전버튼 */ 
@@ -198,7 +256,6 @@ $('#submit').click(function(){
 	      $('#finish').append(out);
 	 }
 
-
  })
 
  
@@ -217,7 +274,7 @@ $('#submit').click(function(){
  	})
  		
  	
- 	
 
+ 
 
 })

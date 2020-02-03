@@ -20,6 +20,16 @@ $(document).ready(function(){
 		showDetail();
 		generalDetailFunctionOn();
 	});
+	// search page
+	$('.search_ul').on('click', '.PORT_SUBJECT', function(){
+		var port_id = Number($(this).parent().children('.hidden_PORT_ID').val());
+		getDetail(port_id);
+		getFeedbacks(port_id);
+		getBestFeedback(port_id);
+		showDetail();
+		generalDetailFunctionOn();
+		return false;
+	});
 	// exit 버튼 클릭 시 모달 종료
 	$('.exit-detail').click(function(){
 		closeDetail();
@@ -388,6 +398,7 @@ $(document).ready(function(){
 		feedOrder = 'latest';
 		$('#feedOrder option:eq(0)').prop('selected', true);
 		$('.portfolio-feedback-list').scrollTop(0);
+		document.getElementsByClassName('portfolio-feedback-list')[0].pageYOffset = 0;
 		generalDetailFunctionOff();
 	}
 	// 포트폴리오 파일 이미지 변환후 slick 출력
@@ -400,6 +411,7 @@ $(document).ready(function(){
 			  arrows: true,	// 화살표
 			  vertical:true,	// 세로방향으로 슬라이드
 			  verticalSwiping:true,	// 세로방향 슬라이드 가능
+			  swipeToSlide:true, 
 			  dots:true,	// 아래 점
 			  autoplay: false,	// 자동으로 다음 이미지 보여주기
 			  autoplaySpeed:4000,	// 다음 이미지로 넘어갈 시간
@@ -420,18 +432,29 @@ $(document).ready(function(){
 				  }
 			  ]
 		});
-		$('.port-slide-list').on('swipe', function(event, slick, direction){
-			// console.log('swiped');
-		});
 		// 이미지 클릭 시 포트폴리오  확대
 		$('.port-slide-item').on('click', function(){
-			$('#portfolio-pdf-enlargement-wrap').stop().fadeIn();
-			$('.exit-modal').fadeOut();
+			var index = $(this).index('.port-slide-item');
+			var targetI = $('.port-pdf-imgitem').eq(index).position().top;
+			console.log(targetI);
+			
+			$('#portfolio-pdf-enlargement-wrap').on('scroll', function(){
+				
+			});
+
+			document.getElementById('portfolio-pdf-enlargement-wrap').pageYOffset = targetI;
+			$('#portfolio-pdf-enlargement-wrap').animate({scrollTop : targetI}, 100, function(){
+				$('#portfolio-pdf-enlargement-wrap').fadeIn();
+				$('.exit-modal').stop().fadeOut();
+			});
 			$('#portfolio-pdf-enlargement-wrap').click(function(e){
 				e.stopPropagation();
-				$('#portfolio-pdf-enlargement-wrap').off('click');
-				$('#portfolio-pdf-enlargement-wrap').stop().fadeOut();
-				$('.exit-modal').fadeIn();
+				$('#portfolio-pdf-enlargement-wrap').fadeOut(400, function(){
+					$('#portfolio-pdf-enlargement-wrap').stop().scrollTop(0);
+					document.getElementById('portfolio-pdf-enlargement-wrap').pageYOffset = 0;
+					$('#portfolio-pdf-enlargement-wrap').off('click');
+					$('.exit-modal').stop().fadeIn();
+				});				
 			});
 		});
 	}
@@ -862,6 +885,7 @@ $(document).ready(function(){
 			$('#info-icon-tail').children('span').text('정보 보기');
 			$('#portfolio-info-wrap').stop().animate({left: '100%'}, 500, function(){
 				$('#portfolio-info-wrap').scrollTop(0);
+				document.getElementById('portfolio-info-wrap').pageYOffset = 0;
 				$('#cover-wrap').stop().fadeOut();
 			});
 		}
@@ -896,6 +920,7 @@ $(document).ready(function(){
 			$('#feed-icon-tail').children('span').text('피드백 보기');
 			$('#portfolio-feedback-wrap').stop().animate({top: '100%'}, 500, function(){
 				$('.portfolio-feedback-list').scrollTop(0);
+				document.getElementsByClassName('portfolio-feedback-list')[0].pageYOffset = 0;
 				$('#cover-wrap').stop().fadeOut();
 			});
 		}
@@ -1049,6 +1074,7 @@ function askRefresh()
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$(window).off('keydown');
+				location.reload();
 			});
 		})
 	})

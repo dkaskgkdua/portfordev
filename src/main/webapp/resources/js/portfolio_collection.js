@@ -22,13 +22,14 @@ $(document).ready(function(){
 			dataType: 'json', 
 			cache: false, 
 			success: function(portList){
-				if(portList.length == 0){
+				if(portList == null || portList.length == 0){
 					isEnd = true;
 					console.log('list의 끝에 도달했음 : '+isEnd);
 					if(pageP == 1)
 					{
 						$('.portfolio-list').append('<div class="no-portfolio">조건에 해당하는 포트폴리오가 없습니다.</div>');
 					}
+					return;
 				}
 				$.each(portList, function(){
 					if(this.PORT_SHOW == 1) return true;
@@ -161,7 +162,8 @@ $(document).ready(function(){
 	generalFunctions();
 	function generalFunctions(){
 		// portfolio scrap 호버시
-		$('.port-scrap-area').off('hover');
+		$('.port-scrap-area').off('mouseenter');
+		$('.port-scrap-area').off('mouseleave');
 		$('.port-scrap-area').hover(function(){
 			$(this).parent().parent().removeClass('clickable');
 		}, function(){
@@ -173,7 +175,8 @@ $(document).ready(function(){
 		$('.port-scrap-area').click(function(e){
 			e.stopPropagation();
 			if(!askLogin(member_id))return;
-			var port_writer_id = $('.hidden_PORT_WRITER_ID').val();
+			var port_writer_id = $(this).parent().parent().children('.hidden_PORT_WRITER_ID').val();
+			member_id = $('#userId').val();
 			if(member_id == port_writer_id){
 				notAllowed('포트폴리오를 스크랩');
 				return;
@@ -205,7 +208,8 @@ $(document).ready(function(){
 		});
 		
 		// .user-profile 클릭 시 profile 이동여부 alert
-		$('.user-profile').off('hover');
+		$('.user-profile').off('mouseenter');
+		$('.user-profile').off('mouseleave');
 		$('.user-profile').hover(function(){
 			$(this).parent().parent().parent().removeClass('clickable');
 		}, function(){

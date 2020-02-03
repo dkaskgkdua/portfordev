@@ -79,6 +79,16 @@ h3{
 	font-size:1.2em;
 	color:darkgrey;
 }
+.brNewsFilters{
+	display:inline-block;
+	float:right;
+}
+@media screen and (max-width: 580px){
+	.brNewsFilters{
+		width:100%;
+		margin-top:10px;
+	}
+}
 .brNewsHeader .brNews-filter{
 	float:right;
     margin-left: 15px;

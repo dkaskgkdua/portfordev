@@ -31,7 +31,7 @@ public class profile_controller {
 	@Autowired
 	private profile_service_impl service;
 	
-  @Autowired
+	@Autowired
 	private portfolio_service po_service;
 	
 	 @Value("${savefoldername}") 
@@ -107,6 +107,13 @@ public class profile_controller {
 	}
 	
 	@ResponseBody
+	@PostMapping(value="profile_check")
+	public int checkprofile(String id) {
+		int i = service.checkid(id);
+		return i;
+	}
+	
+	@ResponseBody
 	@RequestMapping(value="/profile_insert")
 	public Map<String,String> profile_insert(HttpSession session,Profile profile,HttpServletRequest request) throws Exception{
 		String s =profile.getPROFILE_REAL_NAME().replace(",","");
@@ -127,10 +134,8 @@ public class profile_controller {
 		profile.setPROFILE_STRENGTH2(s7);
 		String s8 = profile.getPROFILE_EMAIL().replace(",", "");
 		profile.setPROFILE_EMAIL(s8);
-		System.out.println("강점왜 널들어감 "+profile.getPROFILE_STRENGTH1());
 		
 		MultipartFile file= profile.getProfile_img();
-		System.out.println("보낸 이름 "+profile.getPROFILE_REAL_NAME());
 		String id  = (String) session.getAttribute("id");
 		//프로필에 이미 등록됐는지 체크
 		int checkid= service.checkid(id);
@@ -283,6 +288,25 @@ public class profile_controller {
 		
 		return "redirect:profile?idch="+profile.getMEMBER_ID();
 		
+	}
+	
+	@ResponseBody
+	@PostMapping(value="profile_modify_intro")
+	public Map<String, String> profile_modify_intro(Profile profile){
+		service.updateprofile_intro(profile.getMEMBER_ID(), profile);
+		//전체 셀렉트해서 보내기
+		Map<String,String> map  = new  HashMap<String, String>();
+		map.put("id",profile.getMEMBER_ID());
+		return map;
+	}
+	
+	@ResponseBody
+	@PostMapping(value="profile_modify_skill")
+	public Map<String, String> profile_modify_skill(Profile profile) {
+		service.updateprofile_skill(profile.getMEMBER_ID(), profile);
+		Map<String,String> map  = new  HashMap<String, String>();
+		map.put("id",profile.getMEMBER_ID());
+		return map;
 	}
 	
 	// 경로를 통해 파일들 가져오기

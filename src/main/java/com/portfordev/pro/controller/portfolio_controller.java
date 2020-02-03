@@ -301,10 +301,10 @@ public class portfolio_controller
 			}
 		}
 		int result = po_service.deletePortfolio(PORT_ID);
-		if(result == 1){
-			member_service.add_write_act(MEMBER_ID, -20);
-			return "redirect:/pro/profile?idch="+session.getAttribute("id");
-		}
+		 if(result == 1){
+	            member_service.add_write_act(MEMBER_ID, -20);
+	            return "redirect:../profile?idch="+session.getAttribute("id");
+	    }
 		else {
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();

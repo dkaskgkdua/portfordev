@@ -34,5 +34,18 @@ public class profile_dao {
  public int updateprofile(Map<String,Object> map) {
 	 return sql.update("profile.update_profile",map);
  }
+ //프로필 수정 자기소개
+ public int updateprofile_intro(Map<String,Object> map) {
+	 return sql.update("profile.update_profile_intro",map);
+ }
+ //프로필 수정 기술
+ public int updateprofile_skill(Map<String,Object>map) {
+	 return sql.update("profile.update_profile_skill",map);
+ }
  
+ // profile collection
+ // 프로필 리스트
+ public List<Profile> getProfileList(Map<String, String> map){
+	 return sql.selectList("profile.collection", map);
+ }
 }

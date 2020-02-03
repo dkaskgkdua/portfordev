@@ -70,11 +70,28 @@ h3{
 		margin:0 1%;
 	}
 }
+.loading-list{
+    height: 303px;
+    padding: 5px;
+    text-align: center;
+    margin-top:5px;
+    margin-bottom: 25px;
+}
+.loading-list:hover{
+	cursor:wait;
+}
+.loading-list>img{
+	height:100%;
+	width:auto;
+	margin:0 auto;
+	
+}
 .best-portfolio-list{
 	color:white;
 	max-width:100%;
 	margin:0 auto;
-	display: inline-block;
+	display: block;
+	text-align:center;
 }
 .best-portfolio-item{
 	height:283px;
@@ -129,6 +146,8 @@ h3{
 }
 .bp-info-writer-img{
 	height:40px;
+    border-radius: 25%;
+    margin-right: 5px;
 }
 .bp-info-writer{
 	font-weight:bold;
