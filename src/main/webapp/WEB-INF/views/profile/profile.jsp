@@ -26,7 +26,7 @@
 	$(document).ready(function () { 
 		
 		if($('#profileid').val()=="" && "${id}"=="${idch}"){
-			 var move=confirm("프로필 등록하러가기");
+			  move=confirm("프로필 등록이 되어있지 않습니다. 프로필 등록 화면으로 이동합니다.");
 			 if(move==true){
 				location.href="profile_form";
 			 }else{
@@ -35,8 +35,6 @@
 		
 		if($('#profileid').val()=="" && "${id}"!="${idch}"){
     		alert('프로필 등록을 하지 않은 유저입니다.');
-    		
-    		}else{
     		history.back();
     		}
 		}	

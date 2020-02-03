@@ -46,6 +46,17 @@ var id= $('#user_id').val();
         if(!file.type.match('image.*'))   // 파일 타입이 image 인지 확인합니다.
         {
            alert('확장자는 이미지 확장자만 가능합니다.');
+           /*input file  초기화 */
+           var agent = navigator.userAgent.toLowerCase();
+
+           if (agent.indexOf("msie") != -1) {
+        		// ie 일때 input[type=file] init.
+        		$("#file").replaceWith( $("#file").clone(true) );
+        	} else {
+        		// other browser 일때 input[type=file] init.
+        		$("#file").val("");
+        	}
+           	
            return;
         }
         // 파일을 읽기 위한 객체 생성

@@ -5,17 +5,17 @@
 			var select_parent = $('#skill').val();
 			if(select_parent==1){
 			ori = $('#select_result').val();
-			
+				
 				
 				if(ori==""||ori==null){
 					 $('#select_result').val(newselect);
 				}else{
+					if(newselect=="선택"){
+						return;
+					}
 					
 					if(ori.indexOf(newselect)!=-1){
 						alert("이미 포함된 항목입니다.");
-						return;
-					}
-					if(newselect=="선택"){
 						return;
 					}
 			 		$('#select_result').val(ori+','+newselect);
@@ -25,6 +25,9 @@
 				
 			
 			ori = $('#select_result2').val();
+			if(newselect=="선택"){
+				return;
+			}
 				if(ori==""||ori==null){
 					 $('#select_result2').val(newselect);
 				}else{
@@ -43,7 +46,7 @@
 		
 		function categoryChange(e) {
 			var good_a = ["선택","javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
-			var good_b = ["선택","java", "spring", "oracle", "c","server","system","python"];
+			var good_b = ["선택","java", "spring", "oracle", "C","server","system","python"];
 			var target = document.getElementById("skill_detail");
 			if(e.value == "1") var d = good_a;
 			else if(e.value == "2") var d = good_b;
@@ -188,6 +191,16 @@ $(function(){
             if(!file.type.match('image.*'))   // 파일 타입이 image 인지 확인합니다.
             {
                alert('확장자는 이미지 확장자만 가능합니다.');
+               var agent = navigator.userAgent.toLowerCase();
+
+               if (agent.indexOf("msie") != -1) {
+            		// ie 일때 input[type=file] init.
+            		$("#profileimg").replaceWith( $("#file").clone(true) );
+            	} else {
+            		// other browser 일때 input[type=file] init.
+            		$("#profileimg").val("");
+            	}
+
                return;
             }
             // 파일을 읽기 위한 객체 생성
