@@ -55,3 +55,4 @@ public class Profile {
 	@JsonSetter("ACT_DATE")
 	private Date ACT_DATE;
 }
+

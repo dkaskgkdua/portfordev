@@ -59,7 +59,6 @@ $(function() {
 				$('#PORT_CONTENT').focus();
 				return false;
 			}
-			$("#add_portfolio_form").submit();
 			
 			$.ajax({
 	            url: '/pro/VerifyRecaptcha',
@@ -139,11 +138,6 @@ h3 {
 				</div>
 				<div class="form-group">
 					<span style="color:red">확장자는 jpg, jpeg, gif, png만 가능합니다.</span>
-				</div>
-				<div class="form-group">
-					<label for="PORT_GITHUB">기간</label> 
-					<input type="date" id="PORT_START_DAY" value ="2020-01-01" name="PORT_START_DAY">-
-					<input type="date" id="PORT_END_DAY" value ="2020-02-01" name="PORT_END_DAY">
 				</div>
 				<div class="form-group">
 					<label for="PORT_GITHUB">기간</label> 

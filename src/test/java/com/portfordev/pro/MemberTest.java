@@ -55,5 +55,4 @@ public class MemberTest {
 			System.out.println(item);
 		});
 	}
-	
 }
