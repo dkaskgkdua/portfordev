@@ -80,6 +80,12 @@ tbody{
 	padding: 11px 16px;
 	margin-right:25px;
 }
+.category-list-item>img{
+	height: 19px;
+    width: auto;
+    margin-right: 5px;
+    vertical-align: middle;
+}
 .category-list .active-category{
 	color:#5385c1;
 	font-size:16.5px;
@@ -105,9 +111,17 @@ tbody{
 	}
 }
 
-@media screen and (max-width: 510px){
+@media screen and (max-width: 588px){
 	.category-list{
 		width:100%;
+	}
+	
+}
+
+@media screen and (max-width: 350px){
+	.category-list .category-list-item{
+		margin-right: 0px;
+	    padding-right: 5px;
 	}
 	
 }

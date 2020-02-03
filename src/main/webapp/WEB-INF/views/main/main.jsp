@@ -9,7 +9,9 @@
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1" />
 		<jsp:include page="navbar.jsp" />
+		<jsp:include page="../alert/alert_custom.jsp" />
 		<jsp:include page="../portfolio/portfolio_detail.jsp" />
+		<jsp:include page="../portfolio/portfolio_manager.jsp" />
 		<link rel="stylesheet" type="text/css" href="resources/css/main_page.css"/>
 		<script type="text/javascript" src="resources/js/main_page.js"></script>
 	</head>
@@ -176,8 +178,8 @@
 							<h3>프로필</h3>
 						</div>
 						<div class="feature-detail">
-							<span class="feature-detail-menu my_profile">프로필 관리하기</span>
-							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/profile/collection'">프로필 모아보기</span>
+							<span class="feature-detail-menu my_profile">관리하기</span>
+							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/profile/collection'">모아보기</span>
 						</div>
 					</div>
 					<div class="feature">
@@ -188,7 +190,6 @@
 							<h3>포트폴리오</h3>
 						</div>
 						<div class="feature-detail">
-							<span class="feature-detail-menu new_port">새로 등록하기</span>
 							<span class="feature-detail-menu my_port">관리하기</span>
 							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/portfolio/collection'">모아보기</span>
 						</div>
@@ -214,7 +215,7 @@
 							<h3>IT뉴스</h3>
 						</div>
 						<div class="feature-detail">
-							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/news'">IT기사 보러가기</span>
+							<span class="feature-detail-menu" onclick="javascript:location.href='/pro/news'">보러가기</span>
 						</div>
 					</div>
 				</div>

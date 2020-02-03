@@ -6,6 +6,7 @@
    <head>
       <title>PFD PROFILE ${profile.MEMBER_ID}</title><!-- 나중에 _main 빼고 개발자 아이디 -->
       <jsp:include page="../main/navbar.jsp"></jsp:include>
+      <jsp:include page="../alert/alert_custom.jsp" />
       <jsp:include page="../portfolio/portfolio_detail.jsp" />
       <link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
       

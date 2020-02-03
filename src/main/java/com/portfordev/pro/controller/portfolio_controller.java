@@ -36,17 +36,14 @@ import com.portfordev.pro.service.portfolio_service;
 @Controller
 public class portfolio_controller
 {
-
 	@Autowired
 	private MemberService member_service;
-	
 	@Autowired
 	private portfolio_service po_service;
 	@Autowired
 	private feedback_service fb_service;
 	@Autowired
 	private log_service log_service;
-	
 	
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -247,13 +244,35 @@ public class portfolio_controller
 
 		return fileDBName;
 	}
+	// 포트폴리오 관리하기
+	@ResponseBody
+	@PostMapping("/portfolio/manage")
+	public List<Portfolio> portfolio_manage(HttpSession session){
+		if(session.getAttribute("id") == null) {
+			return null;
+		}
+		List<Portfolio> myPortList = po_service.getMyPortfolioList((String)session.getAttribute("id"));
+		for(Portfolio port : myPortList)
+		{
+			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
+			String[] fileList = getFiles(PORT_FILE_PATH);
+			String PORT_THUMBNAIL = "../Image/no_img.png";
+			if(fileList != null) 
+				PORT_THUMBNAIL = PORT_FILE_PATH + fileList[0];
+			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
+		}
+		return myPortList;
+	}
 	// 포트폴리오 수정하기
-	@RequestMapping("/portfolio/portfolio_update")
-	public ModelAndView portfolio_update(ModelAndView mv) {
+	@RequestMapping("/portfolio/update")
+	public ModelAndView portfolio_update(ModelAndView mv, HttpSession session, int PORT_ID) {
+		
+		mv.addObject("");
+		mv.setViewName("/portfolio/portfolio_modify");
 		return mv;
 	}
 	// 포트폴리오 수정 시도
-	@PostMapping("/portfolio/portfolio_update_action")
+	@PostMapping("/portfolio/update_action")
 	public String portfolio_update_action() {
 		return "";
 	}
@@ -287,17 +306,19 @@ public class portfolio_controller
 
 		// 경로를 불러와 파일삭제
 		Portfolio targetPort = po_service.detailPortfolio(PORT_ID);
-		if(targetPort.getPORT_FILE_PATH() != null) {
-			String filePath = save_folder + targetPort.getPORT_FILE_PATH();
-			File fileDir = new File(filePath);
-			if(fileDir.exists()) { // 파일 존재 여부 확인
-				if(fileDir.isDirectory()) { // 디렉토리인지 확인
-					File[] files = fileDir.listFiles();
-					for(File file : files) {
-						file.delete();
+		if(targetPort != null) {
+			if(targetPort.getPORT_FILE_PATH() != null) {
+				String filePath = save_folder + targetPort.getPORT_FILE_PATH();
+				File fileDir = new File(filePath);
+				if(fileDir.exists()) { // 파일 존재 여부 확인
+					if(fileDir.isDirectory()) { // 디렉토리인지 확인
+						File[] files = fileDir.listFiles();
+						for(File file : files) {
+							file.delete();
+						}
 					}
+					fileDir.delete();
 				}
-				fileDir.delete();
 			}
 		}
 		int result = po_service.deletePortfolio(PORT_ID);
