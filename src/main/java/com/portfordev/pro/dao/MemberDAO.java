@@ -1,6 +1,7 @@
 package com.portfordev.pro.dao;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
@@ -46,5 +47,8 @@ public class MemberDAO {
 	}
 	public void delete_member(String member_id) {
 		sqlSession.delete("Members.delete_member", member_id);
-  }
+	}
+	public List<Member> get_member_list() {
+		return sqlSession.selectList("Members.get_member_list");
+	}
 }

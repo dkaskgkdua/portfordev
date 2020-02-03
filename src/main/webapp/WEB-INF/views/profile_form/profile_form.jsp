@@ -7,8 +7,6 @@
 <title>PFD-프로필 등록</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <jsp:include page="../main/navbar.jsp"></jsp:include>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick.css"/>
-		<link rel="stylesheet" type="text/css" href="resources/slick/slick-theme.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_form.css"/>
 		
@@ -23,7 +21,9 @@
 			var select_parent = $('#skill').val();
 			if(select_parent==1){
 			ori = $('#select_result').val();
-			
+				if(newselect=="선택"){
+					return;
+				}
 			
 				if(ori==""||ori==null){
 					 $('#select_result').val(newselect);
@@ -40,6 +40,9 @@
 				
 			
 			ori = $('#select_result2').val();
+			if(newselect=="선택"){
+				return;
+			}
 				if(ori==""||ori==null){
 					 $('#select_result2').val(newselect);
 				}else{
@@ -55,7 +58,7 @@
 		
 		function categoryChange(e) {
 			var good_a = ["선택","javaScript", "node.js", "vue.js","react.js","angular.js","jquery"];
-			var good_b = ["선택","java", "spring", "oracle", "c","server","system","python"];
+			var good_b = ["선택","java", "spring", "oracle", "C","server","system","python"];
 			var target = document.getElementById("skill_detail");
 			if(e.value == "1") var d = good_a;
 			else if(e.value == "2") var d = good_b;
@@ -67,6 +70,7 @@
 				target.appendChild(opt);
 			}	
 		}
+		
 		</script>
 </head>
 <body>
@@ -92,7 +96,9 @@
   							<p>이름(미입력시 닉네임이 노출됩니다.) </p>
   							<input type="text" name="PROFILE_REAL_NAME"><hr>
   							<p>프로필 사진 </p>
-  							<input type="file" id="file"name="profile_img"><hr>
+  							<input type="file" id="file" name="profile_img" accept=" image/*">
+  							<img src="resources/Image/icon/default_user.png" id="img" width="100">
+  							<hr>
   							<p>*직업(필수)</p>
   							<input type="radio" name="PROFILE_JOB" value="회사원"><span>회사소속</span>
   							<input type="radio" name="PROFILE_JOB"value="프리랜서"><span>프리랜서</span>
@@ -195,12 +201,6 @@
   									  <div class="w3-container w3-blue w3-round-xlarge" id="per"style="width:0%">0%</div>
  							 </div>
 					</div>	
-			<script src="resources/js/jquery.min.js"></script>
-			<script src="resources/js/skel.min.js"></script>
-			<script src="resources/js/util.js"></script>
-			<script src="resources/js/main.js"></script>
-			<script src="resources/js/jquery.form.js"></script>
-			<script type="text/javascript" src="resources/slick/slick.min.js"></script>
 			<script src="resources/js/profile_form.js"></script>
 			<script>
 			$(document).ready(function(){

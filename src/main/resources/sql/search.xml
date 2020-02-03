@@ -3,62 +3,62 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="search">
-	<select id="searchBoard" resultType="Board" parameterType="String">
-	<![CDATA[
-		select * from 
-			(select rownum r, b.* from
-				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
-					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '0' order by BOARD_DATE desc)b
-			 )
-			 where r < 6  order by r asc
-	]]>		 
-	</select>
-	
-	
-	<select id="searchMember" resultType="Member" parameterType="String">
-	<![CDATA[
-		select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
-			(select rownum r, b.* from
-				( select * from MEMBER where MEMBER_ID  like '%' ||  #{keyword} || '%' order by MEMBER_ACT desc)b
-			 )m left outer join (select MEMBER_ID ,nvl(MAX(REG_DATE),null) REG_DATE  from	PORT_FEEDBACK group by MEMBER_ID) p on p.MEMBER_ID=m.MEMBER_ID 
-			 where r < 6 order by r asc ,REG_DATE DESC
-	]]>		 
-	</select>
-	
-	<select id="searchStudy" resultType="Board" parameterType="String">
-	  <![CDATA[
-		select * from 
-			(select rownum r, b.* from
-				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
-					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '1' order by BOARD_DATE desc)b
-			 )
-			 where r < 6 order by r asc 
-		]]>		 
-	</select>
-	
-	<select id="searchQnA" resultType="Board" parameterType="String">
-	  <![CDATA[
-		select * from 
-			(select rownum r, b.* from
-				( select BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where  (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
-					or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '2' order by BOARD_DATE desc)b
-			 )
-			 where r < 6 order by r asc 
-		]]>		 
-	</select>
-	
-	<select id="searchPort" resultType="Portfolio" parameterType="String">
-	   <![CDATA[
-		select * from 
-			(select rownum r, b.* from
-				( select PORT_ID,PORT_SUBJECT,PORT_CONTENT,PORT_REGIDATE from PORTFOLIO where  PORT_SUBJECT  like '%' ||  #{keyword} || '%' 
-					or PORT_CONTENT like '%' ||  #{keyword} || '%'  order by PORT_REGIDATE desc)b
-			 )
-			 where r < 4 order by r asc 
-		]]>		 
-	
-	</select>
-	
-	
+   <select id="searchBoard" resultType="Board" parameterType="String">
+   <![CDATA[
+      select * from 
+         (select rownum r, b.* from
+            ( select BOARD_ID,BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+               or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '0' order by BOARD_DATE desc)b
+          )
+          where r < 6  order by r asc
+   ]]>       
+   </select>
+   
+   
+   <select id="searchMember" resultType="Member" parameterType="String">
+   <![CDATA[
+      select m.MEMBER_ID,MEMBER_PASSWORD,MEMBER_NAME,MEMBER_POWER ,MEMBER_POINT,MEMBER_ACT,REG_DATE from 
+         (select rownum r, b.* from
+            ( select * from MEMBER where MEMBER_ID  like '%' ||  #{keyword} || '%' order by MEMBER_ACT desc)b
+          )m left outer join (select MEMBER_ID ,nvl(MAX(REG_DATE),null) REG_DATE  from   PORT_FEEDBACK group by MEMBER_ID) p on p.MEMBER_ID=m.MEMBER_ID 
+          where r < 6 order by r asc ,REG_DATE DESC
+   ]]>       
+   </select>
+   
+   <select id="searchStudy" resultType="Board" parameterType="String">
+     <![CDATA[
+      select * from 
+         (select rownum r, b.* from
+            ( select BOARD_ID, BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+               or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '1' order by BOARD_DATE desc)b
+          )
+          where r < 6 order by r asc 
+      ]]>       
+   </select>
+   
+   <select id="searchQnA" resultType="Board" parameterType="String">
+     <![CDATA[
+      select * from 
+         (select rownum r, b.* from
+            ( select BOARD_ID, BOARD_SUBJECT,SUBSTR(BOARD_CONTENT,instr(BOARD_CONTENT,#{keyword},1,1),LENGTH(BOARD_CONTENT)) BOARD_CONTENT,BOARD_DATE,MEMBER_ID from  BOARD where  (BOARD_SUBJECT  like '%' ||  #{keyword} || '%' 
+               or BOARD_CONTENT like '%' ||  #{keyword} || '%' or MEMBER_ID like '%' ||  #{keyword} || '%') and BOARD_CATEGORY = '2' order by BOARD_DATE desc)b
+          )
+          where r < 6 order by r asc 
+      ]]>       
+   </select>
+   
+   <select id="searchPort" resultType="Portfolio" parameterType="String">
+      <![CDATA[
+      select * from 
+         (select rownum r, b.* from
+            ( select PORT_SHOW,PORT_ID,PORT_SUBJECT,PORT_CONTENT,PORT_REGIDATE,PORT_FILE_PATH from PORTFOLIO where  PORT_SUBJECT  like '%' ||  #{keyword} || '%' 
+               or PORT_CONTENT like '%' ||  #{keyword} || '%'  order by PORT_REGIDATE desc)b
+          )
+          where r < 4 and PORT_SHOW <1 order by r asc 
+      ]]>       
+   
+   </select>
+   
+   
 
 </mapper>

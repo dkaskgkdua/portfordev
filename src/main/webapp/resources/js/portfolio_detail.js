@@ -20,6 +20,16 @@ $(document).ready(function(){
 		showDetail();
 		generalDetailFunctionOn();
 	});
+	// search page
+	$('.search_ul').on('click', '.PORT_SUBJECT', function(){
+		var port_id = Number($(this).parent().children('.hidden_PORT_ID').val());
+		getDetail(port_id);
+		getFeedbacks(port_id);
+		getBestFeedback(port_id);
+		showDetail();
+		generalDetailFunctionOn();
+		return false;
+	});
 	// exit 버튼 클릭 시 모달 종료
 	$('.exit-detail').click(function(){
 		closeDetail();
@@ -1064,6 +1074,7 @@ function askRefresh()
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$(window).off('keydown');
+				location.reload();
 			});
 		})
 	})

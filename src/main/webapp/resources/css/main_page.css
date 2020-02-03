@@ -90,7 +90,8 @@ h3{
 	color:white;
 	max-width:100%;
 	margin:0 auto;
-	display: inline-block;
+	display: block;
+	text-align:center;
 }
 .best-portfolio-item{
 	height:283px;

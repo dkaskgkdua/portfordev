@@ -16,20 +16,20 @@
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
 					<div class="category-list-item active-category" id="cateAll">전체</div>
-					<div class="category-list-item" id="portWriterOnly">포트폴리오</div>
-					<div class="category-list-item" id="bestActorOnly">활동갑</div>
+					<div class="category-list-item" id="portWriterOnly" title="포트폴리오를 작성한 회원">포폴 작성회원</div>
+					<div class="category-list-item" id="bestActorOnly" title="활동점수 100점 이상의 회원">베스트</div>
 				</div>
 				<div class="sort-condition">
 					<div class="dropdown" style="display:inline-block;">
-						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="orderDropDown">가입순</button>
+						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="orderDropDown">가입 날짜</button>
 						<div class="dropdown-menu" style="min-width:100px; text-align:center;" aria-labelledby="orderDropDown">
-							<button class="dropdown-item orderBtn" type="button">가입순</button>
-							<button class="dropdown-item orderBtn" type="button">최근 활동순</button>
-							<button class="dropdown-item orderBtn" type="button">총 활동순</button>
+							<button class="dropdown-item orderBtn" type="button">가입 날짜</button>
+							<button class="dropdown-item orderBtn" type="button">활동 날짜</button>
+							<button class="dropdown-item orderBtn" type="button">활동 점수</button>
 						</div>
 					</div>
 					<div class="dropdown" style="display:inline-block;">
-						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="fromDropDown">활동일</button>
+						<button type="button" class="btn btn-default btn-lg dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" id="fromDropDown">활동 기간</button>
 						<div class="dropdown-menu" style="min-width:115px; text-align:center;" aria-labelledby="fromDropDown">
 							<button class="dropdown-item recentBtn" type="button">활동 기간</button>
 							<button class="dropdown-item recentBtn" type="button">최근 24시간</button>

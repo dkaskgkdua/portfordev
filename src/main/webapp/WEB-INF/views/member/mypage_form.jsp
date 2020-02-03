@@ -6,6 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
+<jsp:include page="../portfolio/portfolio_detail.jsp"/>
 <title>MyPage-${MEMBER.MEMBER_NAME}</title>
 <style>
 article {

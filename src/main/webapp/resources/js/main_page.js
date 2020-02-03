@@ -12,17 +12,31 @@ $(window).load(function(){
 		$(this).addClass('filter-active');
 		if($(this).text() == 'Daily')
 		{
-			getBestPortfolios('daily');
+			$('.best-portfolio-list').css('display', 'none');
+			$('.loading-list').stop().fadeIn(100, function(){
+				$(this).css('opacity', '1');
+				getBestPortfolios('daily');
+				generalMainFunctionOn();
+			});
 		}
 		else if($(this).text() == 'Weekly')
 		{
-			getBestPortfolios('weekly');
+			$('.best-portfolio-list').css('display', 'none');
+			$('.loading-list').stop().fadeIn(100, function(){
+				$(this).css('opacity', '1');
+				getBestPortfolios('weekly');
+				generalMainFunctionOn();
+			});
 		}
 		else if($(this).text() == 'Monthly')
 		{
-			getBestPortfolios('monthly');
+			$('.best-portfolio-list').css('display', 'none');
+			$('.loading-list').stop().fadeIn(100, function(){
+				$(this).css('opacity', '1');
+				getBestPortfolios('monthly');
+				generalMainFunctionOn();
+			});
 		}
-		generalMainFunctionOn();
 	});
 	function getBestPortfolios(cd){
 		$.ajax({
@@ -37,7 +51,7 @@ $(window).load(function(){
 					errorAlert('베스트 포트폴리오를 가져오는 과정에');
 					return;
 				}
-				$('.best-portfolio-list').empty().stop().fadeOut();
+				$('.best-portfolio-list').empty();
 				$.each(best_ports, function(){
 					var output = '';
 					output +=	'<div class="best-portfolio-item" id="best-port'+this.PORT_ID+'">';

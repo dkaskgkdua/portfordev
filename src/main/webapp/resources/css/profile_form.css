@@ -26,7 +26,8 @@
 					background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
 			#skill_detail{width:45%;display:inline-block;
 							background: url(https://farm1.staticflickr.com/379/19928272501_4ef877c265_t.jpg) no-repeat 95% 50%;	}
-			
+			#goprofile,#retry,#gomain{background: white; border:1px solid gray; border-radius:5px;}
+			#img{height:133px; margin-top: 20px;}
 			.delete{width:10px}
 			#select_result{ display: inline-block;width:90%}
 			#select_result2{ display: inline-block;width:90%}

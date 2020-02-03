@@ -9,15 +9,8 @@
 /*
 	main theme color : #5385c1
 */
-body, input, select{
+#portfolioModalContainer input, #portfolioModalContainer select{
 	color:slategrey;
-}
-textarea:focus{
-	/*font-size:12pt;*/
-	background-color:white;
-	color:black;
-	font-weight:500;
-	transition:0.3s;
 }
 .not-scroll{
 	overflow:hidden;
@@ -407,7 +400,7 @@ textarea:focus{
 	max-width:100%;
 	min-height:283px!important;
 	margin: 10px;
-	background:#5385c1;
+	background:#FFF;
 	text-align:center;
 }
 .port-slide-item:hover{
@@ -727,7 +720,7 @@ textarea:focus{
 }
 #FEED_CONTENT:focus, #FEED_UPDATE_CONTENT:focus{
 	transition:0.4s;
-	background:white;
+	background:#FFF;
 	font-size:12pt;
 	font-weight:500;
 	color:black!important;

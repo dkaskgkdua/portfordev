@@ -9,7 +9,7 @@
 							#{profile.PROFILE_STRENGTH1} , #{profile.PROFILE_STRENGTH2},#{profile.PROFILE_TECH_INTRO})
 	</insert>
 	<select id="checkid" parameterType="String" resultType="int">
-		select count(*) from PROFILE where MEMBER_ID=#{id}
+		select count(*) from PROFILE where MEMBER_ID = #{MEMBER_ID}
 	</select>
 	
 	<select id ="profile_view" parameterType="String" resultType="Profile">
@@ -35,6 +35,22 @@
 	  					PROFILE_GIT = #{profile.PROFILE_GIT} 
 	  					where MEMBER_ID = #{id}
 	  					
+	</update>
+	<update id = "update_profile_intro" parameterType="map">
+		update PROFILE set
+	  					PROFILE_YEAR = #{profile.PROFILE_YEAR},
+	  					PROFILE_STRENGTH1 = #{profile.PROFILE_STRENGTH1},
+	  					PROFILE_STRENGTH2 = #{profile.PROFILE_STRENGTH2},
+	  					PROFILE_INTRO = #{profile.PROFILE_INTRO}
+	  					where MEMBER_ID = #{id}
+	</update>
+	
+	<update id="update_profile_skill" parameterType="map">
+		update PROFILE set
+	  					PROFILE_TECH_FRONT = #{profile.PROFILE_TECH_FRONT},
+	  					PROFILE_TECH_BACK = #{profile.PROFILE_TECH_BACK},
+	  					PROFILE_TECH_INTRO = #{profile.PROFILE_TECH_INTRO}
+	  					where MEMBER_ID = #{id}
 	</update>
 	
 	<!-- 프로필 컬렉션 -->

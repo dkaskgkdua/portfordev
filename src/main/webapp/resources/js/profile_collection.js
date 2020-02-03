@@ -81,13 +81,13 @@ $(document).ready(function(){
 		$('#cateAll').addClass('active-category');
 		initProfileList();
 	});
-	// 포트폴리오 클릭시
+	// 포폴 작성회원 클릭시
 	$('#portWriterOnly').click(function(){
 		$('.category-list-item').removeClass('active-category');
 		$('#portWriterOnly').addClass('active-category');
 		initProfileList();
 	});
-	// 활동갑 클릭시
+	// 베스트 클릭시
 	$('#bestActorOnly').click(function(){
 		$('.category-list-item').removeClass('active-category');
 		$('#bestActorOnly').addClass('active-category');
@@ -101,11 +101,11 @@ $(document).ready(function(){
 		// 최근 활동 순 변경 시
 		if($(this).hasClass('orderBtn')){
 			var btnText = $(this).text();
-			if(btnText == '가입순')
+			if(btnText == '가입 날짜')
 				orderR = 'newest';
-			else if(btnText == '최근 활동순')
+			else if(btnText == '활동 날짜')
 				orderR = 'latest_act';
-			else if(btnText == '총 활동순')
+			else if(btnText == '활동 점수')
 				orderR = 'most_act';
 			initProfileList();
 		}
