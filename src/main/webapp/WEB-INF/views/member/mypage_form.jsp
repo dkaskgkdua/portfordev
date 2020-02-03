@@ -6,7 +6,6 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
-<jsp:include page="../portfolio/portfolio_detail.jsp"/>
 <title>MyPage-${MEMBER.MEMBER_NAME}</title>
 <style>
 article {
@@ -174,10 +173,10 @@ section {
 										<a href="/pro/board_view_action?board_id=${log.MEMBER_REF_ID}">#${log.MEMBER_REF_ID}&nbsp;게시물에  댓글을 남겼습니다.</a>
 									</c:when>
 									<c:when test="${log.MEMBER_LOG_CATEGORY eq '2'}">
-										포트폴리오를 작성하였습니다.
+										<a href="/pro/log_to_profile?id=${log.MEMBER_REF_ID}">#${log.MEMBER_REF_ID}&nbsp;포트폴리오를 작성하였습니다.</a>
 									</c:when>
 									<c:when test="${log.MEMBER_LOG_CATEGORY eq '3'}">
-										포트폴리오에 피드백을 남겼습니다.
+										<a href="/pro/log_to_profile?id=${log.MEMBER_REF_ID}">#${log.MEMBER_REF_ID}&nbsp;포트폴리오에 피드백을 남겼습니다.</a>
 									</c:when>
 									<c:when test="${log.MEMBER_LOG_CATEGORY eq '4'}">
 										<a href="/pro/board_view_action?board_id=${log.MEMBER_REF_ID}">#${log.MEMBER_REF_ID}&nbsp;게시물을 추천 하였습니다.</a>

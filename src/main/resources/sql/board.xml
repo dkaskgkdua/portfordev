@@ -55,7 +55,7 @@
 				    ) where rnum &gt;= #{start} and rnum &lt;= #{end}
 	</select>
 	<insert id="insert" parameterType="Board">
-		insert into BOARD values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT}, #{BOARD_ID}, 0, 0, 0, SYSDATE)
+		insert into BOARD values(#{BOARD_ID}, #{MEMBER_ID}, #{BOARD_CATEGORY}, #{BOARD_PASSWORD}, #{BOARD_SUBJECT}, #{BOARD_CONTENT:VARCHAR}, #{BOARD_ID}, 0, 0, 0, SYSDATE)
 	</insert>
 	<insert id="insert_file" parameterType="Board_file">
 		insert into BOARD_FILE values(BOARD_FILE_SEQ.NEXTVAL, #{BOARD_ID}, #{BOARD_FILE}, #{BOARD_FILE_ORIGINAL})

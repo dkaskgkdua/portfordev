@@ -30,7 +30,9 @@ import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.log_service;
+import com.portfordev.pro.service.portfolio_service;
 import com.portfordev.pro.service.profile_service;
+import com.portfordev.pro.service.profile_service_impl;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller
@@ -43,7 +45,8 @@ public class member_controller {
 	private log_service log_service;
 	@Autowired
 	private profile_service profile_service;
-	
+	@Autowired
+	private portfolio_service po_service;
 	
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -83,6 +86,23 @@ public class member_controller {
 	@RequestMapping(value="/join", method = RequestMethod.GET)
 	public String join() {
 		return "member/join_form";
+	}
+	
+	@GetMapping("log_to_profile")
+	public String log_to_profile(int id, HttpServletResponse response) throws Exception {
+		if(po_service.getPortWriter(id) != null) {
+			String MEMBER_ID = po_service.getPortWriter(id).getMEMBER_ID();
+			return "redirect:profile?idch="+MEMBER_ID;
+		} else {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('포트폴리오가 삭제되었거나 없습니다.');");
+			out.println("location.href='login';");
+			out.println("</script>");
+			out.close();
+			return null;
+		}
 	}
 	
 	@GetMapping("mypage")
