@@ -64,7 +64,6 @@ public class member_controller {
 	public Object alert_list(HttpSession session) {
 		String id = (String) session.getAttribute("id");
 		List<Alert> alert_list = log_service.get_alert_list(id);
-		System.out.println(alert_list);
 		Map<String, Object> map = new HashMap<String, Object>();
 		map.put("alert_count", alert_list.size());
 		map.put("alert_list", alert_list);
@@ -183,11 +182,8 @@ public class member_controller {
 			@RequestParam(value="MEMBER_PASSWORD_CHECK", defaultValue="", required=false) String check, RedirectAttributes redirect) throws Exception {
 		String salt = member_service.get_salt(member.getMEMBER_ID());
 		if(check.equals("")) { // 단순 정보 변경
-			System.out.println("test1");
 			member_service.update_member(member);
-			System.out.println("test2");
 		} else { // + 비밀번호 변경
-			System.out.println(member + " ch : " + check);
 			int result = member_service.isId(member.getMEMBER_ID(), ""+(salt+member.getMEMBER_PASSWORD()).hashCode());
 			if(result == 1) { // 아이디 비밀번호 일치
 				member_service.update_member(member, check, salt);
@@ -241,7 +237,6 @@ public class member_controller {
 	@RequestMapping(value="/idcheck", method = RequestMethod.GET)
 	public void idcheck(@RequestParam("id") String id, HttpServletResponse response) throws Exception {
 		int result = member_service.isId(id);
-		System.out.println(result);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(result);
@@ -268,7 +263,6 @@ public class member_controller {
 			}
 			response.addCookie(savecookie);
 			
-			System.out.println("로그인 성공");
 			return "redirect:pro";
 		} else {
 			String message = "비밀번호가 일치하지 않습니다.";
@@ -327,7 +321,6 @@ public class member_controller {
 		}
 		member.setMEMBER_PASSWORD_SALT(salt);
 		member.setMEMBER_PASSWORD(""+(salt+member.getMEMBER_PASSWORD()).hashCode());
-		System.out.println(member);
 		int result = member_service.insert(member);
 		
 		response.setContentType("text/html;charset=utf-8");

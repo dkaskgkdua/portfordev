@@ -161,7 +161,6 @@ public class feedback_controller
 		Feedback FEED_WRITER_INFO = fb_service.getFeedWriter(FEEDBACK_ID);
 		String FEED_WRITER = FEED_WRITER_INFO.getFEED_WRITER();
 		String FEED_WRITER_IMG = FEED_WRITER_INFO.getFEED_WRITER_IMG();
-		System.out.println(FEED_WRITER_INFO);
 		if(FEED_WRITER_IMG == null || FEED_WRITER_IMG.equals("none"))
 			FEED_WRITER_IMG = "/pro/resources/Image/userdefault.png";
 		else

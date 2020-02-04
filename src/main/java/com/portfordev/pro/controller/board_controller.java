@@ -71,15 +71,16 @@ public class board_controller {
 			return null; 
 		}
 		int result = board_service.board_delete(board.getBOARD_ID(), save_folder);
-	  
-		if (result == 0) { System.out.println("게시판 삭제 실패"); }
-	  
-		System.out.println("게시판 삭제 성공");
 		response.setContentType("text/html;charset=utf-8"); 
 		PrintWriter out = response.getWriter(); 
 		out.println("<script>");
-		out.println("alert('삭제 되었습니다.');");
-		out.println("location.href='/pro/board_list?BOARD_CATEGORY="+board.getBOARD_CATEGORY()+"';"); 
+		if (result == 0) {
+			out.println("alert('삭제가 실패했습니다.');");
+			out.println("history.go(-1);");
+		} else {
+			out.println("alert('삭제 되었습니다.');");
+			out.println("location.href='/pro/board_list?BOARD_CATEGORY="+board.getBOARD_CATEGORY()+"';"); 
+		}
 		out.println("</script>");
 		out.close(); 
 		return null; 
@@ -91,7 +92,6 @@ public class board_controller {
 			 ModelAndView mv, HttpServletResponse response, HttpServletRequest request) throws Exception {
 		 
 		 List<MultipartFile> uploadfile = board.getUploadfile();
-		 System.out.println("파일 변경 : " + file_change);
 		 
 		 if(file_change == 1) { // 파일 변경한 경우
 			 board_service.delete_board_file(board.getBOARD_ID(), save_folder);
@@ -156,7 +156,6 @@ public class board_controller {
 	public void board_password_check(@RequestParam("BOARD_PASSWORD") String password, 
 			@RequestParam("BOARD_ID") int id, HttpServletResponse response) throws Exception {
 		int result = board_service.is_password(id, password);
-		System.out.println(result);
 		response.setContentType("text/html;charset=utf-8");
 		PrintWriter out = response.getWriter();
 		out.print(result);
@@ -189,7 +188,6 @@ public class board_controller {
 		ServletContext context = request.getSession().getServletContext();
 				
 		String sFilePath = save_folder +"/"+filename;
-		System.out.println(sFilePath);
 		
 		byte b[] = new byte[4096];
 		// sFilePath에 있는 파일의 MimeType을 구해온다.
@@ -201,7 +199,6 @@ public class board_controller {
 		
 		response.setContentType(sMimeType);
 		String sEncoding = new String(original.getBytes("utf-8"), "ISO-8859-1");
-		System.out.println(sEncoding);
 		
 		response.setHeader("Content-Disposition", "attachment; filename= " + sEncoding);
 		
@@ -264,19 +261,14 @@ public class board_controller {
 		} else { // 게시판정보, 회원 정보, 파일 리스트, 추천 리스트, 댓글 리스트
 			Member member = member_service.get_member(board.getMEMBER_ID());
 			List<Board_recommend> board_reco_list = board_service.get_reco_list(board_id);
-			System.out.println(board_reco_list);
 			List<Board_file> board_file_list = board_service.get_file_list(board_id);
-			System.out.println(board_file_list);
 			List<Comment> comment_list = comment_service.get_list(board_id); 
-			System.out.println(comment_list);
 			board.setMEMBER_NAME(member.getMEMBER_NAME());
 			board.setMEMBER_ACT(member.getMEMBER_ACT());
 			 
 			board.setBOARD_COMMENT(""+((comment_list == null) ? 0:comment_list.size()));
 			board.setBOARD_RECO(board_reco_list == null ? 0:board_reco_list.size());
 			
-			System.out.println("상세보기 성공"); 
-			System.out.println("board : " + board);
 			mv.setViewName("board/board_view");
 			mv.addObject("board_file_list", board_file_list);
 			mv.addObject("board_reco_list",board_reco_list);
@@ -325,7 +317,6 @@ public class board_controller {
 		PrintWriter out = response.getWriter();
 		String file_name = file.getOriginalFilename();
 		String server_file_name = fileDBName(file_name, save_folder);
-		System.out.println("server file : " + server_file_name);
 		file.transferTo(new File(save_folder + server_file_name));
 		out.println("resources/upload"+server_file_name);
 		out.close();
@@ -391,7 +382,6 @@ public class board_controller {
 			end_page = max_page;
 
 		List<Board> board_list = board_service.getBoardList(page, limit, search_select, search_text, BOARD_CATEGORY, sort);
-		System.out.println(board_list);
 		mv.setViewName("board/board_list");
 		mv.addObject("page", page);
 		mv.addObject("max_page", max_page);
@@ -414,7 +404,6 @@ public class board_controller {
 		int date = c.get(Calendar.DATE);
 
 		String homedir = saveFolder + year + "-" + month + "-" + date;
-		System.out.println(homedir);
 		File path1 = new File(homedir);
 		if (!(path1.exists())) {
 			path1.mkdir();
@@ -425,13 +414,10 @@ public class board_controller {
 		int index = fileName.lastIndexOf(".");
 
 		String fileExtension = fileName.substring(index + 1);
-		System.out.println("fileExtension = " + fileExtension);
 
 		String refileName = "bbs" + year + month + date + random + "." + fileExtension;
-		System.out.println("refileName = " + refileName);
 
 		String fileDBName = "/" + year + "-" + month + "-" + date + "/" + refileName;
-		System.out.println("fileDBName = " + fileDBName);
 
 		return fileDBName;
 	}

@@ -91,7 +91,7 @@ public class MemberServiceImpl implements MemberService {
 		if(!value.equals("")) {
 			String safe_value = Jsoup.clean(value, Whitelist.basic());
 			if(safe_value.equals("")) {
-				safe_value = "XSS 공격이 감지되었습니다.";
+				safe_value = "XSS 감지";
 			}
 			return safe_value;
 		}

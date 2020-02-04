@@ -47,7 +47,7 @@
 		</init-param>
 		<load-on-startup>1</load-on-startup>
 	</servlet>
-	<!-- Error -->
+	<!-- Error 
 	<error-page>
 		<error-code>404</error-code>
 		<location>/error/404_error</location>
@@ -60,7 +60,7 @@
 
 	<error-page>
 		<location>/error/default_error</location>
-	</error-page>
+	</error-page>-->
 	<servlet-mapping>
 		<servlet-name>appServlet</servlet-name>
 		<url-pattern>/</url-pattern>

@@ -160,8 +160,7 @@ public class profile_controller {
 			//2.특정폴더
 			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
 			String homedir = save_folder + year + "-" + month + "-" + date;
-			
-			System.out.println(homedir);
+
 			File path1 = new File(homedir);
 			if (!(path1.exists())) {
 				path1.mkdir();	// 새로운 폴더를 생성
@@ -179,17 +178,13 @@ public class profile_controller {
 			// lastIndexOf는 마지막으로 발견되는 문자열의 index를 반환한다.
 			// (파일명에 점이 여러 개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴한다.)
 			
-			String fileExtension = fileName.substring(index + 1);
-			System.out.println("fileExtension = " + fileExtension);
-			/**** 확장자 구하기 끝 ****/
+			String fileExtension = fileName.substring(index + 1);			/**** 확장자 구하기 끝 ****/
 			
 			// 새로운 파일명
 			String refileName = "bbs" + year + month + date + random + "." + fileExtension;
-			System.out.println("refileName = " + refileName);
 			
 			// 오라클 디비에 저장될 파일명
 			String fileDBName = year + "-" + month + "-" + date + "/" + refileName;
-			System.out.println("fileDBName = " + fileDBName);
 			
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
 			file.transferTo(new File(save_folder + fileDBName));
@@ -232,8 +227,7 @@ public class profile_controller {
 			//2.특정폴더
 			//String saveFolder="E:\\final_pro2\\portfordev\\src\\main\\webapp\\resources\\upload\\";
 			String homedir = save_folder + year + "-" + month + "-" + date;
-			
-			System.out.println(homedir);
+
 			File path1 = new File(homedir);
 			if (!(path1.exists())) {
 				path1.mkdir();	// 새로운 폴더를 생성
@@ -252,16 +246,13 @@ public class profile_controller {
 			// (파일명에 점이 여러 개 있을 경우 맨 마지막에 발견되는 문자열의 위치를 리턴한다.)
 			
 			String fileExtension = fileName.substring(index + 1);
-			System.out.println("fileExtension = " + fileExtension);
 			/**** 확장자 구하기 끝 ****/
 			
 			// 새로운 파일명
 			String refileName = "bbs" + year + month + date + random + "." + fileExtension;
-			System.out.println("refileName = " + refileName);
 			
 			// 오라클 디비에 저장될 파일명
 			String fileDBName = year + "-" + month + "-" + date + "/" + refileName;
-			System.out.println("fileDBName = " + fileDBName);
 			
 			// transferTo(File path) : 업로드한 파일을 매개변수의 경로에 저장한다.
 			file.transferTo(new File(save_folder + fileDBName));
@@ -270,18 +261,13 @@ public class profile_controller {
 			profile.setPROFILE_IMG_FILE(fileDBName);
 		} // if end
 		else if(chkimg.equals(profile.getPROFILE_IMG_ORI())){
-			System.out.println("11111111프로필 사진 일치 ");
 			profile.setPROFILE_IMG_ORI(chkimg);
 		}else {
 			profile.setPROFILE_IMG_ORI("");
 			profile.setPROFILE_IMG_FILE("");
 		}
 
-		System.out.println("$$$$$$$$$$$$$$원래 이미지"+profile.getPROFILE_IMG_ORI());
-		System.out.println("##############인풋 값"+chkimg);
-		System.out.println("프로필 블로그 수정 : "+profile.getPROFILE_BLOG());
 		service.updateprofile(id, profile);
-		System.out.println("프로필 페이지로 넘어가는 아이디:"+profile.getMEMBER_ID());
 		
 	
 		
@@ -311,9 +297,7 @@ public class profile_controller {
 	
 	// 경로를 통해 파일들 가져오기
 		public String[] getFiles(String PORT_FILE_PATH) {
-			System.out.println("파일 패스 "+PORT_FILE_PATH);
 			File path = new File(save_folder+PORT_FILE_PATH);
-			System.out.println("경로"+save_folder+PORT_FILE_PATH);
 			String[] fileList = null;
 			if(path.exists()) {
 				if(path.isDirectory()) {

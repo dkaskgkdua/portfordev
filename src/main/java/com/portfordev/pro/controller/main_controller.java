@@ -67,7 +67,6 @@ public class main_controller
 			if(fileList != null) 
 				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
 			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
-			System.out.println(PORT_WRITER_IMG);
 			if(PORT_WRITER_IMG == null || PORT_WRITER_IMG.equals("none"))
 				PORT_WRITER_IMG = "Image/userdefault.png";
 			else

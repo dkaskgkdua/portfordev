@@ -86,7 +86,6 @@ public class board_service_impl implements board_service{
 			field2 = "BOARD_CONTENT";
 			break;
 		}
-		System.out.println(field);
 		map.put("BOARD_CATEGORY", BOARD_CATEGORY);
 		map.put("field", field);
 		map.put("field2", field2);
@@ -114,7 +113,6 @@ public class board_service_impl implements board_service{
 			break;
 		}
 		
-		System.out.println(field);
 		int startrow = (page-1)*limit+1;
 		int endrow = startrow+limit-1;
 		map.put("BOARD_CATEGORY", BOARD_CATEGORY);
@@ -191,7 +189,6 @@ public class board_service_impl implements board_service{
 	@Override
 	public void insert_board(Board board) {
 		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("\'", "&#39;"));
-		System.out.println("저장되는 값 : " + board.getBOARD_CONTENT());
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
 	}

@@ -37,6 +37,10 @@ public class portfolio_service_impl implements portfolio_service
 	@Override
 	// 포트폴리오 수정
 	public int update_portfolio(Portfolio portfolio) {
+		portfolio.setPORT_SUBJECT(xss_clean_check(portfolio.getPORT_SUBJECT()));
+		portfolio.setPORT_CONTENT(xss_clean_check(portfolio.getPORT_CONTENT()));
+		portfolio.setPORT_GITHUB(xss_clean_check(portfolio.getPORT_GITHUB()));
+		portfolio.setPORT_SITE(xss_clean_check(portfolio.getPORT_SITE()));
 		return dao.update_portfolio(portfolio);
 	}
 	@Override
