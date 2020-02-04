@@ -9,5 +9,6 @@
 <body>
 <h1>죄송합니다.</h1>
 <h3>서버에서 에러가 발생하였습니다.</h3>
+<a href="https://portfordev.com/pro">사이트로 돌아가기</a>
 </body>
 </html>
