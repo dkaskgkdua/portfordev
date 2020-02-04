@@ -32,7 +32,6 @@ import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
 import com.portfordev.pro.service.profile_service;
-import com.portfordev.pro.service.profile_service_impl;
 import com.portfordev.pro.task.VerifyRecaptcha;
 
 @Controller

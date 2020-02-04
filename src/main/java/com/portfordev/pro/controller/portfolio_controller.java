@@ -33,21 +33,21 @@ import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.feedback_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
+import com.portfordev.pro.service.profile_service;
 
 @Controller
 public class portfolio_controller
 {
-
 	@Autowired
 	private MemberService member_service;
-	
 	@Autowired
 	private portfolio_service po_service;
 	@Autowired
 	private feedback_service fb_service;
 	@Autowired
 	private log_service log_service;
-	
+	@Autowired
+	private profile_service pro_service;
 	
 	@Value("${savefoldername}")
 	private String save_folder;
@@ -77,7 +77,7 @@ public class portfolio_controller
 			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
 			String[] fileList = getFiles(PORT_FILE_PATH);
 			String PORT_THUMBNAIL = "Image/no_img.png";
-			if(fileList != null) 
+			if(fileList != null && fileList.length != 0) 
 				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
 			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
 			if(PORT_WRITER_IMG.equals("none"))
@@ -132,7 +132,7 @@ public class portfolio_controller
 			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
 			String[] fileList = getFiles(PORT_FILE_PATH);
 			String PORT_THUMBNAIL = "Image/no_img.png";
-			if(fileList != null) 
+			if(fileList != null && fileList.length != 0) 
 				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
 			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
 			if(PORT_WRITER_IMG.equals("none"))
@@ -181,10 +181,21 @@ public class portfolio_controller
 			response.setContentType("text/html;charset=utf-8");
 			PrintWriter out = response.getWriter();
 			out.println("<script>");
-			out.println("alert('로그인을 해주세요.');");
-			out.println("history.go(-1);");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='/pro/login'");
 			out.println("</script>");
 			out.close();
+			return null;
+		}
+		if(pro_service.checkid((String)session.getAttribute("id")) < 1) {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("if(confirm('프로필 등록을 먼저 진행해야합니다.프로필을 지금 등록하시겠습니까?')){location.href='/pro/profile_form';}");
+			out.println("else{history.go(-1)}");
+			out.println("</script>");
+			out.close();
+			return null;
 		}
 		mv.setViewName("portfolio/portfolio_add");
 		return mv;
@@ -192,7 +203,7 @@ public class portfolio_controller
 	
 	// 포트폴리오 작성 시도
 	@PostMapping("/portfolio_add_action")
-	public String portfolio_add_action(Portfolio portfolio, HttpServletResponse response, HttpServletRequest request) throws Exception {
+	public String portfolio_add_action(Portfolio portfolio, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception {
 		List<MultipartFile> Upload_file = portfolio.getPORT_UPLOADFILE();
 		int portfolio_id = po_service.select_max_id();
 		//System.out.println(portfolio.getPORT_END_DAY());
@@ -227,7 +238,7 @@ public class portfolio_controller
 		member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
 		log_service.insert_log(new Member_log(portfolio.getMEMBER_ID(), 2, portfolio_id));
 		po_service.insert_portfolio(portfolio);
-		return "redirect:pro";
+		return "redirect:profile?idch="+session.getAttribute("id");
 	}
 	// 파일의 db 이름을 저장하는 메서드
 	private String fileDBName(String fileName, String saveFolder, int portfolio_id, int file_index) {
@@ -248,15 +259,121 @@ public class portfolio_controller
 
 		return fileDBName;
 	}
+	// 포트폴리오 관리하기
+	@ResponseBody
+	@PostMapping("/portfolio/manage")
+	public List<Portfolio> portfolio_manage(HttpSession session){
+		if(session.getAttribute("id") == null) {
+			return null;
+		}
+		List<Portfolio> myPortList = po_service.getMyPortfolioList((String)session.getAttribute("id"));
+		for(Portfolio port : myPortList)
+		{
+			String PORT_FILE_PATH = port.getPORT_FILE_PATH();
+			String[] fileList = getFiles(PORT_FILE_PATH);
+			String PORT_THUMBNAIL = "../Image/no_img.png";
+			if(fileList != null && fileList.length != 0) 
+				PORT_THUMBNAIL = PORT_FILE_PATH + fileList[0];
+			port.setPORT_THUMBNAIL(PORT_THUMBNAIL);
+		}
+		return myPortList;
+	}
 	// 포트폴리오 수정하기
-	@RequestMapping("/portfolio/portfolio_update")
-	public ModelAndView portfolio_update(ModelAndView mv) {
+	@RequestMapping("/portfolio/update")
+	public ModelAndView portfolio_update(	@RequestParam("PORT_ID") int PORT_ID, 
+											@RequestParam("MEMBER_ID") String MEMBER_ID, 
+											ModelAndView mv, HttpSession session, HttpServletResponse response) throws IOException {
+		if(session.getAttribute("id") == null) {
+			// 로그인 바람
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('로그인이 필요합니다.');");
+			out.println("location.href='/pro/login';");
+			out.println("</script>");
+			out.close();
+			return null;
+		}
+		if(!session.getAttribute("id").equals(MEMBER_ID)) {
+			// 작성자가 일치하지 않음
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('수정 권한이 없습니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		}
+		Portfolio targetPort = po_service.detailPortfolio(PORT_ID);
+		mv.addObject("port", targetPort);
+		mv.setViewName("/portfolio/portfolio_modify");
 		return mv;
 	}
 	// 포트폴리오 수정 시도
-	@PostMapping("/portfolio/portfolio_update_action")
-	public String portfolio_update_action() {
-		return "";
+	@PostMapping("/portfolio/update_action")
+	public String portfolio_update_action(Portfolio portfolio, HttpServletResponse response, HttpServletRequest request, HttpSession session) throws Exception {
+		// 넘어온 값이 null 이 아닐 경우
+		if(portfolio!=null) {
+			if(!portfolio.getPORT_NEW_FILE().equals(portfolio.getPORT_ORI_FILE())) {
+				// 경로를 불러와 파일삭제
+				String filePath = save_folder + portfolio.getPORT_ID() + "/";
+				File fileDir = new File(filePath);
+				if(fileDir.exists()) { // 파일 존재 여부 확인
+					if(fileDir.isDirectory()) { // 디렉토리인지 확인
+						File[] files = fileDir.listFiles();
+						for(File file : files) {
+							file.delete();
+						}
+						fileDir.delete();
+					}
+				}
+				List<MultipartFile> Upload_file = portfolio.getPORT_UPLOADFILE();
+				response.setContentType("text/html;charset=utf-8");
+				PrintWriter out = response.getWriter();
+				if(!Upload_file.isEmpty()) {
+					for (MultipartFile file : Upload_file) {
+						int ext = file.getOriginalFilename().lastIndexOf(".");
+						String fileExtension = file.getOriginalFilename().substring(ext + 1);
+						if(!(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")||fileExtension.equals("gif")||file.getOriginalFilename().equals(""))) {
+							out.println("<script>");
+							out.println("alert('jpg, png, jpeg, gif 파일만 업로드 가능합니다.');");
+							out.println("location.href='/pro/portfolio_add';");
+							out.println("</script>");
+							out.close();
+							return null;
+						}
+					}
+				}
+				int file_index = 0;
+				for (MultipartFile mf : Upload_file) {
+					if(mf.getSize() == 0) {
+						break;
+					}
+					String fileName = mf.getOriginalFilename(); // 원래 파일명
+					String fileDBName = fileDBName(fileName, save_folder, portfolio.getPORT_ID(), file_index++);
+					mf.transferTo(new File(save_folder + fileDBName));
+				}
+				portfolio.setPORT_ORI_FILE(portfolio.getPORT_NEW_FILE());
+			}
+			// member_service.add_write_act(portfolio.getMEMBER_ID(), 20);
+			// log_service.insert_log(new Member_log(portfolio.getMEMBER_ID(), 2, portfolio.getPORT_ID()));
+			portfolio.setPORT_FILE_PATH(portfolio.getPORT_ID()+"/");
+			po_service.update_portfolio(portfolio);
+			return "redirect:../profile?idch="+session.getAttribute("id");
+		}
+		// 포트폴리오 null
+		else {
+			response.setContentType("text/html;charset=utf-8");
+			PrintWriter out = response.getWriter();
+			out.println("<script>");
+			out.println("alert('포트폴리오 정보를 다시 입력해주시기 바랍니다.');");
+			out.println("history.go(-1);");
+			out.println("</script>");
+			out.close();
+			return null;
+		}
+		
 	}
 	// 포트폴리오 삭제하기
 	@RequestMapping("/portfolio/delete")
@@ -288,17 +405,19 @@ public class portfolio_controller
 
 		// 경로를 불러와 파일삭제
 		Portfolio targetPort = po_service.detailPortfolio(PORT_ID);
-		if(targetPort.getPORT_FILE_PATH() != null) {
-			String filePath = save_folder + targetPort.getPORT_FILE_PATH();
-			File fileDir = new File(filePath);
-			if(fileDir.exists()) { // 파일 존재 여부 확인
-				if(fileDir.isDirectory()) { // 디렉토리인지 확인
-					File[] files = fileDir.listFiles();
-					for(File file : files) {
-						file.delete();
+		if(targetPort != null) {
+			if(targetPort.getPORT_FILE_PATH() != null) {
+				String filePath = save_folder + targetPort.getPORT_FILE_PATH();
+				File fileDir = new File(filePath);
+				if(fileDir.exists()) { // 파일 존재 여부 확인
+					if(fileDir.isDirectory()) { // 디렉토리인지 확인
+						File[] files = fileDir.listFiles();
+						for(File file : files) {
+							file.delete();
+						}
 					}
+					fileDir.delete();
 				}
-				fileDir.delete();
 			}
 		}
 		int result = po_service.deletePortfolio(PORT_ID);
@@ -351,7 +470,7 @@ public class portfolio_controller
 		String[] fileList = getFiles(PORT_FILE_PATH);
 		String PORT_THUMBNAIL = "Image/no_img.png";
 		String PORT_IMG_FILES = "";
-		if(fileList != null){
+		if(fileList != null && fileList.length != 0){
 			PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
 			int num = 0;
 			for(String file : fileList) {

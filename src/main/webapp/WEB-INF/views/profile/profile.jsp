@@ -4,9 +4,11 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-      <title>PFD PROFILE ${profile.MEMBER_ID}</title><!-- 나중에 _main 빼고 개발자 아이디 -->
+      <title>PFD PROFILE-${profile.MEMBER_ID}</title><!-- 나중에 _main 빼고 개발자 아이디 -->
       <jsp:include page="../main/navbar.jsp"></jsp:include>
+      <jsp:include page="../alert/alert_custom.jsp" />
       <jsp:include page="../portfolio/portfolio_detail.jsp" />
+      <jsp:include page="../portfolio/portfolio_manager.jsp"/>
       <link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>
       
       <!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-modal/0.9.1/jquery.modal.min.js"></script>
@@ -166,7 +168,7 @@
              </c:if>
              <div class="sidebar">
              <ul>
-             <li><a href="#portfoliolist">PROJECT</a></li>
+             <li><a href="#portfoliolist">PORTFOLIO</a></li>
              <li><a href="#intro">INTRODUCE</a></li>
              <li><a href="#Skill">SKILL</a></li>
              <li><a href="#Contact">CONTACT</a></li>
@@ -187,9 +189,9 @@
                   <!-- 본인이면 추가 버튼 노출 -->
                   <c:if test="${id==profile.MEMBER_ID}">
                      <div style="text-align:right">
-                        <button id="add" type="button" onclick="location.href='portfolio_add'" >
-                           <span>프로젝트 추가</span>
-                           <img src="resources/Image/icon/add_btn.png" width=20/>
+                        <button id="add" type="button" class="my_port">
+                           <span>포트폴리오 관리</span>
+                           <img src="resources/Image/icon/modify.png" width=20/>
                         </button>
                      </div>
                   </c:if>
@@ -201,7 +203,7 @@
                      <c:forEach var="port" items="${myList}">
                      <c:if test="${port.PORT_SHOW == 0}">
                         <div class="slide_in">
-                           <!-- 프로젝트  -->
+                           <!-- 포트폴리오  -->
                            <div class="best-portfolio-item" id="best-port${port.PORT_ID}">
                         <input type="hidden" class="hidden_PORT_ID" value="${port.PORT_ID}">
                            <img src="resources/${port.PORT_THUMBNAIL}" class="slide_in_content">
@@ -219,13 +221,6 @@
                         <c:if test="${port.PORT_FEED_NEED == 0}">
                         <img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
                         <span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
-                        </c:if>
-                        <c:if test="${id==profile.MEMBER_ID}">
-                        <form action = "portfolio/delete" method="post">
-                        <input type="hidden" name="MEMBER_ID" value="${profile.MEMBER_ID}">
-                        <input type="hidden" name="PORT_ID" value="${port.PORT_ID}">
-                        <button type="submit" class="port_delete">삭제하기</button>
-                        </form>
                         </c:if>
                      </div>
                   </div>
@@ -254,13 +249,6 @@
                         <c:if test="${port.PORT_FEED_NEED == 0}">
                         <img class="bp-icon" src="/pro/resources/Image/icon/comment-gray.png">
                         <span class="bp-info-feed bp-count">${port.PORT_FEEDCOUNT}</span>
-                        </c:if>
-                        <c:if test="${id==profile.MEMBER_ID}">
-                        <form action = "portfolio/delete" method="post">
-                        <input type="hidden" name="MEMBER_ID" value="${profile.MEMBER_ID}">
-                        <input type="hidden" name="PORT_ID" value="${port.PORT_ID}">
-                        <button type="submit" class="port_delete">삭제하기</button>
-                        </form>
                         </c:if>
                      </div>
                   </div>

@@ -16,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.portfordev.pro.domain.Alert;
-import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Feedback;
 import com.portfordev.pro.domain.Feedback_recommend;
 import com.portfordev.pro.domain.Member_log;

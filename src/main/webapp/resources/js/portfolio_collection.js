@@ -274,7 +274,6 @@ $(document).ready(function(){
 	// 스크롤 내릴 시 자동으로 ajax 를 통해 다음 요소를 생성
 	function loadNext()
 	{
-		console.log('loadNext() : '+isEnd);
 		if(isEnd)return false;
 		pageP++;
 		getPortList();

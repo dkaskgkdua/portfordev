@@ -1,10 +1,10 @@
 package com.portfordev.pro.common;
 
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.Aspect;
-import org.aspectj.lang.annotation.Before;
-import org.aspectj.lang.annotation.Pointcut;
-import org.springframework.stereotype.Service;
+//import org.aspectj.lang.annotation.Aspect;
+//import org.aspectj.lang.annotation.Before;
+//import org.aspectj.lang.annotation.Pointcut;
+//import org.springframework.stereotype.Service;
 
 /* 공통으로 처리할 로직을 BeforeAdvice 클래스에 beforeLog() 메서드로 구현한다.
  * Advice : 횡단 관심에 해당하는 공통 기능을 의미하며 독립된 클래스의 메서드로 작성된다.

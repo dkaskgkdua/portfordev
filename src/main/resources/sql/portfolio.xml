@@ -50,7 +50,8 @@
 				left outer join (select PORT_ID, NVL(count(*), 0) as PORT_LIKECOUNT from PORT_RECOMMEND group by PORT_ID) using(PORT_ID)
 				left outer join (select MEMBER_ID, MEMBER_NAME as PORT_WRITER from MEMBER) using(MEMBER_ID) 
 				left outer join (select MEMBER_ID, NVL(PROFILE_IMG_FILE, 'none') PORT_WRITER_IMG, NVL(PROFILE_JOB, '개발자') PORT_WRITER_JOB from PROFILE) using(MEMBER_ID)
-		where MEMBER_ID = #{MEMBER_ID}
+		where MEMBER_ID = #{MEMBER_ID} 
+		order by PORT_REGIDATE desc
 	</select>
 	<!-- 포트폴리오 list -->
 	<select id="list" parameterType="java.util.Map" resultType="Portfolio">
@@ -122,7 +123,8 @@
 		update PORTFOLIO
 		set PORT_SUBJECT = #{PORT_SUBJECT}, 
 		PORT_CONTENT = #{PORT_CONTENT}, 
-		PORT_FILE = #{PORT_FILE}, 
+		PORT_FILE_PATH = #{PORT_FILE_PATH},
+		PORT_ORI_FILE = #{PORT_ORI_FILE},  
 		PORT_START_DAY = #{PORT_START_DAY}, 
 		PORT_END_DAY = #{PORT_END_DAY}, 
 		PORT_TEAM = #{PORT_TEAM}, 

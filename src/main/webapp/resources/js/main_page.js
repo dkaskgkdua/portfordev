@@ -78,7 +78,7 @@ $(window).load(function(){
 				});
 			},
 			error: function(){
-				errorAlert('베스트 포트폴리오를 가져오는 과정에');
+				errorAlert('베스트 포트폴리오를 불러오는 과정에');
 			}
 		});
 	}
@@ -171,9 +171,4 @@ $(window).load(function(){
 		if(!askLogin(member_id))return;
 		location.href='/pro/portfolio_add';
 	});
-	$('.my_port').click(my_portfolio);
-	function my_portfolio(){
-		if(!askLogin(member_id))return;
-		location.href='/pro/profile?idch='+member_id;
-	}
 });

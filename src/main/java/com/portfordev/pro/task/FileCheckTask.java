@@ -2,10 +2,9 @@ package com.portfordev.pro.task;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
-import com.portfordev.pro.service.board_service;
+// import com.portfordev.pro.service.board_service;
 
 @Service
 public class FileCheckTask {
@@ -13,7 +12,7 @@ public class FileCheckTask {
 	private String save_folder;
 	
 	@Autowired
-	private board_service board_service;
+//	private board_service board_service;
 	
 	
 	/* cron 사용법

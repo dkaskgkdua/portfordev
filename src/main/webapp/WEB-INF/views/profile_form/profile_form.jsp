@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>PFD-프로필 등록</title>
+<title>PFD Profile Write</title>
 <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
 <jsp:include page="../main/navbar.jsp"></jsp:include>
 		<link rel="stylesheet" type="text/css" href="resources/css/profile_main_slidebar.css"/>

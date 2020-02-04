@@ -9,7 +9,7 @@
 <script src="https://www.google.com/recaptcha/api.js"></script>
 <jsp:include page="./join_form_acount_rule.jsp" />
 <jsp:include page="./join_form_info_rule.jsp" />
-<title>PFD 회원가입</title>
+<title>PFD Join</title>
 <script>
 	$(function() {
 

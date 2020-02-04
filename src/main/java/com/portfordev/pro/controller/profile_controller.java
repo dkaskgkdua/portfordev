@@ -61,7 +61,7 @@ public class profile_controller {
 			
 			String[] fileList =getFiles(PORT_FILE_PATH);
 			String PORT_THUMBNAIL = "Image/no_img.png";
-			if(fileList!= null) 
+			if(fileList!= null && fileList.length != 0) 
 				PORT_THUMBNAIL = "upload/" + PORT_FILE_PATH + fileList[0];
 			String PORT_WRITER_IMG = port.getPORT_WRITER_IMG();
 			if(PORT_WRITER_IMG == null || PORT_WRITER_IMG.equals("none")) {
@@ -314,15 +314,24 @@ public class profile_controller {
 			System.out.println("파일 패스 "+PORT_FILE_PATH);
 			File path = new File(save_folder+PORT_FILE_PATH);
 			System.out.println("경로"+save_folder+PORT_FILE_PATH);
-			String fileList[] = path.list(new FilenameFilter() {
-				@Override
-				public boolean accept(File dir, String name) {
-					return (name.endsWith("jpg") || 
-							name.endsWith("jpeg") || 
-							name.endsWith("gif") || 
-							name.endsWith("png"));
+			String[] fileList = null;
+			if(path.exists()) {
+				if(path.isDirectory()) {
+					fileList = path.list(new FilenameFilter() {
+						@Override
+						public boolean accept(File dir, String name) {
+							return (name.endsWith("jpg") || 
+									name.endsWith("jpeg") || 
+									name.endsWith("gif") || 
+									name.endsWith("png"));
+						}
+					});
+				}else {
+					System.out.println("경로가 잘못되었습니다.");
 				}
-			});
+			}else {
+				System.out.println("경로가 존재하지 않습니다.");
+			}
 			return fileList;
 		}
 }

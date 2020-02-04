@@ -4,7 +4,7 @@
 <!DOCTYPE HTML>
 <html>
    <head>
-      <title>검색결과</title>
+      <title>PFD Search Result</title>
       <jsp:include page="../main/navbar.jsp"></jsp:include>
       <meta charset="utf-8" />
       <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -63,7 +63,7 @@
              <h1 class="profile_h1 search_h1">MENU</h1>
              <div class="sidebar">
              <ul class="search_ul member_ul">
-             <li><a href="#project">PROJECT</a></li>
+             <li><a href="#project">PORTFOLIO</a></li>
              <li><a href="#Memberlist">MEMBER</a></li>
              <li><a href="#board">FREE BOARD</a></li>
              <li> <a href="#study">STUDY</a></li>
