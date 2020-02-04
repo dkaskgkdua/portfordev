@@ -9,5 +9,6 @@
 <body>
 <h1>죄송합니다.</h1>
 <h3>요청하신 데이터가 존재하지 않습니다.</h3>
+<a href="https://portfordev.com/pro">사이트로 돌아가기</a>
 </body>
 </html>
