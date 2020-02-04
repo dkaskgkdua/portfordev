@@ -66,7 +66,7 @@ function notAllowed(msg)
 	$('#alert-wrap').stop().fadeIn(200, function(){
 		$(this).css('opacity', '1');
 		$('#alert-wrap .not-allowed-message').text(msg);
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 		$('#alert-wrap .not-allowed-alert').css('display', 'block');
 		$('#alert-wrap .alert-box').stop().fadeIn();
 		$('#alert-wrap .goBtn').on('click', function(){
@@ -83,7 +83,7 @@ function notAllowed(msg)
 				$('#alert-wrap').fadeOut();
 				$('#alert-wrap .not-allowed-alert').css('display', 'none');
 				$('#alert-wrap .not-allowed-message').text('');
-				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+				$('#alert-wrap .cancelBtn').css('display', 'inline-block');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$(window).off('keydown');
@@ -126,7 +126,7 @@ function writeDoneAlert()
 	$('#alert-wrap').stop().fadeIn(200, function(){
 		$(this).css('opacity', '1');
 		$('#alert-wrap .write-done-alert').css('display', 'block');
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 		$('#alert-wrap .alert-box').stop().fadeIn();
 		$('#alert-wrap .goBtn').on('click', function(){
 			$('#alert-wrap .cancelBtn').trigger('click');
@@ -141,7 +141,7 @@ function writeDoneAlert()
 			$('#alert-wrap .alert-box').stop().fadeOut(200, function(){
 				$('#alert-wrap').stop().fadeOut();
 				$('#alert-wrap .write-done-alert').css('display', 'none');
-				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+				$('#alert-wrap .cancelBtn').css('display', 'inline-block');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$('.exit-cover').trigger('click');
@@ -227,7 +227,7 @@ function updateDoneAlert()
 	$('#alert-wrap').stop().fadeIn(200, function(){
 		$(this).css('opacity', '1');
 		$('#alert-wrap .update-done-alert').css('display', 'block');
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 		$('#alert-wrap .alert-box').stop().fadeIn(function(){
 			$('#alert-wrap .goBtn').on('click', function(){
 				$('#alert-wrap .cancelBtn').trigger('click');
@@ -253,7 +253,7 @@ function updateDoneAlert()
 					$('.feedback-update-container').removeClass('updating');
 					$('#alert-wrap').stop().fadeOut();
 					$('#alert-wrap .update-done-alert').css('display', 'none');
-					$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+					$('#alert-wrap .cancelBtn').css('display', 'inline-block');
 					$('#alert-wrap .goBtn').off('click');
 					$('#alert-wrap .cancelBtn').off('click');
 					//$('.exit-cover').trigger('click');
@@ -268,7 +268,7 @@ function feedContentNeedAlert(){
 	$('#alert-wrap').stop().fadeIn(200, function(){
 		$(this).css('opacity', '1');
 		$('#alert-wrap .content-need-alert').css('display', 'block');
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 		$('#alert-wrap .alert-box').stop().fadeIn();
 		$('#alert-wrap .goBtn').on('click', function(){
 			$('#alert-wrap .cancelBtn').trigger('click');
@@ -283,7 +283,7 @@ function feedContentNeedAlert(){
 			$('#alert-wrap .alert-box').stop().fadeOut(200, function(){
 				$('#alert-wrap').stop().fadeOut();
 				$('#alert-wrap .content-need-alert').css('display', 'none');
-				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+				$('#alert-wrap .cancelBtn').css('display', 'inline-block');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$(window).off('keydown');
@@ -357,18 +357,18 @@ function feedDeleteResult(result){
 	var resultMsg = '';
 	if(result == 0){	// 세션만료로 삭제 실패
 		resultMsg = '&nbsp;실패<br>지속적인 오류 발생시 관리자에게 문의바랍니다';
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 	}
 	else if(result == 1){	// 삭제 성공
 		resultMsg = '&nbsp;성공';
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 	}
 	else if(result == 2){	// 세션만료로 삭제 실패
 		resultMsg = '&nbsp;실패<br>세션만료로 재로그인이 필요합니다.<br>로그인 페이지로 이동하시겠습니까?';
 	}
 	else if(result == 3){	// 삭제 권한이 없음
 		resultMsg = '&nbsp;권한이 없습니다.';
-		$('#alert-wrap .cancelBtn').css('visibility', 'hidden');
+		$('#alert-wrap .cancelBtn').css('display', 'none');
 	}
 	$('#alert-wrap').stop().fadeIn(200, function(){
 		$(this).css('opacity', '1');
@@ -397,7 +397,7 @@ function feedDeleteResult(result){
 			$('#alert-wrap .alert-box').stop().fadeOut(200, function(){
 				$('#alert-wrap').stop().fadeOut();
 				$('#alert-wrap .feed-delete-result').css('display', 'none');
-				$('#alert-wrap .cancelBtn').css('visibility', 'visible');
+				$('#alert-wrap .cancelBtn').css('display', 'inline-block');
 				$('#alert-wrap .delete-result-message').text('');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
@@ -426,6 +426,32 @@ function portDeleteConfirm(mid, pid){
 			$('#alert-wrap .alert-box').stop().fadeOut(200, function(){
 				$('#alert-wrap').stop().fadeOut();
 				$('#alert-wrap .port-delete-confirm').css('display', 'none');
+				$('#alert-wrap .goBtn').off('click');
+				$('#alert-wrap .cancelBtn').off('click');
+				$(window).off('keydown');
+			});
+		})
+	})
+}
+// 포트폴리오 수정 confirm alert
+function portUpdateConfirm(mid, pid){
+	$('#alert-wrap').stop().fadeIn(200, function(){
+		$(this).css('opacity', '1');
+		$('#alert-wrap .port-update-confirm').css('display', 'block');
+		$('#alert-wrap .alert-box').fadeIn();
+		$('#alert-wrap .goBtn').on('click', function(){
+			location.href='/pro/portfolio/update?MEMBER_ID='+mid+'&PORT_ID='+pid;
+		});
+		$(window).keydown(function(key) {
+			if (key.keyCode == 13) {
+				$('.goBtn').trigger('click');
+				$(window).off('keydown');
+		    }
+		});
+		$('#alert-wrap .cancelBtn').on('click', function(){
+			$('#alert-wrap .alert-box').stop().fadeOut(200, function(){
+				$('#alert-wrap').stop().fadeOut();
+				$('#alert-wrap .port-update-confirm').css('display', 'none');
 				$('#alert-wrap .goBtn').off('click');
 				$('#alert-wrap .cancelBtn').off('click');
 				$(window).off('keydown');

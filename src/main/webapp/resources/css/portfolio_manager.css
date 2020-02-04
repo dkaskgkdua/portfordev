@@ -31,7 +31,7 @@
 	transition:0.3s;
 }
 #portfolio-manager-container{
-	width:calc(100% - 200px);
+	max-width:calc(100% - 200px);
 	height:calc(100% - 100px);
 	position:absolute;
 	left:100px;
@@ -181,11 +181,12 @@
     height:auto;
 }
 .mp-controller button{
-	margin-top: 20px;
     border-radius: 5px;
     background: white;
     display:inline-block;
     outline:none!important;
+    margin: 10px;
+    margin-top: 20px;
 }
 .mp-controller button:hover{
 	background:#999;
@@ -196,6 +197,7 @@
 	
 #portfolio-manager-container{
 	width:calc(100% - 40px);
+    max-width: calc(100% - 40px);
 	left:20px;
 	right:20px;
 	padding-top:10px;

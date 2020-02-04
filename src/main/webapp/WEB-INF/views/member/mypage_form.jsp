@@ -6,7 +6,7 @@
 <head>
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
-<title>MyPage-${MEMBER.MEMBER_NAME}</title>
+<title>PFD MyPage-${MEMBER.MEMBER_NAME}</title>
 <style>
 article {
 	width: 70%;

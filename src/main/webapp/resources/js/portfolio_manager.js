@@ -1,3 +1,4 @@
+// PORTFOLIO MANAGE FUNCTIONS
 // 포트폴리오 관리페이지 오픈
 function openPortManager(){
 	if(!askLogin(member_id))return;
@@ -7,15 +8,15 @@ function openPortManager(){
 	$('#portfolio-manager').stop().fadeIn(400, function(){
 		$('.loading-myList').stop().fadeIn(400, getMyPortList);
 	});
-	$('body').addClass('not-scroll').on('scroll touchmove mousewheel', function(e){
-        e.preventDefault();
-    });
+	$('body').addClass('not-scroll');
 }
 // 포트폴리오 관리페이지 종료
-function closePortManager(){
-	$('body').removeClass('not-scroll').off('scroll touchmove mousewheel');
+function closePortManager(callBack){
+	$('body').removeClass('not-scroll');
 	$('#portfolio-manager').stop().fadeOut(400);
-	portManagerFucntionOff();
+	portManagerFunctionOff();
+	if(typeof callBack == 'function')
+		callBack();
 }
 // My 포트폴리오 리스트 가져오기
 function getMyPortList(){
@@ -51,16 +52,10 @@ function getMyPortList(){
 					output +=		'<span class="mp-info-feed mp-count">'+this.PORT_FEEDCOUNT+'</span>';
 				}
 				output +=			'<div class="mp-controller">';
-				output +=				'<form class="port-update-form" action="/pro/portfolio/update">';
-				output +=					'<input type="hidden" class="MEMBER_ID" name="MEMBER_ID" value="'+this.MEMBER_ID+'">';
-				output +=					'<input type="hidden" class="PORT_ID" name="PORT_ID" value="'+this.PORT_ID+'">';
-				output +=					'<button type="submit" class="modify-portfolio">수정 하기</button>';
-				output +=				'</form>';
-				output +=				'<form class="port-delete-form" action="/pro/portfolio/delete" method="post">';
-				output +=					'<input type="hidden" class="MEMBER_ID" name="MEMBER_ID" value="'+this.MEMBER_ID+'">';
-				output +=					'<input type="hidden" class="PORT_ID" name="PORT_ID" value="'+this.PORT_ID+'">';
-				output +=					'<button type="submit" class="delete-portfolio">삭제 하기</button>';
-				output +=				'</form>';
+				output +=				'<input type="hidden" class="MEMBER_ID" name="MEMBER_ID" value="'+this.MEMBER_ID+'">';
+				output +=				'<input type="hidden" class="PORT_ID" name="PORT_ID" value="'+this.PORT_ID+'">';
+				output +=				'<button type="submit" class="modify-portfolio">수정 하기</button>';
+				output +=				'<button type="submit" class="delete-portfolio">삭제 하기</button>';
 				output +=			'</div>';
 				output +=		'</div>';
 				output +=	'</div>';
@@ -79,15 +74,32 @@ function portManagerFunctionOn(){
 		$('#my-portfolio-list').stop().fadeIn();
 		$('#write-portfolio').stop().fadeIn();
 	});
-	$('.port-update-form').on('submit', function(){
-		alert('수정시도');
+	$('.modify-portfolio').on('click', function(e){
+		e.stopPropagation();
+		var writer_id = $(this).parent().children('.MEMBER_ID').val();
+		var port_id = $(this).parent().children('.PORT_ID').val();
+		portUpdateConfirm(writer_id, port_id);
 		return false;
 	});
-	$('.port-delete-form').on('submit', function(){
-		var member_id = $(this).children('.MEMBER_ID').val();
-		var port_id = $(this).children('.PORT_ID').val();
-		portDeleteConfirm(member_id, port_id);
+	$('.delete-portfolio').on('click', function(e){
+		e.stopPropagation();
+		var writer_id = $(this).parent().children('.MEMBER_ID').val();
+		var port_id = $(this).parent().children('.PORT_ID').val();
+		portDeleteConfirm(writer_id, port_id);
 		return false;
+	});
+
+	// portfolio Detail
+	$('.my-portfolio-item').on('click', '.mp-info-wrapper',function(e){
+		var port_id = Number($(this).parent().children('.hidden_PORT_ID').val());
+		closePortManager(function(){
+			getDetail(port_id);
+			getFeedbacks(port_id);
+			getBestFeedback(port_id);
+			showDetail();
+			generalDetailFunctionOn();
+		});
+		
 	});
 }
 // 포트폴리오 관리페이지 기능 제거

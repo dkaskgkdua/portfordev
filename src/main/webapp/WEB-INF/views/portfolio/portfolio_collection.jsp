@@ -18,15 +18,9 @@
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
 					<div class="category-list-item active-category" id="cateAll" title="전체 포트폴리오">전체</div>
-					<div class="category-list-item" id="feedNeedOnly" title="피드백이 필요한 포트폴리오">
-						<img src="/pro/resources/Image/icon/Fini_icon.png" style="height:20px;">피니
-					</div>
-					<div class="category-list-item" id="recomOnly" title="추천을 3개 이상 받은 포트폴리오">
-						<img src="/pro/resources/Image/icon/like-gray.png" style="height:15px; margin-right:7px;">베스트
-					</div>
-					<div class="category-list-item" id="scrapOnly" title="스크랩한 포트폴리오">
-						<img src="/pro/resources/Image/icon/Scrap_unclicked_icon.svg" style="height:23px; margin-right:3px;">스크랩
-					</div>
+					<div class="category-list-item" id="feedNeedOnly" title="피드백이 필요한 포트폴리오">피니</div>
+					<div class="category-list-item" id="recomOnly" title="추천을 3개 이상 받은 포트폴리오">베스트</div>
+					<div class="category-list-item" id="scrapOnly" title="스크랩한 포트폴리오">스크랩</div>
 				</div>
 				<div class="sort-condition">
 					<div class="dropdown" style="display:inline-block;">

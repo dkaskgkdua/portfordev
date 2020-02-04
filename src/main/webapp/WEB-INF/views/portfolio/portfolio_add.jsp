@@ -7,7 +7,7 @@
 <jsp:include page="../main/navbar.jsp" />
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<title>PFD 포트폴리오 등록</title>
+<title>PFD Portfolio Write</title>
 <script>
 function port_show() {
 	if ($('#port_filevalue').text() == '') {
@@ -85,6 +85,10 @@ $(function() {
 	        });
 			
 		});
+		$('#add_cancel').click(function(){
+			if(confirm('포트폴리오 작성을 취소하시겠습니까?'))
+				history.go(-1);
+		});
 });
 </script>
 <style>
@@ -94,8 +98,22 @@ $(function() {
 	padding: 20px;
 	margin-top : 5px;
 }
-#add_button {
-	width: 100%;
+#add_button, #add_cancel{
+    background: #FFF;
+    border: 1px solid lightgrey;
+    color: rgb(93, 143, 203);
+    display: inline-block;
+    width: 47%;
+    margin: 1%;
+    outline:none!important;
+}
+#add_button:hover, #add_cancel:hover{
+    cursor:pointer;
+	background:rgb(93, 143, 203);
+	color:#FFF;
+	border-radius:2%;
+	opacity:0.7;
+	transition:0.4s;
 }
 #PORT_UPLOADFILE {
    display: none;
@@ -106,8 +124,10 @@ img {
 img:hover {
    cursor: pointer
 }
-h3 {
+#add_portfolio_form h3 {
 	text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
 }
 </style>
 </head>
@@ -179,6 +199,7 @@ h3 {
 				</div>
 				<div class="form-group">
 					<button id="add_button" class = "btn btn-secondary" type="button">등록</button>
+					<button id="add_cancel" class = "btn" type="button">취소</button>
 				</div>
 			</fieldset>
 		</form>

@@ -17,12 +17,8 @@
 			<div class="sort-list" style="margin-top: 0px;">
       			<div class="category-list">
 					<div class="category-list-item active-category" id="cateAll" title="전체 회원">전체</div>
-					<div class="category-list-item" id="portWriterOnly" title="포트폴리오를 작성한 회원">
-						<img src="/pro/resources/Image/icon/board-cnt.png">작성회원
-					</div>
-					<div class="category-list-item" id="bestActorOnly" title="활동점수 100점 이상의 회원">
-						<img src="/pro/resources/Image/icon/award.png">베스트
-					</div>
+					<div class="category-list-item" id="portWriterOnly" title="포트폴리오를 작성한 회원">작성회원</div>
+					<div class="category-list-item" id="bestActorOnly" title="활동점수 100점 이상의 회원">베스트</div>
 				</div>
 				<div class="sort-condition">
 					<div class="dropdown" style="display:inline-block;">

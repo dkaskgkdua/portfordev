@@ -6,7 +6,7 @@
 
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
-<title>PFD 로그인</title>
+<title>PFD Login</title>
 <!-- 
 <script src="https://apis.google.com/js/platform.js?onload=renderButton" async defer></script>
 <meta name="google-signin-client_id"

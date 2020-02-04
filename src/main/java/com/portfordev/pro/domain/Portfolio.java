@@ -21,6 +21,8 @@ public class Portfolio
 	private String PORT_FILE_PATH;
 	@JsonSetter("PORT_ORI_FILE")
 	private String PORT_ORI_FILE;
+	// 포트폴리오 이미지 수정 시 저장
+	private String PORT_NEW_FILE;
 	@JsonSetter("PORT_START_DAY")
 	private Date PORT_START_DAY;
 	@JsonSetter("PORT_END_DAY")

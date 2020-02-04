@@ -98,8 +98,9 @@
 			});
 		})
 		$('#searchform').submit(function(){
-			if($('input[type=search]').val()==''){
+			if($('input[type=search]').val().trim()==''){
 				alert('검색어를 입력해주세요');
+				$('input[type=search]').focus();
 				return false;
 			}
 		});

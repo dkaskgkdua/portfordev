@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,7 +8,7 @@
 <jsp:include page="../main/navbar.jsp" />
 
 <script src="https://www.google.com/recaptcha/api.js"></script>
-<title>PFD 포트폴리오 등록</title>
+<title>PFD Portfolio Edit</title>
 <script>
 function port_show() {
 	if ($('#port_filevalue').text() == '') {
@@ -29,12 +30,13 @@ $(function() {
 				}
 			}
 			$('#port_filevalue').text(strArray);
-			$('#PORT_ORI_FILE').val(strArray);
+			$('#PORT_NEW_FILE').val(strArray);
 			port_show();
 		});
 		// 파일 제거 시
 		$('.remove2').click(function() {
 			$('#port_filevalue').text('');
+			$('#PORT_NEW_FILE').val('');
 			var agent = navigator.userAgent.toLowerCase();
 			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
 			    // ie 일때 input[type=file] init.
@@ -45,16 +47,16 @@ $(function() {
 			}
 			$(this).css('display', 'none');
 		});
-		$("#add_button").click(function() {
+		$("#update_button").click(function() {
 			
 			
-			if ($('#PORT_SUBJECT').val() == "") {
+			if ($('#PORT_SUBJECT').val().trim() == "") {
 				alert("제목을 입력하세요");
 				$('#PORT_SUBJECT').focus();
 				return false;
 			}
 			
-			if ($('#PORT_CONTENT').val() == "") {
+			if ($('#PORT_CONTENT').val().trim() == "") {
 				alert("내용을 입력하세요");
 				$('#PORT_CONTENT').focus();
 				return false;
@@ -70,7 +72,7 @@ $(function() {
 	                switch (data) {
 	                    case 0:
 	                        console.log("자동 등록 방지 봇 통과");
-	                        $('#add_portfolio_form').submit();
+	                        $('#update_portfolio_form').submit();
 	                		break;
 	                    case 1:
 	                        alert("자동 등록 방지 봇을 확인 한뒤 진행 해 주세요.");
@@ -85,6 +87,10 @@ $(function() {
 	        });
 			
 		});
+		$('#update_cancel').click(function(){
+			if(confirm('포트폴리오 수정을 취소하시겠습니까?'))
+				history.go(-1);
+		});
 });
 </script>
 <style>
@@ -94,8 +100,22 @@ $(function() {
 	padding: 20px;
 	margin-top : 5px;
 }
-#add_button {
-	width: 100%;
+#update_button, #update_cancel{
+    background: #FFF;
+    border: 1px solid lightgrey;
+    color: rgb(93, 143, 203);
+    display: inline-block;
+    width: 47%;
+    margin: 1%;
+    outline:none!important;
+}
+#update_button:hover, #update_cancel:hover{
+	cursor:pointer;
+	background:rgb(93, 143, 203);
+	color:#FFF;
+	border-radius:2%;
+	opacity:0.7;
+	transition:0.4s;
 }
 #PORT_UPLOADFILE {
    display: none;
@@ -106,26 +126,31 @@ img {
 img:hover {
    cursor: pointer
 }
-h3 {
+#update_portfolio_form h3 {
 	text-align: center;
+    font-size: 1.5em;
+    font-weight: 600;
 }
 </style>
 </head>
 <body>
 	<div class="container">
-		<form action="/pro/portfolio_add_action" id="add_portfolio_form" method="post" enctype="multipart/form-data">
+	<c:if test="${!empty port}">
+		<form action="/pro/portfolio/update_action" id="update_portfolio_form" method="post" enctype="multipart/form-data">
 			<fieldset>
-				<h3>프로젝트 등록</h3>
+				<h3>포트폴리오 수정</h3>
 				<input type="hidden" value="${id}" name="MEMBER_ID">
-				<input type="hidden" id="PORT_ORI_FILE" name="PORT_ORI_FILE">
+				<input type="hidden" id="PORT_ORI_FILE" name="PORT_ORI_FILE" value="${port.PORT_ORI_FILE}">
+				<input type="hidden" id="PORT_NEW_FILE" name="PORT_NEW_FILE" value="${port.PORT_ORI_FILE}">
+				<input type="hidden" id="PORT_ID" name="PORT_ID" value="${port.PORT_ID}">
 				<div class="form-group">
 					<label for="PORT_SUBJECT">제목</label> 
 					<input type="text" class="form-control" id="PORT_SUBJECT" placeholder="Enter Subject"
-						name="PORT_SUBJECT" maxLength="20">
+						name="PORT_SUBJECT" maxLength="20" value="${port.PORT_SUBJECT}">
 				</div>
 				<div class="form-group">
 					<label for="PORT_CONTENT">내용</label> 
-					<textArea id ="PORT_CONTENT" cols="50" rows="6" class="form-control" placeholder="Enter Content" name="PORT_CONTENT"></textArea>
+					<textArea id ="PORT_CONTENT" cols="50" rows="6" class="form-control" placeholder="Enter Content" name="PORT_CONTENT">${port.PORT_CONTENT}</textArea>
 				</div>
 				<div class="form-group">
 					<label style ="display:inline" for="PORT_UPLOADFILE">이미지 첨부</label> 
@@ -133,7 +158,7 @@ h3 {
 						<img id=ig src="/pro/resources/Image/icon/images.svg" width ="10px" alt="파일첨부">
 					</label> 
 					<input  multiple ="multiple"  class="file_up" type="file" id="PORT_UPLOADFILE" name="PORT_UPLOADFILE">
-					<span id="port_filevalue"></span>
+					<span id="port_filevalue">${port.PORT_ORI_FILE}</span>
 					<img src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove2">
 				</div>
 				<div class="form-group">
@@ -141,31 +166,50 @@ h3 {
 				</div>
 				<div class="form-group">
 					<label for="PORT_GITHUB">기간</label> 
-					<input type="date" id="PORT_START_DAY" value ="2020-01-01" name="PORT_START_DAY">-
-					<input type="date" id="PORT_END_DAY" value ="2020-02-01" name="PORT_END_DAY">
+					<input type="date" id="PORT_START_DAY" value ="${port.PORT_START_DAY}" name="PORT_START_DAY">-
+					<input type="date" id="PORT_END_DAY" value ="${port.PORT_END_DAY}" name="PORT_END_DAY">
 				</div>
 				<div class="form-group">
+				<c:if test="${port.PORT_TEAM == 0}">
 					<label for="individual">Team</label>
 					<input type="radio" id = "individual" name="PORT_TEAM" value="0" checked>
 					<label for="individual">개인</label>
 					<input type="radio" id = "team" name="PORT_TEAM" value="1">
 					<label for="team">팀</label>
+				</c:if>
+				<c:if test="${port.PORT_TEAM == 1}">
+					<label for="individual">Team</label>
+					<input type="radio" id = "individual" name="PORT_TEAM" value="0">
+					<label for="individual">개인</label>
+					<input type="radio" id = "team" name="PORT_TEAM" value="1" checked>
+					<label for="team">팀</label>
+				</c:if>
 				</div>
 				<div class="form-group">
 					<label for="PORT_GITHUB">Github</label> 
-					<input type="text" id="PORT_GITHUB" name="PORT_GITHUB" placeholder="Enter Git Address">
+					<input type="text" id="PORT_GITHUB" name="PORT_GITHUB" placeholder="Enter Git Address" value="${port.PORT_GITHUB}">
 				</div>
 				<div class="form-group">
 					<label for="PORT_SITE">Link</label> 
-					<input type="text" id="PORT_SITE" name="PORT_SITE" placeholder="Enter Open Address">
+					<input type="text" id="PORT_SITE" name="PORT_SITE" placeholder="Enter Open Address" value="${port.PORT_SITE}">
 				</div>
 				<div class="form-group">
-					<label for="individual">공개여부</label>
+				<c:if test="${port.PORT_SHOW == 0}">
+					<label for="open">공개여부</label>
 					<input type="radio" id = "open" name="PORT_SHOW" value="0" checked>
 					<label for="open">공개</label>
 					<input type="radio" id = "close" name="PORT_SHOW" value="1">
 					<label for="close">비공개</label>
+				</c:if>
+				<c:if test="${port.PORT_SHOW == 1}">
+					<label for="individual">공개여부</label>
+					<input type="radio" id = "open" name="PORT_SHOW" value="0">
+					<label for="open">공개</label>
+					<input type="radio" id = "close" name="PORT_SHOW" value="1" checked>
+					<label for="close">비공개</label>
+				</c:if>
 				</div>
+				<c:if test="${port.PORT_FEED_NEED == 0}">
 				<div class="form-group">
 					<label for="individual">피드백</label>
 					<input type="radio" id = "agree" name="PORT_FEED_NEED" value="0" checked>
@@ -173,15 +217,30 @@ h3 {
 					<input type="radio" id = "reject" name="PORT_FEED_NEED" value="1">
 					<label for="reject">거부</label>
 				</div>
+				</c:if>
+				<c:if test="${port.PORT_FEED_NEED == 1}">
+				<div class="form-group">
+					<label for="individual">피드백</label>
+					<input type="radio" id = "agree" name="PORT_FEED_NEED" value="0">
+					<label for="agree">허용</label>
+					<input type="radio" id = "reject" name="PORT_FEED_NEED" value="1" checked>
+					<label for="reject">거부</label>
+				</div>
+				</c:if>
 				<div class="form-group">
 					<div class="g-recaptcha"
 						data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld></div>
 				</div>
 				<div class="form-group">
-					<button id="add_button" class = "btn btn-secondary" type="button">등록</button>
+					<button id="update_button" class = "btn" type="button">수정</button>
+					<button id="update_cancel" class = "btn" type="button">취소</button>
 				</div>
 			</fieldset>
 		</form>
+	</c:if>
+	<c:if test="${empty port}">
+		<script>alert('포트폴리오를 불러오는데 실패하였습니다.');history.go(-1);</script>
+	</c:if>
 	</div>
 </body>
 </html>
