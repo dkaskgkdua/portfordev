@@ -64,7 +64,10 @@
 							}
 							if(this.alert_CATEGORY >= 0 && 4 > this.alert_CATEGORY) {
 								output += "<a class='alert_a' href='/pro/board_view_action?board_id="+this.alert_REF_ID+"'>";
+							} else {
+								output += "<a class='alert_a' href='/pro/log_to_profile?id="+this.alert_REF_ID+"'>";
 							}
+							
 							output += this.member_NAME+"님이 #"
 								   + this.alert_REF_ID;
 							if(this.alert_CATEGORY == 0) {
@@ -75,6 +78,12 @@
 								output += " 게시물에 추천을 했습니다.";
 							} else if(this.alert_CATEGORY == 3) {
 								output += " 게시물에 추천을 취소했습니다.";
+							} else if(this.alert_CATEGORY == 4) {
+								output += " 포트폴리오에 피드백을 달았습니다.";
+							} else if(this.alert_CATEGORY == 5) {
+								output += " 포트폴리오에 추천을 했습니다.";
+							} else if(this.alert_CATEGORY == 6) {
+								output += " 포트폴리오에 추천을 취소했습니다.";
 							}
 							output+="</a><span class='alert_date'>"+this.alert_DATE+"</span></td></tr>"
 						});

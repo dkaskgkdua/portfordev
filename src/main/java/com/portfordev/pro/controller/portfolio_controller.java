@@ -24,6 +24,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.domain.Port_recommend;
 import com.portfordev.pro.domain.Port_scrap;
@@ -431,12 +432,17 @@ public class portfolio_controller
 		prchk.put("PORT_ID", ""+PORT_ID);
 		prchk.put("MEMBER_ID", MEMBER_ID);
 		int pr = po_service.checkRecomPortfolio(prchk);
+		String res_member_id = po_service.detailPortfolio(PORT_ID).getMEMBER_ID();
 		if(pr == 0) {
 			member_service.add_write_act(po_service.getPortWriter(PORT_ID).getMEMBER_ID(), 2);
+			log_service.insert_log(new Member_log(MEMBER_ID, 6, PORT_ID));
+			log_service.insert_alert(new Alert(res_member_id, 5, PORT_ID, MEMBER_ID));
 			return po_service.recommendPortfolio(port_recommend);
 		}
 		else {
 			member_service.add_write_act(po_service.getPortWriter(PORT_ID).getMEMBER_ID(), -2);
+			log_service.insert_log(new Member_log(MEMBER_ID, 7, PORT_ID));
+			log_service.insert_alert(new Alert(res_member_id, 6, PORT_ID, MEMBER_ID));
 			return po_service.cancelRecomPortfolio(port_recommend);
 		}
 	}

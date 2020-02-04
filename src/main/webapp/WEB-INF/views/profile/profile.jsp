@@ -22,6 +22,11 @@
    .contact_div span{vertical-align: baseline; font-size: 9pt}
    .modal a.close-modal{top: 1.5px;right: -1.5px;}
    #modal1{height:700px}
+   @media screen and (max-width:840px) {
+	.skill_table {
+		width : 90%;
+	}
+}
    </style>
 <script>
    $(document).ready(function () { 
@@ -96,7 +101,7 @@
           <div style="width:200px;margin: 0 auto;margin-top: 20px;margin-left: 50px;" id="p_div">
              <h1 class="profile_h1">PROFILE</h1>
              <c:if test="${!empty profile.PROFILE_IMG_FILE}">
-             <div class="profile"><img src="resources/upload/${profile.PROFILE_IMG_FILE}" class="profile"></div>
+             <div class="profile"><img style="border-radius:15px" src="resources/upload/${profile.PROFILE_IMG_FILE}" class="profile"></div>
              </c:if>
              <c:if test="${empty profile.PROFILE_IMG_FILE}">
              <div class="profile"><img src="resources/Image/default_user.png" class="profile"></div>
@@ -158,7 +163,7 @@
              </c:if>   
              </div>
              <c:if test="${id==profile.MEMBER_ID}">
-             <button type="button" id="profile_modify">프로필 수정</button>
+             <button style = "background : rgb(83, 133, 193); color:white; margin-top:5px; border-radius:10px" type="button" id="profile_modify">프로필 수정</button>
              </c:if>
              <div class="sidebar">
              <ul>
