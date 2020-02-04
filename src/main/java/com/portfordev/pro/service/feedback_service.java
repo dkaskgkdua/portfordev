@@ -37,4 +37,6 @@ public interface feedback_service
 	public Feedback getFeedWriter(String MEMBER_ID);
 	// 피드백 date 변환
 	public String replaceDate(int FEEDBACK_ID);
+	// 중복 제외 피드백 id 리스트
+	public List<String> get_distinct_list(int PORT_ID); 
 }

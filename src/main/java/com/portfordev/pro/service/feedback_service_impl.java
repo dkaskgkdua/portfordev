@@ -88,4 +88,8 @@ public class feedback_service_impl implements feedback_service
 	public String replaceDate(int FEEDBACK_ID) {
 		return dao.replaceDate(FEEDBACK_ID);
 	}
+	@Override
+	public List<String> get_distinct_list(int PORT_ID) {
+		return dao.get_distinct_list(PORT_ID);
+	}
 }

@@ -15,12 +15,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.portfordev.pro.domain.Alert;
+import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Feedback;
 import com.portfordev.pro.domain.Feedback_recommend;
 import com.portfordev.pro.domain.Member_log;
+import com.portfordev.pro.domain.Portfolio;
 import com.portfordev.pro.service.MemberService;
 import com.portfordev.pro.service.feedback_service;
 import com.portfordev.pro.service.log_service;
+import com.portfordev.pro.service.portfolio_service;
 
 @Controller
 public class feedback_controller
@@ -32,6 +36,8 @@ public class feedback_controller
 	private feedback_service fb_service;
 	@Autowired
 	private log_service log_service;
+	@Autowired
+	private portfolio_service po_service;
 	
 	// 포트폴리오 id 로 피드백 정보가져오기
 	// 피드백 베스트3 가져오기
@@ -129,6 +135,14 @@ public class feedback_controller
 		FEEDBACK_CONTENT = replaceParameter(FEEDBACK_CONTENT);
 		feedback.setFEEDBACK_CONTENT(FEEDBACK_CONTENT);
 		feedback.setMEMBER_ID(MEMBER_ID);
+		List<String> feedback_list = fb_service.get_distinct_list(PORT_ID);
+		feedback_list.forEach(feedback_item -> {
+			log_service.insert_alert(new Alert(feedback_item, 4, PORT_ID, MEMBER_ID));
+		});
+		Portfolio portfolio = po_service.detailPortfolio(PORT_ID);
+		if(!feedback_list.contains(portfolio.getMEMBER_ID())) {
+			log_service.insert_alert(new Alert(portfolio.getMEMBER_ID(), 4, PORT_ID, MEMBER_ID));
+		}
 		int result = fb_service.insertFeedback(feedback); 
 		if(result == 1) {
 			member_service.add_write_act(MEMBER_ID, 20);

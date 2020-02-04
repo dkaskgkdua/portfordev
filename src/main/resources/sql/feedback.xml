@@ -107,4 +107,7 @@
 	<select id="feed_date" parameterType="int" resultType="String">
 		SELECT TO_CHAR( ( SELECT REG_DATE FROM PORT_FEEDBACK where FEEDBACK_ID = #{FEEDBACK_ID}), 'yyyy-mm-dd hh24:mi:ss') from dual 
 	</select>
+		<select id="get_distinct_list" parameterType="int" resultType="String">
+		select distinct MEMBER_ID from PORT_FEEDBACK inner join MEMBER using(MEMBER_ID) where PORT_ID = #{PORT_ID}
+	</select>
 </mapper>

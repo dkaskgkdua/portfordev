@@ -6,7 +6,7 @@ import lombok.Data;
 public class Alert {
 	private int ALERT_ID;
 	private String MEMBER_ID;  // 수신 회원
-	private int ALERT_CATEGORY;	// 카테고리 .. 0 답변, 1 댓글, 2 추천, 3 추천 취소
+	private int ALERT_CATEGORY;	// 카테고리 .. 0 답변, 1 댓글, 2 추천, 3 추천 취소, 4 피드백, 5 포폴 추천, 6 포폴 추천 취소
 	private int ALERT_REF_ID;	// 참조 게시물 번호
 	private String ALERT_REQ_MEMBER; // 발신 회원
 	private int ALERT_CHECK = 0;  // 0은 확인 안함, 1은 확인 완료

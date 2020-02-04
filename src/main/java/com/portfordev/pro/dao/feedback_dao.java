@@ -74,4 +74,8 @@ public class feedback_dao
 	public String replaceDate(int FEEDBACK_ID) {
 		return sqlSession.selectOne("Feedbacks.feed_date", FEEDBACK_ID);
 	}
+	// 피드백 중복제거 리스트
+	public List<String> get_distinct_list(int PORT_ID) {
+		return sqlSession.selectList("Feedbacks.get_distinct_list", PORT_ID);
+	}
 }
