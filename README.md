@@ -52,7 +52,7 @@
 * 산출물(대표)
    - ERD
      <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/erd.png">
-     [ERD](./src/main/webapp/resources/Image/result/erd.png)
+     ![erd](./src/main/webapp/resources/Image/result/erd.png)
    - 시퀀스 다이어그램
      <img alt="seq" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/seq.png">
      
