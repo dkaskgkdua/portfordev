@@ -55,14 +55,14 @@
    - 시퀀스 다이어그램
      ![seq](./src/main/webapp/resources/Image/result/seq.png)
    - 테이블 정의서
-     ![db defi](./src/main/webapp/resources/Image/result/db defi.png)
+     ![db defi](./src/main/webapp/resources/Image/result/db_defi.png)
    - 유스케이스 다이어그램
      ![usecase](./src/main/webapp/resources/Image/result/usecase.png)
    - WBS
      ![wbs](./src/main/webapp/resources/Image/result/wbs.png)
    - 클래스 다이어그램
-     ![class dia](./src/main/webapp/resources/Image/result/class dia.png)
+     ![class dia](./src/main/webapp/resources/Image/result/class_dia.png)
    - 자료 사전
-     ![data dic](./src/main/webapp/resources/Image/result/data dic.png)
+     ![data dic](./src/main/webapp/resources/Image/result/data_dic.png)
    - 회의록
      ![semi](./src/main/webapp/resources/Image/result/semi.png)
