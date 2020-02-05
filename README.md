@@ -65,4 +65,4 @@
    - 자료 사전
      <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/data dic.png">
    - 회의록
-     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/.png">
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/semi.png">
