@@ -51,15 +51,18 @@
       
 * 산출물(대표)
    - ERD
-   
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/erd.png">
    - 시퀀스 다이어그램
-   
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/seq.png">
    - 테이블 정의서
-  
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/db defi.png">
    - 유스케이스 다이어그램
-  
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/usecase.png">
    - WBS
-   
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/wbs.png">
    - 클래스 다이어그램
-   
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/class dia.png">
    - 자료 사전
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/data dic.png">
+   - 회의록
+     <img alt="erd" src="https://github.com/dkaskgkdua/portfordev/tree/master/src/main/webapp/resources/Image/result/.png">
