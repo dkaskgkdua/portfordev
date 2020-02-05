@@ -7,7 +7,6 @@
 <meta charset="UTF-8">
 <jsp:include page="../main/navbar.jsp" />
 
-<script src="https://www.google.com/recaptcha/api.js"></script>
 <title>PFD Portfolio Edit</title>
 <script>
 function port_show() {
@@ -61,31 +60,7 @@ $(function() {
 				$('#PORT_CONTENT').focus();
 				return false;
 			}
-			
-			$.ajax({
-	            url: '/pro/VerifyRecaptcha',
-	            type: 'post',
-	            data: {
-	                recaptcha: $("#g-recaptcha-response").val()
-	            },
-	            success: function(data) {
-	                switch (data) {
-	                    case 0:
-	                        console.log("자동 등록 방지 봇 통과");
-	                        $('#update_portfolio_form').submit();
-	                		break;
-	                    case 1:
-	                        alert("자동 등록 방지 봇을 확인 한뒤 진행 해 주세요.");
-	                        break;
-	                    default:
-	                        alert("자동 등록 방지 봇을 실행 하던 중 오류가 발생 했습니다. [Error bot Code : " + Number(data) + "]");
-	                   		break;
-	                }
-	            }, error: function() {
-	            	console.log('captcha 에러');
-	            }
-	        });
-			
+			 $('#update_portfolio_form').submit();
 		});
 		$('#update_cancel').click(function(){
 			if(confirm('포트폴리오 수정을 취소하시겠습니까?'))
@@ -227,10 +202,6 @@ img:hover {
 					<label for="reject">거부</label>
 				</div>
 				</c:if>
-				<div class="form-group">
-					<div class="g-recaptcha"
-						data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld></div>
-				</div>
 				<div class="form-group">
 					<button id="update_button" class = "btn" type="button">수정</button>
 					<button id="update_cancel" class = "btn" type="button">취소</button>

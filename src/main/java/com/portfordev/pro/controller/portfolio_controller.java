@@ -161,7 +161,11 @@ public class portfolio_controller
 						return (name.endsWith("jpg") || 
 								name.endsWith("jpeg") || 
 								name.endsWith("gif") || 
-								name.endsWith("png"));
+								name.endsWith("png") ||
+								name.endsWith("JPG") ||
+								name.endsWith("JPEG") ||
+								name.endsWith("GIF") ||
+								name.endsWith("PNG"));
 					}
 				});
 			}else {
@@ -214,7 +218,7 @@ public class portfolio_controller
 		if(!Upload_file.isEmpty()) {
 			for (MultipartFile file : Upload_file) {
 				int ext = file.getOriginalFilename().lastIndexOf(".");
-				String fileExtension = file.getOriginalFilename().substring(ext + 1);
+				String fileExtension = file.getOriginalFilename().substring(ext + 1).toLowerCase();
 				if(!(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")||fileExtension.equals("gif")||file.getOriginalFilename().equals(""))) {
 					out.println("<script>");
 					out.println("alert('jpg, png, jpeg, gif 파일만 업로드 가능합니다.');");
@@ -334,7 +338,7 @@ public class portfolio_controller
 				if(!Upload_file.isEmpty()) {
 					for (MultipartFile file : Upload_file) {
 						int ext = file.getOriginalFilename().lastIndexOf(".");
-						String fileExtension = file.getOriginalFilename().substring(ext + 1);
+						String fileExtension = file.getOriginalFilename().substring(ext + 1).toLowerCase();
 						if(!(fileExtension.equals("jpg") || fileExtension.equals("png")||fileExtension.equals("jpeg")||fileExtension.equals("gif")||file.getOriginalFilename().equals(""))) {
 							out.println("<script>");
 							out.println("alert('jpg, png, jpeg, gif 파일만 업로드 가능합니다.');");
