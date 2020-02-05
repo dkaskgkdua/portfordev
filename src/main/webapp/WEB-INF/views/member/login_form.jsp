@@ -80,7 +80,7 @@
 		
 		gapi.load('auth2',function() {
 			auth2 = gapi.auth2.init({
-				client_id : '346744892699-fr2u72uuv3mr9oc18t5tbjjb6tpdlsgh.apps.googleusercontent.com',
+				client_id : 'key',
 				cookiepolicy : 'single_host_origin',
 				// Request scopes in addition to 'profile' and 'email'
 				//scope: 'additional_scope'
@@ -88,7 +88,7 @@
 			attachSignin(document.getElementById('google-login-btn'));
 		});
 
-		Kakao.init('c8d77f071a9245134e41b38593a32096');
+		Kakao.init('key');
 		// 카카오 로그인 버튼을 생성합니다.
 		Kakao.Auth.createLoginButton({
 			container : '#kakao-login-btn',

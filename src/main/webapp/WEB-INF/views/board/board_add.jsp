@@ -197,7 +197,7 @@ p {
 				<img style="vertical-align: bottom" src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove">
 			</div>
 			<div class="form-group">
-				<div class="g-recaptcha" data-sitekey=6Lcxh9UUAAAAANJZi1jl_VA5lcRXzXWVgkJdhUE9>
+				<div class="g-recaptcha" data-sitekey=key>
 				</div>
 			</div>
 			<div class="form-group">

@@ -172,7 +172,7 @@
 				</div>
 				<div class="form-group">
 					<div class="g-recaptcha"
-						data-sitekey=6Lcxh9UUAAAAANJZi1jl_VA5lcRXzXWVgkJdhUE9></div>
+						data-sitekey=key></div>
 				</div>
 				<div class="form-group">
 					<button id="join_button" class = "btn btn-secondary" type="button">회원가입</button>
