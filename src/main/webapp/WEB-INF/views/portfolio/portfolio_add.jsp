@@ -35,6 +35,7 @@ $(function() {
 		// 파일 제거 시
 		$('.remove2').click(function() {
 			$('#port_filevalue').text('');
+			$('#PORT_ORI_FILE').val('');
 			var agent = navigator.userAgent.toLowerCase();
 			if ( (navigator.appName == 'Netscape' && navigator.userAgent.search('Trident') != -1) || (agent.indexOf("msie") != -1) ){
 			    // ie 일때 input[type=file] init.
@@ -135,7 +136,7 @@ img:hover {
 	<div class="container">
 		<form action="/pro/portfolio_add_action" id="add_portfolio_form" method="post" enctype="multipart/form-data">
 			<fieldset>
-				<h3>프로젝트 등록</h3>
+				<h3>포트폴리오 등록</h3>
 				<input type="hidden" value="${id}" name="MEMBER_ID">
 				<input type="hidden" id="PORT_ORI_FILE" name="PORT_ORI_FILE">
 				<div class="form-group">

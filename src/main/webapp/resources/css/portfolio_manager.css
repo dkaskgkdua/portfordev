@@ -194,12 +194,47 @@
 }
 /* 모바일 */
 @media screen and (max-width:650px){
-	
-#portfolio-manager-container{
-	width:calc(100% - 40px);
-    max-width: calc(100% - 40px);
-	left:20px;
-	right:20px;
-	padding-top:10px;
-	padding-bottom:0;
+	#portfolio-manager-container{
+		width:calc(100% - 40px);
+	    max-width: calc(100% - 40px);
+		left:20px;
+		right:20px;
+		padding-top:10px;
+		padding-bottom:0;
+	}
+}
+@media screen and (max-width: 480px){
+	#portfolio-manager-container{
+		width:calc(100% - 4px);
+	    max-width: calc(100% - 4px);
+		left:2px;
+		right:2px;
+	}
+	#portfolio-add-area {
+		max-width: 100%;
+	    min-width: 50%;
+	}
+	#write-portfolio{
+		width:auto;
+		padding: 0 1.5em;
+	}
+	#my-portfolio-list {
+		width:100%;
+		min-width:100%;
+	}
+	.my-portfolio-item{
+		width:90%;
+	    min-width: 90%;
+	    max-width: 90%;
+	}
+	.mp-info-subject {
+		max-width:100%;
+		max-height:38.75px;
+		overflow-x:hidden;
+	}
+	.mp-controller button {
+		width:44%;
+   		margin: 1%;
+   		margin-top:20px;
+	}
 }

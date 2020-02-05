@@ -56,12 +56,12 @@
 	<!-- 프로필 컬렉션 -->
 	<select id="collection" parameterType="java.util.Map" resultType="Profile">
 		select * from (select rownum RNUM, p.* 
-			from (select MEMBER_ID, NVL(PROFILE_REAL_NAME, 'none') PROFILE_REAL_NAME, NVL(PROFILE_IMG_FILE, 'none') PROFILE_IMG_FILE, NVL(PROFILE_JOB, '개발자') PROFILE_JOB, NVL(PROFILE_YEAR, 0) PROFILE_YEAR, NVL(MEMBER_ACT, 0) MEMBER_ACT, NVL(BOARD_CNT, 0) BOARD_CNT, NVL(PORT_CNT, 0) PORT_CNT, NVL(FEED_CNT, 0) FEED_CNT, GREATEST(NVL(REG_DATE, '2000-01-01'), NVL(PORT_REGIDATE, '2000-01-01')) ACT_DATE, MEMBER_NAME, MEMBER_DATE 
+			from (select MEMBER_ID, NVL(PROFILE_REAL_NAME, 'none') PROFILE_REAL_NAME, NVL(PROFILE_IMG_FILE, 'none') PROFILE_IMG_FILE, NVL(PROFILE_JOB, '개발자') PROFILE_JOB, NVL(PROFILE_YEAR, 0) PROFILE_YEAR, NVL(MEMBER_ACT, 0) MEMBER_ACT, NVL(BOARD_CNT, 0) BOARD_CNT, NVL(PORT_CNT, 0) PORT_CNT, NVL(FEED_CNT, 0) FEED_CNT, GREATEST(NVL(REG_DATE, to_date('20000101', 'YYYYMMDD')), NVL(PORT_REGIDATE, to_date('20000101', 'YYYYMMDD'))) ACT_DATE, MEMBER_NAME, MEMBER_DATE 
 				from PROFILE 
 				left outer join (select MEMBER_ID, MEMBER_NAME, MEMBER_DATE, NVL(MEMBER_ACT, 0) MEMBER_ACT from MEMBER) using(MEMBER_ID)
 				left outer join (select MEMBER_ID, NVL(count(*), 0) BOARD_CNT from BOARD group by MEMBER_ID) using(MEMBER_ID)
-				left outer join (select MEMBER_ID, NVL(count(*), 0) PORT_CNT, NVL(MAX(PORT_REGIDATE), null) PORT_REGIDATE from PORTFOLIO group by MEMBER_ID) using(MEMBER_ID)
-				left outer join (select MEMBER_ID, NVL(count(*), 0) FEED_CNT, NVL(MAX(REG_DATE), null) REG_DATE from PORT_FEEDBACK group by MEMBER_ID) using(MEMBER_ID) ) p
+				left outer join (select MEMBER_ID, NVL(count(*), 0) PORT_CNT, NVL(MAX(PORT_REGIDATE), to_date('20000101', 'YYYYMMDD')) PORT_REGIDATE from PORTFOLIO group by MEMBER_ID) using(MEMBER_ID)
+				left outer join (select MEMBER_ID, NVL(count(*), 0) FEED_CNT, NVL(MAX(REG_DATE), to_date('20000101', 'YYYYMMDD')) REG_DATE from PORT_FEEDBACK group by MEMBER_ID) using(MEMBER_ID) ) p
 		<choose>
 			<when test='recentAct != null and recentAct.equals("day")'>
 				where (sysdate - ACT_DATE) &lt;= 1

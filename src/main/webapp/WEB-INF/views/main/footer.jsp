@@ -3,7 +3,7 @@
 	<div class="inner">
 		<div class="flex">
 			<div class="copyright">
-				<b>&copy; PFD.</b> Design: <a href="/pro/TeamPFD"><b>Team PFD</b></a>. Images: <a href="/pro/TeamPFD"><b>Team PFD</b></a>.
+				<b>&copy; PFD.</b> Design: <a href="/pro/TeamPFD"><b>Team PFD</b></a>.<div id="footerDivider"></div> Images: <a href="https://unsplash.com/"><b>unsplash</b></a>.
 				Icons: <span onclick="javascript:window.open('https://www.flaticon.com', '_blank');" style="cursor:pointer;"><b>Flaticon</b></span>.
 			</div>
 			<ul class="icons">
