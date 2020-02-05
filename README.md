@@ -15,10 +15,10 @@
            수 있는 기능을 제공하여 만족도를 높이고자 한다.
            
 * 사용 기술 및 개발환경
-   - O/S : Windows 10(개발환경)
-   - Server : Tomcat8.5
-   - DB : Orarcle 11g
-   - Framework/flatform : Spring, bootstrap, jQuery, mabatis
+   - O/S : Windows 10(개발환경), Linux ubuntu 18.04(운영환경)
+   - Server : Apache2, Tomcat8.5
+   - DB : Orarcle 11g(RDS)
+   - Framework/flatform : Spring, bootstrap, jQuery, mybatis
    - Programming Language : JAVA, HTML, JavaScript
    - Tool : STS, Github, AQuerytool, StarUML, SQL Developer, Photoshop CS6
    - API : Google Developer, Kakao Developer, Naver Developer, recaptcha, summernote
@@ -33,16 +33,16 @@
    - 알림 기능
    - 마이페이지(정보 관리, 회원 탈퇴, 활동로그)
    - 검색(키워드)
-   - 포트폴리오(피드백, 추천, 스크랩)
+   - 포트폴리오(피드백, 추천, 스크랩, 등록, 수정, 삭제)
    - 프로필(등록, 수정, 삭제)
-   - 보안(XSS, recaptcha, 비밀번호 해싱)
-   - 메인화면(사이트 소개, 추천 포트폴리오)
+   - 보안(SSL, XSS 방어, recaptcha, 비밀번호 해싱)
+   - 메인화면(사이트 소개, 추천 포트폴리오, 주요 기능 네비게이션)
    - IT뉴스
    
 * 팀원별 역할
    - 송민준 : DB설계, 회원가입, 로그인, 게시판, 보안, 마이페이지, 알림, 포트폴리오 등록
-   - 이다은 : 검색, 프로필
-   - 안현호 : 메인화면, 포트폴리오 뷰, IT뉴스, 프로필-포트폴리오 모아보기, 스크랩
+   - 이다은 : 통합검색, 프로필
+   - 안현호 : 메인화면, IT뉴스, 프로필-포트폴리오 모아보기, 포트폴리오 상세, 스크랩, 통합관리 (수정/삭제)
    - 공통 : 기획
    
 * 설계의 주안점
@@ -61,3 +61,5 @@
    - WBS
    
    - 클래스 다이어그램
+   
+   - 자료 사전
