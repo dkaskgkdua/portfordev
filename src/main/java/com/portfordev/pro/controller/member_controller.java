@@ -283,9 +283,8 @@ public class member_controller {
 	@ResponseBody
 	@RequestMapping(value = "VerifyRecaptcha", method = RequestMethod.POST)
 	public int VerifyRecaptcha(HttpServletRequest request) {
-	    VerifyRecaptcha.setSecretKey("6LfgOM4UAAAAAAlpZXseeiF3zzHxqVUi_WEq3w-_");
+	    VerifyRecaptcha.setSecretKey("6Lcxh9UUAAAAAB4W02b72upJ1C2GniuPh4U3ZyGy");
 	    String gRecaptchaResponse = request.getParameter("recaptcha");
-	    System.out.println(gRecaptchaResponse);
 	    //0 = 성공, 1 = 실패, -1 = 오류
 	    try {
 	       if(VerifyRecaptcha.verify(gRecaptchaResponse))
@@ -347,33 +346,4 @@ public class member_controller {
 
 	}
 	
-	
-	
-	@RequestMapping(value = "/mybatistest/mybatisDeptinsert", method = {RequestMethod.POST})
-	public ModelAndView mybatisDeptinsert(HttpServletRequest request, ModelAndView mv) {
-		try {
-			String deptno = request.getParameter("deptno");
-			String loc = request.getParameter("loc");
-			String dname = request.getParameter("dname");
-			
-			HashMap<String, String> paraMap = new HashMap<String, String>();
-			paraMap.put("deptno", deptno);
-			paraMap.put("loc", loc);
-			paraMap.put("dname", dname);
-			
-			int n = member_service.memberRegisterDept(paraMap);
-			
-			String result = "";
-			if(n == 1)
-				result = "삽입 성공!!";
-			else
-				result = "삽입 실패!!";
-			mv.addObject("result", result);
-			mv.setViewName("memberRegisterDept");
-		} catch(Exception e) {
-			mv.addObject("error", "삽입 중 오류가 발생했습니다.");
-			mv.setViewName("error");
-		}
-		return mv;
-	}
 }

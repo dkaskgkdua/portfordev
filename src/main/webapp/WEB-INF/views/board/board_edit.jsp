@@ -57,7 +57,7 @@ $(function() {
 	 // 카테고리
 	 if($("#board_category").val()=="0") {
 			$('#h3_category').text("자유게시판");
-	 } else if("${BOARD_CATEGORY}"=="1"){
+	 } else if($("#board_category").val()=="1"){
 			$('#h3_category').text("스터디");
 	 } else {
 			$('#h3_category').text("Q&A");
@@ -168,7 +168,7 @@ p {
     <input id="FILE_CHANGE" type="hidden" name="FILE_CHANGE" value="0">
     
     <input type="hidden" name="MEMBER_ID" value="${id}">
-    <input type="hidden" name="BOARD_CATEGORY" value='${board_data.BOARD_CATEGORY}'>
+    <input type="hidden" id="board_category" name="BOARD_CATEGORY" value='${board_data.BOARD_CATEGORY}'>
     <h3 id="h3_category">게시판 수정</h3>
     <div class="form-group">
       	<label for="board_name">글쓴이</label>

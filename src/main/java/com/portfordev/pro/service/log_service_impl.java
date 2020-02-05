@@ -52,7 +52,7 @@ public class log_service_impl implements log_service{
 		Date time = new Date();
 		String str_today = format.format(time);
 		String str_day = str_today.substring(0, 10);
-		String str_time = str_today.substring(11);
+		String str_time = str_today.substring(11, 19);
 		String[] day_array = str_day.split("-");
 		int[] day_array_int = Arrays.stream(day_array).mapToInt(day -> Integer.parseInt(day)).toArray();
 		String[] time_array = str_time.split(":");
@@ -61,7 +61,7 @@ public class log_service_impl implements log_service{
 		alert_list.forEach(alert -> {
 			String alert_date = alert.getALERT_DATE();
 			String alert_day = alert_date.substring(0, 10);
-			String alert_time = alert_date.substring(11);
+			String alert_time = alert_date.substring(11, 19);
 			String[] alert_day_array = alert_day.split("-");
 			int[] alert_day_array_int = Arrays.stream(alert_day_array).mapToInt(day -> Integer.parseInt(day)).toArray();
 			String[] alert_time_array = alert_time.split(":");

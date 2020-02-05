@@ -169,10 +169,10 @@ p {
 								output = '';
 								$.each(data.comment_list, function(index, item) {
 										output += "<tr><td>"
-										       + item.member_NAME
+										       + "<a href='/pro/mypage?MEMBER_ID=${item.member_ID}'>"+item.member_NAME
 										       + "<span style='font-size: 10pt'><img src='resources/Image/icon/award.svg' alt='act' width ='14' height='14'>"
 										       + item.member_ACT
-										       + "</span> <br><span style='display:none'>"
+										       + "</span></a> <br><span style='display:none'>"
 										       + item.board_CO_ID
 										       + "</span> " + item.board_CO_DATE;
 										       if($("#loginid").val() == item.member_ID) {

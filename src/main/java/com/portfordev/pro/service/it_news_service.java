@@ -23,8 +23,8 @@ import com.portfordev.pro.domain.ItNews;
 @Service
 public class it_news_service
 {
-	private static String clientID = "T8AzO0BiUJfCTfNXMUf2";
-	private static String clientSecret = "2t_11oEDPb";
+	private static String clientID = "DGlP7ih7rgjgoyYAAtO5";
+	private static String clientSecret = "8tYa4Hsrca";
 	
 	// display ==> 몇개 출력
 	// start ==> 몇번째부터 (item)

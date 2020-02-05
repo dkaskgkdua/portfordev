@@ -72,7 +72,7 @@ p {
 		 // 카테고리
 		 if($("#board_category").val()=="0") {
 				$('#h3_category').text("자유게시판");
-			} else if("${BOARD_CATEGORY}"=="1"){
+			} else if($("#board_category").val()=="1"){
 				$('#h3_category').text("스터디");
 			} else {
 				$('#h3_category').text("Q&A");
@@ -197,7 +197,7 @@ p {
 				<img style="vertical-align: bottom" src="/pro/resources/Image/icon/x-circle.svg" alt="파일삭제" width="10px" class="remove">
 			</div>
 			<div class="form-group">
-				<div class="g-recaptcha" data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld>
+				<div class="g-recaptcha" data-sitekey=6Lcxh9UUAAAAANJZi1jl_VA5lcRXzXWVgkJdhUE9>
 				</div>
 			</div>
 			<div class="form-group">

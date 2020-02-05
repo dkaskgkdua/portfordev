@@ -1,63 +1,63 @@
 @charset "UTF-8";
 .not-scroll{
-	overflow:hidden!important;
-	touch-action:none!important;
+   overflow:hidden!important;
+   touch-action:none!important;
 }
 #portfolio-manager{
-	position:fixed;
-	top:0;
-	left:0;
-	right:0;
-	bottom:0;
-	width:100%;
-	height:100%;
+   position:fixed;
+   top:0;
+   left:0;
+   right:0;
+   bottom:0;
+   width:100%;
+   height:100%;
     background: rgba(0,0,0,0.8);
     display:none;
-	z-index: 105;
-	overflow: hidden;
+   z-index: 105;
+   overflow: hidden;
 }
 #exit-manager{
-	position:absolute;
-	top:50px;
-	right:50px;
-	font-size:40px;
-	font-weight:bold;
-	color:white;
-	z-index:199;
+   position:absolute;
+   top:50px;
+   right:50px;
+   font-size:40px;
+   font-weight:bold;
+   color:white;
+   z-index:199;
 }
 #exit-manager:hover{
-	cursor:pointer;
-	opacity:0.8;
-	transition:0.3s;
+   cursor:pointer;
+   opacity:0.8;
+   transition:0.3s;
 }
 #portfolio-manager-container{
-	max-width:calc(100% - 200px);
-	height:calc(100% - 100px);
-	position:absolute;
-	left:100px;
-	right:100px;
-	top:100px;
-	bottom:0;
-	padding-top:10px;
-	padding-bottom:0;
-	z-index:106;
+   max-width:calc(100% - 200px);
+   height:calc(100% - 100px);
+   position:absolute;
+   left:100px;
+   right:100px;
+   top:100px;
+   bottom:0;
+   padding-top:10px;
+   padding-bottom:0;
+   z-index:106;
 }
 #portfolio-add-area{
-	display:block;
+   display:block;
     height: 42px;
     min-width:455px;
 }
 #write-portfolio{
-	background-color: white!important;
-	display:inline-block;
+   background-color: white!important;
+   display:inline-block;
     border-radius: 5px 5px 0px 0px;
-	float:right;
+   float:right;
     height: 42px;
 }
 #write-portfolio:hover{
-	opacity:0.9;
+   opacity:0.9;
     border-radius: 10px 10px 0px 0px;
-	transition:0.4s;
+   transition:0.4s;
 }
 #write-portfolio>img{
     vertical-align: sub;
@@ -70,15 +70,15 @@
     margin-bottom: 25px;
 }
 .loading-myList:hover{
-	cursor:wait;
+   cursor:wait;
 }
 .loading-myList>img{
-	height:100%;
-	width:auto;
-	margin:0 auto;
+   height:100%;
+   width:auto;
+   margin:0 auto;
 }
 #my-portfolio-list{
-	color: white;
+   color: white;
     background: white;
     max-height: calc(100% - 52px);
     min-width: 455px;
@@ -91,11 +91,11 @@
     border-radius: 5px 0px 5px 5px;
     overflow-y: scroll;
     /* scroll bar 감주기 */
-	-ms-overflow-style:none;	/* IE and Edge */
-	scrollbar-width:none;	/* Firefox */
+   -ms-overflow-style:none;   /* IE and Edge */
+   scrollbar-width:none;   /* Firefox */
 }
 #my-portfolio-list::-webkit-scrollbar{
-	display:none;	/* Chrome, Safari, Opera */
+   display:none;   /* Chrome, Safari, Opera */
 }
 .no-portfolio-item{
     text-align: center;
@@ -120,14 +120,14 @@
     color: rgb(0, 0, 0);
 }
 .my-portfolio-item:hover{
-	cursor:pointer;
-	border-radius:2%;
-	transition:0.3s;
-	opacity:0.7;
+   cursor:pointer;
+   border-radius:2%;
+   transition:0.3s;
+   opacity:0.7;
 }
 .mp-img-wrapper{
-	width: 100%;
-	height:283px;
+   width: 100%;
+   height:283px;
     max-height: 283px;
     background-size: cover;
     background-position: top;
@@ -138,43 +138,43 @@
     box-shadow: 1px 1px 4px rgba(0,0,0,0.2);
 }
 .mp-info-wrapper{
-	position:absolute;
-	display:none;
-	width:100%!important;
-	height:100%!important;
-	background:rgba(255, 255, 255, 0.7);
-	left:0;
-	right:0;
-	bottom:0;
-	top:0;
-	padding-top:15%;
+   position:absolute;
+   display:none;
+   width:100%!important;
+   height:100%!important;
+   background:rgba(255, 255, 255, 0.7);
+   left:0;
+   right:0;
+   bottom:0;
+   top:0;
+   padding-top:15%;
 }
 .mp-info-wrapper img{
-	display:inline-block!important;
+   display:inline-block!important;
 }
 .mp-info-subject{
-	font-weight:bold;
-	font-size:1.5em;
-	display:block;
-	text-align:center;
+   font-weight:bold;
+   font-size:1.5em;
+   display:block;
+   text-align:center;
     margin: 1em auto;
     vertical-align:top;
 }
 .mp-icon{
-	height:30px;
-	width:auto;
+   height:30px;
+   width:auto;
     margin: 0 5px;
 }
 .mp-count{
-	height:40px;
-	font-size:1em;
+   height:40px;
+   font-size:1em;
     margin-right: 5px;
     font-size: 18pt;
     line-height: 18pt;
     vertical-align:top;
 }
 .mp-controller form{
-	margin: 0 10px;
+   margin: 0 10px;
     text-align: center;
     display: inline-block;
     width: auto;
@@ -189,17 +189,52 @@
     margin-top: 20px;
 }
 .mp-controller button:hover{
-	background:#999;
-	color:#FFF;
+   background:#999;
+   color:#FFF;
 }
 /* 모바일 */
 @media screen and (max-width:650px){
-	
-#portfolio-manager-container{
-	width:calc(100% - 40px);
-    max-width: calc(100% - 40px);
-	left:20px;
-	right:20px;
-	padding-top:10px;
-	padding-bottom:0;
+   #portfolio-manager-container{
+      width:calc(100% - 40px);
+       max-width: calc(100% - 40px);
+      left:20px;
+      right:20px;
+      padding-top:10px;
+      padding-bottom:0;
+   }
+}
+@media screen and (max-width: 480px){
+   #portfolio-manager-container{
+      width:calc(100% - 4px);
+       max-width: calc(100% - 4px);
+      left:2px;
+      right:2px;
+   }
+   #portfolio-add-area {
+      max-width: 100%;
+       min-width: 50%;
+   }
+   #write-portfolio{
+      width:auto;
+      padding: 0 1.5em;
+   }
+   #my-portfolio-list {
+      width:100%;
+      min-width:100%;
+   }
+   .my-portfolio-item{
+      width:90%;
+       min-width: 90%;
+       max-width: 90%;
+   }
+   .mp-info-subject {
+      max-width:100%;
+      max-height:38.75px;
+      overflow-x:hidden;
+   }
+   .mp-controller button {
+      width:44%;
+         margin: 1%;
+         margin-top:20px;
+   }
 }

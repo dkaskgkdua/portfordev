@@ -22,7 +22,7 @@ aside {
 }
 section {
 	width : 100%;
-	height : 730px;
+	height : 950px;
 }
 .user_info {
 	display : inline-block;

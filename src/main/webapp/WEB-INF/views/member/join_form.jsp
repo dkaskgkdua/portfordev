@@ -153,13 +153,9 @@
 						placeholder="Enter password" name="MEMBER_PASSWORD">
 				</div>
 				<div class="form-group">
-					<label for="add_member_name">이름</label> <input type="text"
+					<label for="add_member_name">닉네임</label> <input type="text"
 						id="add_member_name" name="MEMBER_NAME" placeholder="Enter name"
 						maxLength="15">
-				</div>
-				<div class="form-group">
-					<span><b style="color: red">비밀번호 찾기를 이용하기 위해 회원 가입 후 이메일
-							등록을 해주세요.</b> </span>
 				</div>
 
 				<div class="form-group">
@@ -176,7 +172,7 @@
 				</div>
 				<div class="form-group">
 					<div class="g-recaptcha"
-						data-sitekey=6LfgOM4UAAAAAJg9CHiuPnsjrNKup61971_H3xld></div>
+						data-sitekey=6Lcxh9UUAAAAANJZi1jl_VA5lcRXzXWVgkJdhUE9></div>
 				</div>
 				<div class="form-group">
 					<button id="join_button" class = "btn btn-secondary" type="button">회원가입</button>
