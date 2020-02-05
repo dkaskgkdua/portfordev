@@ -1,4 +1,8 @@
 @charset "UTF-8";
+#footerDivider{
+	display:none;
+	height:0;
+}
 #alert_count {
 	position : relative;
 	top : -18px;
@@ -100,6 +104,11 @@
 	.searchBar{
 		width: 100%!important;
 		margin: 0!important;
+	}
+	#footerDivider{
+		display:block;
+		height:0;
+		width:100%;
 	}
 }
 @media screen and (min-width: 745px){
