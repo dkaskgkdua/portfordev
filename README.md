@@ -24,7 +24,7 @@
    - API : Google Developer, Kakao Developer, Naver Developer, recaptcha, summernote
    
 # 내용
-* PPT(Slideshare)
+* [PPT(Slideshare)](https://www.slideshare.net/mjSong9/pfd-227063816)
 
 * 구현 기능
    - 로그인(SSO)
