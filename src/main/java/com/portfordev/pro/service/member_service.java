@@ -5,7 +5,7 @@ import java.util.HashMap;
 import com.portfordev.pro.domain.Member;
 
 
-public interface MemberService {
+public interface member_service {
 	public int isId(String id, String pass);
 	public int isId(String id);
 	public String get_salt(String id);

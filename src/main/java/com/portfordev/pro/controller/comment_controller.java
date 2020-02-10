@@ -17,7 +17,7 @@ import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Comment;
 import com.portfordev.pro.domain.Member_log;
-import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.member_service;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.comment_service;
 import com.portfordev.pro.service.log_service;
@@ -29,7 +29,7 @@ public class comment_controller {
 	@Autowired
 	private board_service board_service;
 	@Autowired
-	private MemberService member_service;
+	private member_service member_service;
 	@Autowired
 	private log_service log_service;
 	

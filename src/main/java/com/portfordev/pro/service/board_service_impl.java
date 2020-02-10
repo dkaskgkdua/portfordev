@@ -168,7 +168,7 @@ public class board_service_impl implements board_service{
 	
 	@Override
 	public int board_edit(Board edit_board) {
-		edit_board.setBOARD_CONTENT(edit_board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " "));
+		edit_board.setBOARD_CONTENT(edit_board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), "").replaceAll("\'", "&#39;").replaceAll("(\r\n|\r|\n|\n\r)", " "));
 		edit_board.setBOARD_SUBJECT(xss_clean_check(edit_board.getBOARD_SUBJECT()));
 		return dao.edit_board(edit_board);
 	}
@@ -188,7 +188,7 @@ public class board_service_impl implements board_service{
 	
 	@Override
 	public void insert_board(Board board) {
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("\'", "&#39;"));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), "").replaceAll("\'", "&#39;").replaceAll("(\r\n|\r|\n|\n\r)", " "));
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		dao.insert_board(board);
 	}
@@ -197,7 +197,7 @@ public class board_service_impl implements board_service{
 	@Transactional
 	public int insert_board_Reply(Board board) {
 		boardReplyUpdate(board);
-		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), " ").replaceAll("\'", "&#39;"));
+		board.setBOARD_CONTENT(board.getBOARD_CONTENT().replaceAll(System.getProperty("line.separator"), "").replaceAll("\'", "&#39;").replaceAll("(\r\n|\r|\n|\n\r)", " "));
 		board.setBOARD_SUBJECT(xss_clean_check(board.getBOARD_SUBJECT()));
 		board.setBOARD_RE_LEV(board.getBOARD_RE_LEV()+1);
 		board.setBOARD_RE_SEQ(board.getBOARD_RE_SEQ()+1);

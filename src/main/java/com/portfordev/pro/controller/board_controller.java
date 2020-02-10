@@ -34,7 +34,7 @@ import com.portfordev.pro.domain.Board_recommend;
 import com.portfordev.pro.domain.Comment;
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Member_log;
-import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.member_service;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.comment_service;
 import com.portfordev.pro.service.log_service;
@@ -48,7 +48,7 @@ public class board_controller {
 	private comment_service comment_service;
 	
 	@Autowired
-	private MemberService member_service;
+	private member_service member_service;
 	
 	@Autowired
 	private log_service log_service;

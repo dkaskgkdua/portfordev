@@ -20,7 +20,7 @@ import com.portfordev.pro.domain.Feedback;
 import com.portfordev.pro.domain.Feedback_recommend;
 import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.domain.Portfolio;
-import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.member_service;
 import com.portfordev.pro.service.feedback_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
@@ -30,7 +30,7 @@ public class feedback_controller
 {
 
 	@Autowired
-	private MemberService member_service;
+	private member_service member_service;
 	@Autowired
 	private feedback_service fb_service;
 	@Autowired

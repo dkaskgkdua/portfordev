@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.portfordev.pro.dao.SearchDAO;
+import com.portfordev.pro.dao.search_dao;
 import com.portfordev.pro.domain.Board;
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Portfolio;
@@ -14,7 +14,7 @@ import com.portfordev.pro.domain.Portfolio;
 public class search_service_impl implements search_service{
 	
 	@Autowired
-	private SearchDAO dao;
+	private search_dao dao;
 
 	@Override
 	public List<Member> searchMember(String search) {

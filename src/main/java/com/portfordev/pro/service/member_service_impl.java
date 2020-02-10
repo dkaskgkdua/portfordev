@@ -8,13 +8,13 @@ import org.jsoup.safety.Whitelist;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.portfordev.pro.dao.MemberDAO;
+import com.portfordev.pro.dao.member_dao;
 import com.portfordev.pro.domain.Member;
 
 @Service
-public class MemberServiceImpl implements MemberService {
+public class member_service_impl implements member_service {
 	@Autowired
-	private MemberDAO dao;
+	private member_dao dao;
 	
 	@Override
 	public int isId(String id, String password) {

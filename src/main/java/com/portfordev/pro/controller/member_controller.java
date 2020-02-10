@@ -27,7 +27,7 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import com.portfordev.pro.domain.Alert;
 import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Member_log;
-import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.member_service;
 import com.portfordev.pro.service.board_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
@@ -39,7 +39,7 @@ public class member_controller {
 	@Autowired
 	private board_service board_service;
 	@Autowired
-	private MemberService member_service;
+	private member_service member_service;
 	@Autowired
 	private log_service log_service;
 	@Autowired

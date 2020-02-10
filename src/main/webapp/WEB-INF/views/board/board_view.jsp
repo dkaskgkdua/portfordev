@@ -44,6 +44,15 @@ span {
 p {
 	margin : 0 0 0 0 !important;
 }
+@media screen and (max-width:400px) {
+	.center {
+		display: flex;
+	}
+	
+	#reco_button, #read_button, #reply_button, #edit_button, #delete_button, #list_button {
+		width : 15%
+	}
+}
 </style>
 <script>
 	function insert_reco(board_id, member_id) {
@@ -274,25 +283,25 @@ p {
 				<td class="center">
 					<button id="reco_button"style="background:transparent">
 						<img id = "reco_img" src="/pro/resources/Image/icon/heart.svg" width ="18px" class="padding-top"> ${board_data.BOARD_RECO}</button>
-					<button style="background:transparent">
+					<button id ="read_button"style="background:transparent">
 						<img src="/pro/resources/Image/icon/eye.svg" width ="20px" class="padding-top"> ${board_data.BOARD_READCOUNT}
 					</button>
 					<!-- 답변 -->
-					<a href="/pro/board_reply_view?id=${board_data.BOARD_ID}">
+					<a id ="reply_button" href="/pro/board_reply_view?id=${board_data.BOARD_ID}">
 						<button style="background:transparent;vertical-align: middle" data-toggle="tooltip" data-placement="top" title="답변"><img src="/pro/resources/Image/icon/reply.svg" width ="25px" class="padding-top2"></button>
 					</a>
 					<c:if test="${board_data.MEMBER_ID == id}">
 						<!-- 수정 -->
-						<a href="/pro/board_edit_view?num=${board_data.BOARD_ID}">
+						<a id ="edit_button" href="/pro/board_edit_view?num=${board_data.BOARD_ID}">
 							<button style="background:transparent;vertical-align: middle;" data-toggle="tooltip" data-placement="top" title="수정"><img src="/pro/resources/Image/icon/pencil.svg" width ="25px" class="padding-top2"></button>
 						</a>
 						<!-- 삭제 -->
-						<a href="#">
+						<a id ="delete_button" href="#">
 							<button style="background:transparent;vertical-align: middle;" data-toggle="modal"
 								data-target="#myModal"><img src="/pro/resources/Image/icon/trash.svg" width ="25px" class="padding-top2"></button>
 						</a>
 					</c:if> 
-					<a href="/pro/board_list">
+					<a id ="list_button" href="/pro/board_list">
 						<button style="background:transparent;vertical-align: middle;" data-toggle="tooltip" data-placement="top" title="목록"><img src="/pro/resources/Image/icon/list-ul.svg" width ="25px" class="padding-top2"></button>
 					</a>
 				</td>

@@ -29,7 +29,7 @@ import com.portfordev.pro.domain.Member_log;
 import com.portfordev.pro.domain.Port_recommend;
 import com.portfordev.pro.domain.Port_scrap;
 import com.portfordev.pro.domain.Portfolio;
-import com.portfordev.pro.service.MemberService;
+import com.portfordev.pro.service.member_service;
 import com.portfordev.pro.service.feedback_service;
 import com.portfordev.pro.service.log_service;
 import com.portfordev.pro.service.portfolio_service;
@@ -39,7 +39,7 @@ import com.portfordev.pro.service.profile_service;
 public class portfolio_controller
 {
 	@Autowired
-	private MemberService member_service;
+	private member_service member_service;
 	@Autowired
 	private portfolio_service po_service;
 	@Autowired

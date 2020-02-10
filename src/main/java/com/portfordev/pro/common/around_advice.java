@@ -11,7 +11,7 @@ import org.springframework.util.StopWatch;
 
 @Service
 @Aspect
-public class AroundAdvice {
+public class around_advice {
 	@Around("execution(* com.portfordev.pro..*Impl.is*(..))")
 	public Object aroundLog(ProceedingJoinPoint proceeding) throws Throwable {
 

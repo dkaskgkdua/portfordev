@@ -307,7 +307,11 @@ public class profile_controller {
 							return (name.endsWith("jpg") || 
 									name.endsWith("jpeg") || 
 									name.endsWith("gif") || 
-									name.endsWith("png"));
+									name.endsWith("png") ||
+									name.endsWith("JPG") ||
+									name.endsWith("JPEG") || 
+									name.endsWith("GIF") || 
+									name.endsWith("PNG"));
 						}
 					});
 				}else {

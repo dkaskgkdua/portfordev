@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.portfordev.pro.domain.Member;
 
 @Repository
-public class MemberDAO {
+public class member_dao {
 	@Autowired
 	private SqlSessionTemplate sqlSession;
 	

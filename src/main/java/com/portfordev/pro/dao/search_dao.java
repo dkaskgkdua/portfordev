@@ -11,7 +11,7 @@ import com.portfordev.pro.domain.Member;
 import com.portfordev.pro.domain.Portfolio;
 
 @Repository
-public class SearchDAO {
+public class search_dao {
  @Autowired
  private SqlSessionTemplate sqlSession;
  

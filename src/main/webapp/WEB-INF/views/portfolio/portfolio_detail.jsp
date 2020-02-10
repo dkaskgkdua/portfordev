@@ -221,7 +221,7 @@
 			</div>
 			<!-- 피드백이 필요없는 포트폴리오일 경우 -->
 			<div class="portfolio-no-feed-need">
-				피드백이 필요없는 포트폴리오 입니다.
+				피드백을 원하지 않는 포트폴리오 입니다.
 			</div>
 			<!-- 피드백 리스트 -->
 			<div class="portfolio-feedback-list">

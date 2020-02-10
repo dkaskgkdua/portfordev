@@ -8,7 +8,7 @@ import org.aspectj.lang.JoinPoint;
 
 //@Service
 //@Aspect // @Aspect가 설정된 클래스에는 Pointcut과 Advice를 결합하는 설정이 있어야 한다.
-public class BeforeAdvice {
+public class before_advice {
 	
 	//@Pointcut("execution(* com.portfordev.pro..*Impl.is*(..))")
 	public void getPointcut() {}

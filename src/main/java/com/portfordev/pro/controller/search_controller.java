@@ -19,7 +19,7 @@ import com.portfordev.pro.domain.Portfolio;
 import com.portfordev.pro.service.search_service_impl;
 
 @Controller
-public class SearchController {
+public class search_controller {
    @Autowired 
    private search_service_impl service;
 

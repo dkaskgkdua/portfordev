@@ -45,4 +45,7 @@
 	<select id="get_member_list" resultType="Member">
 		select * from member
 	</select>
+	<delete id="delete_member">
+		delete from MEMBER where MEMBER_id = #{MEMBER_ID}
+	</delete>
 </mapper>
