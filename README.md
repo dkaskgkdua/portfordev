@@ -24,7 +24,7 @@
    - API : Google Developer, Kakao Developer, Naver Developer, recaptcha, summernote
    
 # 내용
-* PPT(Slideshare)
+* [PPT(Slideshare)](https://www.slideshare.net/mjSong9/pfd-227063816)
 
 * 구현 기능
    - 로그인(SSO)
@@ -40,7 +40,7 @@
    - IT뉴스
    
 * 팀원별 역할
-   - 송민준 : DB설계, 회원가입, 로그인, 게시판, 보안, 마이페이지, 알림, 포트폴리오 등록
+   - 송민준 : 호스팅, DB설계, 회원가입, 로그인, 게시판, 보안, 마이페이지, 알림, 포트폴리오 등록
    - 이다은 : 통합검색, 프로필
    - 안현호 : 메인화면, IT뉴스, 프로필-포트폴리오 모아보기, 포트폴리오 상세, 스크랩, 통합관리 (수정/삭제)
    - 공통 : 기획
@@ -55,14 +55,14 @@
    - 시퀀스 다이어그램
      ![seq](./src/main/webapp/resources/Image/result/seq.png)
    - 테이블 정의서
-     ![db defi](./src/main/webapp/resources/Image/result/db defi.png)
+     ![db defi](./src/main/webapp/resources/Image/result/db_defi.png)
    - 유스케이스 다이어그램
      ![usecase](./src/main/webapp/resources/Image/result/usecase.png)
    - WBS
      ![wbs](./src/main/webapp/resources/Image/result/wbs.png)
    - 클래스 다이어그램
-     ![class dia](./src/main/webapp/resources/Image/result/class dia.png)
+     ![class dia](./src/main/webapp/resources/Image/result/class_dia.png)
    - 자료 사전
-     ![data dic](./src/main/webapp/resources/Image/result/data dic.png)
+     ![data dic](./src/main/webapp/resources/Image/result/data_dic.png)
    - 회의록
      ![semi](./src/main/webapp/resources/Image/result/semi.png)
